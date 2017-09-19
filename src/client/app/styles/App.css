@@ -1,0 +1,14 @@
+  * {
+  text-align: center;
+} .statusBanner {
+  display: none;
+} .loadTableButton-parentDiv {
+  margin-top: 15px;
+} table.data {
+  margin: auto;
+  width: 50%;
+} table.data > * > * > * {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}

@@ -1,0 +1,1975 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`changes selected value when select option is changed 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`changes selected value when select option is changed 2`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="1"
+      >
+        1
+      </option>
+      <option
+        value="2"
+      >
+        2
+      </option>
+    </select>
+  </div>
+  <p>
+    2 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`changes selected value when select option is changed 3`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value="1"
+    >
+      <option
+        value="1"
+      >
+        1
+      </option>
+      <option
+        value="2"
+      >
+        2
+      </option>
+    </select>
+  </div>
+  <p>
+    2 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`changes selected value when select option is changed 4`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value="2"
+    >
+      <option
+        value="1"
+      >
+        1
+      </option>
+      <option
+        value="2"
+      >
+        2
+      </option>
+    </select>
+  </div>
+  <p>
+    2 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`does not submit a value that is out of range 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`does not submit a value that is out of range 2`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="1"
+      >
+        1
+      </option>
+    </select>
+  </div>
+  <p>
+    1 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`does not update input value on change when value is NaN 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`does not update input value on change when value is NaN 2`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value="1"
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`should match snapshot 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`submits values in range and adds to select options 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`submits values in range and adds to select options 2`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="1"
+      >
+        1
+      </option>
+      <option
+        value="2"
+      >
+        2
+      </option>
+    </select>
+  </div>
+  <p>
+    2 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`updates input value on change when value is a number in range 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;
+
+exports[`updates input value on change when value is a number in range 2`] = `
+<div
+  className="App"
+>
+  <div
+    className="acctInput-parentDiv"
+  >
+    <p
+      className="acctInput p"
+    >
+      enter an account
+    </p>
+    <input
+      className="acctInput input"
+      onChange={[Function]}
+      value="1"
+    />
+    <button
+      className="acctInput button"
+      onClick={[Function]}
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="acctSelect-parentDiv"
+  >
+    <p
+      className="acctSelect p"
+    >
+      select an account
+    </p>
+    <select
+      className="acctSelect select"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <p>
+    0 accts loaded
+  </p>
+  <div
+    className="tableSelect-parentDiv"
+  >
+    <p
+      className="tableSelect p"
+    >
+      select a table
+    </p>
+    <select
+      className="tableSelect select"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="Form"
+      >
+        Form
+      </option>
+      <option
+        value="Autos on Save"
+      >
+        Autos on Save
+      </option>
+      <option
+        value="Autos on Deliver"
+      >
+        Autos on Deliver
+      </option>
+      <option
+        value="Orders"
+      >
+        Orders
+      </option>
+      <option
+        value="Customer database"
+      >
+        Customer database
+      </option>
+      <option
+        value="History"
+      >
+        History
+      </option>
+      <option
+        value="Picklists"
+      >
+        Picklists
+      </option>
+      <option
+        value="On-Call"
+      >
+        On-Call
+      </option>
+      <option
+        value="Skiplists"
+      >
+        Skiplists
+      </option>
+      <option
+        value="Contacts"
+      >
+        Contacts
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+      <option
+        value="Abend"
+      >
+        Abend
+      </option>
+      <option
+        value="Help Topics"
+      >
+        Help Topics
+      </option>
+    </select>
+  </div>
+  <div
+    className="statusBanner-parentDiv"
+  >
+    <div
+      className="statusBanner "
+    >
+      
+      <button
+        onClick={[Function]}
+      >
+        x
+      </button>
+    </div>
+  </div>
+  <div
+    className="loadTableButton-parentDiv"
+  >
+    <button
+      className="loadTableButton button"
+      onClick={[Function]}
+    >
+      load table
+    </button>
+  </div>
+</div>
+`;

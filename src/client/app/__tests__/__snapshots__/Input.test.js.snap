@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`className should match prop.className 1`] = `
+<div
+  className="accountInput-parentDiv"
+>
+  <p
+    className="accountInput p"
+  />
+  <input
+    className="accountInput input"
+    onChange={[Function]}
+    value={undefined}
+  />
+  <button
+    className="accountInput button"
+    onClick={[Function]}
+  >
+    Submit
+  </button>
+</div>
+`;
+
+exports[`should render 1`] = `
+<div
+  className="accountInput-parentDiv"
+>
+  <p
+    className="accountInput p"
+  />
+  <input
+    className="accountInput input"
+    onChange={[Function]}
+    value={undefined}
+  />
+  <button
+    className="accountInput button"
+    onClick={[Function]}
+  >
+    Submit
+  </button>
+</div>
+`;
