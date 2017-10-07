@@ -9,12 +9,15 @@ import Input  from './components/Input.react'
 import Banner from './components/Banner.react'
 import Button from './components/Button.react'
 import Table  from './components/Table.react'
+// redux
+import store from './store/index'
 // other dependancies
 import events from './events'
 import testData from './data'
 // data tables
 const eventKeys = Object.keys(events.loadTable)
 const multiKeys = Object.keys(events.multiTable)
+const filterKeys = Object.keys(events.filterTable)
 // global object for Pubsub events
 let globalVar = {}
 // props for account obj initialization
@@ -43,12 +46,15 @@ class App extends Component {
             tableSelected: "",
             accts: {},
             bannerType: "",
-            bannerPrompt: ""
+            bannerPrompt: "",
+            pending: false,
         }
     }
 
     shouldComponentUpdate() {
-        return true
+        let response = true
+        if (this.state.pending === true) response = false
+        return response
     }
   
     setAcctInput(x) {
@@ -94,6 +100,7 @@ class App extends Component {
     }
 
     handleAcctInputChange(x) {
+        store.dispatch({type: events.ui.updateAcctInput, payload: x})
         let arr
         if (x) {
             arr = Array.from(x)
@@ -113,18 +120,31 @@ class App extends Component {
         }
     }
 
+    handleBannerChange(data) {
+        // toggle banner className / message
+        let {type, prompt} = data
+        this.setState({
+            bannerType: type,
+            bannerPrompt: prompt
+        })
+    }
+
     handleBannerClose() {
-        // toggle banner class / visibility
-        Pubsub.publish("hide banner")
+        this.setState({
+            bannerType: "hidden"
+        })
     }
 
     loadTable(acct, table) {
         console.log("requesting table: ", table)
         Pubsub.publish(events.actions.loadTable, { acct, table })
+        this.setState({
+            pending: true
+        })
     }
 
     getConflictsData() {
-        return {}
+        return true
     }
 
     checkConflicts() {
@@ -155,26 +175,43 @@ class App extends Component {
             // handle data returned from restAPI response
             console.log("received API response")
             this.handleRestRes(data)
+            this.setState({
+                pending: false
+            })
         }
 
         Pubsub.subscribe(events.res.restApi, globalVar.receiveRestRes)
+
+        globalVar.updateBanner = (event, data) => {
+            this.handleBannerUpdate(data)
+        }
+
+        Pubsub.subscribe(events.banner.update, globalVar.updateBanner)
     }
 
     renderTable() {
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
         if (acct && table) {
+            let tArr, dTable, data
             if (!this.state.accts[acct][table]) this.state.accts[acct][table][0] = []
             this.loadTable(acct, table)
-            let tArr = table ? this.state.accts[acct][table] : []
-            let dTable = tArr.length > 0 ? JSON.parse(tArr[tArr.length-1]) : []
+            tArr = table ? this.state.accts[acct][table] : []
+            data = tArr[tArr.length-1]
+            try {
+                dTable = tArr.length > 0 ? JSON.parse(data) : []
+            }
+            catch(e) {
+                console.log(data[0].error)
+                return
+            }
             if (table && table !== "CONFLICTS") {
                 return (
                     <Table selector="data" title={table} data={dTable}/>
                 )
             } else {
                 if (this.checkConflicts() === true) {
-                    let data = this.getConflictsData()
+                    data = this.getConflictsData()
                     return (
                         <Table selector="conflicts" title="conflicts data" data={data}/>
                     )
@@ -187,7 +224,7 @@ class App extends Component {
         let acctsArr = this.flatAccts()
         let accts = this.makeElems(acctsArr)
         let tables = this.makeElems( 
-            eventKeys.concat(multiKeys)
+            eventKeys.concat(multiKeys).concat(filterKeys)
         )
         let {
             acctSelected: selectedAcct,
@@ -195,7 +232,6 @@ class App extends Component {
             tableSelected: selectedTable,
         } = this.state
         let {bannerType, bannerPrompt} = this.state
-        let returnTrue = () => true
         let returnConflicts = () => {
         }
         return (

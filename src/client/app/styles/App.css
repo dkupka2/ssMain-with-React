@@ -1,6 +1,12 @@
   * {
   text-align: center;
-} .statusBanner {
+} .statusBanner.alert {
+  background-color: red;
+} .statusBanner.warning {
+  background-color: yellow;
+} .statusBanner.ok {
+  background-color: green;
+} .statusBanner.hidden { 
   display: none;
 } .loadTableButton-parentDiv {
   margin-top: 15px;

@@ -26,17 +26,6 @@ let lookUp = ( acct )  => {
     }
 };
 
-let list = () => {
-    let accts = [];
-    console.log("accts list loading please wait");
-    for ( var i = 1; i < 10000; i += 1 ) {
-        if ( lookUp(i) ) {
-            accts.push(i);
-        }
-    }
-    return accts;
-};
-
 let check = (acct) => {
     let look = lookUp(acct);
     console.log("checke result for acct ", acct, ": ", look);
@@ -44,6 +33,5 @@ let check = (acct) => {
 };
 
 module.exports = {
-    list,
     check
 };

@@ -11,12 +11,10 @@ class Banner extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     }
     handleClose() {
-        this.props.onBannerClose();
+        this.props.onBannerClose()
     }
     render() {
-
         const { selector, prompt, type } = this.props;
-
         return (
             <div className={selector + "-parentDiv"}>
                 <div className = {selector + " " + type}>

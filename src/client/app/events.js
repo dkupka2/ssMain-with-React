@@ -11,6 +11,15 @@ let events = {
     actions: {
         loadTable: "load table"
     },
+    banner: {
+        update: "update banner",
+        close: "close banner"
+    },
+    filterTable: {
+        Timed_Actions: "PT_TACTION",
+        Scheduled_Deliveries: "PT_SCHED",
+        Scheduled_Reminders: "PTREMIND",
+    },
     loadTable: {
         Autos_on_Save: "PT_AUTOA",
         Autos_on_Deliver: "PT_AUTOB",
@@ -25,6 +34,12 @@ let events = {
         Abend: "OE_ABEND",
         Help_Topics: "OE_HELP",
         //Admin: "OE_ADMIN",
+        Dispatch_Procedure: "PT_PROC",
+        Dispatch_Delivery_Table: "PT_PROCDET",
+        Dispatch_Conditions: "PT_CONDLIB",
+        Dispatch_Conditions: "PT_BATCH",
+        Dispatch_Contact_Locator: "PT_DCL",
+        Message_View_Conditions: "PT_MDTPL",
     },
     multiTable: {
         Conflicts: "CONFLICTS",
@@ -34,7 +49,12 @@ let events = {
     },
     res: {
         restApi: "restapi response"
-    }
+    },
+    ui: {
+        updateAcctInput: "uAI",
+        selectAcct: "sA",
+        selectTable: "sT",
+    },
 }
 
 let getPropName = (obj, val) => {

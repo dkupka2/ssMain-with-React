@@ -1,12 +1,12 @@
 "use strict";
 
-const request = require("request");
+const request = require("request")
 
-const wrapper = require("../pyWrapper");
-const globals = require("../../../global.js");
+const middleware = require("../middleware")
+const globals = require("../../../global.js")
 
-const apis = globals.apis;
-const creds = globals.creds;
+const apis = globals.apis
+const creds = globals.creds
 
 module.exports = (io, app) => {
     // socket transactions for restapi
@@ -16,7 +16,7 @@ module.exports = (io, app) => {
             let url = apis.pirest,
                 user = creds.username,
                 pass = creds.password,
-                auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64");
+                auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64")
             request(
                 {
                     url: url + restReq,
@@ -25,16 +25,19 @@ module.exports = (io, app) => {
                     }
                 }, (err, response, body) => {
                     if (err) {
-                        console.log("error: ", err);
+                        console.log("error: ", err)
                     }
                     let first = restReq.search("/") + 1,
                         second = restReq.search("out=json") - 2,
                         acct = restReq.slice(0, first - 1),
-                        table = restReq.slice(first, second);
+                        table = restReq.slice(first, second)
+                    if (body.slice(body.length-14) === "does not exist") {
+                        body = { error: "account does not exist in ordentry"}
+                    }
                     let data = Object.assign({}, {acct, table, body})
-                    socket.emit("restapi response", data);
+                    socket.emit("restapi response", data)
                 }
-            );
-        });
-    });
-};
+            )
+        })
+    })
+}
