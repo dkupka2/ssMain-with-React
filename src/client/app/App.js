@@ -6,11 +6,15 @@ import './styles/App.css'
 // components
 import Select from './components/Select.react'
 import Input  from './components/Input.react'
+// import InputSL from './components/stateless/Input.stateless'
 import Banner from './components/Banner.react'
 import Button from './components/Button.react'
 import Table  from './components/Table.react'
 // redux
 import store from './store/index'
+import { 
+    updateAcctInput
+    } from './actions/'
 // other dependancies
 import events from './events'
 import testData from './data'
@@ -78,6 +82,7 @@ class App extends Component {
     }
 
     addAcct(x) {
+        console.log("clearing input");
         this.setAcctInput("")
         let acctsFlat = this.flatAccts()
         let newAccts = {}
@@ -100,18 +105,18 @@ class App extends Component {
     }
 
     handleAcctInputChange(x) {
-        store.dispatch({type: events.ui.updateAcctInput, payload: x})
-        let arr
-        if (x) {
-            arr = Array.from(x)
-        } else {
-            this.setAcctInput("")
-            return
-        }
-        // if the last character entered is a number
-        if ( ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
-            this.setAcctInput(x)
-        }
+        store.dispatch(updateAcctInput(x))
+        // let arr
+        // if (x) {
+        //     arr = Array.from(x)
+        // } else {
+        //     this.setAcctInput("")
+        //     return
+        // }
+        // // if the last character entered is a number
+        // if ( ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
+        //     this.setAcctInput(x)
+        // }
     }
 
     handleAcctQuery(x) {
@@ -227,30 +232,29 @@ class App extends Component {
             eventKeys.concat(multiKeys).concat(filterKeys)
         )
         let {
-            acctSelected: selectedAcct,
-            acctInput: acctInputVal,
-            tableSelected: selectedTable,
+            acctSelected,
+            acctInput,
+            tableSelected,
+            bannerType,
+            bannerPrompt
         } = this.state
-        let {bannerType, bannerPrompt} = this.state
-        let returnConflicts = () => {
-        }
         return (
             <div className="App">
                 <Input selector="acctInput" prompt="enter an account"
-                 val={acctInputVal}
-                 onInputChange={this.handleAcctInputChange.bind(this)}
+                 val={acctInput}
+                 onInputChange={this.handleAcctInputChange}
                  onInputSubmit={this.handleAcctQuery.bind(this)} />
-                <Select val={selectedAcct} selector="acctSelect"
+                <Select val={acctSelected} selector="acctSelect"
                  prompt="select an account" options={accts}
                  onSelectChange={this.handleAcctChange.bind(this)} />
-                <Select val={selectedTable} selector="tableSelect"
+                <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
                 <Banner type={bannerType} prompt={bannerPrompt}
                  selector="statusBanner"
                  onBannerClose={this.handleBannerClose.bind(this)} />
                 <p>{acctsArr.length + " accts loaded, selected: "
-                 + selectedAcct + " " + selectedTable}</p>
+                 + acctSelected + " " + tableSelected}</p>
                 {this.renderTable()}
             </div>
         )

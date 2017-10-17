@@ -11,22 +11,22 @@ const checkAcctInputValue = (val) => {
     }
     // if length is valid and last char is a number
     if ( arr.length < 5 && ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
-        final = val // return string
+        console.log("Valid!")
+        return val.slice() // return string
     } else {
-        // final = val.slice(0, val.length-1).join("") // return string without invalid char
-        final = arr.pop()
+        console.log("invalid: ", "val ", val, " sliced ", val.slice(0,4))
+        return val.slice(0,4) // return string without invalid char
     }
-    return final
 }
 
 const uiReducer = (state = {}, action) => {
     console.log('uiReducer was called with state ', state, ' and action ', action)
     switch(action.type) {
         case events.ui.updateAcctInput :
-            return {
-                //...state,
-                acctInput: checkAcctInputValue(action.payload)
-            }
+            return [
+                checkAcctInputValue(action.payload),
+                ...state
+            ]
             break
         default:
             return state

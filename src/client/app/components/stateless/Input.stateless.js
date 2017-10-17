@@ -3,16 +3,16 @@ import React from 'react';
 // generic select subcomponent, expects the following props:
 // function: onInputChange(), onInputSubmit()
 // string: val, selector, prompt, text
-// array: options
 
 const Input = (props)  => {
+    const { selector, prompt, handleChange, handleSubmit, text, val } = props
     return (
-        <div {props.selector + "-parentDiv"}>
-            <p className={props.selector + " p"}>{props.prompt}</p>
-            <input className={props.selector + " input"}
-             onChange={props.handleChange} value={props.val} />
-            <button className={props.selector + " button"}
-             onClick={props.handleSubmit}>{props.text}</button>
+        <div {selector + "-parentDiv"}>
+            <p className={selector + " p"}>{prompt}</p>
+            <input className={selector + " input"}
+             onChange={handleChange} value={val} />
+            <button className={selector + " button"}
+             onClick={handleSubmit}>{text}</button>
         </div>
     )
 }

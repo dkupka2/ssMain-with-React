@@ -17,8 +17,8 @@ class Input extends React.Component {
         this.props.onInputSubmit(this.props.val);
     }
     render() {
-
         const { selector, prompt, val } = this.props;
+        console.log("input rendered with value: ", val)
 
         return (
             <div className={selector + "-parentDiv"}>
