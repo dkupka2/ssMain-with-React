@@ -4,20 +4,21 @@ import Pubsub from 'pubsub-js'
 // styles
 import './styles/App.css'
 // components
-import Select from './components/Select.react'
-import Input  from './components/Input.react'
-// import InputSL from './components/stateless/Input.stateless'
-import Banner from './components/Banner.react'
-import Button from './components/Button.react'
-import Table  from './components/Table.react'
+import Select from './components/generic/Select.react'
+import Input  from './components/generic/Input.react'
+import Banner from './components/generic/Banner.react'
+import Button from './components/generic/Button.react'
+import Table  from './components/generic/Table.react'
 // redux
 import store from './store/index'
 import { 
     updateAcctInput
     } from './actions/'
 // other dependancies
+import { initialState } from './state/index'
 import events from './events'
 import testData from './data'
+import { validateAcctInput } from './components/validateAcctInput.mixin'
 // data tables
 const eventKeys = Object.keys(events.loadTable)
 const multiKeys = Object.keys(events.multiTable)
@@ -40,19 +41,10 @@ let verifyAccount = (acct) => {
 }
 
 class App extends Component {
-    flatAccts() { return Object.keys(this.state.accts) }
-
+    // flatAccts() { return Object.keys(this.state.accts) }
     constructor(props) {
         super(props)
-        this.state = {
-            acctInput: "",
-            acctSelected: "",
-            tableSelected: "",
-            accts: {},
-            bannerType: "",
-            bannerPrompt: "",
-            pending: false,
-        }
+        this.state = initialState
     }
 
     shouldComponentUpdate() {
@@ -61,6 +53,10 @@ class App extends Component {
         return response
     }
   
+    handleAcctInputChange(x) {
+        this.setState( {acctInput: x})
+    }
+
     setAcctInput(x) {
         this.setState( {acctInput: x} )
     }
@@ -84,7 +80,8 @@ class App extends Component {
     addAcct(x) {
         console.log("clearing input");
         this.setAcctInput("")
-        let acctsFlat = this.flatAccts()
+        //let acctsFlat = this.flatAccts()
+        let acctsFlat = Object.keys(this.state.accts)
         let newAccts = {}
         let newAcct = {}
         for (let prop of newProps) {
@@ -102,21 +99,6 @@ class App extends Component {
             accts: newAccts,
             acctSelected: x
         })
-    }
-
-    handleAcctInputChange(x) {
-        store.dispatch(updateAcctInput(x))
-        // let arr
-        // if (x) {
-        //     arr = Array.from(x)
-        // } else {
-        //     this.setAcctInput("")
-        //     return
-        // }
-        // // if the last character entered is a number
-        // if ( ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
-        //     this.setAcctInput(x)
-        // }
     }
 
     handleAcctQuery(x) {
@@ -226,7 +208,8 @@ class App extends Component {
     }
 
     render() {
-        let acctsArr = this.flatAccts()
+        // let acctsArr = this.flatAccts()
+        let acctsArr = Object.keys(this.state.accts)
         let accts = this.makeElems(acctsArr)
         let tables = this.makeElems( 
             eventKeys.concat(multiKeys).concat(filterKeys)
@@ -241,8 +224,8 @@ class App extends Component {
         return (
             <div className="App">
                 <Input selector="acctInput" prompt="enter an account"
-                 val={acctInput}
-                 onInputChange={this.handleAcctInputChange}
+                 val={validateAcctInput(acctInput)}
+                 onInputChange={this.handleAcctInputChange.bind(this)}
                  onInputSubmit={this.handleAcctQuery.bind(this)} />
                 <Select val={acctSelected} selector="acctSelect"
                  prompt="select an account" options={accts}
@@ -255,6 +238,7 @@ class App extends Component {
                  onBannerClose={this.handleBannerClose.bind(this)} />
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected}</p>
+                <p>account input value: {acctInput}</p>
                 {this.renderTable()}
             </div>
         )

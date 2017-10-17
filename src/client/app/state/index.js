@@ -1,9 +1,9 @@
 export const initialState = {
     acctInput: "",
-    // acctSelected: "",
-    // tableSelected: "",
-    // accts: {},
-    // bannerType: "",
-    // bannerPrompt: "",
-    // pending: false,
+    accts: {},
+    acctSelected: "",
+    tableSelected: "",
+    bannerType: "",
+    bannerPrompt: "",
+    pending: false,
 }

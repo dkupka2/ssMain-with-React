@@ -1,28 +1,31 @@
 import { combineReducers } from 'redux'
 import store from '../store/index'
 import events from '../events'
+import { initialState } from '../state/index'
 
-const checkAcctInputValue = (val) => {
-    let arr, final = ""
+/*const checkAcctInputValue = (val) => {
+    alert(val)
+    let arr, args = []
     if (val) {
         arr = Array.from(val)
+        // if length is valid and last char is a number
+        if ( arr.length < 5 && ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
+            console.log("Valid! ", val.slice())
+            args.push({acctInput: val.slice()}) // return string
+        } else {
+            console.log("invalid: ", "val ", val, " sliced ", val.slice(0,4))
+            args.push({acctInput: val.slice(0,4)}) // return string without invalid char
+        }
     } else {
-        return final
+        return null
     }
-    // if length is valid and last char is a number
-    if ( arr.length < 5 && ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
-        console.log("Valid!")
-        return val.slice() // return string
-    } else {
-        console.log("invalid: ", "val ", val, " sliced ", val.slice(0,4))
-        return val.slice(0,4) // return string without invalid char
-    }
+    return returnThis(args)
 }
 
-const uiReducer = (state = {}, action) => {
+const acctInputReducer = (state = initialState, action) => {
     console.log('uiReducer was called with state ', state, ' and action ', action)
     switch(action.type) {
-        case events.ui.updateAcctInput :
+        case events.updateAcctInput :
             return [
                 checkAcctInputValue(action.payload),
                 ...state
@@ -31,21 +34,21 @@ const uiReducer = (state = {}, action) => {
         default:
             return state
     }
-}
+}*/
 
-const acctsReducer = (state = {}, action) => {
+const acctsReducer = (state = initialState, action) => {
     console.log('acctsReducer was called with state ', state, ' and action ', action)
     switch(action.type) {
         case false :
             break
         default:
-            return state
+            return initialState
     }
 }
 
 const reducer = combineReducers({
-    ui: uiReducer,
-    // accts: acctsReducer
+    acctInput: acctInputReducer,
+    accts: acctsReducer
 })
 
 export default reducer

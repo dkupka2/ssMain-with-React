@@ -50,11 +50,10 @@ let events = {
     res: {
         restApi: "restapi response"
     },
-    ui: {
-        updateAcctInput: "uAI",
-        selectAcct: "sA",
-        selectTable: "sT",
-    },
+    updateAcctInput: "uAI",
+    selectAcct: "sA",
+    selectTable: "sT",
+
 }
 
 let getPropName = (obj, val) => {

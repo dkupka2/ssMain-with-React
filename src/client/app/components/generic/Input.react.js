@@ -18,8 +18,6 @@ class Input extends React.Component {
     }
     render() {
         const { selector, prompt, val } = this.props;
-        console.log("input rendered with value: ", val)
-
         return (
             <div className={selector + "-parentDiv"}>
                 <p className={selector + " p"}>{prompt}</p>
@@ -32,4 +30,4 @@ class Input extends React.Component {
     }
 }
 
-export default Input;
+export default Input
