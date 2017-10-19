@@ -1,54 +1,48 @@
 import { combineReducers } from 'redux'
-import store from '../store/index'
-import events from '../events'
 import { initialState } from '../state/index'
+// action keys and relay function
+import actions from '../actions/index'
+const {
+        SELECT_ACCOUNT,
+        ADD_ACCOUNT,
+        relay
+    } = actions
 
-/*const checkAcctInputValue = (val) => {
-    alert(val)
-    let arr, args = []
-    if (val) {
-        arr = Array.from(val)
-        // if length is valid and last char is a number
-        if ( arr.length < 5 && ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
-            console.log("Valid! ", val.slice())
-            args.push({acctInput: val.slice()}) // return string
+const reducer = (state = initialState, action) => {
+    console.log("reducer was called with state: ", state, " and action ", action);
+
+    let newState = Object.assign({}, state)
+    let flatAccts = () => {
+        if (state.accts.length>0) {
+            console.log("previous state contains accts: ",Object.keys(state.accts))
+            return Object.keys(state.accts)
         } else {
-            console.log("invalid: ", "val ", val, " sliced ", val.slice(0,4))
-            args.push({acctInput: val.slice(0,4)}) // return string without invalid char
+            console.log("no accts in prev state");
+            return []
         }
-    } else {
-        return null
     }
-    return returnThis(args)
-}
 
-const acctInputReducer = (state = initialState, action) => {
-    console.log('uiReducer was called with state ', state, ' and action ', action)
     switch(action.type) {
-        case events.updateAcctInput :
-            return [
-                checkAcctInputValue(action.payload),
-                ...state
-            ]
+        case SELECT_ACCOUNT :
+            newState.selectedAcct = action.payload
+            console.log("should return new state", newState)
+            return newState
+            break
+        case ADD_ACCOUNT :
+            let newAccts = {}
+            newState.acctInput = ""
+            if (flatAccts().includes(action.payload)) return state
+            // if accts contains accounts, copy accts' enumerable
+            if (flatAccts().length > 0) Object.assign(newAccts, state.accts)
+            newAccts[action.payload] = {}
+            newState.accts = newAccts
+            newState.acctSelected = action.payload
+            console.log("should return new state", newState)
+            return newState
             break
         default:
             return state
     }
-}*/
-
-const acctsReducer = (state = initialState, action) => {
-    console.log('acctsReducer was called with state ', state, ' and action ', action)
-    switch(action.type) {
-        case false :
-            break
-        default:
-            return initialState
-    }
 }
-
-const reducer = combineReducers({
-    acctInput: acctInputReducer,
-    accts: acctsReducer
-})
 
 export default reducer

@@ -11,9 +11,13 @@ import Button from './components/generic/Button.react'
 import Table  from './components/generic/Table.react'
 // redux
 import store from './store/index'
-import { 
-    updateAcctInput
-    } from './actions/'
+// action keys and relay function
+import actions from './actions/'
+const {
+        SELECT_ACCOUNT,
+        ADD_ACCOUNT,
+        relay
+    } = actions
 // other dependancies
 import { initialState } from './state/index'
 import events from './events'
@@ -41,16 +45,25 @@ let verifyAccount = (acct) => {
 }
 
 class App extends Component {
-    // flatAccts() { return Object.keys(this.state.accts) }
+    flatAccts() {
+        if (this.state && this.state.accts.length > 0) {
+            return Object.keys(this.state.accts)
+        } else {
+            return []
+        }
+    }
+
     constructor(props) {
         super(props)
+        console.log("initializing app state")
         this.state = initialState
     }
 
     shouldComponentUpdate() {
-        let response = true
-        if (this.state.pending === true) response = false
-        return response
+        // let response = true
+        // if (this.state.pending === true) response = false
+        // return response
+        return true
     }
   
     handleAcctInputChange(x) {
@@ -78,27 +91,7 @@ class App extends Component {
     }
 
     addAcct(x) {
-        console.log("clearing input");
-        this.setAcctInput("")
-        //let acctsFlat = this.flatAccts()
-        let acctsFlat = Object.keys(this.state.accts)
-        let newAccts = {}
-        let newAcct = {}
-        for (let prop of newProps) {
-            newAcct[prop] = []
-        }
-        if (acctsFlat.includes(x)) {
-            return
-        }
-        // if accts contains accounts, copy accts' enumerable
-        if (acctsFlat.length > 0 ) {
-            Object.assign(newAccts, this.state.accts)
-        }
-        newAccts[x] = newAcct
-        this.setState({
-            accts: newAccts,
-            acctSelected: x
-        })
+        store.dispatch({type: ADD_ACCOUNT, payload: x})
     }
 
     handleAcctQuery(x) {
@@ -125,9 +118,6 @@ class App extends Component {
     loadTable(acct, table) {
         console.log("requesting table: ", table)
         Pubsub.publish(events.actions.loadTable, { acct, table })
-        this.setState({
-            pending: true
-        })
     }
 
     getConflictsData() {
@@ -158,13 +148,15 @@ class App extends Component {
     }
 
     componentWillMount() {
+        store.subscribe(() => {
+            var state = store.getState()
+            this.setState({ state })
+        })
+
         globalVar.receiveRestRes = (event, data) => {
             // handle data returned from restAPI response
             console.log("received API response")
             this.handleRestRes(data)
-            this.setState({
-                pending: false
-            })
         }
 
         Pubsub.subscribe(events.res.restApi, globalVar.receiveRestRes)
@@ -208,8 +200,7 @@ class App extends Component {
     }
 
     render() {
-        // let acctsArr = this.flatAccts()
-        let acctsArr = Object.keys(this.state.accts)
+        let acctsArr = this.flatAccts()
         let accts = this.makeElems(acctsArr)
         let tables = this.makeElems( 
             eventKeys.concat(multiKeys).concat(filterKeys)
@@ -229,7 +220,7 @@ class App extends Component {
                  onInputSubmit={this.handleAcctQuery.bind(this)} />
                 <Select val={acctSelected} selector="acctSelect"
                  prompt="select an account" options={accts}
-                 onSelectChange={this.handleAcctChange.bind(this)} />
+                 />
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
@@ -238,7 +229,6 @@ class App extends Component {
                  onBannerClose={this.handleBannerClose.bind(this)} />
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected}</p>
-                <p>account input value: {acctInput}</p>
                 {this.renderTable()}
             </div>
         )

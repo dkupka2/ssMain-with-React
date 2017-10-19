@@ -7,15 +7,17 @@ import React from 'react';
 
 class Select extends React.Component {
     constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
+        super(props)
+        this.handleChange = this.handleChange.bind(this)
     }
     handleChange(e) {
         this.props.onSelectChange(e.target.value);
     }
     render() {
 
-        const { val, options, selector, prompt } = this.props;
+        const { val, options, selector, prompt } = this.props
+
+        console.log("select is rendering: ", options)
 
         return (
             <div className={selector + "-parentDiv"}>
@@ -28,4 +30,4 @@ class Select extends React.Component {
     }
 }
 
-export default Select;
+export default Select

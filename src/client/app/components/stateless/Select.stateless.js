@@ -3,15 +3,16 @@ import React from 'react';
 // stateless select component
 
 const Select = (props) => {
+    const {selector, prompt, val, handleChange, options} = props
     return(
-        <div {props.selector + "-parentDiv"}>
-            <p className={props.selector + " p"}>{props.prompt}</p>
-            <select className={props.selector + " select"} value={props.val} 
-            onChange={(event) => props.handleChange(event)}>
-                {props.options}
+        <div {selector + "-parentDiv"}>
+            <p className={selector + " p"}>{prompt}</p>
+            <select className={selector + " select"} value={val} 
+            onChange={(event) => handleChange(event)}>
+                {options}
             </select>
         </div>
     )
 }
 
-export default Select;
+export default Select

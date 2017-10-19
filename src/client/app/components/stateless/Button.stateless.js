@@ -6,12 +6,13 @@ import React from 'react';
 // array: options
 
 const Button = (props)  => {
+    const {selector, prompt, handleClick} = props
     return (
-        <div {props.selector + "-parentDiv"}>
-            <button className={props.selector + " button"}
-             onClick={props.handleClick}>{props.prompt}</button>
+        <div {selector + "-parentDiv"}>
+            <button className={selector + " button"}
+             onClick={handleClick}>{prompt}</button>
         </div>
     )
 }
 
-export default Button;
+export default Button

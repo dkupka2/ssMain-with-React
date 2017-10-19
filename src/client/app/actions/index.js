@@ -1,5 +1,14 @@
-export const UPDATE_ACCOUNT_INPUT = "uAI"
+const SELECT_ACCOUNT = "sA"
+const ADD_ACCOUNT ="aA"
 
-export const updateAcctInput = (payload) => {
-    return { type: UPDATE_ACCOUNT_INPUT, payload } 
+const relay = (type, payload) => {
+    return { type, payload}
 }
+
+const actions = {
+    SELECT_ACCOUNT,
+    ADD_ACCOUNT,
+    relay
+}
+ 
+export default actions
