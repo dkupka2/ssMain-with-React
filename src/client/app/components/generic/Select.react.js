@@ -14,11 +14,7 @@ class Select extends React.Component {
         this.props.onSelectChange(e.target.value);
     }
     render() {
-
         const { val, options, selector, prompt } = this.props
-
-        console.log("select is rendering: ", options)
-
         return (
             <div className={selector + "-parentDiv"}>
                 <p className={selector}>{prompt}</p>

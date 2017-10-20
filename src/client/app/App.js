@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { connect } from 'react-redux'
 import Pubsub from 'pubsub-js'
 // styles
 import './styles/App.css'
@@ -45,18 +45,17 @@ let verifyAccount = (acct) => {
 }
 
 class App extends Component {
+    constructor(props) {
+        super(props)
+        this.state = this.props.state
+    }
+    
     flatAccts() {
         if (this.state && this.state.accts.length > 0) {
             return Object.keys(this.state.accts)
         } else {
             return []
         }
-    }
-
-    constructor(props) {
-        super(props)
-        console.log("initializing app state")
-        this.state = initialState
     }
 
     shouldComponentUpdate() {
@@ -212,6 +211,7 @@ class App extends Component {
             bannerType,
             bannerPrompt
         } = this.state
+
         return (
             <div className="App">
                 <Input selector="acctInput" prompt="enter an account"
@@ -234,5 +234,14 @@ class App extends Component {
         )
     }
 }
+
+// const mapStatetoProps = (store) => {
+//     return {
+//         accts: store.accts,
+//         acctSelected: store.acctSelected
+//     }   
+// }
+
+// export default connect(mapStatetoProps)(App)
 
 export default App

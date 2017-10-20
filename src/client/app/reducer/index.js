@@ -12,6 +12,9 @@ const reducer = (state = initialState, action) => {
     console.log("reducer was called with state: ", state, " and action ", action);
 
     let newState = Object.assign({}, state)
+
+    let returnState = (newState) => [ ...state, newState ]
+
     let flatAccts = () => {
         if (state.accts.length>0) {
             console.log("previous state contains accts: ",Object.keys(state.accts))
@@ -23,11 +26,6 @@ const reducer = (state = initialState, action) => {
     }
 
     switch(action.type) {
-        case SELECT_ACCOUNT :
-            newState.selectedAcct = action.payload
-            console.log("should return new state", newState)
-            return newState
-            break
         case ADD_ACCOUNT :
             let newAccts = {}
             newState.acctInput = ""
@@ -38,7 +36,12 @@ const reducer = (state = initialState, action) => {
             newState.accts = newAccts
             newState.acctSelected = action.payload
             console.log("should return new state", newState)
-            return newState
+            return returnState(newState)
+            break
+        case SELECT_ACCOUNT :
+            newState.selectedAcct = action.payload
+            console.log("should return new state", newState)
+            return returnState(newState)
             break
         default:
             return state
