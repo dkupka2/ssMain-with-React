@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Pubsub from 'pubsub-js'
 // styles
 import './styles/App.css'
@@ -10,19 +9,17 @@ import Banner from './components/generic/Banner.react'
 import Button from './components/generic/Button.react'
 import Table  from './components/generic/Table.react'
 // redux
-import store from './store/index'
 // action keys and relay function
-import actions from './actions/'
+import events from './events'
 const {
-        SELECT_ACCOUNT,
-        ADD_ACCOUNT,
-        relay
-    } = actions
+        ADD_ACCT,
+        SELECT_ACCT,
+        SELECT_TABLE,
+    } = events.ui
 // other dependancies
 import { initialState } from './state/index'
-import events from './events'
 import testData from './data'
-import { validateAcctInput } from './components/validateAcctInput.mixin'
+
 // data tables
 const eventKeys = Object.keys(events.loadTable)
 const multiKeys = Object.keys(events.multiTable)
@@ -44,18 +41,36 @@ let verifyAccount = (acct) => {
     }
 }
 
+const validateAcctInput = (val) => {
+    let arr
+    if (val) {
+        arr = Array.from(val) // if length is valid and last char is a number
+        if ( arr.length < 5 && ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
+            return val.slice() // return string
+        } else {
+            return val.slice(0,val.length-1) // return string without invalid char
+        }
+    } else {
+        return ""
+    }
+}
+
+const makeElems = (arr) => {
+    let newElems = []
+    for (let val of arr) {
+        newElems.push(<option key={val.toString()} value={val}>{val}</option>)
+    }
+    return newElems
+}
+
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state = this.props.state
+        this.state = initialState
     }
     
     flatAccts() {
-        if (this.state && this.state.accts.length > 0) {
-            return Object.keys(this.state.accts)
-        } else {
-            return []
-        }
+        return Object.keys(this.state.accts)
     }
 
     shouldComponentUpdate() {
@@ -69,10 +84,6 @@ class App extends Component {
         this.setState( {acctInput: x})
     }
 
-    setAcctInput(x) {
-        this.setState( {acctInput: x} )
-    }
-
     handleAcctChange(x) {
         this.setState( {acctSelected: x} )
     }
@@ -80,26 +91,31 @@ class App extends Component {
     handleTableChange(x) {
         this.setState( {tableSelected: x} )
     }
-  
-    makeElems(arr) {
-        let newElems = []
-        for (let val of arr) {
-            newElems.push(<option key={val.toString()} value={val}>{val}</option>)
-        }
-        return newElems
-    }
 
     addAcct(x) {
-        store.dispatch({type: ADD_ACCOUNT, payload: x})
+        let newState = {}
+        let newAccts = {}
+        let prevAcctsList = this.flatAccts()
+        if (prevAcctsList.includes(x)) return
+        // if accts contains accounts, copy accts' enumerable
+        if (prevAcctsList.length > 0) Object.assign(newAccts, this.state.accts)
+        newState.accts = newAccts
+        newState.accts[x] = {}
+        newState.acctSelected = x
+        newState.acctInput = ""
+        console.log("should render new state", newState)
+        this.setState(newState)
     }
 
     handleAcctQuery(x) {
         if ( verifyAccount(x) ) {
             this.addAcct(x)
+        } else {
+            alert("invalid acct val")
         }
     }
 
-    handleBannerChange(data) {
+/*    handleBannerChange(data) {
         // toggle banner className / message
         let {type, prompt} = data
         this.setState({
@@ -135,24 +151,19 @@ class App extends Component {
         ) {
             return true
         }
-    }
+    }*/
 
-    handleRestRes(data) {
+/*    handleRestRes(data) {
         let { acct, body, table } = data
         console.log("table is: ", table)
         if (!this.state.accts[acct][table]) {
             this.state.accts[acct][table] = []
         }
         this.state.accts[acct][table].push([body])
-    }
+    }*/
 
     componentWillMount() {
-        store.subscribe(() => {
-            var state = store.getState()
-            this.setState({ state })
-        })
-
-        globalVar.receiveRestRes = (event, data) => {
+        /*globalVar.receiveRestRes = (event, data) => {
             // handle data returned from restAPI response
             console.log("received API response")
             this.handleRestRes(data)
@@ -164,10 +175,10 @@ class App extends Component {
             this.handleBannerUpdate(data)
         }
 
-        Pubsub.subscribe(events.banner.update, globalVar.updateBanner)
+        Pubsub.subscribe(events.banner.update, globalVar.updateBanner)*/
     }
 
-    renderTable() {
+/*    renderTable() {
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
         if (acct && table) {
@@ -196,12 +207,12 @@ class App extends Component {
                 }
             }
         }
-    }
+    }*/
 
     render() {
         let acctsArr = this.flatAccts()
-        let accts = this.makeElems(acctsArr)
-        let tables = this.makeElems( 
+        let accts = makeElems(acctsArr)
+        let tables = makeElems( 
             eventKeys.concat(multiKeys).concat(filterKeys)
         )
         let {
@@ -219,29 +230,23 @@ class App extends Component {
                  onInputChange={this.handleAcctInputChange.bind(this)}
                  onInputSubmit={this.handleAcctQuery.bind(this)} />
                 <Select val={acctSelected} selector="acctSelect"
-                 prompt="select an account" options={accts}
-                 />
+                 prompt="select an account" options={accts} />
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
+{/*
                 <Banner type={bannerType} prompt={bannerPrompt}
                  selector="statusBanner"
                  onBannerClose={this.handleBannerClose.bind(this)} />
+*/}
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected}</p>
+{/*
                 {this.renderTable()}
+*/}
             </div>
         )
     }
 }
-
-// const mapStatetoProps = (store) => {
-//     return {
-//         accts: store.accts,
-//         acctSelected: store.acctSelected
-//     }   
-// }
-
-// export default connect(mapStatetoProps)(App)
 
 export default App
