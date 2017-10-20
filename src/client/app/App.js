@@ -68,28 +68,30 @@ class App extends Component {
         super(props)
         this.state = initialState
     }
+
+    changeState(description, newState) {
+        console.log(description)
+        this.setState(newState)
+    }
     
     flatAccts() {
         return Object.keys(this.state.accts)
     }
 
     shouldComponentUpdate() {
-        // let response = true
-        // if (this.state.pending === true) response = false
-        // return response
         return true
     }
   
     handleAcctInputChange(x) {
-        this.setState( {acctInput: x})
+        this.changeState("acct input changed", {acctInput: x})
     }
 
     handleAcctChange(x) {
-        this.setState( {acctSelected: x} )
+        this.changeState("selected acct changed", {acctSelected: x})
     }
 
     handleTableChange(x) {
-        this.setState( {tableSelected: x} )
+        this.changeState("table changed", {tableSelected: x})
     }
 
     addAcct(x) {
@@ -103,8 +105,7 @@ class App extends Component {
         newState.accts[x] = {}
         newState.acctSelected = x
         newState.acctInput = ""
-        console.log("should render new state", newState)
-        this.setState(newState)
+        this.changeState("acct added", newState)
     }
 
     handleAcctQuery(x) {
@@ -115,13 +116,14 @@ class App extends Component {
         }
     }
 
-/*    handleBannerChange(data) {
+    handleTableLoad() {
+        let {acctSelected, tableSelected} = this.state
+        loadTable(acctSelected, tableSelected)
+    }
+
+    updateBanner(data) {
         // toggle banner className / message
-        let {type, prompt} = data
-        this.setState({
-            bannerType: type,
-            bannerPrompt: prompt
-        })
+        this.changeState( "banner changed", data)
     }
 
     handleBannerClose() {
@@ -151,19 +153,20 @@ class App extends Component {
         ) {
             return true
         }
-    }*/
+    }
 
-/*    handleRestRes(data) {
+    handleRestRes(data) {
+        if (this.state.)
         let { acct, body, table } = data
         console.log("table is: ", table)
         if (!this.state.accts[acct][table]) {
             this.state.accts[acct][table] = []
         }
         this.state.accts[acct][table].push([body])
-    }*/
+    }
 
     componentWillMount() {
-        /*globalVar.receiveRestRes = (event, data) => {
+        globalVar.receiveRestRes = (event, data) => {
             // handle data returned from restAPI response
             console.log("received API response")
             this.handleRestRes(data)
@@ -175,23 +178,28 @@ class App extends Component {
             this.handleBannerUpdate(data)
         }
 
-        Pubsub.subscribe(events.banner.update, globalVar.updateBanner)*/
+        Pubsub.subscribe(events.banner.update, globalVar.updateBanner)
     }
 
-/*    renderTable() {
+    renderTable() {
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
-        if (acct && table) {
+        // $$ this.state.acct.table.length>0
+        // if a table is selected and the selected account has table data loaded
+        if (table) {
+            let tableReady = this.state.accts[acct][table] ? true : false
             let tArr, dTable, data
-            if (!this.state.accts[acct][table]) this.state.accts[acct][table][0] = []
-            this.loadTable(acct, table)
+            if (!tableReady) {
+                this.state.accts[acct][table] = []
+                this.state.accts[acct][table][0] = []
+            }
             tArr = table ? this.state.accts[acct][table] : []
             data = tArr[tArr.length-1]
             try {
                 dTable = tArr.length > 0 ? JSON.parse(data) : []
             }
             catch(e) {
-                console.log(data[0].error)
+                console.error(e)
                 return
             }
             if (table && table !== "CONFLICTS") {
@@ -206,8 +214,13 @@ class App extends Component {
                     )
                 }
             }
+        } else {
+            this.updateBanner({
+                bannerType: alert,
+                bannerPrompt: "this table has not been loaded"
+            })
         }
-    }*/
+    }
 
     render() {
         let acctsArr = this.flatAccts()
@@ -234,16 +247,14 @@ class App extends Component {
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
-{/*
+                <Button selector="loadTable" prompt="load table"
+                 onButtonClick={this.handleTableLoad.bind(this)} />
                 <Banner type={bannerType} prompt={bannerPrompt}
                  selector="statusBanner"
                  onBannerClose={this.handleBannerClose.bind(this)} />
-*/}
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected}</p>
-{/*
                 {this.renderTable()}
-*/}
             </div>
         )
     }
