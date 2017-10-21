@@ -45,10 +45,12 @@ let events = {
         Conflicts: "CONFLICTS",
     },
     req: {
-        restApi: "restapi request"
+        restApi: "restapi request",
+        validation: "validation request"
     },
     res: {
-        restApi: "restapi response"
+        restApi: "restapi response",
+        validation: "validation response"
     },   
     ui: {
         ADD_ACCT: "aA",

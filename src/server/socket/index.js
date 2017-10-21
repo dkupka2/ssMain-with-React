@@ -2,7 +2,7 @@
 
 const request = require("request")
 
-const middleware = require("../middleware")
+const validateAcct = require("../middleware").check
 const globals = require("../../../global.js")
 
 const apis = globals.apis
@@ -38,6 +38,13 @@ module.exports = (io, app) => {
                     socket.emit("restapi response", data)
                 }
             )
+        })
+        socket.on("validation request", acct => {
+            console.log("validation request")
+            let result = {}
+            result.pass = validateAcct(acct)
+            result.acct = acct
+            socket.emit("validation response", result)
         })
     })
 }

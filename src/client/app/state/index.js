@@ -2,7 +2,7 @@ export const initialState = {
     acctInput: "",
     accts: {},
     acctSelected: "",
-    tableSelected: "",
+    tableSelected: "Autos_on_Save",
     bannerType: "",
     bannerPrompt: "",
     restPending: false

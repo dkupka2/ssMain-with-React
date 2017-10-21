@@ -34,7 +34,7 @@ for (let key of eventKeys) {
 // confirms account number is valid
 let verifyAccount = (acct) => {
     if ( acct % 1 === 0 && acct > 0 && acct < 10000 ) {
-        // still needs pubsub event
+        // still needs pubsub event w/ promise
         return true
     } else {
         return false
@@ -118,8 +118,8 @@ class App extends Component {
 
     handleTableLoad() {
         let {acctSelected, tableSelected} = this.state
-        loadTable(acctSelected, tableSelected)
-        changeState("rest api pending", {restPending: true})
+        this.loadTable(acctSelected, tableSelected)
+        this.changeState("rest api pending", {restPending: true})
     }
 
     updateBanner(data) {
@@ -169,7 +169,7 @@ class App extends Component {
         this.state.accts[acct][table].push([body])
         this.updateBanner({
             bannerType: "ok",
-            bannerPrompt: "table is loading, please wait"
+            bannerPrompt: "table is loaded, Good Luck!"
         })
     }
 
@@ -182,11 +182,17 @@ class App extends Component {
 
         Pubsub.subscribe(events.res.restApi, globalVar.receiveRestRes)
 
-        globalVar.updateBanner = (event, data) => {
-            this.handleBannerUpdate(data)
+        globalVar.accountValidation = (event, data) => {
+            let { acct, pass } = data
+            resultType = pass ? "ok" : "alert"
+            resultPrompt = pass ? `account ${acct} is ready` : "account not found in ordentry"
+            updateBanner({
+                bannerType: resultType, 
+                bannerPrompt: resultPrompt
+            })
         }
 
-        Pubsub.subscribe(events.banner.update, globalVar.updateBanner)
+        Pubsub.subscribe(events.res.validation, globalVar.accountValidation)
     }
 
     renderTable() {
@@ -209,6 +215,7 @@ class App extends Component {
             }
             catch(e) {
                 console.error(e)
+                alert("render failed, check account number!")
                 return
             }
             if (table && table !== "CONFLICTS") {
@@ -223,11 +230,6 @@ class App extends Component {
                     )
                 }
             }
-        } else {
-            this.updateBanner({
-                bannerType: "alert",
-                bannerPrompt: "please load a table first to render it"
-            })
         }
     }
 
@@ -270,3 +272,10 @@ class App extends Component {
 }
 
 export default App
+
+// on table select change check cache and update banner if not loaded
+
+// this.updateBanner({
+//     bannerType: "",
+//     bannerPrompt: ""
+// })
