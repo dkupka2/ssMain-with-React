@@ -1,5 +1,13 @@
   * {
   text-align: center;
+} div.statusBanner {
+  margin-top: 10px;
+  border-radius: 25px;
+  height: 40px;
+} button.statusBanner {
+  float: right;
+  margin-right: 50px;
+  margin-top: 10px;
 } .statusBanner.alert {
   background-color: red;
 } .statusBanner.warning {
@@ -8,7 +16,7 @@
   background-color: green;
 } .statusBanner.hidden { 
   display: none;
-} .loadTableButton-parentDiv {
+} .loadTableBtn-parentDiv {
   margin-top: 15px;
 } table.data {
   margin: auto;

@@ -119,6 +119,7 @@ class App extends Component {
     handleTableLoad() {
         let {acctSelected, tableSelected} = this.state
         loadTable(acctSelected, tableSelected)
+        changeState("rest api pending", {restPending: true})
     }
 
     updateBanner(data) {
@@ -135,6 +136,10 @@ class App extends Component {
     loadTable(acct, table) {
         console.log("requesting table: ", table)
         Pubsub.publish(events.actions.loadTable, { acct, table })
+        this.updateBanner({
+            bannerType: "warning",
+            bannerPrompt: "table is loading, please wait"
+        })
     }
 
     getConflictsData() {
@@ -156,13 +161,16 @@ class App extends Component {
     }
 
     handleRestRes(data) {
-        if (this.state.)
         let { acct, body, table } = data
         console.log("table is: ", table)
         if (!this.state.accts[acct][table]) {
             this.state.accts[acct][table] = []
         }
         this.state.accts[acct][table].push([body])
+        this.updateBanner({
+            bannerType: "ok",
+            bannerPrompt: "table is loading, please wait"
+        })
     }
 
     componentWillMount() {
@@ -182,6 +190,7 @@ class App extends Component {
     }
 
     renderTable() {
+        if (! this.state.restPending) return
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
         // $$ this.state.acct.table.length>0
@@ -216,8 +225,8 @@ class App extends Component {
             }
         } else {
             this.updateBanner({
-                bannerType: alert,
-                bannerPrompt: "this table has not been loaded"
+                bannerType: "alert",
+                bannerPrompt: "please load a table first to render it"
             })
         }
     }
@@ -247,10 +256,10 @@ class App extends Component {
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
-                <Button selector="loadTable" prompt="load table"
+                <Button selector="loadTableBtn" prompt="load table"
                  onButtonClick={this.handleTableLoad.bind(this)} />
                 <Banner type={bannerType} prompt={bannerPrompt}
-                 selector="statusBanner"
+                 selector="statusBanner hidden"
                  onBannerClose={this.handleBannerClose.bind(this)} />
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected}</p>

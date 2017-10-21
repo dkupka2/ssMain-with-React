@@ -5,4 +5,5 @@ export const initialState = {
     tableSelected: "",
     bannerType: "",
     bannerPrompt: "",
+    restPending: false
 }
