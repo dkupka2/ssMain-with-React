@@ -196,19 +196,16 @@ class App extends Component {
     }
 
     renderTable() {
-        if (! this.state.restPending) return
+        let tArr, dTable, data
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
         // $$ this.state.acct.table.length>0
         // if a table is selected and the selected account has table data loaded
-        if (table) {
-            let tableReady = this.state.accts[acct][table] ? true : false
-            let tArr, dTable, data
-            if (!tableReady) {
-                this.state.accts[acct][table] = []
-                this.state.accts[acct][table][0] = []
-            }
-            tArr = table ? this.state.accts[acct][table] : []
+        if (this.state.accts[acct] !== undefined &&
+            this.state.accts[acct][table] !== undefined &&
+            this.state.accts[acct][table].length>0
+         ) {
+            tArr = this.state.accts[acct][table]
             data = tArr[tArr.length-1]
             try {
                 dTable = tArr.length > 0 ? JSON.parse(data) : []
@@ -230,6 +227,8 @@ class App extends Component {
                     )
                 }
             }
+        } else {
+            return
         }
     }
 
@@ -244,7 +243,7 @@ class App extends Component {
             acctInput,
             tableSelected,
             bannerType,
-            bannerPrompt
+            bannerPrompt,
         } = this.state
 
         return (
@@ -261,7 +260,7 @@ class App extends Component {
                 <Button selector="loadTableBtn" prompt="load table"
                  onButtonClick={this.handleTableLoad.bind(this)} />
                 <Banner type={bannerType} prompt={bannerPrompt}
-                 selector="statusBanner hidden"
+                 selector="statusBanner"
                  onBannerClose={this.handleBannerClose.bind(this)} />
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected}</p>
