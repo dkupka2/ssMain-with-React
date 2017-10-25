@@ -91,6 +91,7 @@ class App extends Component {
     }
 
     handleTableChange(x) {
+        
         this.changeState("table changed", {tableSelected: x})
     }
 
@@ -119,7 +120,6 @@ class App extends Component {
     handleTableLoad() {
         let {acctSelected, tableSelected} = this.state
         this.loadTable(acctSelected, tableSelected)
-        this.changeState("rest api pending", {restPending: true})
     }
 
     updateBanner(data) {
@@ -138,7 +138,7 @@ class App extends Component {
         Pubsub.publish(events.actions.loadTable, { acct, table })
         this.updateBanner({
             bannerType: "warning",
-            bannerPrompt: "table is loading, please wait"
+            bannerPrompt: "Table is loading, please wait"
         })
     }
 
@@ -169,7 +169,7 @@ class App extends Component {
         this.state.accts[acct][table].push([body])
         this.updateBanner({
             bannerType: "ok",
-            bannerPrompt: "table is loaded, Good Luck!"
+            bannerPrompt: "Table is loaded, Good Luck!"
         })
     }
 
@@ -185,7 +185,7 @@ class App extends Component {
         globalVar.accountValidation = (event, data) => {
             let { acct, pass } = data
             resultType = pass ? "ok" : "alert"
-            resultPrompt = pass ? `account ${acct} is ready` : "account not found in ordentry"
+            resultPrompt = pass ? `Account ${acct} is ready` : "Account not found in ordentry"
             updateBanner({
                 bannerType: resultType, 
                 bannerPrompt: resultPrompt

@@ -16,26 +16,26 @@ let timeStamp = () => {
 }
 let time = timeStamp()
 
-const dir = 'E:\\ORDENTRY'
-const acctNum = "\\9987"
+const dir = 'E:/ORDENTRY'
+const acctNum = "/9987"
 
 let acct = `${dir}${acctNum}`
-let dbfiles = `${acct}\\DBFILES`
-let backUp = `${dbfiles}\\BACKUP`
-let dest = `${backUp}\\${time}`
+let dbfiles = `${acct}/DBFILES`
+let backUp = `${dbfiles}/BACKUP`
+let dest = `${backUp}/${time}`
 
 let patterns = [
     'OE_FORM.*',
-    // 'OE_SKIP.*',
-    // 'OE_PKLST.*',
-    // '*L*.*',
-    // 'OE_GOTO.*',
-    // 'ORDERS.*',
-    // 'PT_AUTOA.*',
-    // 'PT_AUTOB.*',
-    // 'PT_OC*.*',
-    // 'PT_CONTC.*',
-    // 'CUSTOMER.*',
+    'OE_SKIP.*',
+    'OE_PKLST.*',
+    '*L*.*',
+    'OE_GOTO.*',
+    'ORDERS.*',
+    'PT_AUTOA.*',
+    'PT_AUTOB.*',
+    'PT_OC*.*',
+    'PT_CONTC.*',
+    'CUSTOMER.*',
 ]
 
 gO = {cwd: acct}
@@ -57,37 +57,40 @@ let checkSubDir = (which) => {
     } else {
         try {
             fs.mkdirSync(which)
-            console.log("made dir: ", which)
+            // report dir is made?
         } catch (e) {
             console.error('failed to create dir: ', which, e)
         }
     }
 }
 
-async function backupAcctFiles(source, dest, files) {
-    for (let file of files) {
+async function backupAcctFiles(source, dest, matches) {
+    for (let match of matches) {
         try {
-            await copy(`${source}\\${file}`, dest)
+            await copy(`${source}/${match}`, `${dest}/${match}`)
         } catch (e) {
-            console.error("error copying file: ",source,file," to ",dest,e)
+            console.error("error copying file: ",source,match," to ",dest,e)
         }
     }
 }
 
-async function getGlobs(files, source, time, dest) {
+async function getGlobs(file, source, time, dest) {
+    try {
+        await pGlob(file, gO, (err, matches) => {
+            backupAcctFiles(source, dest, matches)
+        })
+    } catch(e) {
+        console.error(e)
+    }
+}
 
+async function getAllGlobs (files, source, time, dest) {
     for (let file of files) {
-        try {
-            await pGlob(file, gO, (err, matches) => {
-                backupAcctFiles(source, dest, matches)
-            })
-        } catch(e) {
-            console.error(e)
-        }
+        getGlobs(file, source, time, dest)
     }
 }
 
 Promise.resolve( checkSubDir(dbfiles) )
     .then( checkSubDir(backUp) )
     .then( checkSubDir(dest) )
-    .then( getGlobs(patterns, acct, time, dest) )
+    .then( getAllGlobs(patterns, acct, time, dest) )
