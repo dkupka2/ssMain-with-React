@@ -121,8 +121,6 @@ class App extends Component {
     handleAcctQuery(x) {
         if ( verifyAccount(x) ) {
             this.addAcct(x)
-        } else {
-            alert("invalid acct val")
         }
     }
 
@@ -144,9 +142,7 @@ class App extends Component {
     }
 
     handleBannerClose() {
-        this.setState({
-            bannerType: "hidden"
-        })
+        this.setState({ bannerType: "hidden" })
     }
 
     loadTable(acct, table) {
@@ -167,11 +163,9 @@ class App extends Component {
         let checkTables = (table) => {
             if ( this.state.accts[acct][table].length > 0 ) return true
         }
-        if (
-            this.state.tableSelected === "CONFLICTS" &&
-            checkTables("AUTOA") &&
-            checkTables("AUTOB")
-        ) {
+        if ( this.state.tableSelected === "CONFLICTS" &&
+            checkTables("AUTOA") && checkTables("AUTOB") )
+        {
             return true
         }
     }
@@ -203,9 +197,7 @@ class App extends Component {
             let newAccts = {}
             let resultType, resultPrompt, resultSelected
             Object.assign(newAccts, this.state.accts)
-            if (! pass) {
-                delete newAccts[acct]
-            }
+            if (! pass) delete newAccts[acct]
             resultType = pass ? "ok" : "alert"
             resultPrompt = pass ? `Account ${acct} is ready` : `Account ${acct} not found in ordentry`
             resultSelected = pass ? acct : ""
@@ -227,8 +219,8 @@ class App extends Component {
         // if a table is selected and the selected account has table data loaded
         if (this.state.accts[acct] !== undefined &&
             this.state.accts[acct][table] !== undefined &&
-            this.state.accts[acct][table].length>0
-         ) {
+            this.state.accts[acct][table].length>0 )
+        {
             tArr = this.state.accts[acct][table]
             data = tArr[tArr.length-1]
             try {
