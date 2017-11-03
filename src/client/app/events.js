@@ -96,4 +96,14 @@ let conflictsTable = (event, acct) => {
 
 Pubsub.subscribe(events.multiTable.Conflicts, conflictsTable);
 
+let validation = (event, acct) => {
+    socket.emit(events.req.validation, acct)
+}
+
+Pubsub.subscribe(events.req.validation, validation)
+
+socket.on(events.res.validation, (data) => {
+    Pubsub.publish(events.res.validation, data)
+})
+
 export default events

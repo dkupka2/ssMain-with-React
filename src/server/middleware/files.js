@@ -2,10 +2,7 @@ const fs = require("fs")
 const promisify = require('util').promisify
 const glob = require('glob')
 
-// const stat = promisify(fs.stat)
-// const mkdir = promisify(fs.mkdir)
 const copy = promisify(fs.copyFile)
-
 let pGlob = promisify(glob.glob)
 
 let timeStamp = () => {
@@ -14,15 +11,25 @@ let timeStamp = () => {
     `${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}_${d.getHours()}_${d.getMinutes()}`
     return final
 }
-let time = timeStamp()
 
-const dir = 'E:/ORDENTRY'
-const acctNum = "/9987"
+let time
+let dir
+let acctNum
+let acct
+let dbfiles
+let backUp
+let dest
 
-let acct = `${dir}${acctNum}`
-let dbfiles = `${acct}/DBFILES`
-let backUp = `${dbfiles}/BACKUP`
-let dest = `${backUp}/${time}`
+let initialize = (acctNumber, setTime, drive = "E") => {
+    let final = {}
+    time = setTime
+    dir = `${drive}:/ORDENTRY`
+    acctNum = `/${acctNumber}`
+    acct = `${dir}${acctNum}`
+    dbfiles = `${acct}/DBFILES`
+    backUp = `${dbfiles}/BACKUP`
+    dest = `${backUp}/${time}`
+}
 
 let patterns = [
     'OE_FORM.*',
@@ -59,38 +66,76 @@ let checkSubDir = (which) => {
             fs.mkdirSync(which)
             // report dir is made?
         } catch (e) {
-            console.error('failed to create dir: ', which, e)
+            // console.error('failed to create dir: ', which, e)
+            return new Error `failed to create dir: ${which} ${e}`
         }
     }
 }
 
-async function backupAcctFiles(source, dest, matches) {
+async function copyGlobs(source, dest, matches) {
     for (let match of matches) {
         try {
             await copy(`${source}/${match}`, `${dest}/${match}`)
         } catch (e) {
-            console.error("error copying file: ",source,match," to ",dest,e)
+            // console.error("error copying file: ",source,match," to ",dest,e)
+            return new Error `error copying file: ${source} to ${dest} ${e}`
         }
     }
 }
 
-async function getGlobs(file, source, time, dest) {
+async function globFiles(file, source, time, dest) {
     try {
         await pGlob(file, gO, (err, matches) => {
-            backupAcctFiles(source, dest, matches)
+            copyGlobs(source, dest, matches)
         })
     } catch(e) {
         console.error(e)
     }
 }
 
-async function getAllGlobs (files, source, time, dest) {
+async function backupFiles(source, time, dest, files = patterns) {
     for (let file of files) {
-        getGlobs(file, source, time, dest)
+        globFiles(file, source, time, dest)
     }
 }
 
-Promise.resolve( checkSubDir(dbfiles) )
-    .then( checkSubDir(backUp) )
-    .then( checkSubDir(dest) )
-    .then( getAllGlobs(patterns, acct, time, dest) )
+async function getBackupList() {
+
+}
+
+async function restoreFromBackup() {
+
+}
+
+const checkDirs = (acct) => {
+    Promise.resolve( initialize(acct, timeStamp() ) )
+        .then( checkSubDir(dbfiles) )
+        .then( checkSubDir(backUp) )
+        .then( checkSubDir(dest) )
+        .catch((e) => {
+            console.error(e)
+            return false
+        })
+}
+
+const backupAcct = (acct) => {
+    Promise.resolve( initialize(acct, timeStamp() ) )
+        .then( checkSubDir(dbfiles) )
+        .then( checkSubDir(backUp) )
+        .then( checkSubDir(dest) )
+        .then( backupFiles(acct, time, dest) )
+        .catch((e) => {
+            console.error(e)
+            return false
+        })
+}
+
+const restoreOrdentry = (acct) => {
+    initialize(acct, timeStamp())
+    restoreFromBackup()
+}
+
+module.exports = {
+    backupAcct,
+    checkDirs
+}

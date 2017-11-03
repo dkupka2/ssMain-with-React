@@ -8,7 +8,6 @@ import Input  from './components/generic/Input.react'
 import Banner from './components/generic/Banner.react'
 import Button from './components/generic/Button.react'
 import Table  from './components/generic/Table.react'
-// redux
 // action keys and relay function
 import events from './events'
 const {
@@ -34,7 +33,8 @@ for (let key of eventKeys) {
 // confirms account number is valid
 let verifyAccount = (acct) => {
     if ( acct % 1 === 0 && acct > 0 && acct < 10000 ) {
-        // still needs pubsub event w/ promise
+        // pubsub event
+        Pubsub.publish(events.req.validation, acct)
         return true
     } else {
         return false
@@ -91,8 +91,14 @@ class App extends Component {
     }
 
     handleTableChange(x) {
-        
-        this.changeState("table changed", {tableSelected: x})
+        let newPrompt = ! this.state.selectedAcct ?
+            "Please select an account first to load this table" :
+            "Please Load the New Table for the latest version"
+        this.changeState("table changed", {
+            tableSelected: x,
+            bannerType: "warning",
+            bannerPrompt: newPrompt
+        })
     }
 
     addAcct(x) {
@@ -102,11 +108,14 @@ class App extends Component {
         if (prevAcctsList.includes(x)) return
         // if accts contains accounts, copy accts' enumerable
         if (prevAcctsList.length > 0) Object.assign(newAccts, this.state.accts)
-        newState.accts = newAccts
-        newState.accts[x] = {}
-        newState.acctSelected = x
-        newState.acctInput = ""
-        this.changeState("acct added", newState)
+        newAccts[x] = {}
+        this.changeState("acct added", {
+            accts: newAccts,
+            acctSelected: x,
+            acctInput: "",
+            bannerType: "warning",
+            bannerPrompt: "validating account, please wait"
+        })
     }
 
     handleAcctQuery(x) {
@@ -119,7 +128,14 @@ class App extends Component {
 
     handleTableLoad() {
         let {acctSelected, tableSelected} = this.state
-        this.loadTable(acctSelected, tableSelected)
+        if (acctSelected) {
+            this.loadTable(acctSelected, tableSelected)
+        } else {
+            this.updateBanner({
+                bannerType: "warning",
+                bannerPrompt: "Please select an account first to load this table"
+            })
+        }
     }
 
     updateBanner(data) {
@@ -184,11 +200,20 @@ class App extends Component {
 
         globalVar.accountValidation = (event, data) => {
             let { acct, pass } = data
+            let newAccts = {}
+            let resultType, resultPrompt, resultSelected
+            Object.assign(newAccts, this.state.accts)
+            if (! pass) {
+                delete newAccts[acct]
+            }
             resultType = pass ? "ok" : "alert"
-            resultPrompt = pass ? `Account ${acct} is ready` : "Account not found in ordentry"
-            updateBanner({
+            resultPrompt = pass ? `Account ${acct} is ready` : `Account ${acct} not found in ordentry`
+            resultSelected = pass ? acct : ""
+            this.changeState("validation response received", {
+                accts: newAccts,
                 bannerType: resultType, 
-                bannerPrompt: resultPrompt
+                bannerPrompt: resultPrompt,
+                acctSelected: resultSelected
             })
         }
 
@@ -199,7 +224,6 @@ class App extends Component {
         let tArr, dTable, data
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
-        // $$ this.state.acct.table.length>0
         // if a table is selected and the selected account has table data loaded
         if (this.state.accts[acct] !== undefined &&
             this.state.accts[acct][table] !== undefined &&
@@ -253,7 +277,8 @@ class App extends Component {
                  onInputChange={this.handleAcctInputChange.bind(this)}
                  onInputSubmit={this.handleAcctQuery.bind(this)} />
                 <Select val={acctSelected} selector="acctSelect"
-                 prompt="select an account" options={accts} />
+                 prompt="select an account" options={accts}
+                 onSelectChange={this.handleAcctChange.bind(this)} />
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
@@ -271,10 +296,3 @@ class App extends Component {
 }
 
 export default App
-
-// on table select change check cache and update banner if not loaded
-
-// this.updateBanner({
-//     bannerType: "",
-//     bannerPrompt: ""
-// })

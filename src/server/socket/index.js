@@ -5,6 +5,9 @@ const request = require("request")
 const validateAcct = require("../middleware").check
 const globals = require("../../../global.js")
 
+const checkDirs = require("../middleware/files").checkDirs
+const backupAcct = require("../middleware/files").backupAcct
+
 const apis = globals.apis
 const creds = globals.creds
 
@@ -41,10 +44,18 @@ module.exports = (io, app) => {
         })
         socket.on("validation request", acct => {
             console.log("validation request")
-            let result = {}
-            result.pass = validateAcct(acct)
-            result.acct = acct
-            socket.emit("validation response", result)
+            socket.emit("validation response", {
+                pass: validateAcct(acct),
+                acct: acct
+            })
+        })
+        socket.on("check backup", acct => {
+            console.log("checking for ",acct,"/DBFILES/BACKUP")
+            checkDirs(acct)
+        })
+        socket.on("backup acct", acct=> {
+            console.log("backing up acct: ",acct)
+            backupAcct(acct)
         })
     })
 }
