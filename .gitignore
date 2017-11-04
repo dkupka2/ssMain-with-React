@@ -2,3 +2,5 @@
 /node_modules
 
 global.js
+
+/src/app/public

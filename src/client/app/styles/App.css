@@ -18,8 +18,6 @@
   background-color: #709255;
 } .statusBanner.hidden { 
   display: none;
-} .statsBanner:not(:lastchild) {
-  line-height: 40px;
 } .loadTableBtn-parentDiv {
   margin-top: 15px;
 } table.data {
