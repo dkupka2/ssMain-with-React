@@ -4,18 +4,22 @@
   margin-top: 10px;
   border-radius: 25px;
   height: 40px;
+  line-height: 40px;
 } button.statusBanner {
   float: right;
   margin-right: 50px;
   margin-top: 10px;
+  line-height: 15px;
 } .statusBanner.alert {
   background-color: red;
 } .statusBanner.warning {
   background-color: yellow;
 } .statusBanner.ok {
-  background-color: green;
+  background-color: #709255;
 } .statusBanner.hidden { 
   display: none;
+} .statsBanner:not(:lastchild) {
+  line-height: 40px;
 } .loadTableBtn-parentDiv {
   margin-top: 15px;
 } table.data {
