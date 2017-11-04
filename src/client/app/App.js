@@ -20,14 +20,14 @@ import { initialState } from './state/index'
 import testData from './data'
 
 // data tables
-const eventKeys = Object.keys(events.loadTable)
-const multiKeys = Object.keys(events.multiTable)
+const tableKeys = Object.keys(events.loadTable)
+const compoundKeys = Object.keys(events.multiTable)
 const filterKeys = Object.keys(events.filterTable)
 // global object for Pubsub events
 let globalVar = {}
 // props for account obj initialization
 let newProps = []
-for (let key of eventKeys) {
+for (let key of tableKeys) {
     newProps.push(key)
 }
 // confirms account number is valid
@@ -74,13 +74,7 @@ class App extends Component {
         this.setState(newState)
     }
     
-    flatAccts() {
-        return Object.keys(this.state.accts)
-    }
-
-    shouldComponentUpdate() {
-        return true
-    }
+    flatAccts() { return Object.keys(this.state.accts) }
   
     handleAcctInputChange(x) {
         this.changeState("acct input changed", {acctInput: x})
@@ -91,9 +85,9 @@ class App extends Component {
     }
 
     handleTableChange(x) {
-        let newPrompt = ! this.state.selectedAcct ?
-            "Please select an account first to load this table" :
-            "Please Load the New Table for the latest version"
+        let newPrompt = Number(this.state.acctSelected) > 0 ?
+            "Please Load this table for the latest version" :
+            "Please select an account first to load this table"
         this.changeState("table changed", {
             tableSelected: x,
             bannerType: "warning",
@@ -136,13 +130,21 @@ class App extends Component {
         }
     }
 
-    updateBanner(data) {
-        // toggle banner className / message
-        this.changeState( "banner changed", data)
-    }
+    updateBanner(data) { this.changeState( "banner changed", data) }
 
-    handleBannerClose() {
-        this.setState({ bannerType: "hidden" })
+    handleBannerClose() { this.setState({ bannerType: "hidden" }) }
+
+    whichTables() {
+        switch (this.state.tableType) {
+            case "filter":
+                return filterKeys
+                break
+            case "compound":
+                return compoundKeys
+                break
+            default: 
+                return tableKeys
+        }
     }
 
     loadTable(acct, table) {
@@ -152,10 +154,6 @@ class App extends Component {
             bannerType: "warning",
             bannerPrompt: "Table is loading, please wait"
         })
-    }
-
-    getConflictsData() {
-        return true
     }
 
     checkConflicts() {
@@ -231,18 +229,9 @@ class App extends Component {
                 alert("render failed, check account number!")
                 return
             }
-            if (table && table !== "CONFLICTS") {
-                return (
-                    <Table selector="data" title={table} data={dTable}/>
-                )
-            } else {
-                if (this.checkConflicts() === true) {
-                    data = this.getConflictsData()
-                    return (
-                        <Table selector="conflicts" title="conflicts data" data={data}/>
-                    )
-                }
-            }
+            return (
+                <Table selector="data" title={table} data={dTable}/>
+            )
         } else {
             return
         }
@@ -251,9 +240,7 @@ class App extends Component {
     render() {
         let acctsArr = this.flatAccts()
         let accts = makeElems(acctsArr)
-        let tables = makeElems( 
-            eventKeys.concat(multiKeys).concat(filterKeys)
-        )
+        let tables = makeElems( this.whichTables() )
         let {
             acctSelected,
             acctInput,
