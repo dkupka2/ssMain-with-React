@@ -55,12 +55,12 @@ const validateAcctInput = (val) => {
     }
 }
 
-const makeElems = (arr) => {
-    let newElems = []
+const selectOptions = (arr) => {
+    let elems = []
     for (let val of arr) {
-        newElems.push(<option key={val.toString()} value={val}>{val}</option>)
+        elems.push(<option key={val.toString()} value={val}>{val}</option>)
     }
-    return newElems
+    return elems
 }
 
 class App extends Component {
@@ -239,8 +239,8 @@ class App extends Component {
 
     render() {
         let acctsArr = this.flatAccts()
-        let accts = makeElems(acctsArr)
-        let tables = makeElems( this.whichTables() )
+        let accts = selectOptions(acctsArr)
+        let tables = selectOptions( this.whichTables() )
         let {
             acctSelected,
             acctInput,
