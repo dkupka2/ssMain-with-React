@@ -15,10 +15,11 @@ class Select extends React.Component {
     }
     render() {
         const { val, options, selector, prompt } = this.props
+        const classFinal = options.length <= 1 ? "hidden" : selector
         return (
-            <div className={selector + "-parentDiv"}>
-                <p className={selector}>{prompt}</p>
-                <select className={selector} onChange={this.handleChange} value={val}>
+            <div className={classFinal + "-parentDiv"}>
+                <p className={classFinal}>{prompt}</p>
+                <select className={classFinal} onChange={this.handleChange} value={val}>
                     {options}
                 </select>
             </div>

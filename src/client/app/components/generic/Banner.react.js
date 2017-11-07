@@ -15,12 +15,12 @@ class Banner extends React.Component {
     }
     render() {
         const { selector, prompt, type } = this.props;
-        const btnClass = prompt === "" ? selector + " hidden" : selector
+        const classFinal = prompt === "" ? "hidden" : selector
         return (
-            <div className={selector + "-parentDiv"}>
-                <div className = {selector + " " + type}>
+            <div className={classFinal + "-parentDiv"}>
+                <div className = {classFinal + " " + type}>
                     {prompt}
-                    <button className={selector}
+                    <button className={classFinal}
                      onClick={this.handleClose.bind(this)}>x</button>
                 </div>
             </div>
