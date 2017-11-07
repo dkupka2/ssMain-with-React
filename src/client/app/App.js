@@ -71,7 +71,7 @@ const radioOptions = (arr, name, checked) => {
     for (let el of arr) {
         if (el === checked) {
             console.log("el", el)
-            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} />{el}</div>)
+            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} checked={true}/>{el}</div>)
         } else {
             console.log("el!", el)
             elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} />{el}</div>)
