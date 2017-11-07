@@ -15,6 +15,7 @@ class Banner extends React.Component {
     }
     render() {
         const { selector, prompt, type } = this.props;
+        const btnClass = prompt === "" ? selector + " hidden" : selector
         return (
             <div className={selector + "-parentDiv"}>
                 <div className = {selector + " " + type}>

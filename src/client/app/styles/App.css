@@ -16,7 +16,7 @@
   background-color: yellow;
 } .statusBanner.ok {
   background-color: #709255;
-} .statusBanner.hidden { 
+} .hidden { 
   display: none;
 } .loadTableBtn-parentDiv {
   margin-top: 15px;
@@ -27,4 +27,7 @@
   border-style: solid;
   border-color: black;
   border-width: 1px;
+} div.tableType-radioDiv div {
+  display: inline;
+  margin-right: 10px;
 }
