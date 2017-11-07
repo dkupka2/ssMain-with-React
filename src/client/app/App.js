@@ -70,10 +70,8 @@ const radioOptions = (arr, name, checked) => {
     let elems = []
     for (let el of arr) {
         if (el === checked) {
-            console.log("el", el)
             elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} checked={true}/>{el}</div>)
         } else {
-            console.log("el!", el)
             elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} />{el}</div>)
         }
     }
@@ -103,7 +101,8 @@ class App extends Component {
 
     handleTypeChange(x) {
         this.changeState("table changed", {
-            tableType: x
+            tableType: x,
+            tableSelected: this.whichTables(x)[0]
         })
     }
 
@@ -153,8 +152,8 @@ class App extends Component {
 
     handleBannerClose() { this.setState({ bannerType: "hidden" }) }
 
-    whichTables() {
-        let type = this.state.tableType
+    whichTables(x) {
+        let type = x ? x : this.state.tableType
         console.log("type: ", type)
         switch (type) {
             case "filtered":
@@ -282,12 +281,8 @@ class App extends Component {
                 <Select val={acctSelected} selector="acctSelect"
                  prompt="select an account" options={accts}
                  onSelectChange={this.handleAcctChange.bind(this)} />
-
-                <form>
                 <Radio selector="tableType" prompt="type of table: "
                  options={radios} onRadioChange={this.handleTypeChange.bind(this)} />
-                </form>
-
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
