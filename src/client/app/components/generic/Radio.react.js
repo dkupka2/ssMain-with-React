@@ -10,10 +10,10 @@ class Radio extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(e) {
-        this.props.onRadioChange(e.target.value);
+        this.props.onRadioChange(e.target.value)
     }
     render() {
-        const { selector, prompt, options } = this.props;
+        const { selector, prompt, options } = this.props
         return (
             <div className={selector + "-parentDiv"}>
                 <p className={selector}>{prompt}</p>

@@ -2,7 +2,7 @@ export const initialState = {
     acctInput: "",
     accts: {},
     acctSelected: "",
-    tableType: "table",
+    tableType: "",
     tableSelected: "Autos_on_Save",
     bannerType: "",
     bannerPrompt: "",

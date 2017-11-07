@@ -3,6 +3,7 @@ import Pubsub from 'pubsub-js'
 // styles
 import './styles/App.css'
 // components
+import Radio from './components/generic/Radio.react'
 import Select from './components/generic/Select.react'
 import Input  from './components/generic/Input.react'
 import Banner from './components/generic/Banner.react'
@@ -20,6 +21,7 @@ import { initialState } from './state/index'
 import testData from './data'
 
 // data tables
+let tableTypes = ["table","filtered","compound"]
 const tableKeys = Object.keys(events.loadTable)
 const compoundKeys = Object.keys(events.multiTable)
 const filterKeys = Object.keys(events.filterTable)
@@ -46,9 +48,9 @@ const validateAcctInput = (val) => {
     if (val) {
         arr = Array.from(val) // if length is valid and last char is a number
         if ( arr.length < 5 && ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
-            return val.slice() // return string
+            return val.slice() // return string else return string without invalid char
         } else {
-            return val.slice(0,val.length-1) // return string without invalid char
+            return val.slice(0,val.length-1)
         }
     } else {
         return ""
@@ -57,8 +59,23 @@ const validateAcctInput = (val) => {
 
 const selectOptions = (arr) => {
     let elems = []
-    for (let val of arr) {
-        elems.push(<option key={val.toString()} value={val}>{val}</option>)
+    for (let el of arr) {
+        elems.push(<option key={el.toString()} value={el}>{el}</option>)
+    }
+    return elems
+}
+
+const radioOptions = (arr, name, checked) => {
+    console.log(checked, " should be checked")
+    let elems = []
+    for (let el of arr) {
+        if (el === checked) {
+            console.log("el", el)
+            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} />{el}</div>)
+        } else {
+            console.log("el!", el)
+            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} />{el}</div>)
+        }
     }
     return elems
 }
@@ -82,6 +99,12 @@ class App extends Component {
 
     handleAcctChange(x) {
         this.changeState("selected acct changed", {acctSelected: x})
+    }
+
+    handleTypeChange(x) {
+        this.changeState("table changed", {
+            tableType: x
+        })
     }
 
     handleTableChange(x) {
@@ -112,11 +135,7 @@ class App extends Component {
         })
     }
 
-    handleAcctQuery(x) {
-        if ( verifyAccount(x) ) {
-            this.addAcct(x)
-        }
-    }
+    handleAcctQuery(x) { if ( verifyAccount(x) ) { this.addAcct(x) } }
 
     handleTableLoad() {
         let {acctSelected, tableSelected} = this.state
@@ -135,8 +154,10 @@ class App extends Component {
     handleBannerClose() { this.setState({ bannerType: "hidden" }) }
 
     whichTables() {
-        switch (this.state.tableType) {
-            case "filter":
+        let type = this.state.tableType
+        console.log("type: ", type)
+        switch (type) {
+            case "filtered":
                 return filterKeys
                 break
             case "compound":
@@ -238,16 +259,19 @@ class App extends Component {
     }
 
     render() {
-        let acctsArr = this.flatAccts()
-        let accts = selectOptions(acctsArr)
-        let tables = selectOptions( this.whichTables() )
         let {
             acctSelected,
             acctInput,
+            tableType,
             tableSelected,
             bannerType,
             bannerPrompt,
         } = this.state
+
+        let acctsArr = this.flatAccts()
+        let accts = selectOptions(acctsArr)
+        let tables = selectOptions( this.whichTables() )
+        let radios = radioOptions(tableTypes, "tableType", tableType)
 
         return (
             <div className="App">
@@ -258,6 +282,12 @@ class App extends Component {
                 <Select val={acctSelected} selector="acctSelect"
                  prompt="select an account" options={accts}
                  onSelectChange={this.handleAcctChange.bind(this)} />
+
+                <form>
+                <Radio selector="tableType" prompt="type of table: "
+                 options={radios} onRadioChange={this.handleTypeChange.bind(this)} />
+                </form>
+
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
@@ -267,7 +297,7 @@ class App extends Component {
                  selector="statusBanner"
                  onBannerClose={this.handleBannerClose.bind(this)} />
                 <p>{acctsArr.length + " accts loaded, selected: "
-                 + acctSelected + " " + tableSelected}</p>
+                 + acctSelected + " " + tableSelected + " " + tableType}</p>
                 {this.renderTable()}
             </div>
         )
