@@ -18,7 +18,6 @@ module.exports = (io, app) => {
         let relay = (message, data) => {
             socket.emit(message, data)
         }
-
         socket.on("restapi request", restReq => {
             console.log("api request")
             let url = apis.pirest,
@@ -35,10 +34,10 @@ module.exports = (io, app) => {
                     if (err) {
                         console.log("error: ", err)
                     }
-                    let first = restReq.search("/") + 1,
+                    let first = restReq.search("/"),
                         second = restReq.search("out=json") - 2,
-                        acct = restReq.slice(0, first - 1),
-                        table = restReq.slice(first, second)
+                        acct = restReq.slice(0, first),
+                        table = restReq.slice(first-1, second)
                     if (body.slice(body.length-14) === "does not exist") {
                         body = { error: "account does not exist in ordentry"}
                     }
