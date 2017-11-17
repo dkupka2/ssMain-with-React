@@ -65,10 +65,10 @@ const selectOptions = (arr) => {
     return elems
 }
 
-const radioOptions = (arr, name, checked, func) => {
+const radioOptions = (arr, name, checked) => {
     let elems = []
     for (let el of arr) {
-        elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} checked={el === checked} onChange={func.bind(this)}/>{el}</div>)
+        elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} checked={el === checked} readOnly={el === checked}/>{el}</div>)
     }
     return elems
 }
@@ -268,14 +268,10 @@ class App extends Component {
             bannerPrompt,
         } = this.state
 
-        let onChange = (e) => {
-            console.log("valll!!", e.target.value)
-        }
-
         let acctsArr = this.flatAccts()
         let accts = selectOptions(acctsArr)
         let tables = selectOptions( this.whichTables() )
-        let radios = radioOptions(tableTypes, "tableType", tableType, onChange)
+        let radios = radioOptions(tableTypes, "tableType", tableType)
 
         return (
             <div className="App">
