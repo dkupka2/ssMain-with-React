@@ -2,11 +2,12 @@
 
 const request = require("request")
 
-const validateAcct = require("../middleware").check
+const middleware = require("../middleware")
+const validateAcct = middleware.check
+const getBackUps = middleware.getBackUps
+
 const globals = require("../../../global.js")
 
-const checkDirs = require("../middleware/files").checkDirs
-const backupAcct = require("../middleware/files").backupAcct
 
 const apis = globals.apis
 const creds = globals.creds
@@ -14,6 +15,11 @@ const creds = globals.creds
 module.exports = (io, app) => {
     // socket transactions for restapi
     io.of("/restapi").on("connection", socket => {
+        let relay = (message, data) => {
+            console.log("socket: relay")
+            socket.emit(message, data)
+        }
+
         socket.on("restapi request", restReq => {
             console.log("api request")
             let url = apis.pirest,
@@ -48,14 +54,8 @@ module.exports = (io, app) => {
                 pass: validateAcct(acct),
                 acct: acct
             })
-        })
-        socket.on("check backup", acct => {
-            console.log("checking for ",acct,"/DBFILES/BACKUP")
-            checkDirs(acct)
-        })
-        socket.on("backup acct", acct=> {
-            console.log("backing up acct: ",acct)
-            backupAcct(acct)
+            console.log("socket: validation")
+            getBackUps(acct, relay)
         })
     })
 }

@@ -21,6 +21,7 @@ let events = {
         Scheduled_Reminders: "PTREMIND",
     },
     loadTable: {
+        //Admin: "OE_ADMIN",
         Autos_on_Save: "PT_AUTOA",
         Autos_on_Deliver: "PT_AUTOB",
         Form: "OE_FORM",
@@ -33,7 +34,6 @@ let events = {
         Contacts: "PT_CONTC",
         Abend: "OE_ABEND",
         Help_Topics: "OE_HELP",
-        //Admin: "OE_ADMIN",
         Dispatch_Procedure: "PT_PROC",
         Dispatch_Delivery_Table: "PT_PROCDET",
         Dispatch_Conditions: "PT_CONDLIB",
@@ -46,11 +46,12 @@ let events = {
     },
     req: {
         restApi: "restapi request",
-        validation: "validation request"
+        validation: "validation request",
     },
     res: {
         restApi: "restapi response",
-        validation: "validation response"
+        validation: "validation response",
+        backups: "backups response",
     },   
     ui: {
         ADD_ACCT: "aA",
@@ -104,6 +105,10 @@ Pubsub.subscribe(events.req.validation, validation)
 
 socket.on(events.res.validation, (data) => {
     Pubsub.publish(events.res.validation, data)
+})
+
+socket.on(events.res.backups, (data) => {
+    Pubsub.publish(events.res.backups, data)
 })
 
 export default events

@@ -1,14 +1,36 @@
 const fs = require("fs")
-const promisify = require('util').promisify
+const _ = require("lodash");
 const glob = require('glob')
 
+const globals = require("../../../global.js").paths
+
+const promisify = require('util').promisify
 const copy = promisify(fs.copyFile)
-let pGlob = promisify(glob.glob)
+const readdir = promisify(fs.readdir)
+const pGlob = promisify(glob.glob)
+
+let lookUpFile = ( file, dir = `${globals.root}/ordentry`, type = "dir" )  => {
+    let target = _.attempt( (path) => {
+        return fs.statSync(path);
+    }, `${dir}/${ file.toString().trim() }` )
+    if ( target instanceof Error ) { 
+        console.log("error from lookUp", target)
+        return false
+    }
+    if ( target.isFile() && type === "file" || 
+         target.isDirectory() && type === "dir" ) {
+        return true
+    } else {
+        console.log(`lookUp target is not a ${type === "dir" ? "directory" : "file"}`)
+        return false
+    }
+}
 
 let timeStamp = () => {
     let d = new Date()
+    let minutes = d.getMinutes() > 9 ? d.getMinutes() : `0${d.getMinutes()}`
     let final =
-    `${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}_${d.getHours()}_${d.getMinutes()}`
+    `${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}_${d.getHours()}_${minutes}`
     return final
 }
 
@@ -16,6 +38,7 @@ let time
 let dir
 let acctNum
 let acct
+let gO
 let dbfiles
 let backUp
 let dest
@@ -26,6 +49,7 @@ let initialize = (acctNumber, setTime, drive = "E") => {
     dir = `${drive}:/ORDENTRY`
     acctNum = `/${acctNumber}`
     acct = `${dir}${acctNum}`
+    gO = {cwd: acct}
     dbfiles = `${acct}/DBFILES`
     backUp = `${dbfiles}/BACKUP`
     dest = `${backUp}/${time}`
@@ -44,9 +68,6 @@ let patterns = [
     'PT_CONTC.*',
     'CUSTOMER.*',
 ]
-
-gO = {cwd: acct}
-
 
 let exists = (f) => {
     try {
@@ -83,7 +104,7 @@ async function copyGlobs(source, dest, matches) {
     }
 }
 
-async function globFiles(file, source, time, dest) {
+async function globFiles(file, source, dest) {
     try {
         await pGlob(file, gO, (err, matches) => {
             copyGlobs(source, dest, matches)
@@ -99,15 +120,11 @@ async function backupFiles(source, time, dest, files = patterns) {
     }
 }
 
-async function getBackupList() {
-
-}
-
 async function restoreFromBackup() {
 
 }
 
-const checkDirs = (acct) => {
+async function checkDirs(acct) {
     Promise.resolve( initialize(acct, timeStamp() ) )
         .then( checkSubDir(dbfiles) )
         .then( checkSubDir(backUp) )
@@ -119,10 +136,7 @@ const checkDirs = (acct) => {
 }
 
 const backupAcct = (acct) => {
-    Promise.resolve( initialize(acct, timeStamp() ) )
-        .then( checkSubDir(dbfiles) )
-        .then( checkSubDir(backUp) )
-        .then( checkSubDir(dest) )
+    Promise.resolve( checkDirs(acct) )
         .then( backupFiles(acct, time, dest) )
         .catch((e) => {
             console.error(e)
@@ -130,12 +144,28 @@ const backupAcct = (acct) => {
         })
 }
 
-const restoreOrdentry = (acct) => {
+const restoreOrdentry = (acct, ) => {
     initialize(acct, timeStamp())
     restoreFromBackup()
 }
 
+const getBackUps = (acct, cb) => {
+    Promise.resolve( initialize(acct, timeStamp() ) )
+        .then( checkSubDir(dbfiles) )
+        .then( checkSubDir(backUp) )
+        .then( pGlob("201*", {cwd: backUp}, (err, matches) => {
+            cb("backups response", {acct: acct, data: matches.filter( (dir) => lookUpFile(dir, backUp) )} )
+        })
+        .catch((e) => {
+            console.error(e)
+            return false
+        })
+        )
+}
+
 module.exports = {
     backupAcct,
-    checkDirs
+    checkDirs,
+    lookUpFile,
+    getBackUps
 }

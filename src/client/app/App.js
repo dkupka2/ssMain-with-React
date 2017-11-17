@@ -65,14 +65,14 @@ const selectOptions = (arr) => {
     return elems
 }
 
-const radioOptions = (arr, name, checked) => {
+const radioOptions = (arr, name, checked, func) => {
     console.log(checked, " should be checked")
     let elems = []
     for (let el of arr) {
         if (el === checked) {
-            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} checked={true}/>{el}</div>)
+            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} checked={true} onChange={func.bind(this)}/>{el}</div>)
         } else {
-            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} />{el}</div>)
+            elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} onChange={func.bind(this)}/>{el}</div>)
         }
     }
     return elems
@@ -228,6 +228,12 @@ class App extends Component {
         }
 
         Pubsub.subscribe(events.res.validation, globalVar.accountValidation)
+
+        globalVar.relayBackups = (event, data) => {
+            console.log(data.data)
+        }
+
+        Pubsub.subscribe(events.res.backups, globalVar.relayBackups)
     }
 
     renderTable() {
@@ -267,10 +273,14 @@ class App extends Component {
             bannerPrompt,
         } = this.state
 
+        let onChange = (e) => {
+            console.log("valll!!", e.target.value)
+        }
+
         let acctsArr = this.flatAccts()
         let accts = selectOptions(acctsArr)
         let tables = selectOptions( this.whichTables() )
-        let radios = radioOptions(tableTypes, "tableType", tableType)
+        let radios = radioOptions(tableTypes, "tableType", tableType, onChange)
 
         return (
             <div className="App">
