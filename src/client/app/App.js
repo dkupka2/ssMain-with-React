@@ -149,7 +149,6 @@ class App extends Component {
 
     whichTables(x) {
         let type = x ? x : this.state.tableType
-        console.log("type: ", type)
         switch (type) {
             case "filtered":
                 return filterKeys

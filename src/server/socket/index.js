@@ -16,7 +16,6 @@ module.exports = (io, app) => {
     // socket transactions for restapi
     io.of("/restapi").on("connection", socket => {
         let relay = (message, data) => {
-            console.log("socket: relay")
             socket.emit(message, data)
         }
 
@@ -49,12 +48,11 @@ module.exports = (io, app) => {
             )
         })
         socket.on("validation request", acct => {
-            console.log("validation request")
+            console.log("requesting validation & backup directory listing")
             socket.emit("validation response", {
                 pass: validateAcct(acct),
                 acct: acct
             })
-            console.log("socket: validation")
             getBackUps(acct, relay)
         })
     })
