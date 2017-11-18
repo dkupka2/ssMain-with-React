@@ -9,6 +9,7 @@ import Input  from './components/generic/Input.react'
 import Banner from './components/generic/Banner.react'
 import Button from './components/generic/Button.react'
 import Table  from './components/generic/Table.react'
+import FileManagement from './components/widgets/FileManagement.widget'
 // action keys and relay function
 import events from './events'
 const {
@@ -224,10 +225,16 @@ class App extends Component {
         Pubsub.subscribe(events.res.validation, globalVar.accountValidation)
 
         globalVar.relayBackups = (event, data) => {
-            console.log(data.data)
+            this.changeState("backups received", {
+                fileManagement: Object.assign({}, this.state.fileManagement, {backups: data.data})
+            })
         }
 
         Pubsub.subscribe(events.res.backups, globalVar.relayBackups)
+
+        globalVar.requestBackup = (acct = this.state.acctSelected) => {
+            pubsub.publish(events.req.backup, acct)
+        }
     }
 
     renderTable() {
@@ -265,7 +272,12 @@ class App extends Component {
             tableSelected,
             bannerType,
             bannerPrompt,
+            fileManagement
         } = this.state
+
+        let {
+            backups
+        } = this.state.fileManagement
 
         let acctsArr = this.flatAccts()
         let accts = selectOptions(acctsArr)
@@ -274,6 +286,7 @@ class App extends Component {
 
         return (
             <div className="App">
+                <FileManagement selector="fileManagement" backups={backups} backupRequest={globalVar.requestBackup} />
                 <Input selector="acctInput" prompt="enter an account"
                  val={validateAcctInput(acctInput)}
                  onInputChange={this.handleAcctInputChange.bind(this)}

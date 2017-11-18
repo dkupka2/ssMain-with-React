@@ -1,26 +1,31 @@
 import React from 'react';
 
-import Select from './components/generic/Select.react'
-import Button from './components/generic/Button.react'
+import Select from '../generic/Select.react'
+import Button from '../generic/Button.react'
 
 // widget componenet for file management
 
 class FileManagement extends React.Component {
     constructor(props) {
         super(props)
-        this.handleChange = this.handleChange.bind(this)
     }
-    handleChange(e) {
-        this.props.onSelectChange(e.target.value);
+    handleBackupsClick() {
+        alert(this.props.backups)
+    }
+    handleBackupClick() {
+        this.props.backupRequest()
+    }
+    handleRestoreClick() {
+        alert("restore")
     }
     render() {
-        const { val, options, selector, prompt } = this.props
+        const { selector, backups } = this.props
         return (
-            <div className={selector + "-parentDiv"}>
+            <div className={`${selector}-parentDiv`}>
                 <p className={selector}>{prompt}</p>
-                <select className={selector} onChange={this.handleChange} value={val}>
-                    {options}
-                </select>
+                <Button selector={`${selector}-backup`} onButtonClick={this.handleBackupClick.bind(this)} prompt="backup files" />
+                <Button selector={`${selector}-backups`} onButtonClick={this.handleBackupsClick.bind(this)} prompt="existing backups" />
+                <Button selector={`${selector}-restore`} onButtonClick={this.handleRestoreClick.bind(this)} prompt="restore acct" />
             </div>
         )
     }

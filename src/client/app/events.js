@@ -47,6 +47,7 @@ let events = {
     req: {
         restApi: "restapi request",
         validation: "validation request",
+        backup: "backup request",
     },
     res: {
         restApi: "restapi response",

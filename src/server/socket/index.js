@@ -15,6 +15,7 @@ const creds = globals.creds
 module.exports = (io, app) => {
     // socket transactions for restapi
     io.of("/restapi").on("connection", socket => {
+        console.log("connection found")
         let relay = (message, data) => {
             socket.emit(message, data)
         }
