@@ -7,18 +7,18 @@ import React from 'react';
 
 class Banner extends React.Component {
     constructor(props) {
-        super(props);
-        this.handleClose = this.handleClose.bind(this);
+        super(props)
+        this.handleClose = this.handleClose.bind(this)
     }
     handleClose() {
         this.props.onBannerClose()
     }
     render() {
-        const { selector, prompt, type } = this.props;
+        const { selector, prompt, type } = this.props
         const classFinal = prompt === "" ? "hidden" : selector
         return (
-            <div className={classFinal + "-parentDiv"}>
-                <div className = {classFinal + " " + type}>
+            <div className={`${classFinal}-parentDiv`}>
+                <div className = {`${classFinal} ${type}`}>
                     {prompt}
                     <button className={classFinal}
                      onClick={this.handleClose.bind(this)}>x</button>
@@ -28,4 +28,4 @@ class Banner extends React.Component {
     }
 }
 
-export default Banner;
+export default Banner

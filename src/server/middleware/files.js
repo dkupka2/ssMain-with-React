@@ -87,7 +87,6 @@ let checkSubDir = (which) => {
             fs.mkdirSync(which)
             // report dir is made?
         } catch (e) {
-            // console.error('failed to create dir: ', which, e)
             return new Error `failed to create dir: ${which} ${e}`
         }
     }
@@ -98,7 +97,6 @@ async function copyGlobs(source, dest, matches) {
         try {
             await copy(`${source}/${match}`, `${dest}/${match}`)
         } catch (e) {
-            // console.error("error copying file: ",source,match," to ",dest,e)
             return new Error `error copying file: ${source} to ${dest} ${e}`
         }
     }

@@ -8,7 +8,7 @@ import React from 'react';
 const Button = (props)  => {
     const {selector, prompt, handleClick} = props
     return (
-        <div {selector + "-parentDiv"}>
+        <div {`${selector}-parentDiv`}>
             <button className={selector + " button"}
              onClick={handleClick}>{prompt}</button>
         </div>

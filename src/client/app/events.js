@@ -1,6 +1,10 @@
 import Pubsub from 'pubsub-js';
 import io from 'socket.io-client';
 
+// let os = require('os');
+// console.log(os.networkInterfaces())
+// let ipv4 = os.networkInterfaces()['Local Area Connection'][1]['address'];
+
 const socket = io.connect("http://localhost:8000/restapi");
 
 socket.on("connect", () => {
@@ -111,5 +115,11 @@ socket.on(events.res.validation, (data) => {
 socket.on(events.res.backups, (data) => {
     Pubsub.publish(events.res.backups, data)
 })
+
+let backupAccts = (event, acct) => {
+    socket.emit(events.req.backup, acct)
+}
+
+Pubsub.subscribe(events.req.backup, backupAccts)
 
 export default events

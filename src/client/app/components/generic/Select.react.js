@@ -11,13 +11,13 @@ class Select extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(e) {
-        this.props.onSelectChange(e.target.value);
+        this.props.onSelectChange(e.target.value)
     }
     render() {
         const { val, options, selector, prompt } = this.props
         const classFinal = options.length <= 1 ? "hidden" : selector
         return (
-            <div className={classFinal + "-parentDiv"}>
+            <div className={`${classFinal}-parentDiv`}>
                 <p className={classFinal}>{prompt}</p>
                 <select className={classFinal} onChange={this.handleChange} value={val}>
                     {options}

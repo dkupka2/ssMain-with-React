@@ -15,9 +15,9 @@ class Radio extends React.Component {
     render() {
         const { selector, prompt, options } = this.props
         return (
-            <div className={selector + "-parentDiv"}>
+            <div className={`${selector} -parentDiv`}>
                 <p className={selector}>{prompt}</p>
-                <div className={selector + "-radioDiv"} onChange={this.handleChange}>
+                <div className={`${selector}-radioDiv`} onChange={this.handleChange}>
                     {options}
                 </div>
             </div>

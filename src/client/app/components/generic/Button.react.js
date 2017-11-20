@@ -14,7 +14,7 @@ class Button extends React.Component {
     render() {
         const { selector, prompt } = this.props;
         return (
-            <div className={selector + "-parentDiv"}>
+            <div className={`${selector}-parentDiv`}>
                 <button className={selector}
                 onClick={this.handleClick}>{prompt}</button>
             </div>

@@ -6,5 +6,5 @@ export const initialState = {
     tableSelected: "Autos_on_Save",
     bannerType: "",
     bannerPrompt: "",
-    fileManagement: {}
+    fileManagement: { backups: [] }
 }

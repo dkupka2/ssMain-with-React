@@ -87,6 +87,12 @@ class App extends Component {
     
     flatAccts() { return Object.keys(this.state.accts) }
   
+    handleBackupChange(x) {
+        this.changeState("backups received", {
+            fileManagement: Object.assign({}, this.state.fileManagement, {selectedBackup: x})
+        })
+    }
+
     handleAcctInputChange(x) {
         this.changeState("acct input changed", {acctInput: x})
     }
@@ -233,7 +239,7 @@ class App extends Component {
         Pubsub.subscribe(events.res.backups, globalVar.relayBackups)
 
         globalVar.requestBackup = (acct = this.state.acctSelected) => {
-            pubsub.publish(events.req.backup, acct)
+            Pubsub.publish(events.req.backup, acct)
         }
     }
 
@@ -265,6 +271,10 @@ class App extends Component {
     }
 
     render() {
+        let bTern = (arg) => arg ? true : false
+
+        let backupOptions = [];
+
         let {
             acctSelected,
             acctInput,
@@ -276,8 +286,10 @@ class App extends Component {
         } = this.state
 
         let {
-            backups
+            backups, selectedBackup
         } = this.state.fileManagement
+
+        if (backups) backupOptions = selectOptions(backups)
 
         let acctsArr = this.flatAccts()
         let accts = selectOptions(acctsArr)
@@ -286,7 +298,6 @@ class App extends Component {
 
         return (
             <div className="App">
-                <FileManagement selector="fileManagement" backups={backups} backupRequest={globalVar.requestBackup} />
                 <Input selector="acctInput" prompt="enter an account"
                  val={validateAcctInput(acctInput)}
                  onInputChange={this.handleAcctInputChange.bind(this)}
@@ -294,6 +305,10 @@ class App extends Component {
                 <Select val={acctSelected} selector="acctSelect"
                  prompt="select an account" options={accts}
                  onSelectChange={this.handleAcctChange.bind(this)} />
+                <FileManagement selector="fileManagement" backupRequest={globalVar.requestBackup}
+                 selectedBackup={this.handleBackupChange.bind(this)}
+                 backupOptions={backupOptions} backups={backups}
+                 acctSelected={bTern(acctSelected)} />
                 <Radio selector="tableType" prompt="type of table: "
                  options={radios} onRadioChange={this.handleTypeChange.bind(this)} />
                 <Select val={tableSelected} selector="tableSelect"

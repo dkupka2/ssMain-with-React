@@ -8,40 +8,40 @@ import _ from 'lodash';
 
 class Table extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     makeRows(dataArr, cellType, parentIndex) {
         if (! dataArr) {
             alert("dataArr is undef")
-            return;
+            return
         }
         let newArr = []
         for (let i = 0; i < dataArr.length; i += 1) {
             if (cellType === 'h') {
-                newArr.push( <th key={parentIndex + "-" + i}>{dataArr[i]}</th> )
+                newArr.push( <th key={`${parentIndex}-${i}`}>{dataArr[i]}</th> )
             } else {
-                newArr.push( <td key={parentIndex + "-" + i}>{dataArr[i]}</td> )
+                newArr.push( <td key={`${parentIndex}-${i}`}>{dataArr[i]}</td> )
             }
         }
         return (
-            <tr key={"row-" + parentIndex}>
+            <tr key={`row-${parentIndex}`}>
                 {newArr}
             </tr>
         )
     }
 
     makeTable(data, headers, selector) {
-        const dataRows = []; 
+        const dataRows = []
         const headerRow = this.makeRows(headers, 'h')
         for (let p = 0; p < data.length; p += 1) {
-            let dataArr = [];
+            let dataArr = []
             let pIndex
             for (let i = 0; i < headers.length; i += 1) {
-                let header = headers[i];
-                let datum = data[p][header];
-                pIndex = p + "-" + i;
-                dataArr.push(datum);
+                let header = headers[i]
+                let datum = data[p][header]
+                pIndex = `${p}-${i}`
+                dataArr.push(datum)
             }
             dataRows.push( this.makeRows( dataArr, 'd', pIndex) )
         }
@@ -63,7 +63,7 @@ class Table extends React.Component {
         const headers = _.keys(data[0]);
         const tableContent = this.makeTable(data, headers, selector);
         return (
-            <div className={selector + "-parentDiv"}>
+            <div className={`${selector}-parentDiv`}>
                 <p className={selector}>{title}</p>
                 {tableContent}
             </div>
@@ -71,4 +71,4 @@ class Table extends React.Component {
     }
 }
 
-export default Table;
+export default Table

@@ -30,4 +30,14 @@
 } div.tableType-radioDiv div {
   display: inline;
   margin-right: 10px;
+} div.fileManagement-parentDiv {
+  background-color: grey;
+  height: 40px;
+} div.fileManagement-backup-parentDiv,
+  div.fileManagement-manage-parentDiv,
+  div.fileManagement-restore-parentDiv {
+  display: inline;
+  margin-right: 10px;
+  line-height: 40px;
+  margin-top: 20px;
 }

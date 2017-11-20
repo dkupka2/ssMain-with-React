@@ -6,4 +6,4 @@ let output = {
     ]
 }
 
-export default output;
+export default output
