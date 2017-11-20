@@ -85,7 +85,6 @@ Pubsub.subscribe(events.actions.loadTable, callAPI)
 socket.on(events.res.restApi, (data) => {
     let rData = Object.assign({}, data)
     rData.table = getPropName(events.loadTable, data.table)
-    console.log("table? ", rData.table)
     // data.table = events.loadTable[data.table]
     Pubsub.publish(events.res.restApi, rData)
 })

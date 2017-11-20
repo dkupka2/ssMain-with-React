@@ -191,7 +191,6 @@ class App extends Component {
 
     handleRestRes(data) {
         let { acct, body, table } = data
-        console.log("table is: ", table)
         if (!this.state.accts[acct][table]) {
             this.state.accts[acct][table] = []
         }
@@ -205,7 +204,6 @@ class App extends Component {
     componentWillMount() {
         globalVar.receiveRestRes = (event, data) => {
             // handle data returned from restAPI response
-            console.log("received API response")
             this.handleRestRes(data)
         }
 

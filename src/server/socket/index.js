@@ -38,7 +38,8 @@ module.exports = (io, app) => {
                     let first = restReq.search("/"),
                         second = restReq.search("out=json") - 2,
                         acct = restReq.slice(0, first),
-                        table = restReq.slice(first-1, second)
+                        table = restReq.slice(`${first+1}`, second)
+                        console.log("table name??", table)
                     if (body.slice(body.length-14) === "does not exist") {
                         body = { error: "account does not exist in ordentry"}
                     }
