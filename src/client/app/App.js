@@ -22,9 +22,9 @@ import { initialState } from './state/index'
 import testData from './data'
 
 // data tables
-let tableTypes = ["table","filtered","compound"]
+let tableTypes = ["conflicts", "table","filtered"]
 const tableKeys = Object.keys(events.loadTable)
-const compoundKeys = Object.keys(events.multiTable)
+const conflictsKeys = Object.keys(events.multiTable)
 const filterKeys = Object.keys(events.filterTable)
 // global object for Pubsub events
 let globalVar = {}
@@ -160,8 +160,8 @@ class App extends Component {
             case "filtered":
                 return filterKeys
                 break
-            case "compound":
-                return compoundKeys
+            case "conflicts":
+                return conflictsKeys
                 break
             default: 
                 return tableKeys

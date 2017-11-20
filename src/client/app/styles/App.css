@@ -1,5 +1,10 @@
   * {
   text-align: center;
+  background-color: #f4f4f4;
+} input, select {
+  background-color: #faf6e4;
+} button, select > * {
+  background-color: #d6d6d6;
 } div.statusBanner {
   margin-top: 10px;
   border-radius: 25px;
@@ -13,7 +18,7 @@
 } .statusBanner.alert {
   background-color: red;
 } .statusBanner.warning {
-  background-color: yellow;
+  background-color: #fff200;
 } .statusBanner.ok {
   background-color: #709255;
 } .hidden { 
@@ -31,7 +36,7 @@
   display: inline;
   margin-right: 10px;
 } div.fileManagement-parentDiv {
-  background-color: grey;
+  background-color: #6b96b9;
   height: 40px;
 } div.fileManagement-backup-parentDiv,
   div.fileManagement-manage-parentDiv,

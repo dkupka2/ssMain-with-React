@@ -2,8 +2,8 @@ export const initialState = {
     acctInput: "",
     accts: {},
     acctSelected: "",
-    tableType: "table",
-    tableSelected: "Autos_on_Save",
+    tableType: "conflicts",
+    tableSelected: "conflicts",
     bannerType: "",
     bannerPrompt: "",
     fileManagement: { backups: [] }
