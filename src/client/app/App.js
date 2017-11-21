@@ -19,7 +19,6 @@ const {
     } = events.ui
 // other dependancies
 import { initialState } from './state/index'
-import testData from './data'
 
 // data tables
 let tableTypes = ["conflicts", "table","filtered"]

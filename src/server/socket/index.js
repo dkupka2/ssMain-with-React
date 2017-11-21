@@ -7,10 +7,10 @@ const validateAcct = middleware.check
 const getBackUps = middleware.getBackUps
 
 const globals = require("../../../global.js")
-
-
 const apis = globals.apis
 const creds = globals.creds
+
+let filterTable = (table, key, acct) => return table.filter((row) => row.CLIENT_ID === acct)
 
 module.exports = (io, app) => {
     // socket transactions for restapi
