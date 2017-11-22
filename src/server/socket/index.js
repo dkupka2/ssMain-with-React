@@ -2,15 +2,18 @@
 
 const request = require("request")
 
-const middleware = require("../middleware")
-const validateAcct = middleware.check
-const getBackUps = middleware.getBackUps
+const middleware = require("../middleware"),
+    validateAcct = middleware.check,
+    getBackUps = middleware.getBackUps
 
-const globals = require("../../../global.js")
-const apis = globals.apis
-const creds = globals.creds
+const globals = require("../../../global.js"),
+    apis = globals.apis,
+    creds = globals.creds
 
-let filterTable = (table, key, acct) => return table.filter((row) => row.CLIENT_ID === acct)
+const url = apis.pirest,
+    user = creds.username,
+    pass = creds.password,
+    auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64")
 
 module.exports = (io, app) => {
     // socket transactions for restapi
@@ -19,12 +22,8 @@ module.exports = (io, app) => {
         let relay = (message, data) => {
             socket.emit(message, data)
         }
-        socket.on("restapi request", restReq => {
-            console.log("api request")
-            let url = apis.pirest,
-                user = creds.username,
-                pass = creds.password,
-                auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64")
+        socket.on("table request", restReq => {
+            let first, second, acct, table
             request(
                 {
                     url: url + restReq,
@@ -35,16 +34,38 @@ module.exports = (io, app) => {
                     if (err) {
                         console.log("error: ", err)
                     }
-                    let first = restReq.search("/"),
-                        second = restReq.search("out=json") - 2,
-                        acct = restReq.slice(0, first),
-                        table = restReq.slice(`${first+1}`, second)
-                        console.log("table name??", table)
-                    if (body.slice(body.length-14) === "does not exist") {
-                        body = { error: "account does not exist in ordentry"}
+                    try {
+                        JSON.parse(body)
+                    } catch (e) {
+                        return relay("rest error", e)
                     }
-                    let data = Object.assign({}, {acct, table, body})
-                    socket.emit("restapi response", data)
+                    first = restReq.search("/"),
+                    second = restReq.search("out=json") - 2,
+                    acct = restReq.slice(0, first),
+                    table = restReq.slice(`${first+1}`, second)
+                    socket.emit("restapi response", {acct, table, body})
+                }
+            )
+        })
+        socket.on("filtered request", data => {
+            let send,
+                {acct, table } = data
+            request(
+                {
+                    url: `${url}${table}/?limit=500&out=json`,
+                    headers: {
+                        "authorization": auth
+                    }
+                }, (err, response, body) => {
+                    if (err) {
+                        return relay("rest error", err)
+                    }
+                    try {
+                        JSON.parse(body)
+                    } catch (e) {
+                        return relay("rest error", body)
+                    }
+                    socket.emit("restapi response", {acct, table, body})
                 }
             )
         })

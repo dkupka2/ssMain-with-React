@@ -73,6 +73,8 @@ const radioOptions = (arr, name, checked) => {
     return elems
 }
 
+let filterTable = (table, acct) => JSON.stringify( JSON.parse(table).filter((row) => row.CLIENT_ID === parseInt(acct, 10)) )
+
 class App extends Component {
     constructor(props) {
         super(props)
@@ -138,9 +140,9 @@ class App extends Component {
     handleAcctQuery(x) { if ( verifyAccount(x) ) { this.addAcct(x) } }
 
     handleTableLoad() {
-        let {acctSelected, tableSelected} = this.state
+        let {acctSelected, tableSelected, tableType} = this.state
         if (acctSelected) {
-            this.loadTable(acctSelected, tableSelected)
+            this.loadTable(acctSelected, tableSelected, tableType)
         } else {
             this.updateBanner({
                 bannerType: "warning",
@@ -167,9 +169,8 @@ class App extends Component {
         }
     }
 
-    loadTable(acct, table) {
-        console.log("requesting table: ", table)
-        Pubsub.publish(events.actions.loadTable, { acct, table })
+    loadTable(acct, table, type) {
+        Pubsub.publish(events.actions.loadTable, { acct, table, type })
         this.updateBanner({
             bannerType: "warning",
             bannerPrompt: "Table is loading, please wait"
@@ -189,10 +190,9 @@ class App extends Component {
     }
 
     handleRestRes(data) {
+        console.log("handling rest res", data)
         let { acct, body, table } = data
-        if (!this.state.accts[acct][table]) {
-            this.state.accts[acct][table] = []
-        }
+        if (!this.state.accts[acct][table]) this.state.accts[acct][table] = []
         this.state.accts[acct][table].push([body])
         this.updateBanner({
             bannerType: "ok",
@@ -201,8 +201,7 @@ class App extends Component {
     }
 
     componentWillMount() {
-        globalVar.receiveRestRes = (event, data) => {
-            // handle data returned from restAPI response
+        globalVar.receiveRestRes = (event, data) => { // handle data returned from restAPI response
             this.handleRestRes(data)
         }
 
@@ -238,6 +237,15 @@ class App extends Component {
         globalVar.requestBackup = (acct = this.state.acctSelected) => {
             Pubsub.publish(events.req.backup, acct)
         }
+
+        globalVar.handleError = (error) => {
+            this.updateBanner({
+                bannerType: "alert",
+                bannerPrompt: error
+            })
+        }
+
+        Pubsub.subscribe(events.res.error, globalVar.handleError)
     }
 
     renderTable() {
@@ -268,7 +276,7 @@ class App extends Component {
     }
 
     render() {
-        let bTern = (arg) => arg ? true : false
+        let tern = (arg) => arg ? true : false
 
         let backupOptions = [];
 
@@ -305,7 +313,7 @@ class App extends Component {
                 <FileManagement selector="fileManagement" backupRequest={globalVar.requestBackup}
                  selectedBackup={this.handleBackupChange.bind(this)}
                  backupOptions={backupOptions} backups={backups}
-                 acctSelected={bTern(acctSelected)} />
+                 acctSelected={tern(acctSelected)} />
                 <Radio selector="tableType" prompt="type of table: "
                  options={radios} onRadioChange={this.handleTypeChange.bind(this)} />
                 <Select val={tableSelected} selector="tableSelect"
