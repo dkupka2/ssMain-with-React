@@ -27,9 +27,7 @@ module.exports = (io, app) => {
             request(
                 {
                     url: url + restReq,
-                    headers: {
-                        "authorization" : auth
-                    }
+                    headers: {"authorization": auth}
                 }, (err, response, body) => {
                     if (err) {
                         console.log("error: ", err)
@@ -42,17 +40,17 @@ module.exports = (io, app) => {
                     first = restReq.search("/"),
                     second = restReq.search("out=json") - 2,
                     acct = restReq.slice(0, first),
-                    table = restReq.slice(`${first+1}`, second)
+                    table = restReq.slice(`${first + 1}`, second)
                     socket.emit("restapi response", {acct, table, body})
                 }
             )
         })
         socket.on("filtered request", data => {
             let send,
-                {acct, table } = data
+                { acct, table } = data
             request(
                 {
-                    url: `${url}${table}/?limit=500&out=json`,
+                    url: `${url}${table}/?limit=500&out=json&eq_CLIENT_ID=${acct}`,
                     headers: {
                         "authorization": auth
                     }
@@ -70,7 +68,6 @@ module.exports = (io, app) => {
             )
         })
         socket.on("validation request", acct => {
-            console.log("requesting validation & backup directory listing")
             let validation = validateAcct(acct)
             if (validation) getBackUps(acct, relay)
             socket.emit("validation response", {

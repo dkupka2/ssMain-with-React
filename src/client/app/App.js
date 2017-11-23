@@ -10,36 +10,24 @@ import Banner from './components/generic/Banner.react'
 import Button from './components/generic/Button.react'
 import Table  from './components/generic/Table.react'
 import FileManagement from './components/widgets/FileManagement.widget'
-// action keys and relay function
+// observer methods and event keys
 import events from './events'
-const {
-        ADD_ACCT,
-        SELECT_ACCT,
-        SELECT_TABLE,
-    } = events.ui
-// other dependancies
+const { ADD_ACCT, SELECT_ACCT, SELECT_TABLE, } = events.ui
+// other dependencies
 import { initialState } from './state/index'
-
 // data tables
-let tableTypes = ["conflicts", "table","filtered"]
+const tableTypes = ["conflicts", "table","filtered"]
 const tableKeys = Object.keys(events.loadTable)
 const conflictsKeys = Object.keys(events.multiTable)
 const filterKeys = Object.keys(events.filterTable)
-
-let globalVar = {} // global object for Pubsub events
-let newProps = [] // props for account obj initialization
-
-for (let key of tableKeys) {
-    newProps.push(key)
-}
+// anchor for Pubsub events
+let globalVar = {} 
 
 let verifyAccount = (acct) => { // confirms account number is valid
     if ( acct % 1 === 0 && acct > 0 && acct < 10000 ) {
         Pubsub.publish(events.req.validation, acct)
         return true
-    } else {
-        return false
-    }
+    } else return false
 }
 
 const validateAcctInput = (val) => {
@@ -70,8 +58,6 @@ const radioOptions = (arr, name, checked) => {
     return elems
 }
 
-let filterTable = (table, acct) => table.filter((row) =>  row.CLIENT_ID == parseInt(acct, 10))
-
 class App extends Component {
     constructor(props) {
         super(props)
@@ -79,7 +65,7 @@ class App extends Component {
     }
 
     changeState(description, newState) {
-        console.log(description)
+        // console.log(description)
         this.setState(newState)
     }
     
@@ -178,12 +164,7 @@ class App extends Component {
         let { acct, body, table } = data
         // if the table does not exist in the slected account add empty arr
         if (!this.state.accts[acct][table]) this.state.accts[acct][table] = []
-        this.state.accts[acct][table].push( //  cache table, filter if needed
-            Object.keys(events.filterTable).includes(table) ?
-            [JSON.stringify( filterTable(JSON.parse(body), acct) )] :
-            [body]
-        )
-        console.log("pushed: ", this.state.accts[acct][table])
+        this.state.accts[acct][table].push([body]) //  cache table
         this.updateBanner({
             bannerType: "ok",
             bannerPrompt: "Table is loaded, Good Luck!"
@@ -239,9 +220,9 @@ class App extends Component {
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
         // if a table is selected and the selected account has table data loaded
-        if (this.state.accts[acct] !== undefined &&
-            this.state.accts[acct][table] !== undefined &&
-            this.state.accts[acct][table].length>0 )
+        if ( this.state.accts[acct] !== undefined &&
+             this.state.accts[acct][table] !== undefined &&
+             this.state.accts[acct][table].length > 0 )
         {
             tArr = this.state.accts[acct][table]
             data = tArr[tArr.length-1]
@@ -250,15 +231,10 @@ class App extends Component {
             }
             catch(e) {
                 console.error(e)
-                alert("render failed, error: ", e)
-                return
+                return alert("render failed, error: ", e)
             }
-            return (
-                <Table selector="data" title={table} data={dTable}/>
-            )
-        } else {
-            return
-        }
+            return ( <Table selector="data" title={table} data={dTable}/> )
+        } else return
     }
 
     render() {

@@ -41,7 +41,7 @@ let events = {
         Dispatch_Procedure: "PT_PROC",
         Dispatch_Delivery_Table: "PT_PROCDET",
         Dispatch_Conditions: "PT_CONDLIB",
-        Dispatch_Conditions: "PT_BATCH",
+        Batch_Conditions: "PT_BATCH",
         Dispatch_Contact_Locator: "PT_DCL",
         Message_View_Conditions: "PT_MDTPL",
     },
@@ -98,8 +98,8 @@ let revertTableName = (val) => { // convert table name back from prop value
 
 let getConflicts = (acct) => {
     Promise.all([
-        Object.keys(events.loadTable).map((table) => callApi({acct, table, type: "table"})),
-        Object.keys(events.filterTable).map((table) => callApi({acct, table, type: "filtered"}))
+        Object.keys(events.loadTable).map((table) => callAPI("",{acct, table, type: "table"})),
+        Object.keys(events.filterTable).map((table) => callAPI("",{acct, table, type: "filtered"}))
     ])
     .catch(err => alert(err) )
 }
