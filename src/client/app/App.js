@@ -25,17 +25,16 @@ let tableTypes = ["conflicts", "table","filtered"]
 const tableKeys = Object.keys(events.loadTable)
 const conflictsKeys = Object.keys(events.multiTable)
 const filterKeys = Object.keys(events.filterTable)
-// global object for Pubsub events
-let globalVar = {}
-// props for account obj initialization
-let newProps = []
+
+let globalVar = {} // global object for Pubsub events
+let newProps = [] // props for account obj initialization
+
 for (let key of tableKeys) {
     newProps.push(key)
 }
-// confirms account number is valid
-let verifyAccount = (acct) => {
+
+let verifyAccount = (acct) => { // confirms account number is valid
     if ( acct % 1 === 0 && acct > 0 && acct < 10000 ) {
-        // pubsub event
         Pubsub.publish(events.req.validation, acct)
         return true
     } else {
@@ -52,9 +51,7 @@ const validateAcctInput = (val) => {
         } else {
             return val.slice(0,val.length-1)
         }
-    } else {
-        return ""
-    }
+    } else return ""
 }
 
 const selectOptions = (arr) => {
@@ -73,7 +70,7 @@ const radioOptions = (arr, name, checked) => {
     return elems
 }
 
-let filterTable = (table, acct) => JSON.stringify( JSON.parse(table).filter((row) => row.CLIENT_ID === parseInt(acct, 10)) )
+let filterTable = (table, acct) => table.filter((row) =>  row.CLIENT_ID == parseInt(acct, 10))
 
 class App extends Component {
     constructor(props) {
@@ -177,23 +174,16 @@ class App extends Component {
         })
     }
 
-    checkConflicts() {
-        let acct = this.state.acctSelected
-        let checkTables = (table) => {
-            if ( this.state.accts[acct][table].length > 0 ) return true
-        }
-        if ( this.state.tableSelected === "CONFLICTS" &&
-            checkTables("AUTOA") && checkTables("AUTOB") )
-        {
-            return true
-        }
-    }
-
     handleRestRes(data) {
-        console.log("handling rest res", data)
         let { acct, body, table } = data
+        // if the table does not exist in the slected account add empty arr
         if (!this.state.accts[acct][table]) this.state.accts[acct][table] = []
-        this.state.accts[acct][table].push([body])
+        this.state.accts[acct][table].push( //  cache table, filter if needed
+            Object.keys(events.filterTable).includes(table) ?
+            [JSON.stringify( filterTable(JSON.parse(body), acct) )] :
+            [body]
+        )
+        console.log("pushed: ", this.state.accts[acct][table])
         this.updateBanner({
             bannerType: "ok",
             bannerPrompt: "Table is loaded, Good Luck!"
@@ -201,10 +191,9 @@ class App extends Component {
     }
 
     componentWillMount() {
-        globalVar.receiveRestRes = (event, data) => { // handle data returned from restAPI response
+        globalVar.receiveRestRes = (event, data) => {
             this.handleRestRes(data)
         }
-
         Pubsub.subscribe(events.res.restApi, globalVar.receiveRestRes)
 
         globalVar.accountValidation = (event, data) => {
@@ -223,7 +212,6 @@ class App extends Component {
                 acctSelected: resultSelected
             })
         }
-
         Pubsub.subscribe(events.res.validation, globalVar.accountValidation)
 
         globalVar.relayBackups = (event, data) => {
@@ -231,7 +219,6 @@ class App extends Component {
                 fileManagement: Object.assign({}, this.state.fileManagement, {backups: data.data})
             })
         }
-
         Pubsub.subscribe(events.res.backups, globalVar.relayBackups)
 
         globalVar.requestBackup = (acct = this.state.acctSelected) => {
@@ -244,7 +231,6 @@ class App extends Component {
                 bannerPrompt: error
             })
         }
-
         Pubsub.subscribe(events.res.error, globalVar.handleError)
     }
 
@@ -264,7 +250,7 @@ class App extends Component {
             }
             catch(e) {
                 console.error(e)
-                alert("render failed, check account number!")
+                alert("render failed, error: ", e)
                 return
             }
             return (
@@ -278,7 +264,7 @@ class App extends Component {
     render() {
         let tern = (arg) => arg ? true : false
 
-        let backupOptions = [];
+        let backupOptions = backups ? selectOptions(backups) : []
 
         let {
             acctSelected,
@@ -293,8 +279,6 @@ class App extends Component {
         let {
             backups, selectedBackup
         } = this.state.fileManagement
-
-        if (backups) backupOptions = selectOptions(backups)
 
         let acctsArr = this.flatAccts()
         let accts = selectOptions(acctsArr)

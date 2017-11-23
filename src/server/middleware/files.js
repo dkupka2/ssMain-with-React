@@ -80,12 +80,10 @@ let exists = (f) => {
 
 let checkSubDir = (which) => {
     if (exists(which)) {
-        console.log("dir exists: ", which)
         return true
     } else {
         try {
             fs.mkdirSync(which)
-            // report dir is made?
         } catch (e) {
             return new Error `failed to create dir: ${which} ${e}`
         }

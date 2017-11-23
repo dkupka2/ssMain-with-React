@@ -71,11 +71,12 @@ module.exports = (io, app) => {
         })
         socket.on("validation request", acct => {
             console.log("requesting validation & backup directory listing")
+            let validation = validateAcct(acct)
+            if (validation) getBackUps(acct, relay)
             socket.emit("validation response", {
-                pass: validateAcct(acct),
+                pass: validation,
                 acct: acct
             })
-            getBackUps(acct, relay)
         })
     })
 }
