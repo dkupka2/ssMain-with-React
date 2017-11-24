@@ -82,7 +82,7 @@ class App extends Component {
     }
 
     handleAcctChange(x) {
-        this.changeState("selected acct changed", {acctSelected: x})
+        this.changeState("selected acct changed", {acctSelected: x, bannerPrompt: `Account ${x} is ready`})
     }
 
     handleTypeChange(x) {
@@ -172,6 +172,7 @@ class App extends Component {
     }
 
     componentWillMount() {
+
         globalVar.receiveRestRes = (event, data) => {
             this.handleRestRes(data)
         }
@@ -233,7 +234,9 @@ class App extends Component {
                 console.error(e)
                 return alert("render failed, error: ", e)
             }
-            return ( <Table selector="data" title={table} data={dTable}/> )
+            return dTable.length > 0 ? // render table or inform if there is no data
+                ( <Table selector="data" title={table} data={dTable}/> ) : 
+                ( <p className="no-table-data">We're Sorry, Your Data Is In Another Table</p> )
         } else return
     }
 
@@ -260,6 +263,8 @@ class App extends Component {
         let accts = selectOptions(acctsArr)
         let tables = selectOptions( this.whichTables() )
         let radios = radioOptions(tableTypes, "tableType", tableType)
+        let tableSelector = acctSelected ? "tableType" : "hidden"
+        let buttonSelector = acctSelected ? "loadTableBtn" : "hidden"
 
         return (
             <div className="App">
@@ -274,12 +279,12 @@ class App extends Component {
                  selectedBackup={this.handleBackupChange.bind(this)}
                  backupOptions={backupOptions} backups={backups}
                  acctSelected={tern(acctSelected)} />
-                <Radio selector="tableType" prompt="type of table: "
+                <Radio selector={tableSelector} prompt="type of table:"
                  options={radios} onRadioChange={this.handleTypeChange.bind(this)} />
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
                  onSelectChange={this.handleTableChange.bind(this)} />
-                <Button selector="loadTableBtn" prompt="load table"
+                <Button selector={buttonSelector} prompt="load table"
                  onButtonClick={this.handleTableLoad.bind(this)} />
                 <Banner type={bannerType} prompt={bannerPrompt}
                  selector="statusBanner"
