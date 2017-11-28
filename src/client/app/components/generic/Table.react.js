@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 // generic table subcomponent,
 // expects the following props: 
@@ -56,7 +55,7 @@ class Table extends React.Component {
 
     render() {
         const { data, selector, title} = this.props;
-        const headers = _.keys(data[0]);
+        const headers = Object.keys(data[0]);
         const tableContent = this.makeTable(data, headers, selector);
         return (
             <div className={`${selector}-parentDiv`}>
