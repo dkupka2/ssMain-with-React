@@ -6,7 +6,7 @@ let tables = {
                 document: "auto-a",
                 location: `${ORDER}: ${DESC}`,
                 condition: `${CONDITION}`,
-                active: `${ACTIVE}`
+                active: `${ACTIVE}`,
             }
         }
     },
@@ -16,8 +16,8 @@ let tables = {
             return {
                 document: "auto-b",
                 location: `${ORDER}: ${DESC}`,
-                condition: `${CONDITION}`,
-                active: `${ACTIVE}`
+                condition: CONDITION,
+                active: ACTIVE,
             }
         }
     },
@@ -27,8 +27,8 @@ let tables = {
             return {
                 document: "dcl",
                 location: `${ORDER}: ${DESC}`,
-                condition: `${CONDITION}`,
-                active: `${CONDITION ? TRUE : FALSE}`
+                condition: CONDITION,
+                active: `${CONDITION == true}`,
             }
         }
     },
@@ -38,68 +38,68 @@ let tables = {
         getConflictFields(ACTIVE, DESC, CONDITION) {
             return {
                 document: "timed autos",
-                location: "",
-                condition: "",
-                active: ""
+                location: DESC,
+                condition: CONDITION,
+                active: ACTIVE,
             }
         }
     },
     Scheduled_Deliveries: { alias: "PT_SCHED", 
         columns: ["CLIENT_ID","TIME","DAYS","CONTACT","BATCH","SHELL_TO","MACHINE_ID","ACTIVE","EXCLUDE","NOTES", "PRIORDAYS",
             "INC_DELIV","DELIV_ONLY","COMMANDS"],
-        conflictFields: {
-            document: "",
-            location: "",
-            condition: "",
-            active: ""
+        getConflictFields(BATCH): {
+            document: "scheduled deliveries",
+            location: "N/A",
+            condition: "SEE CONDITIONS",
+            active: BATCH,
         }
     },
     Scheduled_Reminders: { alias: "PTREMIND", 
         columns: ["ACTIVE","CLIENT_ID","ID_NUMBER","DESC","DATE","TIME","DOW","LAST_DATE","LAST_TIME","EXCLUDE","INCLUDE",
             "INSTRUCT","OPER_ID","CONDITION","MSG_TYPES"],
-        conflictFields: {
-            document: "",
-            location: "",
-            condition: "",
-            active: ""
+        getConflictFields(CONDITION, ACTIVE): {
+            document: "scheduled reminders",
+            location: "N/A",
+            condition: CONDITION,
+            active: ACTIVE,
         }
     },
     Form: { alias: "OE_FORM", 
         columns: ["LABEL","HIGHLIGHT","PAGE_NUM","L_ROW","L_COL","GET_FIELD","GET_TYPE","G_REQUIRED","HELP_TEXT","LIST_POP",
             "LIST_REQ","FORMULA", "INIT_VAL","PARAGRAPH","HAS_PARA","LIST_NAME","LIST_FILE","SKIP_LABEL","SKIP_FILE","SKIP_NAME",
             "SAVE_OK","HELP_PARA","LISTFILTER","CALCULATE","G_FILLED","WYG_ACTION","VALIDONLY","URL"],
-        conflictFields: {
-            document: "",
-            location: "",
-            condition: "",
-            active: ""
+        getConflictFields(PAGE_NUM, L_ROW, L_COL, FORMULA): {
+            document: "oe form",
+            location: `page ${PAGE_NUM} row ${L_ROW} column ${L_COL}`,
+            condition: FORMULA,
+            active: `${FORMULA && FORMULA.toString().slice(0,1) !== "~"}`,
         }
     },
     Message_View_Conditions: { alias: "PT_MDTPL", 
         columns: ["ORDER","FORMULA","TEMPLATE","TEMPLATE_W"],
-        conflictFields: {
-            document: "",
-            location: "",
-            condition: "",
-            active: ""
+        getConflictFields(ORDER, FORMULA): {
+            document: "message view conditions",
+            location: ORDER,
+            condition: FORMULA,
+            active: `${ORDER == true && CONDITION == true}`,
         }
     },
     Batch_Conditions: { alias: "PT_BATCH", 
         columns: ["ORDER","ACTIVE","CONDITION","CONTACT","DESC"],
-        conflictFields: {
-            document: "",
-            location: "",
-            condition: "",
-            active: ""
+        getConflictFields(ORDER, CONDITION, ACTIVE): {
+            document: "scheduled delivery conditions",
+            location: ORDER,
+            condition: CONDITION,
+            active: ACTIVE,
         }
     },
     Dispatch_Conditions: { alias: "PT_CONDLIB", 
         columns: ["NAME","VISIBLE","TESTFIELD","LRFLAG","COMPTYPE","DATA1","DATA2","DATALIST","COMPOUND","DESCR"],
-        conflictFields: {
-            document: "",
-            location: "",
-            condition: "",
-            active: ""
+        getConflictFields(NAME, DATA1, VISIBLE, DATA2): {
+            document: "dispatch conditions",
+            location: NAME,
+            condition: `compares ${TESTFIELD} to ${DATA1} or ${DATA2}`,
+            active: VISIBLE,
         }
     }
 }
