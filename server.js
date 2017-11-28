@@ -7,7 +7,7 @@ const path = require("path"),
 const ssMain = require("./src/server")
 
 app.set("port", process.env.PORT || 8000)
-app.set("view engine", "ejs")
+app.set("view engine", "jsx")
 app.set("views", path.join(__dirname, '/src/client/views'))
 
 app.use(express.static(__dirname));

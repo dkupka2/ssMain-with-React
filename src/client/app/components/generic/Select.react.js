@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 // generic select subcomponent, expects the following props:
 // function: onSelectChange()
