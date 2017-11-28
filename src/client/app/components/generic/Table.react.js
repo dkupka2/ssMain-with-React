@@ -21,14 +21,10 @@ class Table extends React.Component {
             if (cellType === 'h') {
                 newArr.push( <th key={`${parentIndex}-${i}`}>{dataArr[i]}</th> )
             } else {
-                newArr.push( <td key={`${parentIndex}-${i}`}>{dataArr[i]}</td> )
+                newArr.push( <td key={`${parentIndex}-${i}`}>{dataArr[i].toString()}</td> )
             }
         }
-        return (
-            <tr key={`row-${parentIndex}`}>
-                {newArr}
-            </tr>
-        )
+        return (<tr key={`row-${parentIndex}`}>{newArr}</tr>)
     }
 
     makeTable(data, headers, selector) {

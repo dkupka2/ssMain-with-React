@@ -65,7 +65,6 @@ class App extends Component {
     }
 
     changeState(description, newState) {
-        // console.log(description)
         this.setState(newState)
     }
     
@@ -104,7 +103,6 @@ class App extends Component {
     }
 
     addAcct(x) {
-        let newState = {}
         let newAccts = {}
         let prevAcctsList = this.flatAccts()
         if (prevAcctsList.includes(x)) return
@@ -180,8 +178,7 @@ class App extends Component {
 
         globalVar.accountValidation = (event, data) => {
             let { acct, pass } = data
-            let newAccts = {}
-            let resultType, resultPrompt, resultSelected
+            let resultType, resultPrompt, resultSelected, newAccts = {}
             Object.assign(newAccts, this.state.accts)
             if (! pass) delete newAccts[acct]
             resultType = pass ? "ok" : "alert"
@@ -241,10 +238,6 @@ class App extends Component {
     }
 
     render() {
-        let tern = (arg) => arg ? true : false
-
-        let backupOptions = backups ? selectOptions(backups) : []
-
         let {
             acctSelected,
             acctInput,
@@ -259,6 +252,8 @@ class App extends Component {
             backups, selectedBackup
         } = this.state.fileManagement
 
+        let tern = (arg) => arg ? true : false
+        let backupOptions = backups ? selectOptions(backups) : []
         let acctsArr = this.flatAccts()
         let accts = selectOptions(acctsArr)
         let tables = selectOptions( this.whichTables() )
