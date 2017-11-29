@@ -1,3 +1,13 @@
+const React = require('react')
+
+class Home extends React.Component {
+  render() {
+    return ( <div id="root"></div> )
+  }
+}
+
+let oldHTLM = (`
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,3 +24,4 @@
     <div id="root"></div>
   </body>
 </html>
+`)

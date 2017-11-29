@@ -1,3 +1,12 @@
+const React = require('react')
+
+class Home extends React.Component {
+  render() {
+    return ( <div id="root"></div> )
+  }
+}
+
+let oldHTLM = (`
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,7 +19,8 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    
     <script type="text/javascript" src="./public/bundle.js"></script>
   </body>
-</html>
+</html>`
+)
