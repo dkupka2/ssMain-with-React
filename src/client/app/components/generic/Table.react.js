@@ -20,7 +20,7 @@ class Table extends React.Component {
             if (cellType === 'h') {
                 newArr.push( <th key={`${parentIndex}-${i}`}>{dataArr[i]}</th> )
             } else {
-                newArr.push( <td key={`${parentIndex}-${i}`}>{dataArr[i].toString()}</td> )
+                newArr.push( <td key={`${parentIndex}-${i}`}>{ dataArr[i] ? dataArr[i].toString() : "null" }</td> )
             }
         }
         return (<tr key={`row-${parentIndex}`}>{newArr}</tr>)
