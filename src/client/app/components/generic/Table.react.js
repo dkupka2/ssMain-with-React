@@ -10,6 +10,14 @@ class Table extends React.Component {
         super(props)
     }
 
+    checkBool(data) {
+        if (data === true || data === false) {
+            return data.toString()
+        } else {
+            return data
+        }
+    }
+
     makeRows(dataArr, cellType, parentIndex) {
         if (! dataArr) {
             alert("dataArr is undef")
@@ -20,7 +28,8 @@ class Table extends React.Component {
             if (cellType === 'h') {
                 newArr.push( <th key={`${parentIndex}-${i}`}>{dataArr[i]}</th> )
             } else {
-                newArr.push( <td key={`${parentIndex}-${i}`}>{ dataArr[i] ? dataArr[i].toString() : "null" }</td> )
+                // newArr.push( <td key={`${parentIndex}-${i}`}>{ dataArr[i] ? dataArr[i].toString() : "N/A" }</td> )
+                newArr.push( <td key={`${parentIndex}-${i}`}>{ this.checkBool(dataArr[i]) }</td> )
             }
         }
         return (<tr key={`row-${parentIndex}`}>{newArr}</tr>)
