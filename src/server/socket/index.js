@@ -26,7 +26,7 @@ module.exports = (io, app) => {
             let first, second, acct, table
             request(
                 {
-                    url: url + restReq,
+                    url: `${url}${restReq}&limit=500`,
                     headers: {"authorization": auth}
                 }, (err, response, body) => {
                     if (err) {

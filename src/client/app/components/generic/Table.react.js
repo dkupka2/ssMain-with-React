@@ -11,16 +11,13 @@ class Table extends React.Component {
     }
 
     checkBool(data) {
-        if (data === true || data === false) {
-            return data.toString()
-        } else {
-            return data
-        }
+        if (data === true || data === false) return data.toString()
+        return data
     }
 
     makeRows(dataArr, cellType, parentIndex) {
         if (! dataArr) {
-            alert("dataArr is undef")
+            alert("table data is undefined")
             return
         }
         let newArr = []
@@ -28,8 +25,7 @@ class Table extends React.Component {
             if (cellType === 'h') {
                 newArr.push( <th key={`${parentIndex}-${i}`}>{dataArr[i]}</th> )
             } else {
-                // newArr.push( <td key={`${parentIndex}-${i}`}>{ dataArr[i] ? dataArr[i].toString() : "N/A" }</td> )
-                newArr.push( <td key={`${parentIndex}-${i}`}>{ this.checkBool(dataArr[i]) }</td> )
+                newArr.push( <td key={`${parentIndex}-${i}`}>{ `${typeof dataArr[i]} : ${this.checkBool(dataArr[i])} ` }</td> )
             }
         }
         return (<tr key={`row-${parentIndex}`}>{newArr}</tr>)
@@ -63,9 +59,9 @@ class Table extends React.Component {
     }
 
     render() {
-        const { data, selector, title} = this.props;
-        const headers = Object.keys(data[0]);
-        const tableContent = this.makeTable(data, headers, selector);
+        const { data, selector, title} = this.props
+        const headers = Object.keys(data[0])
+        const tableContent = this.makeTable(data, headers, selector)
         return (
             <div className={`${selector}-parentDiv`}>
                 <p className={selector}>{title}</p>

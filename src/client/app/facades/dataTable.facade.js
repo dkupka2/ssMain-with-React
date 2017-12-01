@@ -1,3 +1,26 @@
+let convertValue = (value, type) => {
+    let final
+    switch (type) {
+        case "message status":
+            final = []
+            if value.includes(1) rstring.push("delivered")
+            if value.includes(2) rstring.push("hold")
+            if value.includes(3) rstring.push("un-delivered")
+            if value.includes(4) rstring.push("priority")
+            return final.join(" ")
+            break
+        case "timed auto type":
+            if value.includes(1) final = "add message"
+            if value.includes(2) final = "change status"
+            if value.includes(3) final = "timed action"
+            return final
+            break
+        default
+    }
+
+
+}
+
 let tables = {
     Autos_on_Save: {
         alias: "PT_AUTOA",
@@ -42,7 +65,7 @@ let tables = {
         alias: "PT_DCL", 
         columns: ["ORDER", "CONDITION", "CONTACT", "SOFTSEEK", "FIELD", "DESC"],
         getTableData(object, type) {
-            let { ORDER, DESC, CONDITION, CONTACT, FIELD } = object
+            let { ORDER, DESC, CONDITION, CONTACT, FIELD, SOFTSEEK } = object
             return type = "conflicts" ?
             {
                 document: "dcl",
@@ -54,7 +77,8 @@ let tables = {
                 DESC,
                 CONDITION,
                 CONTACT,
-                FIELD: FIELD.slice(9,-1)
+                FIELD: FIELD.slice(9,-1),
+                SOFTSEEK: SOFTSEEK ? "Y" : "N"
             }
         }
     },
@@ -62,23 +86,26 @@ let tables = {
         alias: "PT_TACTION", 
         columns: ["ACTIVE", "CLIENT_ID", "ID_NUMBER", "DESC", "TYPE", "DATE", "TIME", "DOW", "LAST_DATE", "MSG_TYPES", "TASDSTATUS", "EXCLUDE", "INCLUDE", "DATA", "CONDITION", "NOTES"],
         getTableData(object, type) {
-            let { DESC, CONDITION, MSG_TYPES, TYPE, DATE, TIME, INCLUDE, EXCLUDE, ACTIVE } = object
+            let { DESC, CONDITION, MSG_TYPES, TYPE, DATE, TIME, INCLUDE, EXCLUDE, ACTIVE, DATA, TASDSTATUS } = object
+            TYPE = convertValue(TYPE, "timed auto type")
             return type === conflicts ?
             {
                 document: "timed autos",
-                location: DESC,
+                location: `${TYPE}: ${DESC}`,
                 condition: CONDITION,
                 active: ACTIVE,
             } : {
+                TYPE,
                 DESC,
                 CONDITION, 
-                MSG_TYPES,
-                TYPE,
+                MSG_TYPES: convertValue(MSG_TYPES, "message status")
+                TASDSTATUS: convertValue(TASDSTATUS, "message status")
                 DATE,
                 TIME,
                 INCLUDE,
                 EXCLUDE,
                 ACTIVE: ACTIVE ? "Y" : "N",
+                DATA
             }
         }
     },

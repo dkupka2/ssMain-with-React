@@ -160,6 +160,7 @@ class App extends Component {
 
     handleRestRes(data) {
         let { acct, body, table } = data
+        console.log(body)
         // if the table does not exist in the slected account add empty arr
         if (!this.state.accts[acct][table]) this.state.accts[acct][table] = []
         this.state.accts[acct][table].push([body]) //  cache table
