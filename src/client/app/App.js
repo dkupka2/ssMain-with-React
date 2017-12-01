@@ -249,7 +249,7 @@ class App extends Component {
         } = this.state
 
         let {
-            backups, selectedBackup
+            backups, selectedBackup, showBackups
         } = this.state.fileManagement
 
         let tern = (arg) => arg ? true : false
@@ -273,7 +273,7 @@ class App extends Component {
                 <FileManagement selector="fileManagement" backupRequest={globalVar.requestBackup}
                  selectedBackup={this.handleBackupChange.bind(this)}
                  backupOptions={backupOptions} backups={backups}
-                 acctSelected={tern(acctSelected)} />
+                 acctSelected={tern(acctSelected)} showBackups={showBackups} />
                 <Radio selector={tableSelector} prompt="type of table:"
                  options={radios} onRadioChange={this.handleTypeChange.bind(this)} />
                 <Select val={tableSelected} selector="tableSelect"

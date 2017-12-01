@@ -6,5 +6,5 @@ export const initialState = {
     tableSelected: "conflicts",
     bannerType: "",
     bannerPrompt: "",
-    fileManagement: { backups: [] }
+    fileManagement: { backups: [], showBackups: false }
 }

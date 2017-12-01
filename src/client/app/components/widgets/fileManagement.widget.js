@@ -22,7 +22,7 @@ class FileManagement extends React.Component {
         this.props.selectedBackUp()
     }
     render() {
-        const { selector, selectedBackup, backupOptions, acctSelected } = this.props
+        const { selector, selectedBackup, backupOptions, acctSelected, showBackups } = this.props
         return (
             <div className={acctSelected? `${selector}-parentDiv` : "hidden"}>
                 <p className={selector}>{prompt}</p>
@@ -32,7 +32,7 @@ class FileManagement extends React.Component {
                  onButtonClick={this.handleManageClick.bind(this)} prompt="manage" />
                 <Button selector={acctSelected? `${selector}-restore` : "hidden"}
                  onButtonClick={this.handleRestoreClick.bind(this)} prompt="restore" />
-                <Select selector={acctSelected? `${selector}-restoreSelect` : "hidden"}
+                <Select selector={showBackups? `${selector}-restoreSelect` : "hidden"}
                  onSelectChange={this.handleSelectChange.bind(this)}
                  prompt="select backup" options={backupOptions} val={selectedBackup} />
             </div>
