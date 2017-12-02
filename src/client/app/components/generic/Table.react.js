@@ -59,7 +59,7 @@ class Table extends React.Component {
     }
 
     render() {
-        const { data, selector, title} = this.props
+        const { data, selector, title } = this.props
         const headers = Object.keys(data[0])
         const tableContent = this.makeTable(data, headers, selector)
         return (

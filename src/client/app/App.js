@@ -15,6 +15,7 @@ import events from './events'
 const { ADD_ACCT, SELECT_ACCT, SELECT_TABLE, } = events.ui
 // other dependencies
 import { initialState } from './state/index'
+import { filter } from './facades/dataTable.facade'
 // data tables
 const tableTypes = ["conflicts", "table","filtered"]
 const tableKeys = Object.keys(events.loadTable)
