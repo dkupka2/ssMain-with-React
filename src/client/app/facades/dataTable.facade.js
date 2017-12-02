@@ -15,6 +15,35 @@ let convertValue = (value, type) => {
             if value.includes(3) final = "timed action"
             return final
             break
+        case "days of the week":
+            final = []
+            if value.includes(1) final.push("sunday")
+            if value.includes(2) final.push("monday")
+            if value.includes(3) final.push("tuesday")
+            if value.includes(4) final.push("wednesday")
+            if value.includes(5) final.push("thursday")
+            if value.includes(6) final.push("friday")
+            if value.includes(7) final.push("saturday")
+            return final.join(" ")
+            break
+        case "holidays":
+            final = []
+            if value.includes(H01) final.push("NEW YEARS DAY")
+            if value.includes(H02) final.push("MARTIN LUTHER KING DAY")
+            if value.includes(H03) final.push("PRESIDENTS DAY")
+            if value.includes(H04) final.push("PATRIOTS DAY")
+            if value.includes(H05) final.push("MEMORIAL DAY")
+            if value.includes(H06) final.push("INDEPENDENCE DAY")
+            if value.includes(H07) final.push("LABOR DAY")
+            if value.includes(H08) final.push("COLUMBUS DAY")
+            if value.includes(H09) final.push("VETERANS DAY")
+            if value.includes(H10) final.push("THANKSGIVING DAY")
+            if value.includes(H11) final.push("BLACK FRIDAY")
+            if value.includes(H12) final.push("CHRISTMAS DAY")
+            if value.includes(S1) final.push("BOXING DAY")
+            if value.includes(S2) final.push("SPECIAL DAY 2")
+            if value.includes(S3) final.push("SPECIAL DAY 3")
+            return final.join(" ")
         default
     }
 
@@ -119,10 +148,10 @@ let tables = {
                 document: "scheduled deliveries",
                 location: "N/A",
                 condition: "SEE CONDITIONS",
-                active: ACTIVE,
+                active: ACTIVE ? " Y" : "N",
             } : {
                 CONTACT,
-                DAYS,
+                DAYS: convertValue(DAYS, "days of the week"),
                 EXCLUDE,
                 TIME,
                 ACTIVE: ACTIVE ? "Y" : "N",
@@ -139,14 +168,15 @@ let tables = {
                 document: "scheduled reminders",
                 location: DESC,
                 condition: CONDITION,
-                active: ACTIVE,
+                active: ACTIVE ? "Y" : "N",
             } : {
                 DESC,
                 CONDITION,
                 ACTIVE: ACTIVE ? "Y" : "N",
+                DOW: convertValue(DOW, "days of the week"),
                 TIME,
-                INCLUDE,
-                EXCLUDE,
+                INCLUDE: convertValue(INCLUDE, "system holidays"),
+                EXCLUDE: convertValue(EXCLUDE,"system holidays"),
                 MSG_TYPES,
             }
         }
