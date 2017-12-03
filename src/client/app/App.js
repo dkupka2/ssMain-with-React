@@ -26,47 +26,48 @@ const conflictsKeys = Object.keys(events.multiTable)
 const filterKeys = Object.keys(events.filterTable)
 // anchor for Pubsub events
 let globalVar = {} 
-
-let verifyAccount = (acct) => { // confirms account number is valid
+// confirms account number is valid
+let verifyAccount = (acct) => { 
     if ( acct % 1 === 0 && acct > 0 && acct < 10000 ) {
         Pubsub.publish(events.req.validation, acct)
         return true
     } else return false
 }
-
+// App class
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
     }
-
+    // invokes setState
     changeState(description, newState) {
+        // console.log(description)
         this.setState(newState)
     }
-    
+    // returns flat array of loaded accts
     flatAccts() { return Object.keys(this.state.accts) }
-  
+    // updates state when backups received
     handleBackupChange(x) {
         this.changeState("backups received", {
             fileManagement: Object.assign({}, this.state.fileManagement, {selectedBackup: x})
         })
     }
-
+    // handles acct input updates
     handleAcctInputChange(x) {
         this.changeState("acct input changed", {acctInput: x})
     }
-
+    // handles acct select updates
     handleAcctChange(x) {
         this.changeState("selected acct changed", {acctSelected: x, bannerPrompt: `Account ${x} is ready`})
     }
-
+    // handles acct type select updates
     handleTypeChange(x) {
         this.changeState("table changed", {
             tableType: x,
             tableSelected: this.whichTables(x)[0]
         })
     }
-
+    // handles table select updates
     handleTableChange(x) {
         let newPrompt = Number(this.state.acctSelected) > 0 ?
             "Please Load this table for the latest version" :
@@ -77,12 +78,12 @@ class App extends Component {
             bannerPrompt: newPrompt
         })
     }
-
-    addAcct(x) {
+    // verifies and adds account, if accts contains data; copy it's enumerable
+    handleAcctQuery(x) {
+        if (! verifyAccount(x) ) return
         let newAccts = {}
         let prevAcctsList = this.flatAccts()
         if (prevAcctsList.includes(x)) return
-        // if accts contains accounts, copy accts' enumerable
         if (prevAcctsList.length > 0) Object.assign(newAccts, this.state.accts)
         newAccts[x] = {}
         this.changeState("acct added", {
@@ -93,13 +94,15 @@ class App extends Component {
             bannerPrompt: "validating account, please wait"
         })
     }
-
-    handleAcctQuery(x) { if ( verifyAccount(x) ) { this.addAcct(x) } }
-
+    // loads table or reports if no table is selected
     handleTableLoad() {
         let {acctSelected, tableSelected, tableType} = this.state
         if (acctSelected) {
-            this.loadTable(acctSelected, tableSelected, tableType)
+            Pubsub.publish(events.actions.loadTable, { acctSelected, tableSelected, tableType })
+            this.updateBanner({
+                bannerType: "warning",
+                bannerPrompt: "Table is loading, please wait"
+            })
         } else {
             this.updateBanner({
                 bannerType: "warning",
@@ -107,11 +110,10 @@ class App extends Component {
             })
         }
     }
-
+    // *convenience methods for banner updates*
     updateBanner(data) { this.changeState( "banner changed", data) }
-
     handleBannerClose() { this.setState({ bannerType: "hidden" }) }
-
+    // returns tables array based on tableType
     whichTables(x) {
         let type = x ? x : this.state.tableType
         switch (type) {
@@ -125,15 +127,7 @@ class App extends Component {
                 return tableKeys
         }
     }
-
-    loadTable(acct, table, type) {
-        Pubsub.publish(events.actions.loadTable, { acct, table, type })
-        this.updateBanner({
-            bannerType: "warning",
-            bannerPrompt: "Table is loading, please wait"
-        })
-    }
-
+    // handles RestAPI response
     handleRestRes(data) {
         let { acct, body, table } = data
         console.log(body)
@@ -145,14 +139,14 @@ class App extends Component {
             bannerPrompt: "Table is loaded, Good Luck!"
         })
     }
-
+    // global functions for Pubsub
     componentWillMount() {
-
+        // relay RestAPI response to App class instance
         globalVar.receiveRestRes = (event, data) => {
             this.handleRestRes(data)
         }
         Pubsub.subscribe(events.res.restApi, globalVar.receiveRestRes)
-
+        // handles account validation response and updates state
         globalVar.accountValidation = (event, data) => {
             let { acct, pass } = data
             let resultType, resultPrompt, resultSelected, newAccts = {}
@@ -169,18 +163,18 @@ class App extends Component {
             })
         }
         Pubsub.subscribe(events.res.validation, globalVar.accountValidation)
-
+        // handles back up subdirectory list response and updates state
         globalVar.relayBackups = (event, data) => {
             this.changeState("backups received", {
                 fileManagement: Object.assign({}, this.state.fileManagement, {backups: data.data})
             })
         }
         Pubsub.subscribe(events.res.backups, globalVar.relayBackups)
-
+        // relays back up subdirectory request
         globalVar.requestBackup = (acct = this.state.acctSelected) => {
             Pubsub.publish(events.req.backup, acct)
         }
-
+        // handles errors from the server and updates state
         globalVar.handleError = (error) => {
             this.updateBanner({
                 bannerType: "alert",
@@ -189,12 +183,12 @@ class App extends Component {
         }
         Pubsub.subscribe(events.res.error, globalVar.handleError)
     }
-
+    // renders table or inform if there is no data
     renderTable() {
         let tArr, dTable, data
         let acct = this.state.acctSelected
         let table = this.state.tableSelected
-        // if a table is selected and the selected account has table data loaded
+        // "if a table is selected and the selected account has table data loaded"
         if ( this.state.accts[acct] !== undefined &&
              this.state.accts[acct][table] !== undefined &&
              this.state.accts[acct][table].length > 0 )
@@ -207,14 +201,15 @@ class App extends Component {
             catch(e) {
                 console.error(e)
                 return alert("render failed, error: ", e)
-            }
-            return dTable.length > 0 ? // render table or inform if there is no data
+            } 
+            return dTable.length > 0 ? 
                 ( <Table selector="data" title={table} data={dTable}/> ) : 
-                ( <p className="no-table-data">We're Sorry, Your Data Is In Another Table</p> )
+                ( <p className="no-table-data">There is no data in the selected table</p> )
         } else return
     }
-
+    // App class instance' render function
     render() {
+        // variables from state
         let {
             acctSelected,
             acctInput,
@@ -224,11 +219,10 @@ class App extends Component {
             bannerPrompt,
             fileManagement
         } = this.state
-
         let {
             backups, selectedBackup, showBackups
         } = this.state.fileManagement
-
+        // more values needed for subcomponent props
         let tern = (arg) => arg ? true : false
         let backupOptions = backups ? selectOptions(backups) : []
         let acctsArr = this.flatAccts()
@@ -237,7 +231,6 @@ class App extends Component {
         let radios = radioOptions(tableTypes, "tableType", tableType)
         let tableSelector = acctSelected ? "tableType" : "hidden"
         let buttonSelector = acctSelected ? "loadTableBtn" : "hidden"
-
         return (
             <div className="App">
                 <Input selector="acctInput" prompt="enter an account"
@@ -268,5 +261,4 @@ class App extends Component {
         )
     }
 }
-
 export default App
