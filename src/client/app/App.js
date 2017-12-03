@@ -16,6 +16,9 @@ const { ADD_ACCT, SELECT_ACCT, SELECT_TABLE, } = events.ui
 // other dependencies
 import { initialState } from './state/index'
 import { filter } from './facades/dataTable.facade'
+import validateAcctInput from './mixins/acctInputValidation.mixin'
+import selectOptions from './mixins/select.mixin'
+import radioOptions from './mixins/radio.mixin'
 // data tables
 const tableTypes = ["conflicts", "table","filtered"]
 const tableKeys = Object.keys(events.loadTable)
@@ -29,34 +32,6 @@ let verifyAccount = (acct) => { // confirms account number is valid
         Pubsub.publish(events.req.validation, acct)
         return true
     } else return false
-}
-
-const validateAcctInput = (val) => {
-    let arr
-    if (val) {
-        arr = Array.from(val) // if length is valid and last char is a number
-        if ( arr.length < 5 && ! isNaN( parseInt( arr[arr.length-1], 10 ) ) ) {
-            return val.slice() // return string else return string without invalid char
-        } else {
-            return val.slice(0,val.length-1)
-        }
-    } else return ""
-}
-
-const selectOptions = (arr) => {
-    let elems = []
-    for (let el of arr) {
-        elems.push(<option key={el.toString()} value={el}>{el}</option>)
-    }
-    return elems
-}
-
-const radioOptions = (arr, name, checked) => {
-    let elems = []
-    for (let el of arr) {
-        elems.push(<div key={el.toString()}><input type="radio" name={name} value={el} checked={el === checked} readOnly={el === checked}/>{el}</div>)
-    }
-    return elems
 }
 
 class App extends Component {
