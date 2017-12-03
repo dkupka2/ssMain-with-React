@@ -70,9 +70,9 @@ let events = {
 
 let callAPI = (event, data) => {
     let request
-    let type = data.type
-    let acct = data.acct
-    let table = events[type === "table" ? "loadTable" : "filterTable"][data.table]
+    let type = data.tableType
+    let acct = data.acctSelected
+    let table = events[type === "table" ? "loadTable" : "filterTable"][data.tableSelected]
     switch (type) {
         case "conflicts":
             getConflicts(acct)
@@ -84,7 +84,7 @@ let callAPI = (event, data) => {
             socket.emit(events.req.filtered, {acct, table} )
         return
         default:
-            alert("error in callAPI switch")
+            alert("error in callAPI switch, case: ", type)
         return
     }
 }

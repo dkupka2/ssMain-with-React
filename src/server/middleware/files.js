@@ -1,5 +1,5 @@
 const fs = require("fs")
-const _ = require("lodash");
+const _ = require("lodash")
 const glob = require('glob')
 
 const globals = require("../../../global.js").paths

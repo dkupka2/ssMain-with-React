@@ -12,7 +12,7 @@ class Button extends React.Component {
         this.props.onButtonClick(this.props.val)
     }
     render() {
-        const { selector, prompt } = this.props;
+        const { selector, prompt } = this.props
         return (
             <div className={`${selector}-parentDiv`}>
                 <button className={selector}

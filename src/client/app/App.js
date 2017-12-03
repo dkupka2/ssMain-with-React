@@ -15,7 +15,7 @@ import events from './events'
 const { ADD_ACCT, SELECT_ACCT, SELECT_TABLE, } = events.ui
 // other dependencies
 import { initialState } from './state/index'
-import { filter } from './facades/dataTable.facade'
+import { fTable } from './facades/dataTable.facade'
 import validateAcctInput from './mixins/acctInputValidation.mixin'
 import selectOptions from './mixins/select.mixin'
 import radioOptions from './mixins/radio.mixin'
@@ -96,17 +96,17 @@ class App extends Component {
     }
     // loads table or reports if no table is selected
     handleTableLoad() {
-        let {acctSelected, tableSelected, tableType} = this.state
-        if (acctSelected) {
+        let { acctSelected, tableSelected, tableType } = this.state
+        if (! acctSelected) {
+            this.updateBanner({
+                bannerType: "warning",
+                bannerPrompt: "Please select an account first to load this table"
+            })
+        } else{
             Pubsub.publish(events.actions.loadTable, { acctSelected, tableSelected, tableType })
             this.updateBanner({
                 bannerType: "warning",
                 bannerPrompt: "Table is loading, please wait"
-            })
-        } else {
-            this.updateBanner({
-                bannerType: "warning",
-                bannerPrompt: "Please select an account first to load this table"
             })
         }
     }
@@ -221,7 +221,7 @@ class App extends Component {
         } = this.state
         let {
             backups, selectedBackup, showBackups
-        } = this.state.fileManagement
+        } = fileManagement
         // more values needed for subcomponent props
         let tern = (arg) => arg ? true : false
         let backupOptions = backups ? selectOptions(backups) : []
@@ -234,29 +234,29 @@ class App extends Component {
         return (
             <div className="App">
                 <Input selector="acctInput" prompt="enter an account"
-                 val={validateAcctInput(acctInput)}
-                 onInputChange={this.handleAcctInputChange.bind(this)}
-                 onInputSubmit={this.handleAcctQuery.bind(this)} />
+                 val={ validateAcctInput(acctInput) }
+                 onInputChange={ this.handleAcctInputChange.bind(this) }
+                 onInputSubmit={ this.handleAcctQuery.bind(this) } />
                 <Select val={acctSelected} selector="acctSelect"
                  prompt="select an account" options={accts}
-                 onSelectChange={this.handleAcctChange.bind(this)} />
+                 onSelectChange={ this.handleAcctChange.bind(this) } />
                 <FileManagement selector="fileManagement" backupRequest={globalVar.requestBackup}
-                 selectedBackup={this.handleBackupChange.bind(this)}
+                 selectedBackup={ this.handleBackupChange.bind(this) }
                  backupOptions={backupOptions} backups={backups}
-                 acctSelected={tern(acctSelected)} showBackups={showBackups} />
+                 acctSelected={ tern(acctSelected) } showBackups={showBackups} />
                 <Radio selector={tableSelector} prompt="type of table:"
-                 options={radios} onRadioChange={this.handleTypeChange.bind(this)} />
+                 options={radios} onRadioChange={ this.handleTypeChange.bind(this) } />
                 <Select val={tableSelected} selector="tableSelect"
                  prompt="select a table" options={tables}
-                 onSelectChange={this.handleTableChange.bind(this)} />
+                 onSelectChange={ this.handleTableChange.bind(this) } />
                 <Button selector={buttonSelector} prompt="load table"
-                 onButtonClick={this.handleTableLoad.bind(this)} />
+                 onButtonClick={ this.handleTableLoad.bind(this) } />
                 <Banner type={bannerType} prompt={bannerPrompt}
                  selector="statusBanner"
-                 onBannerClose={this.handleBannerClose.bind(this)} />
+                 onBannerClose={ this.handleBannerClose.bind(this) } />
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected + " " + tableType}</p>
-                {this.renderTable()}
+                { this.renderTable() }
             </div>
         )
     }
