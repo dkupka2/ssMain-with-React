@@ -15,7 +15,7 @@ import events from './events'
 const { ADD_ACCT, SELECT_ACCT, SELECT_TABLE, } = events.ui
 // other dependencies
 import { initialState } from './state/index'
-import { fTable } from './facades/dataTable.facade'
+import filterTable from './facades/filterTable/filterTable.facade'
 import validateAcctInput from './mixins/acctInputValidation.mixin'
 import selectOptions from './mixins/select.mixin'
 import radioOptions from './mixins/radio.mixin'
@@ -219,9 +219,7 @@ class App extends Component {
             bannerPrompt,
             fileManagement
         } = this.state
-        let {
-            backups, selectedBackup, showBackups
-        } = fileManagement
+        let { backups, selectedBackup, showBackups } = fileManagement
         // more values needed for subcomponent props
         let tern = (arg) => arg ? true : false
         let backupOptions = backups ? selectOptions(backups) : []
