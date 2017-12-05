@@ -45,4 +45,6 @@
   margin-right: 10px;
   line-height: 40px;
   margin-top: 20px;
+} th, td {
+  padding: 3px;
 }

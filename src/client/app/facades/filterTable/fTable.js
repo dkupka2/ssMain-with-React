@@ -110,23 +110,23 @@ const fTable = {
                 case "conflicts":
                     return {
                         document: "oe form",
-                        location: `page ${PAGE_NUM} row ${L_ROW} column ${L_COL}`,
+                        location: `page_${PAGE_NUM} row_${L_ROW} column_${L_COL}`,
                         condition: FORMULA,
                         active: `${FORMULA && FORMULA.toString().slice(0,1) !== "~"}`,
                     }
                     break
                 default:
                     return {
-                        WHERE: `page ${PAGE_NUM} row ${L_ROW} column ${L_COL}`,
+                        WHERE: `page:${PAGE_NUM} row:${L_ROW} column:${L_COL}`,
                         LABEL,
-                        PARAGRAPH: HAS_PARA ? PARAGRAPH : "N/A",
-                        VARIABLE: `${GET_FIELD}: ${GET_TYPE} ${G_LENGTH}`,
+                        PARAGRAPH: HAS_PARA ? PARAGRAPH : "",
+                        VARIABLE: G_LENGTH == 0 ? " " : `${GET_FIELD} / ${GET_TYPE} / ${G_LENGTH}`,
                         FORMAT: G_PICTURE,
                         FORMULA,
                         LIST_NAME,
                         SKIP_NAME,
                         SKIP_LABEL,
-                        SAVE_OK,
+                        SAVE_OK: SAVE_OK === true ? "YES" : ""
                     }
             }
         }
