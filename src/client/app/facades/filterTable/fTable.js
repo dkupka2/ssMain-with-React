@@ -148,6 +148,12 @@ const fTable = {
             return object
         }
     },
+    On_Call: {
+        getFiltered(object) {
+            delete object.ROWID
+            return object
+        }
+    },
     Picklists: {
         getFiltered(object) {
             delete object.ROWID
@@ -203,7 +209,7 @@ const fTable = {
         alias: "PT_CONDLIB", 
         columns: ["NAME", "VISIBLE", "TESTFIELD", "LRFLAG", "COMPTYPE", "DATA1", "DATA2", "DATALIST", "COMPOUND", "DESCR"],
         getFiltered(object, type) {
-            let { NAME, VISIBLE, TESTFIELD, COMPTYPE, COMPARISON, DATA1, DATA2, DESC } = object
+            let { NAME, VISIBLE, TESTFIELD, COMPTYPE, COMPARISON, DATA1, DATA2, DESCR } = object
             return type === "conflicts" ? 
             {
                 document: "dispatch conditions",
