@@ -47,12 +47,12 @@ const convert = (value, type) => {
         case "contacts":
             let { NUMBER, OVERDIAL, PIN, EMAIL_ADDY, SUBJECT, SM_USER } = value
             final = []
-            if (NUMBER && NUMBER !== " ") final.push(NUMBER)
-            if (OVERDIAL && OVERDIAL !== " ") final.push(OVERDIAL)
             if (PIN && PIN !== " ") final.push(`$:{PIN}`)
-            if (EMAIL_ADDY && EMAIL_ADDY !== " ") final.push(EMAIL_ADDY)
+            if (NUMBER && NUMBER !== " ") final.push(NUMBER)
             if (SUBJECT && SUBJECT !== " ") final.push(`$:{SUBJECT}`)
             if (SM_USER && SM_USER !== " ") final.push(SM_USER)
+            if (OVERDIAL && OVERDIAL !== " ") final.push(OVERDIAL)
+            if (EMAIL_ADDY && EMAIL_ADDY !== " ") final.push(EMAIL_ADDY)
             return final.join(" ")
         default:
             alert(`unexpected type passed to convertValue switch: ${type}`)
@@ -255,7 +255,7 @@ const fTable = {
                 DESC,
                 CONDITION,
                 CONTACT,
-                FIELD: FIELD.slice(9,-1),
+                FIELD: FIELD.slice(9, -1),
                 SOFTSEEK: SOFTSEEK ? "Y" : "N"
             }
         }
@@ -316,7 +316,7 @@ const fTable = {
                 document: "scheduled deliveries",
                 location: "N/A",
                 condition: "SEE CONDITIONS",
-                active: ACTIVE ? " Y" : "N",
+                active: ACTIVE ? "Y" : "N",
             } : {
                 CONTACT,
                 DAYS: convert(DAYS, "days of the week"),
