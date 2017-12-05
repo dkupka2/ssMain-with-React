@@ -25,7 +25,8 @@ class Table extends React.Component {
             if (cellType === 'h') {
                 newArr.push( <th key={`${parentIndex}-${i}`}>{dataArr[i]}</th> )
             } else {
-                newArr.push( <td key={`${parentIndex}-${i}`}>{ `${typeof dataArr[i]} : ${this.checkBool(dataArr[i])} ` }</td> )
+                // newArr.push( <td key={`${parentIndex}-${i}`}>{ `${typeof dataArr[i]} : ${this.checkBool(dataArr[i])} ` }</td> )
+                newArr.push( <td key={`${parentIndex}-${i}`}>{ this.checkBool(dataArr[i]) }</td> )
             }
         }
         return (<tr key={`row-${parentIndex}`}>{newArr}</tr>)

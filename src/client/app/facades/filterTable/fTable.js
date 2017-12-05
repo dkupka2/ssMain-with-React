@@ -1,4 +1,65 @@
-export default fTable = {
+const convert = (value, type) => {
+    let final
+    switch (type) {
+        case "message status":
+            final = []
+            if ( value.includes(1) ) rstring.push("delivered")
+            if ( value.includes(2) ) rstring.push("hold")
+            if ( value.includes(3) ) rstring.push("un-delivered")
+            if ( value.includes(4) ) rstring.push("priority")
+            return final.join(" ")
+            break
+        case "timed auto type":
+            if ( value.includes(1) ) final = "add message"
+            if ( value.includes(2) ) final = "change status"
+            if ( value.includes(3) ) final = "timed action"
+            return final
+            break
+        case "days of the week":
+            final = []
+            if ( value.includes(1) ) final.push("sunday")
+            if ( value.includes(2) ) final.push("monday")
+            if ( value.includes(3) ) final.push("tuesday")
+            if ( value.includes(4) ) final.push("wednesday")
+            if ( value.includes(5) ) final.push("thursday")
+            if ( value.includes(6) ) final.push("friday")
+            if ( value.includes(7) ) final.push("saturday")
+            return final.join(" ")
+            break
+        case "holidays":
+            final = []
+            if ( value.includes("H01") ) final.push("NEW YEARS DAY")
+            if ( value.includes("H02") ) final.push("MARTIN LUTHER KING DAY")
+            if ( value.includes("H03") ) final.push("PRESIDENTS DAY")
+            if ( value.includes("H04") ) final.push("PATRIOTS DAY")
+            if ( value.includes("H05") ) final.push("MEMORIAL DAY")
+            if ( value.includes("H06") ) final.push("INDEPENDENCE DAY")
+            if ( value.includes("H07") ) final.push("LABOR DAY")
+            if ( value.includes("H08") ) final.push("COLUMBUS DAY")
+            if ( value.includes("H09") ) final.push("VETERANS DAY")
+            if ( value.includes("H10") ) final.push("THANKSGIVING DAY")
+            if ( value.includes("H11") ) final.push("BLACK FRIDAY")
+            if ( value.includes("H12") ) final.push("CHRISTMAS DAY")
+            if ( value.includes("S1") ) final.push("BOXING DAY")
+            // if ( value.includes("S2") ) final.push("SPECIAL DAY 2")
+            // if ( value.includes("S3") ) final.push("SPECIAL DAY 3")
+            return final.join(" ")
+        case "contacts":
+            let { NUMBER, OVERDIAL, PIN, EMAIL_ADDY, SUBJECT, SM_USER } = value
+            final = []
+            if (NUMBER && NUMBER !== " ") final.push(NUMBER)
+            if (OVERDIAL && OVERDIAL !== " ") final.push(OVERDIAL)
+            if (PIN && PIN !== " ") final.push(`$:{PIN}`)
+            if (EMAIL_ADDY && EMAIL_ADDY !== " ") final.push(EMAIL_ADDY)
+            if (SUBJECT && SUBJECT !== " ") final.push(`$:{SUBJECT}`)
+            if (SM_USER && SM_USER !== " ") final.push(SM_USER)
+            return final.join(" ")
+        default:
+            alert(`unexpected type passed to convertValue switch: ${type}`)
+    }
+}
+
+const fTable = {
     // Tables
     Autos_on_Save: {
         alias: "PT_AUTOA",
@@ -101,10 +162,10 @@ export default fTable = {
     },
     Contacts: {
         getFiltered(object) {
-            let { NAME, CONTACT, ON_CALL, RECALL, MSG_TYPES, TEMPLATES, FORM_NAME, COMMANDS, VISIBLE, DEL_TO, TYPE, NUMBER, EMAIL_ADDY, SUBJECT, PIN, SM_USER } = object
+            let { NAME, CONTACT, ON_CALL, RECALL, MSG_TYPES, TEMPLATE, FORM_NAME, COMMANDS, VISIBLE, DEL_TO, TYPE, NUMBER, EMAIL_ADDY, SUBJECT, PIN, SM_USER, } = object
             return {
                 NAME,
-                CONTACT: getFilteredContact("contacts", object),
+                CONTACT: convert(object, "contacts"),
                 ON_CALL,
                 RECALL,
                 MSG_TYPES,
@@ -223,7 +284,7 @@ export default fTable = {
         columns: ["ACTIVE", "CLIENT_ID", "ID_NUMBER", "DESC", "TYPE", "DATE", "TIME", "DOW", "LAST_DATE", "MSG_TYPES", "TASDSTATUS", "EXCLUDE", "INCLUDE", "DATA", "CONDITION", "NOTES"],
         getFiltered(object, type) {
             let { DESC, CONDITION, MSG_TYPES, TYPE, DATE, TIME, INCLUDE, EXCLUDE, ACTIVE, DATA, TASDSTATUS } = object
-            TYPE = convertValue(TYPE, "timed auto type")
+            TYPE = convert(TYPE, "timed auto type")
             return type === conflicts ?
             {
                 document: "timed autos",
@@ -234,8 +295,8 @@ export default fTable = {
                 TYPE,
                 DESC,
                 CONDITION, 
-                MSG_TYPES: convertValue(MSG_TYPES, "message status"),
-                TASDSTATUS: convertValue(TASDSTATUS, "message status"),
+                MSG_TYPES: convert(MSG_TYPES, "message status"),
+                TASDSTATUS: convert(TASDSTATUS, "message status"),
                 DATE,
                 TIME,
                 INCLUDE,
@@ -258,8 +319,8 @@ export default fTable = {
                 active: ACTIVE ? " Y" : "N",
             } : {
                 CONTACT,
-                DAYS: convertValue(DAYS, "days of the week"),
-                EXCLUDE: convertValue(EXCLUDE, "holidays"),
+                DAYS: convert(DAYS, "days of the week"),
+                EXCLUDE: convert(EXCLUDE, "holidays"),
                 TIME,
                 ACTIVE: ACTIVE ? "Y" : "N",
             }
@@ -269,7 +330,7 @@ export default fTable = {
         alias: "PTREMIND", 
         columns: ["ACTIVE", "CLIENT_ID", "ID_NUMBER", "DESC", "DATE", "TIME", "DOW", "LAST_DATE", "LAST_TIME", "EXCLUDE", "INCLUDE", "INSTRUCT", "OPER_ID", "CONDITION", "MSG_TYPES"],
         getFiltered(object, type) {
-            let { DESC, CONDITION, ACTIVE, TIME, EXCLUDE, INCLUDE, MSG_TYPES } = object
+            let { DESC, CONDITION, ACTIVE, DOW, TIME, INCLUDE, EXCLUDE, MSG_TYPES, } = object
             return type === "conflicts" ?
             {
                 document: "scheduled reminders",
@@ -280,12 +341,14 @@ export default fTable = {
                 DESC,
                 CONDITION,
                 ACTIVE: ACTIVE ? "Y" : "N",
-                DOW: convertValue(DOW, "days of the week"),
+                DOW: convert(DOW, "days of the week"),
                 TIME,
-                INCLUDE: convertValue(INCLUDE, "system holidays"),
-                EXCLUDE: convertValue(EXCLUDE,"system holidays"),
+                INCLUDE: convert(INCLUDE, "holidays"),
+                EXCLUDE: convert(EXCLUDE,"holidays"),
                 MSG_TYPES,
             }
         }
     }
 }
+
+export default fTable

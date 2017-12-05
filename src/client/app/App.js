@@ -130,7 +130,6 @@ class App extends Component {
     // handles RestAPI response
     handleRestRes(data) {
         let { acct, body, table } = data
-        console.log(body)
         // if the table does not exist in the slected account add empty arr
         if (!this.state.accts[acct][table]) this.state.accts[acct][table] = []
         this.state.accts[acct][table].push([body]) //  cache table
@@ -183,7 +182,7 @@ class App extends Component {
         }
         Pubsub.subscribe(events.res.error, globalVar.handleError)
     }
-    // renders table or inform if there is no data
+    // renders table or informs if there is no data
     renderTable() {
         let tArr, dTable, data
         let acct = this.state.acctSelected
@@ -197,6 +196,7 @@ class App extends Component {
             data = tArr[tArr.length-1]
             try {
                 dTable = tArr.length > 0 ? JSON.parse(data) : []
+                dTable = filterTable(table, dTable, this.state.tableType)
             }
             catch(e) {
                 console.error(e)
