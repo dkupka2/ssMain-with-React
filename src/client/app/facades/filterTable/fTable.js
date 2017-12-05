@@ -28,19 +28,19 @@ const convert = (value, type) => {
             break
         case "holidays":
             final = []
-            if ( value.includes("H01") ) final.push("NEW YEARS DAY")
-            if ( value.includes("H02") ) final.push("MARTIN LUTHER KING DAY")
-            if ( value.includes("H03") ) final.push("PRESIDENTS DAY")
-            if ( value.includes("H04") ) final.push("PATRIOTS DAY")
-            if ( value.includes("H05") ) final.push("MEMORIAL DAY")
-            if ( value.includes("H06") ) final.push("INDEPENDENCE DAY")
-            if ( value.includes("H07") ) final.push("LABOR DAY")
-            if ( value.includes("H08") ) final.push("COLUMBUS DAY")
-            if ( value.includes("H09") ) final.push("VETERANS DAY")
-            if ( value.includes("H10") ) final.push("THANKSGIVING DAY")
-            if ( value.includes("H11") ) final.push("BLACK FRIDAY")
-            if ( value.includes("H12") ) final.push("CHRISTMAS DAY")
-            if ( value.includes("S1") ) final.push("BOXING DAY")
+            if ( value.includes("H01") ) final.push("NEW_YEARS_DAY")
+            if ( value.includes("H02") ) final.push("MLK_DAY")
+            if ( value.includes("H03") ) final.push("PRESIDENTS_DAY")
+            if ( value.includes("H04") ) final.push("PATRIOTS_DAY")
+            if ( value.includes("H05") ) final.push("MEMORIAL_DAY")
+            if ( value.includes("H06") ) final.push("INDEPENDENCE_DAY")
+            if ( value.includes("H07") ) final.push("LABOR_DAY")
+            if ( value.includes("H08") ) final.push("COLUMBUS_DAY")
+            if ( value.includes("H09") ) final.push("VETERANS_DAY")
+            if ( value.includes("H10") ) final.push("THANKSGIVING")
+            if ( value.includes("H11") ) final.push("BLACK_FRIDAY")
+            if ( value.includes("H12") ) final.push("CHRISTMAS_DAY")
+            if ( value.includes("S1") ) final.push("BOXING_DAY")
             // if ( value.includes("S2") ) final.push("SPECIAL DAY 2")
             // if ( value.includes("S3") ) final.push("SPECIAL DAY 3")
             return final.join(" ")
@@ -110,7 +110,7 @@ const fTable = {
                 case "conflicts":
                     return {
                         document: "oe form",
-                        location: `page_${PAGE_NUM} row_${L_ROW} column_${L_COL}`,
+                        location: `page:${PAGE_NUM} row:${L_ROW} column:${L_COL}`,
                         condition: FORMULA,
                         active: `${FORMULA && FORMULA.toString().slice(0,1) !== "~"}`,
                     }

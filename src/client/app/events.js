@@ -71,12 +71,13 @@ let callAPI = (event, data) => {
     switch (type) {
         case "conflicts":
                 Promise.all([
-                    Object.keys(events.loadTable).map((table) => callAPI("",{acct, table, tableType: "table"})),
-                    Object.keys(events.filterTable).map((table) => callAPI("",{acct, table, tableType: "filtered"}))
+                    Object.keys(events.loadTable).map((table) => callAPI("", {acct, table, tableType: "table"} )),
+                    Object.keys(events.filterTable).map((table) => callAPI("", {acct, table, tableType: "filtered"} ))
+
                 ])
         return
         case "table":
-            socket.emit(events.req.table, `${acct}/${table}?&out=json`)
+            socket.emit(events.req.table, {acct, table} )
         return
         case "filtered":
             socket.emit(events.req.filtered, {acct, table} )

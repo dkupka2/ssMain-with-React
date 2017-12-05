@@ -22,11 +22,11 @@ module.exports = (io, app) => {
         let relay = (message, data) => {
             socket.emit(message, data)
         }
-        socket.on("table request", restReq => {
-            let first, second, acct, table
+        socket.on("table request", data => {
+            let { acct, table } = data
             request(
                 {
-                    url: `${url}${restReq}&limit=500`,
+                    url: `${url}${acct}/${table}?out=json&limit=500`,
                     headers: {"authorization": auth}
                 }, (err, response, body) => {
                     if (err) {
@@ -37,10 +37,6 @@ module.exports = (io, app) => {
                     } catch (e) {
                         return relay("rest error", e)
                     }
-                    first = restReq.search("/"),
-                    second = restReq.search("out=json") - 2,
-                    acct = restReq.slice(0, first),
-                    table = restReq.slice(`${first + 1}`, second)
                     socket.emit("restapi response", {acct, table, body})
                 }
             )
@@ -50,7 +46,7 @@ module.exports = (io, app) => {
                 { acct, table } = data
             request(
                 {
-                    url: `${url}${table}/?limit=500&out=json&eq_CLIENT_ID=${acct}`,
+                    url: `${url}${table}/?out=json&limit=500&eq_CLIENT_ID=${acct}`,
                     headers: {
                         "authorization": auth
                     }
