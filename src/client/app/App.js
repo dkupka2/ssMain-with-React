@@ -68,27 +68,39 @@ class App extends Component {
         })
     }
     // handles table select updates
-    handleTableChange(x) {
-        let newPrompt = Number(this.state.acctSelected) > 0 ?
-            "Please Load this table for the latest version" :
-            "Please select an account first to load this table"
+    handleTableChange(newTable) {
+        let type, prompt
+        let { acctSelected, accts } = this.state
+        if (! acctSelected) {
+            this.changeState("table changed - no acct selected", {
+                bannerType: "warning",
+                bannerPrompt: "Please select an account first to load this table"
+            })
+        }
+        if ( acctSelected && accts[acctSelected][newTable].length === 0 ) {
+            type = "ok"
+            prompt = "Table is ready to load"
+        } else {
+            type = "warning"
+            prompt = "Please re-load this table for the latest version"
+        }
         this.changeState("table changed", {
-            tableSelected: x,
-            bannerType: "warning",
-            bannerPrompt: newPrompt
+            tableSelected: newTable,
+            bannerType: type,
+            bannerPrompt: prompt
         })
     }
     // verifies and adds account, if accts contains data; copy it's enumerable
-    handleAcctQuery(x) {
-        if (! verifyAccount(x) ) return
-        let newAccts = {}
-        let prevAcctsList = this.flatAccts()
-        if (prevAcctsList.includes(x)) return
-        if (prevAcctsList.length > 0) Object.assign(newAccts, this.state.accts)
-        newAccts[x] = {}
+    handleAcctQuery(acctNum) {
+        let accts
+        if (! verifyAccount(acctNum) ) return
+        if (this.flatAccts().includes(acctNum)) return
+        accts = Object.assign({}, this.state.accts)
+        accts[acctNum] = {}
+        tableKeys.concat(filterKeys).map((table) => accts[acctNum][table] = [])
         this.changeState("acct added", {
-            accts: newAccts,
-            acctSelected: x,
+            accts: accts,
+            acctSelected: acctNum,
             acctInput: "",
             bannerType: "warning",
             bannerPrompt: "validating account, please wait"
@@ -100,7 +112,7 @@ class App extends Component {
         if (! acctSelected) {
             this.updateBanner({
                 bannerType: "warning",
-                bannerPrompt: "Please select an account first to load this table"
+                bannerPrompt: "Please enter an account first to load this table"
             })
         } else{
             Pubsub.publish(events.actions.loadTable, { acctSelected, tableSelected, tableType })
@@ -123,16 +135,14 @@ class App extends Component {
             case "conflicts":
                 return conflictsKeys
                 break
-            default: 
+            default:
                 return tableKeys
         }
     }
-    // handles RestAPI response
+    // handles RestAPI response and caches table
     handleRestRes(data) {
         let { acct, body, table } = data
-        // if the table does not exist in the slected account add empty arr
-        if (!this.state.accts[acct][table]) this.state.accts[acct][table] = []
-        this.state.accts[acct][table].push([body]) //  cache table
+        this.state.accts[acct][table].push([body])
         this.updateBanner({
             bannerType: "ok",
             bannerPrompt: "Table is loaded, Good Luck!"
@@ -140,16 +150,16 @@ class App extends Component {
     }
     // global functions for Pubsub
     componentWillMount() {
-        // relay RestAPI response to App class instance
+        // receives RestAPI response to App
         globalVar.receiveRestRes = (event, data) => {
             this.handleRestRes(data)
         }
         Pubsub.subscribe(events.res.restApi, globalVar.receiveRestRes)
         // handles account validation response and updates state
         globalVar.accountValidation = (event, data) => {
-            let { acct, pass } = data
-            let resultType, resultPrompt, resultSelected, newAccts = {}
-            Object.assign(newAccts, this.state.accts)
+            let resultType, resultPrompt, resultSelected,
+                { acct, pass } = data
+            let newAccts = Object.assign({}, this.state.accts)
             if (! pass) delete newAccts[acct]
             resultType = pass ? "ok" : "alert"
             resultPrompt = pass ? `Account ${acct} is ready` : `Account ${acct} not found in ordentry`
@@ -169,18 +179,23 @@ class App extends Component {
             })
         }
         Pubsub.subscribe(events.res.backups, globalVar.relayBackups)
-        // relays back up subdirectory request
+        // relays back up request
         globalVar.requestBackup = (acct = this.state.acctSelected) => {
             Pubsub.publish(events.req.backup, acct)
         }
         // handles errors from the server and updates state
-        globalVar.handleError = (error) => {
+        globalVar.handleError = (event, error) => {
+            console.log("error")
             this.updateBanner({
                 bannerType: "alert",
                 bannerPrompt: error
             })
         }
         Pubsub.subscribe(events.res.error, globalVar.handleError)
+    }
+    renderStats() {
+        let { acctSelected, tableSelected } = this.state
+
     }
     // renders table or informs if there is no data
     renderTable() {
@@ -209,7 +224,7 @@ class App extends Component {
     }
     // App class instance' render function
     render() {
-        // variables from state
+        // values from state
         let {
             acctSelected,
             acctInput,

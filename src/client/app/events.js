@@ -1,16 +1,11 @@
 import Pubsub from 'pubsub-js'
 import io from 'socket.io-client'
-
-// let os = require('os')
-// console.log(os.networkInterfaces())
-// let ipv4 = os.networkInterfaces()['Local Area Connection'][1]['address']
-
+// socket io server instance
 const socket = io.connect("http://localhost:8000/restapi")
-
 socket.on("connect", () => {
     console.log("connected to socket server")
 })
-
+// event keys passed to App for consistency 
 let events = {
     actions: {
         loadTable: "load table"
@@ -67,15 +62,18 @@ let events = {
         SELECT_TABLE: "sT",
     }
 }
-
+// handles RestAPI request / response
 let callAPI = (event, data) => {
-    let request
+    let request, table
     let type = data.tableType
     let acct = data.acctSelected
-    let table = events[type === "table" ? "loadTable" : "filterTable"][data.tableSelected]
+    if (type !== "conflicts") table = events[type === "table" ? "loadTable" : "filterTable"][data.tableSelected]
     switch (type) {
         case "conflicts":
-            getConflicts(acct)
+                Promise.all([
+                    Object.keys(events.loadTable).map((table) => callAPI("",{acct, table, tableType: "table"})),
+                    Object.keys(events.filterTable).map((table) => callAPI("",{acct, table, tableType: "filtered"}))
+                ])
         return
         case "table":
             socket.emit(events.req.table, `${acct}/${table}?&out=json`)
@@ -88,52 +86,37 @@ let callAPI = (event, data) => {
         return
     }
 }
-
-let revertTableName = (val) => { // convert table name back from prop value
+Pubsub.subscribe(events.actions.loadTable, callAPI)
+// convert table name back from prop value
+let revertTableName = (val) => { 
     let tables = Object.assign({}, events.loadTable, events.filterTable)
     for (let table in tables) {
         if (tables[table] === val) return table
     }
 }
-
-let getConflicts = (acct) => {
-    Promise.all([
-        Object.keys(events.loadTable).map((table) => callAPI("",{acct, table, type: "table"})),
-        Object.keys(events.filterTable).map((table) => callAPI("",{acct, table, type: "filtered"}))
-    ])
-    .catch(err => alert(err) )
-}
-
-Pubsub.subscribe(events.actions.loadTable, callAPI)
-
 socket.on(events.res.restApi, (data) => {
     Pubsub.publish(events.res.restApi, Object.assign({}, data, {
         table: revertTableName(data.table)
     }))
 })
-
+// relays acct validation request / response
 let validation = (event, acct) => {
     socket.emit(events.req.validation, acct)
 }
-
 Pubsub.subscribe(events.req.validation, validation)
-
 socket.on(events.res.validation, (data) => {
     Pubsub.publish(events.res.validation, data)
 })
-
-socket.on(events.res.backups, (data) => {
-    Pubsub.publish(events.res.backups, data)
-})
-
+// relays acct back up request / response
 let backupAccts = (event, acct) => {
     socket.emit(events.req.backup, acct)
 }
-
 Pubsub.subscribe(events.req.backup, backupAccts)
-
+socket.on(events.res.backups, (data) => {
+    Pubsub.publish(events.res.backups, data)
+})
+// handles error from RestAPI
 socket.on(events.res.error, (error) => {
     Pubsub.publish(events.res.error, error)
 })
-
 export default events
