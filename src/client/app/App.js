@@ -11,8 +11,9 @@ import Button from './components/generic/Button.react'
 import Table  from './components/generic/Table.react'
 import FileManagement from './components/widgets/FileManagement.widget'
 // observer methods and event keys
-import events from './events'
-const { ADD_ACCT, SELECT_ACCT, SELECT_TABLE, } = events.ui
+import events from './events/events'
+import { keys } from './events/keys'
+const { ADD_ACCT, SELECT_ACCT, SELECT_TABLE } = keys.ui
 // other dependencies
 import { initialState } from './state/index'
 import filterTable from './facades/filterTable/filterTable.facade'
@@ -20,16 +21,18 @@ import validateAcctInput from './mixins/acctInputValidation.mixin'
 import selectOptions from './mixins/select.mixin'
 import radioOptions from './mixins/radio.mixin'
 // data tables
-const tableTypes = ["conflicts", "table","filtered"]
-const tableKeys = Object.keys(events.loadTable)
-const conflictsKeys = Object.keys(events.multiTable)
-const filterKeys = Object.keys(events.filterTable)
+const tableTypes = ["compound", "local", "global"]
+const localKeys = Object.keys(keys.tables.local)
+const globalKeys = Object.keys(keys.tables.global)
+const compoundKeys = Object.keys(keys.tables.compound)
+// concat conflict keys to target for rendering
+const conflictTables = Object.keys(keys.tables.compound.conflicts).concat(globalKeys)
 // anchor for Pubsub events
 let globalVar = {} 
 // confirms account number is valid
 let verifyAccount = (acct) => { 
     if ( acct % 1 === 0 && acct > 0 && acct < 10000 ) {
-        Pubsub.publish(events.req.validation, acct)
+        Pubsub.publish(keys.req.validation, acct)
         return true
     } else return false
 }
@@ -97,7 +100,7 @@ class App extends Component {
         if (this.flatAccts().includes(acctNum)) return
         accts = Object.assign({}, this.state.accts)
         accts[acctNum] = {}
-        tableKeys.concat(filterKeys).map((table) => accts[acctNum][table] = [])
+        localKeys.concat(globalKeys).map((table) => accts[acctNum][table] = [])
         this.changeState("acct added", {
             accts: accts,
             acctSelected: acctNum,
@@ -115,7 +118,7 @@ class App extends Component {
                 bannerPrompt: "Please enter an account first to load this table"
             })
         } else{
-            Pubsub.publish(events.actions.loadTable, { acctSelected, tableSelected, tableType })
+            Pubsub.publish(keys.actions.loadTable, { acctSelected, tableSelected, tableType })
             this.updateBanner({
                 bannerType: "warning",
                 bannerPrompt: "Table is loading, please wait"
@@ -129,14 +132,14 @@ class App extends Component {
     whichTables(x) {
         let type = x ? x : this.state.tableType
         switch (type) {
-            case "filtered":
-                return filterKeys
+            case "global":
+                return globalKeys
                 break
-            case "conflicts":
-                return conflictsKeys
+            case "compound":
+                return compoundKeys
                 break
             default:
-                return tableKeys
+                return localKeys
         }
     }
     // handles RestAPI response and caches table
@@ -154,7 +157,7 @@ class App extends Component {
         globalVar.receiveRestRes = (event, data) => {
             this.handleRestRes(data)
         }
-        Pubsub.subscribe(events.res.restApi, globalVar.receiveRestRes)
+        Pubsub.subscribe(keys.res.restApi, globalVar.receiveRestRes)
         // handles account validation response and updates state
         globalVar.accountValidation = (event, data) => {
             let resultType, resultPrompt, resultSelected,
@@ -171,17 +174,17 @@ class App extends Component {
                 acctSelected: resultSelected
             })
         }
-        Pubsub.subscribe(events.res.validation, globalVar.accountValidation)
+        Pubsub.subscribe(keys.res.validation, globalVar.accountValidation)
         // handles back up subdirectory list response and updates state
         globalVar.relayBackups = (event, data) => {
             this.changeState("backups received", {
                 fileManagement: Object.assign({}, this.state.fileManagement, {backups: data.data})
             })
         }
-        Pubsub.subscribe(events.res.backups, globalVar.relayBackups)
+        Pubsub.subscribe(keys.res.backups, globalVar.relayBackups)
         // relays back up request
         globalVar.requestBackup = (acct = this.state.acctSelected) => {
-            Pubsub.publish(events.req.backup, acct)
+            Pubsub.publish(keys.req.backup, acct)
         }
         // handles errors from the server and updates state
         globalVar.handleError = (event, error) => {
@@ -191,7 +194,7 @@ class App extends Component {
                 bannerPrompt: error
             })
         }
-        Pubsub.subscribe(events.res.error, globalVar.handleError)
+        Pubsub.subscribe(keys.res.error, globalVar.handleError)
     }
     renderStats() {
         let { acctSelected, tableSelected } = this.state

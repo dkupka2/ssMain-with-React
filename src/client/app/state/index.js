@@ -2,7 +2,7 @@ export const initialState = {
     acctInput: "",
     accts: {},
     acctSelected: "",
-    tableType: "conflicts",
+    tableType: "compound",
     tableSelected: "conflicts",
     bannerType: "",
     bannerPrompt: "",
