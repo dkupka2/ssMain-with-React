@@ -59,6 +59,11 @@ const convert = (value, type) => {
     }
 }
 
+const removeROWID = (obj) => {
+    delete obj.ROWID
+    return object
+}
+
 const fTable = {
     // Tables
     Autos_on_Save: {
@@ -138,32 +143,27 @@ const fTable = {
     },
     Customer_Database: {
         getFiltered(object) {
-            delete object.ROWID
-            return object
+            return removeROWID(object)
         }
     },
     History: {
         getFiltered(object) {
-            delete object.ROWID
-            return object
+            return removeROWID(object)
         }
     },
     On_Call: {
         getFiltered(object) {
-            delete object.ROWID
-            return object
+            return removeROWID(object)
         }
     },
     Picklists: {
         getFiltered(object) {
-            delete object.ROWID
-            return object
+            return removeROWID(object)
         }
     },
     Skiplists: {
         getFiltered(object) {
-            delete object.ROWID
-            return object
+            return removeROWID(object)
         }
     },
     Contacts: {
@@ -185,14 +185,12 @@ const fTable = {
     },
     Abend: {
         getFiltered(object) {
-            delete object.ROWID
-            return object
+            return removeROWID(object)
         }
     },
     Help_Topics: {
         getFiltered(object) {
-            delete object.ROWID
-            return object
+            return removeROWID(object)
         }
     },
     Dispatch_Procedures: {

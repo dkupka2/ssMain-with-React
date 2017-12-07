@@ -196,10 +196,6 @@ class App extends Component {
         }
         Pubsub.subscribe(keys.res.error, globalVar.handleError)
     }
-    renderStats() {
-        let { acctSelected, tableSelected } = this.state
-
-    }
     // renders table or informs if there is no data
     renderTable() {
         let tArr, dTable, data

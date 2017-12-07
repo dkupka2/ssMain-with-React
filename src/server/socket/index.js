@@ -27,7 +27,6 @@ module.exports = (io, app) => {
         let sendRequest = (type, data) => {
             let URI,
                 { acct, table, list } = data
-            console.log(acct, table, type)
             if (type === "list") URI = `${url}${acct}/${list}/${table}?out=json`
             if (type === "local") URI = `${url}${acct}/${table}?out=json&limit=500`
             if (type === "global") URI = `${url}/${table}?out=json&limit=500&eq_CLIENT_ID=${acct}`
