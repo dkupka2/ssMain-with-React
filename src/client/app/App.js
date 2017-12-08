@@ -196,30 +196,52 @@ class App extends Component {
         }
         Pubsub.subscribe(keys.res.error, globalVar.handleError)
     }
+    getCompoundTables(type, acct) {
+        let dArr, data = [],
+            accts = this.state.accts
+        if (type === "conflicts") {
+            conflictTables.map((table) => {
+                dArr = accts[acct][table]
+                data.push(dArr ? dArr[dArr.length-1] : false)
+            })
+        }
+        return data.includes(false) ? false : data
+    }
     // renders table or informs if there is no data
     renderTable() {
-        let tArr, dTable, data
-        let acct = this.state.acctSelected
-        let table = this.state.tableSelected
-        // "if a table is selected and the selected account has table data loaded"
-        if ( this.state.accts[acct] !== undefined &&
-             this.state.accts[acct][table] !== undefined &&
-             this.state.accts[acct][table].length > 0 )
-        {
-            tArr = this.state.accts[acct][table]
+        let tArr, dTable, data, proceed,
+            accts = this.state.accts,
+            table = this.state.tableSelected,
+            acct = this.state.acctSelected,
+            type = this.state.tableType
+        if ( acct === undefined ) return
+        // "if a local or global table is selected and the selected account has table data loaded"
+        if (
+            ( type === "local" || type === "global" ) &&
+            accts[acct][table] !== undefined &&
+            accts[acct][table].length > 0 
+        ) {
+            proceed = true
+            tArr = accts[acct][table]
             data = tArr[tArr.length-1]
-            try {
-                dTable = tArr.length > 0 ? JSON.parse(data) : []
-                dTable = filterTable(table, dTable, this.state.tableType)
-            }
-            catch(e) {
-                console.error(e)
-                return alert("render failed, error: ", e)
-            } 
-            return dTable.length > 0 ? 
-                ( <Table selector="data" title={table} data={dTable}/> ) : 
-                ( <p className="no-table-data">There is no data in the selected table</p> )
-        } else return
+        }
+        // "if conflicts is selected "
+        if ( table === "conflicts" && this.getCompoundTables(acct, table) ) {
+            data = this.getCompoundTables(acct, table)
+        } 
+        if (! proceed) return
+        try {
+            data = JSON.parse(data)
+            console.log(data)
+            dTable = filterTable(table, data, this.state.tableType)
+        }
+        catch(e) {
+            console.error(e)
+            return alert("render failed, error: ", e)
+        } 
+        return dTable.length > 0 ? 
+            ( <Table selector="data" title={table} data={dTable}/> ) :
+            ( <p className="no-table-data">There is no data in the selected table</p> )
     }
     // App class instance' render function
     render() {
