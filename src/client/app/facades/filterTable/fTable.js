@@ -76,11 +76,11 @@ const fTable = {
                 document: "auto-a",
                 location: `${ORDER}: ${DESC}`,
                 condition: CONDITION,
-                active: ACTIVE
+                active: ACTIVE ? "" : "NO"
             } : {
                 ORDER,
                 DESC,
-                ACTIVE: ACTIVE ? "Y" : "N",
+                ACTIVE: ACTIVE ? "" : "NO",
                 CONDITION,
                 CONTACT,
                 COPYTOACCT
@@ -97,11 +97,11 @@ const fTable = {
                 document: "auto-b",
                 location: `${ORDER}: ${DESC}`,
                 condition: CONDITION,
-                active: ACTIVE
+                active: ACTIVE ? "" : "NO"
             } : {
                 ORDER,
                 DESC,
-                ACTIVE: ACTIVE ? "Y" : "N",
+                ACTIVE: ACTIVE ? "" : "NO",
                 CONDITION
             }
         }
@@ -113,11 +113,15 @@ const fTable = {
             let { PAGE_NUM, L_ROW, L_COL, LABEL, HAS_PARA, PARAGRAPH, GET_FIELD, GET_TYPE, G_LENGTH, G_PICTURE, FORMULA, LIST_NAME, SKIP_NAME, SKIP_LABEL, SAVE_OK } = object
             switch (type) {
                 case "conflicts":
-                    return {
-                        document: "oe form",
-                        location: `page:${PAGE_NUM} row:${L_ROW} column:${L_COL}`,
-                        condition: FORMULA,
-                        active: `${FORMULA && FORMULA.toString().slice(0,1) !== "~"}`,
+                    if (GET_FIELD && FORMULA) {
+                        return {
+                            document: "oe form",
+                            location: `page:${PAGE_NUM} row:${L_ROW} column:${L_COL}`,
+                            condition: `${GET_FIELD} : ${FORMULA}`,
+                            active: `${FORMULA && FORMULA.toString().slice(0,1) !== "~" ? "" : "NO"}`,
+                        }
+                    } else {
+                        return {}
                     }
                     break
                 default:
@@ -212,8 +216,8 @@ const fTable = {
             {
                 document: "dispatch conditions",
                 location: NAME,
-                condition: `compares ${TESTFIELD} to ${DATA1} or ${DATA2}`,
-                active: VISIBLE,
+                condition: `compares ${TESTFIELD} to ${DATA1} ${DATA2 ? `or ${DATA2}` : ``}`,
+                active: "??"
             } : {
                 NAME,
                 VISIBLE,
@@ -233,11 +237,11 @@ const fTable = {
                 document: "scheduled delivery conditions",
                 location: `${ORDER} ${DESC}`,
                 condition: CONDITION,
-                active: ACTIVE,
+                active: ACTIVE ? "" : "NO"
             } : {
                 ORDER,
                 DESC, 
-                ACTIVE: ACTIVE ? "Y" : "N",
+                ACTIVE: ACTIVE ? "" : "NO",
                 CONDITION,
                 CONTACT
             }
@@ -253,7 +257,7 @@ const fTable = {
                 document: "dcl",
                 location: `${ORDER}: ${DESC}`,
                 condition: CONDITION,
-                active: `${CONDITION == true}`,
+                active: CONDITION ? "" : "NO"
             } : {
                 ORDER,
                 DESC,
@@ -274,7 +278,7 @@ const fTable = {
                 document: "message view conditions",
                 location: ORDER,
                 condition: FORMULA,
-                active: `${ORDER == true && CONDITION == true}`,
+                active: ORDER ? "" : "NO"
             } : {
                 ORDER,
                 TEMPLATE,
@@ -294,7 +298,7 @@ const fTable = {
                 document: "timed autos",
                 location: `${TYPE}: ${DESC}`,
                 condition: CONDITION,
-                active: ACTIVE,
+                active: ACTIVE ? "" : "NO"
             } : {
                 TYPE,
                 DESC,
@@ -320,13 +324,13 @@ const fTable = {
                 document: "scheduled deliveries",
                 location: "N/A",
                 condition: "SEE CONDITIONS",
-                active: ACTIVE ? "Y" : "N",
+                active: ACTIVE ? "" : "NO",
             } : {
                 CONTACT,
                 DAYS: convert(DAYS, "days of the week"),
                 EXCLUDE: convert(EXCLUDE, "holidays"),
                 TIME,
-                ACTIVE: ACTIVE ? "Y" : "N",
+                ACTIVE: ACTIVE ? "" : "NO",
             }
         }
     },
@@ -340,11 +344,11 @@ const fTable = {
                 document: "scheduled reminders",
                 location: DESC,
                 condition: CONDITION,
-                active: ACTIVE ? "Y" : "N",
+                active: ACTIVE ? "" : "NO",
             } : {
                 DESC,
                 CONDITION,
-                ACTIVE: ACTIVE ? "Y" : "N",
+                ACTIVE: ACTIVE ? "" : "NO",
                 DOW: convert(DOW, "days of the week"),
                 TIME,
                 INCLUDE: convert(INCLUDE, "holidays"),

@@ -26,7 +26,8 @@ const localKeys = Object.keys(keys.tables.local)
 const globalKeys = Object.keys(keys.tables.global)
 const compoundKeys = Object.keys(keys.tables.compound)
 // concat conflict keys to target for rendering
-const conflictTables = Object.keys(keys.tables.compound.conflicts).concat(globalKeys)
+const conflictTables = Object.keys(keys.tables.compound.conflicts.local)
+    .concat( Object.keys(keys.tables.compound.conflicts.global) )
 // anchor for Pubsub events
 let globalVar = {} 
 // confirms account number is valid
@@ -117,7 +118,7 @@ class App extends Component {
                 bannerType: "warning",
                 bannerPrompt: "Please enter an account first to load this table"
             })
-        } else{
+        } else {
             Pubsub.publish(keys.actions.loadTable, { acctSelected, tableSelected, tableType })
             this.updateBanner({
                 bannerType: "warning",
@@ -196,27 +197,43 @@ class App extends Component {
         }
         Pubsub.subscribe(keys.res.error, globalVar.handleError)
     }
-    getCompoundTables(type, acct) {
-        let dArr, data = [],
-            accts = this.state.accts
-        if (type === "conflicts") {
-            conflictTables.map((table) => {
-                dArr = accts[acct][table]
-                data.push(dArr ? dArr[dArr.length-1] : false)
-            })
-        }
-        return data.includes(false) ? false : data
+    renderCompound() {
+        let data, fData,
+            acct = this.state.acctSelected,
+            compound = this.state.tableSelected,
+            tAcct = this.state.accts[acct],
+            final = []
+        if (! tAcct ) return
+        if (compound === "conflicts") tTables = conflictTables
+        tTables.map((table) => {
+            if (tAcct[table].length > 0) {
+                try { // parse the latest entry for each relevant table in this.state.accts[acct]
+                    data = JSON.parse( tAcct[table][ tAcct[table].length-1 ][0] )
+                    fData = filterTable(table, data, "conflicts")
+                    for (let row of fData) {
+                        if ( row && row.hasOwnProperty("document") ) final.push(row)
+                    }
+                } catch(e) {
+                    alert(e)
+                }
+            }
+        })
+        return final.length > 0 ?
+            ( <Table selector="data" title={compound} data={final}/> ) :
+            ( <p className="no-table-data">There is no data in the selected table</p> )
+
     }
     // renders table or informs if there is no data
     renderTable() {
         let tArr, dTable, data, proceed,
             accts = this.state.accts,
-            table = this.state.tableSelected,
-            acct = this.state.acctSelected,
-            type = this.state.tableType
+            {
+                tableSelected: table,
+                acctSelected: acct,
+                tableType: type
+            } = this.state
         if ( acct === undefined ) return
-        // "if a local or global table is selected and the selected account has table data loaded"
-        if (
+        if ( // "if a local or global table is selected and the selected account has table data loaded"
             ( type === "local" || type === "global" ) &&
             accts[acct][table] !== undefined &&
             accts[acct][table].length > 0 
@@ -226,20 +243,21 @@ class App extends Component {
             data = tArr[tArr.length-1]
         }
         // "if conflicts is selected "
-        if ( table === "conflicts" && this.getCompoundTables(acct, table) ) {
-            data = this.getCompoundTables(acct, table)
+        if ( table === "conflicts" && acct ) {
+            dTable = this.getCompoundTables(acct, "conflicts")
         } 
-        if (! proceed) return
+        if (! proceed && type !== "conflicts" ) return
         try {
             data = JSON.parse(data)
-            console.log(data)
-            dTable = filterTable(table, data, this.state.tableType)
+            dTable = type === "conflicts" ?
+                this.getCompoundTables(acct, "conflicts") :
+                filterTable(table, data, this.state.tableType)
         }
         catch(e) {
             console.error(e)
             return alert("render failed, error: ", e)
         } 
-        return dTable.length > 0 ? 
+        return dTable.length > 0 ?
             ( <Table selector="data" title={table} data={dTable}/> ) :
             ( <p className="no-table-data">There is no data in the selected table</p> )
     }
@@ -258,6 +276,7 @@ class App extends Component {
         let { backups, selectedBackup, showBackups } = fileManagement
         // more values needed for subcomponent props
         let tern = (arg) => arg ? true : false
+        let renderData = (type) => type !== "compound" ? this.renderTable() : this.renderCompound()
         let backupOptions = backups ? selectOptions(backups) : []
         let acctsArr = this.flatAccts()
         let accts = selectOptions(acctsArr)
@@ -290,7 +309,7 @@ class App extends Component {
                  onBannerClose={ this.handleBannerClose.bind(this) } />
                 <p>{acctsArr.length + " accts loaded, selected: "
                  + acctSelected + " " + tableSelected + " " + tableType}</p>
-                { this.renderTable() }
+                { renderData(tableType) }
             </div>
         )
     }
