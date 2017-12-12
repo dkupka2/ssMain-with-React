@@ -198,7 +198,7 @@ class App extends Component {
         Pubsub.subscribe(keys.res.error, globalVar.handleError)
     }
     renderCompound() {
-        let data, fData,
+        let data, fData, tTables,
             acct = this.state.acctSelected,
             compound = this.state.tableSelected,
             tAcct = this.state.accts[acct],

@@ -293,7 +293,7 @@ const fTable = {
         getFiltered(object, type) {
             let { DESC, CONDITION, MSG_TYPES, TYPE, DATE, TIME, INCLUDE, EXCLUDE, ACTIVE, DATA, TASDSTATUS } = object
             TYPE = convert(TYPE, "timed auto type")
-            return type === conflicts ?
+            return type === "conflicts" ?
             {
                 document: "timed autos",
                 location: `${TYPE}: ${DESC}`,
