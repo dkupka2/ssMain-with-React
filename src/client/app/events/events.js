@@ -12,7 +12,6 @@ let callAPI = (event, data) => {
     let request, table
     let type = data.tableType
     let acct = data.acctSelected
-    console.log("table request: ", type, acct, data.tableSelected)
     if (type !== "compound") table = keys.tables[type][data.tableSelected]
     switch (type) {
         case "compound":
@@ -30,11 +29,9 @@ let callAPI = (event, data) => {
                 })
         return
         case "local":
-            alert("emit local: " + table)
             socket.emit(keys.req.local, {acct, table} )
         return
         case "global":
-        alert("emit global: " + table)
             socket.emit(keys.req.global, {acct, table} )
         return
         default:
@@ -60,6 +57,7 @@ socket.on(keys.res.restApi, (data) => {
 // relays acct validation request / response
 let validation = (event, acct) => {
     socket.emit(keys.req.validation, acct)
+    socket.emit("test")
 }
 Pubsub.subscribe(keys.req.validation, validation)
 socket.on(keys.res.validation, (data) => {

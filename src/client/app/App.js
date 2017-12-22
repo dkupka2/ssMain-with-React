@@ -189,7 +189,6 @@ class App extends Component {
         }
         // handles errors from the server and updates state
         globalVar.handleError = (event, error) => {
-            console.log("error")
             this.updateBanner({
                 bannerType: "alert",
                 bannerPrompt: error
