@@ -235,22 +235,16 @@ class App extends Component {
         if ( // "if a local or global table is selected and the selected account has table data loaded"
             ( type === "local" || type === "global" ) &&
             accts[acct][table] !== undefined &&
-            accts[acct][table].length > 0 
+            accts[acct][table].length > 0
         ) {
             proceed = true
             tArr = accts[acct][table]
             data = tArr[tArr.length-1]
         }
-        // "if conflicts is selected "
-        if ( table === "conflicts" && acct ) {
-            dTable = this.getCompoundTables(acct, "conflicts")
-        } 
-        if (! proceed && type !== "conflicts" ) return
+        if (! proceed) return
         try {
             data = JSON.parse(data)
-            dTable = type === "conflicts" ?
-                this.getCompoundTables(acct, "conflicts") :
-                filterTable(table, data, this.state.tableType)
+            dTable = filterTable(table, data, this.state.tableType)
         }
         catch(e) {
             console.error(e)
