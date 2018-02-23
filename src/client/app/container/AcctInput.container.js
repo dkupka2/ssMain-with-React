@@ -6,6 +6,7 @@ import Input from '../components/Input'
 import validateAcctFormat from '../services/validateInput'
 // action creators
 import { SUBMIT_ACCT_INPUT } from '../store/actions/'
+import { submitAcct } from '../store/reducers/acctInput'
 
 class AcctInput extends Component {
     constructor(props) {
@@ -48,7 +49,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        submit: (value) => dispatch( { type: SUBMIT_ACCT_INPUT, value: value } )
+        submit: ( value ) => dispatch( submitAcct(value) )
     }
 }
 

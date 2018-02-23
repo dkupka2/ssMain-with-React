@@ -1,13 +1,13 @@
 import { 
-    UPDATE_ACCT_INPUT,
-    SUBMIT_ACCT_INPUT,
+    SUBMIT_ACCT_INPUT
 } from '../actions/'
 // initial state
 const initialState = {
     submitted: "",
 }
-// action creators
-export const submitAcctInput = (val) => {
+// action creator
+export const submitAcct = (val) => {
+    console.log(`account submitted: ${val}`)
     return {
         type: SUBMIT_ACCT_INPUT,
         value: val
