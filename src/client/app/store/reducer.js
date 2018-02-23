@@ -1,7 +1,6 @@
-const initialState = {
-    prop: "initial value?",
-    acctInputValue: ""
-}
+import { combineReducers } from 'redux'
+
+import { acctInput } from './reducers/acctInput.js'
 
 // const initialState = {
 //     acctInput: "",
@@ -15,17 +14,6 @@ const initialState = {
 //     filter: { active: false, value: "" }
 // }
 
-export const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case "TEST CLICKY":
-            return { ...state, prop: "definitely working" }
-        case "UPDATE ACCT INPUT":
-            return { ...state, acctInputValue: action.value }
-        case "SUBMIT ACCT INPUT":
-            return { ...state, acctInputValue: "submitted" }
-        default:
-            return state
-    }
-
-    return state
-}
+export const reducer = combineReducers({
+    acctInput,
+})

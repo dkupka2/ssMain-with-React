@@ -1,0 +1,2 @@
+export const TEST_CLICKY = "TEST CLICKY"
+export const SUBMIT_ACCT_INPUT = "SUBMIT ACCT INPUT"

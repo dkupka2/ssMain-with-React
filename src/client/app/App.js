@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 // containers
-import Test from './container/Test.container'
 import AcctInput from './container/AcctInput.container'
 
 class App extends Component {
@@ -11,7 +10,6 @@ class App extends Component {
     render() {
         return(
             <div>
-                <Test />
                 <AcctInput />
             </div>
         )
