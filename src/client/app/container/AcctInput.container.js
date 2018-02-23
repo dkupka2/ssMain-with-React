@@ -3,13 +3,9 @@ import { connect } from 'react-redux'
 import Pubsub from 'pubsub-js'
 
 import Input from '../components/Input'
-import validateAcct from '../services/validateAcct'
-
+import validateAcctFormat from '../services/validateInput'
 // action creators
-
-import {
-    SUBMIT_ACCT_INPUT
-    } from '../store/actions/'
+import { SUBMIT_ACCT_INPUT } from '../store/actions/'
 
 class AcctInput extends Component {
     constructor(props) {
@@ -19,8 +15,8 @@ class AcctInput extends Component {
         }
     }
 
-    handleInputChange(val) {
-        this.setState({inputValue: val})
+    handleInputChange(e) {
+        this.setState({inputValue: validateAcctFormat(e.target.value)})
     }
 
     handleInputSubmit() {
@@ -35,10 +31,9 @@ class AcctInput extends Component {
                 prompt="Enter an Account #:"
                 selector="acctInput"
                 value={this.state.inputValue}
-                change={ (e) => {this.handleInputChange(e.target.value)} }
-                submit={ () => {this.handleInputSubmit()} }
+                change={ this.handleInputChange.bind(this) }
+                submit={ this.handleInputSubmit.bind(this) }
                 />
-                <p>entered: {this.state.inputValue}</p>
                 <p>submitted: {this.props.submitted}</p>
             </div>
         )
