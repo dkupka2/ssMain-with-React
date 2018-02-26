@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Pubsub from 'pubsub-js'
 
 import Input from '../components/Input'
 import validateAcctFormat from '../services/validateInput'
 // action creators
-import { SUBMIT_ACCT_INPUT } from '../store/actions/'
-import { submitAcct } from '../store/reducers/acctInput'
+import { 
+    submitAcct,
+    validateClient
+} from '../store/reducers/acctInput'
+// action keys
+import {
+    SUBMIT_ACCT_INPUT,
+    RESPONSE_VALIDATE_CLIENT
+} from '../store/actions/'
+// socket
+import { socket } from '../store/socket'
 
 class AcctInput extends Component {
     constructor(props) {
@@ -17,12 +25,18 @@ class AcctInput extends Component {
     }
 
     handleInputChange(e) {
-        this.setState({inputValue: validateAcctFormat(e.target.value)})
+        this.setState({ inputValue: validateAcctFormat(e.target.value) })
     }
 
     handleInputSubmit() {
         this.props.submit(this.state.inputValue)
-        this.setState({inputValue: ""})
+        this.setState( {inputValue: ""} )
+    }
+
+    componentWillMount() {
+        socket.on(RESPONSE_VALIDATE_CLIENT, (data) => {
+            this.props.validateClient(data)
+        })
     }
 
     render() {
@@ -35,7 +49,7 @@ class AcctInput extends Component {
                 change={ this.handleInputChange.bind(this) }
                 submit={ this.handleInputSubmit.bind(this) }
                 />
-                <p>submitted: {this.props.submitted}</p>
+                <p>{this.props.message}</p>
             </div>
         )
     }
@@ -43,13 +57,14 @@ class AcctInput extends Component {
 
 const mapState = state => {
     return {
-        submitted: state.acctInput.submitted
+        message: state.acctInput.message
     }
 }
 
 const mapDispatch = dispatch => {
     return {
-        submit: ( value ) => dispatch( submitAcct(value) )
+        submit: (value) => dispatch( submitAcct(value) ),
+        validateClient: (data) => dispatch( validateClient(data) ),
     }
 }
 

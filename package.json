@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.2",
     "glob": "^7.1.2",
     "pubsub-js": "^1.6.0",
