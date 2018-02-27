@@ -1,10 +1,11 @@
-import { dispatcher, socket } from '../socket'
-// action keys
+import { socket } from '../socket'
+// event keys
 import {
+    // redux actions
     SUBMIT_ACCT_INPUT,
     ACCT_VALID,
     ACCT_INVALID,
-    // socket event keys
+    // socket events
     REQUEST_VALIDATE_CLIENT,
 } from '../actions/'
 // initial state
@@ -13,13 +14,13 @@ const initialState = {
 }
 // action creators
 export const submitAcct = (val) => {
+    socket.emit(REQUEST_VALIDATE_CLIENT, {acct: val})
     return {
         type: SUBMIT_ACCT_INPUT,
         value: val
     }
 }
 export const validateClient = (data) => {
-    console.log(data)
     return {
         type: data.valid ? ACCT_VALID : ACCT_INVALID,
         acct: data.acct
@@ -29,7 +30,6 @@ export const validateClient = (data) => {
 export const acctInput = (state = initialState, action) => {
     switch (action.type) {
         case SUBMIT_ACCT_INPUT:
-            socket.emit(REQUEST_VALIDATE_CLIENT, {acct: action.value})
             return { ...state, message: `checking E:/ORDENTRY/ for Acct # ${action.value}...` }
         case ACCT_VALID:
             return { ...state, message: `Acct # ${action.acct} found` }

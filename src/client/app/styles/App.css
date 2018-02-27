@@ -1,0 +1,13 @@
+  .hidden {
+  	display: none;
+} div.accts, div.tableOptions {
+	display: inline;
+} .accts_div, .accts_p, .accts_select {
+	display: inherit;
+} select.accts_select {
+	margin-left: 10px;
+} .type_div, .type_p {
+	display: inherit;
+} .table_div, .table_p {
+	display: inherit;
+}

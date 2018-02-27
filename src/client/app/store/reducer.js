@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import { acctInput } from './reducers/acctInput.js'
 import { accts } from './reducers/accts.js'
+import { tableOptions } from './reducers/tableOptions.js'
 
 // const initialState = {
 //     acctInput: "",
@@ -17,5 +18,6 @@ import { accts } from './reducers/accts.js'
 
 export const reducer = combineReducers({
     acctInput,
-    accts
+    accts,
+    tableOptions
 })

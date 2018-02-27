@@ -1,43 +1,40 @@
-import React from 'react'
-
+// event keys
+import {
+    ACCT_VALID,
+    CHANGE_ACCT
+} from '../actions/'
+// table lists
+import { lists } from '../actions/tables'
+// state
 const initialState = {
     accts: {},
     selectedAcct: ""
 }
-
-import {
-    ACCT_VALID,
-    ADD_ACCT,
-    CHANGE_ACCT
-} from '../actions/'
-
-export const addAcct = (accts, newAcct) => {
-    console.log("before add: ", accts)
-    let add = {}
-    add[newAcct] = []
-    console.log("add: ", add)
-    accts = Object.assign({}, accts, add)
-    return {
-        type: ADD_ACCT,
-        accts: accts,
-        selectedAcct: newAcct
+// selector
+export const getSelectedAcct = () => state.selectedAcct
+// acct factory
+const initAcct = (list) => {
+    let obj = {}
+    for (let table of list) {
+        obj[table] = []
     }
+    return obj
 }
-
+// action creators
 export const changeSelect = (target) => {
     return {
         type: CHANGE_ACCT,
         selectedAcct: target
     }
 }
-
+// reducer
 export const accts = (state = initialState, action) => {
     switch (action.type) {
         case ACCT_VALID:
-            console.log("state: ", state.accts)
-            return addAcct(state.accts, action.acct)
-        case ADD_ACCT:
-            return { ...state, accts: action.accts, selectedAcct: action.selectedAcct}
+            let accts, add = {}
+            add[action.acct] = initAcct(lists.global.concat(lists.local))
+            accts = Object.assign({}, state.accts, add)
+            return { ...state, accts: accts, selectedAcct: action.acct}
         case CHANGE_ACCT:
             return { ...state, selectedAcct: action.selectedAcct }
         default:

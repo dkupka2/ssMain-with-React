@@ -29,13 +29,15 @@ class Accts extends Component {
     }
 
     render() {
+        let numAccts = Object.keys(this.props.accts).length,
+            acctsSelector = numAccts <= 1 ? "hidden" : "accts"
         return(
-            <div>
+            <div className={acctsSelector}>
                 <Select
+                selector={acctsSelector}
                 prompt="Select an Account:"
-                selector="accts"
-                options={ selectOptions( this.props.accts ) }
                 value={this.props.selectValue}
+                options={ selectOptions(this.props.accts) }
                 change={ this.handleSelectChange.bind(this) }
                 />
             </div>

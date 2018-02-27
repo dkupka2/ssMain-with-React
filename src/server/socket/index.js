@@ -15,8 +15,6 @@ const url = apis.pirest,
     pass = creds.password,
     auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64")
 
-// const { keys } = require("../../client/app/events/keys")
-
 const events = require("../../client/app/store/actions/socketEvents")
 
 let {
