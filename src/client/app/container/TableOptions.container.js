@@ -55,7 +55,6 @@ class Accts extends Component {
     }
 
     handleTableLoad(acct, table) {
-        console.log("alert?")
         // this.props.loadTable()
         alert(`acct: ${acct} table: ${table}`)
     }
@@ -88,7 +87,7 @@ class Accts extends Component {
                 // change={ this.handleTableLoad.bind(this) }
                 click={ () => { 
                     console.log("load clicked")
-                    this.handleTableLoad( getSelectedAcct(), this.props.table )
+                    this.handleTableLoad( this.props.selectedAcct, this.props.table )
                 }}
                 />
             </div>
@@ -99,7 +98,8 @@ class Accts extends Component {
 const mapState = state => {
     return {
         type: state.tableOptions.type,
-        table: state.tableOptions.table
+        table: state.tableOptions.table,
+        selectedAcct: getSelectedAcct(state)
     }
 }
 

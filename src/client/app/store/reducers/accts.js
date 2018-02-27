@@ -11,7 +11,7 @@ const initialState = {
     selectedAcct: ""
 }
 // selector
-export const getSelectedAcct = () => state.selectedAcct
+export const getSelectedAcct = (state) => state.selectedAcct
 // acct factory
 const initAcct = (list) => {
     let obj = {}
