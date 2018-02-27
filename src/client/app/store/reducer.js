@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { acctInput } from './reducers/acctInput.js'
+import { accts } from './reducers/accts.js'
 
 // const initialState = {
 //     acctInput: "",
@@ -16,4 +17,5 @@ import { acctInput } from './reducers/acctInput.js'
 
 export const reducer = combineReducers({
     acctInput,
+    accts
 })

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // containers
 import AcctInput from './container/AcctInput.container'
+import Accts from './container/Accts.container'
 
 class App extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class App extends Component {
         return(
             <div>
                 <AcctInput />
+                <Accts />
             </div>
         )
     }

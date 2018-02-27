@@ -2,6 +2,8 @@ export const TEST_CLICKY = "TEST CLICKY"
 export const SUBMIT_ACCT_INPUT = "SUBMIT ACCT INPUT"
 export const ACCT_VALID = "ACCT VALID"
 export const ACCT_INVALID = "ACCT INVALID"
+export const CHANGE_ACCT = "CHANGE ACCT"
+
 
 import events from './socketEvents'
 
