@@ -3,6 +3,7 @@ export const SUBMIT_ACCT_INPUT = "SUBMIT ACCT INPUT"
 export const ACCT_VALID = "ACCT VALID"
 export const ACCT_INVALID = "ACCT INVALID"
 export const CHANGE_ACCT = "CHANGE ACCT"
+export const ADD_ACCT = "ADD ACCT"
 
 
 import events from './socketEvents'

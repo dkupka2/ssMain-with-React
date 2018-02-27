@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const isArrOrObj = (obj) => {
     if (typeof obj === "object") {
         if (obj.length === undefined) {

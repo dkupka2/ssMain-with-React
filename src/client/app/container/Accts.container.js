@@ -18,9 +18,6 @@ import { selectOptions } from '../services'
 class Accts extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            test: Object.keys(this.props.accts) > 0 ? Object.keys(this.props.accts).length : 0
-        }
     }
 
     handleSelectChange(e) {
@@ -41,7 +38,6 @@ class Accts extends Component {
                 value={this.props.selectValue}
                 change={ this.handleSelectChange.bind(this) }
                 />
-                <p>{this.state.test}</p>
             </div>
         )
     }
