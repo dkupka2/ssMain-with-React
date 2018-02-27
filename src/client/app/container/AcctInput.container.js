@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import Input from '../components/Input'
 import validateAcctFormat from '../services/validateInput'
+import { socket } from '../store/socket'
 // action creators
 import { 
     submitAcct,
@@ -13,8 +13,6 @@ import {
     SUBMIT_ACCT_INPUT,
     RESPONSE_VALIDATE_CLIENT
 } from '../store/actions/'
-// socket
-import { socket } from '../store/socket'
 
 class AcctInput extends Component {
     constructor(props) {

@@ -9,8 +9,6 @@ const initialState = {
     type: "compound",
     table: "conflicts"
 }
-// selectors
-export const getTable = state => state.table
 // action creators
 export const changeType = type => {
     console.log("ac: type change: ", type)

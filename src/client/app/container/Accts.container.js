@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import Select from '../components/Select'
-
+import { socket } from '../store/socket'
+import { selectOptions } from '../services'
 // action creators
 import {
     changeSelect
@@ -10,10 +10,6 @@ import {
 // action keys
 // import {
 // } from '../store/actions/'
-// socket
-import { socket } from '../store/socket'
-// services
-import { selectOptions } from '../services'
 
 class Accts extends Component {
     constructor(props) {

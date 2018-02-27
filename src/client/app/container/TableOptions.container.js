@@ -2,21 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from '../components/Select'
 import Button from '../components/Button'
+import { socket } from '../store/socket'
+import { selectOptions } from '../services'
 // action creators
 import {
     changeTable,
     changeType,
     loadTable
 } from '../store/reducers/tableOptions'
-// selectors
-import { getSelectedAcct } from '../store/reducers/accts'
 // action keys
 // import {
 // } from '../store/actions/'
-// socket
-import { socket } from '../store/socket'
-// services
-import { selectOptions } from '../services'
 
 import { lists } from '../store/actions/tables'
 
@@ -99,7 +95,7 @@ const mapState = state => {
     return {
         type: state.tableOptions.type,
         table: state.tableOptions.table,
-        selectedAcct: getSelectedAcct(state)
+        selectedAcct: state.accts.selectedAcct
     }
 }
 
