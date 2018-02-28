@@ -20,6 +20,15 @@ const events = require("../../client/app/store/actions/socketEvents")
 let {
     REQUEST_VALIDATE_CLIENT,
     RESPONSE_VALIDATE_CLIENT
+    ERROR,
+    REQUEST_LOCAL,
+    REQUEST_BACKUP,
+    REQUEST_GLOBAL,
+    REQUEST_CONLFLICTS,
+    REQUEST_VALIDATION,
+    RESPONSE_BACKUPS,
+    RESPONSE_RESTAPI,
+    RESPONSE_VALIDATION,    
 } = events
 
 module.exports = (io, app) => {
