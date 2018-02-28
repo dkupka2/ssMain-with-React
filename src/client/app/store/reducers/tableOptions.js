@@ -11,14 +11,12 @@ const initialState = {
 }
 // action creators
 export const changeType = type => {
-    console.log("ac: type change: ", type)
     return {
         type: SELECT_TYPE,
         value: type
     }
 }
 export const changeTable = table => {
-    console.log("ac: table change: ", table)
     return {
         type: SELECT_TABLE,
         value: table

@@ -51,18 +51,16 @@ class Accts extends Component {
     }
 
     handleTableLoad(acct, table) {
-        // this.props.loadTable()
         alert(`acct: ${acct} table: ${table}`)
     }
 
     componentWillMount() {
-        console.log("accts", this.props.accts)
     }
 
     render() {
-        // let selector = 
+        let selector = this.props.acctsLength > 0 ? "tableOptions" : "hidden"
         return(
-            <div>
+            <div className={selector} >
                 <Select
                 selector="type"
                 prompt="Type of Table: "
@@ -80,9 +78,7 @@ class Accts extends Component {
                 <Button
                 selector="submit"
                 prompt="load table"
-                // change={ this.handleTableLoad.bind(this) }
                 click={ () => { 
-                    console.log("load clicked")
                     this.handleTableLoad( this.props.selectedAcct, this.props.table )
                 }}
                 />
@@ -95,7 +91,8 @@ const mapState = state => {
     return {
         type: state.tableOptions.type,
         table: state.tableOptions.table,
-        selectedAcct: state.accts.selectedAcct
+        selectedAcct: state.accts.selectedAcct,
+        acctsLength: Object.keys(state.accts.accts).length
     }
 }
 

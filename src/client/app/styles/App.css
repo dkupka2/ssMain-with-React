@@ -1,13 +1,16 @@
   .hidden {
   	display: none;
 } div.accts, div.tableOptions {
-	display: inline;
+	display: block;
+	margin-bottom: 20px;
 } .accts_div, .accts_p, .accts_select {
-	display: inherit;
-} select.accts_select {
-	margin-left: 10px;
+	display: inline;
+} select.accts_select, div.table_div {
+	margin-left: 15px;
 } .type_div, .type_p {
-	display: inherit;
+	display: inline;
 } .table_div, .table_p {
-	display: inherit;
+	display: inline;
+} div.submit_div {
+	margin-top: 20px;
 }

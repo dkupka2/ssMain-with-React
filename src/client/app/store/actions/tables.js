@@ -38,8 +38,8 @@ export const tables = {
             },
             global: {
                 Timed_Actions: "PT_TACTION",
-                Scheduled_Reminders: "PTREMIND",
                 Scheduled_Deliveries: "PT_SCHED",
+                Scheduled_Reminders: "PTREMIND",
             }
         }
     }
