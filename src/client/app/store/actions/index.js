@@ -20,3 +20,5 @@ export const {
     REQUEST_CONLFLICTS,
     REQUEST_VALIDATE_CLIENT,
 } = events
+
+export { tables } from './tables'

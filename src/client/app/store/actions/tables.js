@@ -45,8 +45,14 @@ export const tables = {
     }
 }
 
-export const lists = {
+tables.lists = {
     global: Object.keys(tables.global),
     local: Object.keys(tables.local),
     compound: Object.keys(tables.compound)
 }
+
+for (let list of tables.lists.compound) {
+    tables.lists[list] = Object.keys( tables.compound[list].local ).concat( Object.keys( tables.compound[list].global ) )
+}
+
+console.log(tables.lists.Conflicts)

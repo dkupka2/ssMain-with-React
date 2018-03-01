@@ -17,11 +17,12 @@ import {
     RESPONSE_RESTAPI,
 } from '../store/actions/'
 
-import { lists } from '../store/actions/tables'
-
-let globalTables = lists.global
-let localTables = lists.local
-let compoundTables = lists.compound
+import { tables } from '../store/actions'
+const {
+    global: globalTables,
+    local: localTables,
+    compound: compoundTables
+} = tables.lists
 
 let whichTables = type => {
     switch (type) {
@@ -52,8 +53,8 @@ class Accts extends Component {
         this.props.changeTable(e.target.value)
     }
 
-    handleTableLoad(acct, table) {
-        restRequest(acct, table)
+    handleTableLoad(acct, type, table) {
+        restRequest(acct, type, table)
     }
 
     componentWillMount() {
@@ -84,7 +85,7 @@ class Accts extends Component {
                 selector="submit"
                 prompt="load table"
                 click={ () => { 
-                    this.handleTableLoad( this.props.selectedAcct, this.props.table )
+                    this.handleTableLoad( this.props.selectedAcct, this.props.type, this.props.table )
                 }}
                 />
             </div>

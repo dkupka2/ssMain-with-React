@@ -4,7 +4,8 @@ import {
     CHANGE_ACCT
 } from '../actions/'
 // table lists
-import { lists } from '../actions/tables'
+import { tables } from '../actions/tables'
+const lists = tables.lists
 // state
 const initialState = {
     accts: {},
