@@ -26,7 +26,7 @@ export const tables = {
         // Dispatch_Delivery_Table: "PT_PROCDET",
     },
     compound: {
-        conflicts: {
+        Conflicts: {
             local: {
                 Form: "OE_FORM",
                 Autos_on_Save: "PT_AUTOA",

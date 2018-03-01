@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from '../components/Select'
-import { socket } from '../store/socket'
 import { selectOptions } from '../services'
 // action creators
 import {

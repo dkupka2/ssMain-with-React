@@ -18,17 +18,18 @@ const url = apis.pirest,
 const events = require("../../client/app/store/actions/socketEvents")
 
 let {
-    REQUEST_VALIDATE_CLIENT,
-    RESPONSE_VALIDATE_CLIENT
     ERROR,
-    REQUEST_LOCAL,
-    REQUEST_BACKUP,
-    REQUEST_GLOBAL,
-    REQUEST_CONLFLICTS,
-    REQUEST_VALIDATION,
     RESPONSE_BACKUPS,
     RESPONSE_RESTAPI,
-    RESPONSE_VALIDATION,    
+    RESPONSE_VALIDATION,
+    RESPONSE_VALIDATE_CLIENT,
+    REQUEST_LIST,
+    REQUEST_LOCAL,
+    REQUEST_GLOBAL,
+    REQUEST_BACKUP,
+    REQUEST_CONLFLICTS,
+    REQUEST_VALIDATION,
+    REQUEST_VALIDATE_CLIENT,
 } = events
 
 module.exports = (io, app) => {
@@ -48,32 +49,32 @@ module.exports = (io, app) => {
             })
         })
 
-        // let sendRequest = (type, data) => {
-        //     let URI,
-        //         { acct, table, list } = data
-        //     if (type === "list") URI = `${url}${acct}/${list}/${table}?out=json`
-        //     if (type === "local") URI = `${url}${acct}/${table}?out=json&limit=500`
-        //     if (type === "global") URI = `${url}/${table}?out=json&limit=500&eq_CLIENT_ID=${acct}`
-        //     request(
-        //         {
-        //             url: URI,
-        //             headers: { "authorization": auth }
-        //         }, (err, response, body) => {
-        //             if (err) {
-        //                 console.log("error: ", err)
-        //             }
-        //             try {
-        //                 JSON.parse(body)
-        //             } catch (e) {
-        //                 return relay("rest error", e)
-        //             }
-        //             socket.emit("restapi response", {acct, table, body})
-        //         }
-        //     )
-        // }
-        // socket.on(keys.req.local, data => sendRequest("local", data))
-        // socket.on(keys.req.global, data => sendRequest("global", data))
-        // socket.on(keys.req.list, data => sendRequest("list", data))
+        let sendRequest = (type, data) => {
+            let URI,
+                { acct, table, list } = data
+            if (type === "list") URI = `${url}${acct}/${list}/${table}?out=json`
+            if (type === "local") URI = `${url}${acct}/${table}?out=json&limit=500`
+            if (type === "global") URI = `${url}/${table}?out=json&limit=500&eq_CLIENT_ID=${acct}`
+            request(
+                {
+                    url: URI,
+                    headers: { "authorization": auth }
+                }, (err, response, body) => {
+                    if (err) {
+                        console.log("error: ", err)
+                    }
+                    try {
+                        JSON.parse(body)
+                    } catch (e) {
+                        return relay("rest error", e)
+                    }
+                    socket.emit(RESPONSE_RESTAPI, {acct, table, body})
+                }
+            )
+        }
+        socket.on(REQUEST_LOCAL, data => sendRequest("local", data))
+        socket.on(REQUEST_GLOBAL, data => sendRequest("global", data))
+        socket.on(REQUEST_LIST, data => sendRequest("list", data))
 
     })
 }

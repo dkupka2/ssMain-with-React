@@ -4,15 +4,18 @@ import Select from '../components/Select'
 import Button from '../components/Button'
 import { socket } from '../store/socket'
 import { selectOptions } from '../services'
+import { restRequest } from '../services'
 // action creators
 import {
     changeTable,
     changeType,
-    loadTable
+    loadTable,
+    restResponse,
 } from '../store/reducers/tableOptions'
 // action keys
-// import {
-// } from '../store/actions/'
+import {
+    RESPONSE_RESTAPI,
+} from '../store/actions/'
 
 import { lists } from '../store/actions/tables'
 
@@ -21,7 +24,6 @@ let localTables = lists.local
 let compoundTables = lists.compound
 
 let whichTables = type => {
-    console.log("table type changed: ", type)
     switch (type) {
         case "local":
             return localTables
@@ -51,10 +53,13 @@ class Accts extends Component {
     }
 
     handleTableLoad(acct, table) {
-        alert(`acct: ${acct} table: ${table}`)
+        restRequest(acct, table)
     }
 
     componentWillMount() {
+        socket.on(RESPONSE_RESTAPI, (data) => {
+            this.props.restResponse(data)
+        } )
     }
 
     render() {
@@ -100,7 +105,8 @@ const mapDispatch = dispatch => {
     return {
         changeTable: (value) => { dispatch( changeTable(value) ) },
         changeType: (value) => { dispatch( changeType(value) ) },
-        loadTable: (table) => { dispatch( loadTable(value) ) }
+        loadTable: (table) => { dispatch( loadTable(value) ) },
+        restResponse: (data) => dispatch( restResponse(data) ),
     }
 }
 

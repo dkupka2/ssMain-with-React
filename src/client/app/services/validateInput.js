@@ -1,4 +1,4 @@
-const validateInput = (val) => {
+export const validateInput = (val) => {
     let arr
     if (val) {
         // if length is valid and last char is a number
@@ -11,5 +11,3 @@ const validateInput = (val) => {
         }
     } else return ""
 }
-
-export default validateInput

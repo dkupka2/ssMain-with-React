@@ -29,11 +29,21 @@ export const loadTable = () => {
     }
 }
 
+export const restResponse = data => {
+    console.log(data)
+}
+
+const defaultTable = {
+    compound: "Conflicts",
+    local: "Form",
+    global: "Timed_Actions"
+}
+
 // reducer
 export const tableOptions = (state = initialState, action) => {
     switch (action.type) {
         case SELECT_TYPE: 
-            return { ...state, type: action.value  }
+            return { ...state, type: action.value, table: defaultTable[action.value]  }
         case SELECT_TABLE: 
             return { ...state, table: action.value }
         case LOAD_TABLE:

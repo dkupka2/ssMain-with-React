@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Input from '../components/Input'
-import validateAcctFormat from '../services/validateInput'
+import { validateInput } from '../services/'
 import { socket } from '../store/socket'
 // action creators
 import { 
@@ -23,7 +23,7 @@ class AcctInput extends Component {
     }
 
     handleInputChange(e) {
-        this.setState({ inputValue: validateAcctFormat(e.target.value) })
+        this.setState({ inputValue: validateInput(e.target.value) })
     }
 
     handleInputSubmit() {
