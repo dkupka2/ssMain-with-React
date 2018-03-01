@@ -4,13 +4,12 @@ import Select from '../components/Select'
 import Button from '../components/Button'
 import { socket } from '../store/socket'
 import { selectOptions } from '../services'
-import { restRequest } from '../services'
 // action creators
 import {
     changeTable,
     changeType,
     loadTable,
-    restResponse,
+    restRequest,
 } from '../store/reducers/tableOptions'
 // action keys
 import {
@@ -18,34 +17,20 @@ import {
 } from '../store/actions/'
 
 import { tables } from '../store/actions'
-const {
-    global: globalTables,
-    local: localTables,
-    compound: compoundTables
-} = tables.lists
 
-let whichTables = type => {
-    switch (type) {
-        case "local":
-            return localTables
-        case "global":
-            return globalTables
-        default:
-            return compoundTables
-    }
-}
+let getTables = type => tables.lists[type]
 
 class Accts extends Component {
     constructor(props) {
         super(props)
         this.state = {
             types: ["compound","local","global"],
-            tables: compoundTables
+            tables: getTables(this.props.type)
         }
     }
 
     handleTypeChange(e) {
-        this.setState({tables: whichTables(e.target.value)})
+        this.setState( {tables: getTables[e.target.value] } )
         this.props.changeType(e.target.value)
     }
 
@@ -88,6 +73,7 @@ class Accts extends Component {
                     this.handleTableLoad( this.props.selectedAcct, this.props.type, this.props.table )
                 }}
                 />
+                <p>{this.props.type}{this.props.table}</p>
             </div>
         )
     }
@@ -107,7 +93,7 @@ const mapDispatch = dispatch => {
         changeTable: (value) => { dispatch( changeTable(value) ) },
         changeType: (value) => { dispatch( changeType(value) ) },
         loadTable: (table) => { dispatch( loadTable(value) ) },
-        restResponse: (data) => dispatch( restResponse(data) ),
+        restRequest: (data) => dispatch( restRequest(data) ),
     }
 }
 

@@ -1,13 +1,45 @@
+import { socket } from '../socket'
 // event keys
 import {
+    tables,
+    // redux actions
     SELECT_TYPE,
     SELECT_TABLE,
-    LOAD_TABLE
+    LOAD_TABLE,
+    // socket events
+    REQUEST_LIST,
+    REQUEST_LOCAL,
+    REQUEST_GLOBAL,
 } from '../actions/'
 // state
 const initialState = {
     type: "compound",
     table: "conflicts"
+}
+// maps
+const defaultTable = {
+    compound: "Conflicts",
+    local: "Form",
+    global: "Timed_Actions"
+}
+
+let typeKeys = {
+    list: REQUEST_LIST,
+    local: REQUEST_LOCAL,
+    global: REQUEST_GLOBAL
+}
+// services
+const callAPI = (acct, type, table) => {
+    if (type !== "compound") {
+        table = tables[type][table]
+        socket.emit( typeKeys[type], {acct, table} )
+    } else { // get tables by compound table
+        for ( let type of Object.keys( tables.compound[table] ) ) {
+            tables.compound[table][type].map((key) => {
+                socket.emit( typeKeys[type], { acct, table: key } )
+            })
+        }
+    }
 }
 // action creators
 export const changeType = type => {
@@ -28,15 +60,9 @@ export const loadTable = () => {
         value: state.table
     }
 }
-
-export const restResponse = data => {
-    console.log(data)
-}
-
-const defaultTable = {
-    compound: "Conflicts",
-    local: "Form",
-    global: "Timed_Actions"
+export const restRequest = (acct, type, table) => {
+    callAPI(acct, type, table)
+    return {}
 }
 
 // reducer

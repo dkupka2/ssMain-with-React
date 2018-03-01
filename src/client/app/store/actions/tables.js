@@ -27,20 +27,20 @@ export const tables = {
     },
     compound: {
         Conflicts: {
-            local: {
-                Form: "OE_FORM",
-                Autos_on_Save: "PT_AUTOA",
-                Autos_on_Deliver: "PT_AUTOB",
-                Batch_Conditions: "PT_BATCH",
-                Dispatch_Conditions: "PT_CONDLIB",
-                Dispatch_Contact_Locator: "PT_DCL",
-                Message_View_Conditions: "PT_MDTPL",
-            },
-            global: {
-                Timed_Actions: "PT_TACTION",
-                Scheduled_Deliveries: "PT_SCHED",
-                Scheduled_Reminders: "PTREMIND",
-            }
+            local: [
+                "OE_FORM",
+                "PT_AUTOA",
+                "PT_AUTOB",
+                "PT_BATCH",
+                "PT_CONDLIB",
+                "PT_DCL",
+                "PT_MDTPL",
+            ],
+            global: [
+                "PT_TACTION",
+                "PT_SCHED",
+                "PTREMIND",
+            ]
         }
     }
 }
@@ -50,9 +50,3 @@ tables.lists = {
     local: Object.keys(tables.local),
     compound: Object.keys(tables.compound)
 }
-
-for (let list of tables.lists.compound) {
-    tables.lists[list] = Object.keys( tables.compound[list].local ).concat( Object.keys( tables.compound[list].global ) )
-}
-
-console.log(tables.lists.Conflicts)
