@@ -14,7 +14,7 @@ import {
 // state
 const initialState = {
     type: "compound",
-    table: "conflicts"
+    table: "Conflicts"
 }
 // maps
 const defaultTable = {
@@ -32,11 +32,13 @@ let typeKeys = {
 const callAPI = (acct, type, table) => {
     if (type !== "compound") {
         table = tables[type][table]
-        socket.emit( typeKeys[type], {acct, table} )
+        // socket.emit( typeKeys[type], {acct, table} )
+        alert(`acct: ${acct} table: ${table}`)
     } else { // get tables by compound table
         for ( let type of Object.keys( tables.compound[table] ) ) {
             tables.compound[table][type].map((key) => {
-                socket.emit( typeKeys[type], { acct, table: key } )
+                // socket.emit( typeKeys[type], { acct, table: key } )
+                alert(`acct: ${acct} table: ${key}`)
             })
         }
     }

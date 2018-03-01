@@ -25,12 +25,12 @@ class Accts extends Component {
         super(props)
         this.state = {
             types: ["compound","local","global"],
-            tables: getTables(this.props.type)
+            tables: ["Conflicts"]
         }
     }
 
     handleTypeChange(e) {
-        this.setState( {tables: getTables[e.target.value] } )
+        this.setState( {tables: getTables(e.target.value) } )
         this.props.changeType(e.target.value)
     }
 
@@ -73,7 +73,6 @@ class Accts extends Component {
                     this.handleTableLoad( this.props.selectedAcct, this.props.type, this.props.table )
                 }}
                 />
-                <p>{this.props.type}{this.props.table}</p>
             </div>
         )
     }
