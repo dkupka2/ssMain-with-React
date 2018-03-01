@@ -3,6 +3,7 @@ import { socket } from '../socket'
 import {
     tables,
     // redux actions
+    SUBMIT_REQUEST,
     SELECT_TYPE,
     SELECT_TABLE,
     LOAD_TABLE,
@@ -62,9 +63,12 @@ export const loadTable = () => {
         value: state.table
     }
 }
-export const restRequest = (acct, type, table) => {
+export const restRequest = (data) => {
+    let { acct, type, table } = data
     callAPI(acct, type, table)
-    return {}
+    return {
+        acct, table, type: SUBMIT_REQUEST,
+    }
 }
 
 // reducer
@@ -74,6 +78,8 @@ export const tableOptions = (state = initialState, action) => {
             return { ...state, type: action.value, table: defaultTable[action.value]  }
         case SELECT_TABLE: 
             return { ...state, table: action.value }
+        case SUBMIT_REQUEST:
+            return { ...state, message: `requesting ${action.table} from ${action.acct}, please wait...`}
         case LOAD_TABLE:
             return { ...state}
         default:

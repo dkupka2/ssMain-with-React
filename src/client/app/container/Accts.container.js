@@ -6,9 +6,6 @@ import { selectOptions } from '../services'
 import {
     changeSelect
 } from '../store/reducers/accts'
-// action keys
-// import {
-// } from '../store/actions/'
 
 class Accts extends Component {
     constructor(props) {
@@ -17,10 +14,6 @@ class Accts extends Component {
 
     handleSelectChange(e) {
         this.props.changeSelect(e.target.value)
-    }
-
-    componentWillMount() {
-        console.log("accts", this.props.accts)
     }
 
     render() {

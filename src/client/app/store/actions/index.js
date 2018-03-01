@@ -5,6 +5,7 @@ export const ACCT_INVALID = "ACCT INVALID"
 export const CHANGE_ACCT = "CHANGE ACCT"
 export const SELECT_TYPE = "SELECT_TYPE"
 export const SELECT_TABLE = "SELECT_TABLE"
+export const SUBMIT_REQUEST = "SUBMIT_REQUEST"
 
 import events from './socketEvents'
 

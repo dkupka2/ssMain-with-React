@@ -8,7 +8,6 @@ import { selectOptions } from '../services'
 import {
     changeTable,
     changeType,
-    loadTable,
     restRequest,
 } from '../store/reducers/tableOptions'
 // action keys
@@ -25,7 +24,7 @@ class Accts extends Component {
         super(props)
         this.state = {
             types: ["compound","local","global"],
-            tables: ["Conflicts"]
+            tables: getTables(this.props.type)
         }
     }
 
@@ -38,8 +37,8 @@ class Accts extends Component {
         this.props.changeTable(e.target.value)
     }
 
-    handleTableLoad(acct, type, table) {
-        restRequest(acct, type, table)
+    handleTableLoad( acct, type, table ) {
+        this.props.restRequest( {acct, type, table} )
     }
 
     componentWillMount() {
@@ -89,10 +88,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        changeTable: (value) => { dispatch( changeTable(value) ) },
-        changeType: (value) => { dispatch( changeType(value) ) },
-        loadTable: (table) => { dispatch( loadTable(value) ) },
-        restRequest: (data) => dispatch( restRequest(data) ),
+        changeTable: (value) => dispatch( changeTable(value) ),
+        changeType: (value) => dispatch( changeType(value) ),
+        restRequest: (data) => dispatch( restRequest(data) )
     }
 }
 
