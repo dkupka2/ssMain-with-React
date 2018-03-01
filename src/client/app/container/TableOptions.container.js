@@ -43,7 +43,8 @@ class Accts extends Component {
 
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
-            this.props.restResponse(data)
+            // let { acct, table, body } = data
+            console.log(data)
         } )
     }
 

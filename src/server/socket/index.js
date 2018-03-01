@@ -55,22 +55,25 @@ module.exports = (io, app) => {
             if (type === "list") URI = `${url}${acct}/${list}/${table}?out=json`
             if (type === "local") URI = `${url}${acct}/${table}?out=json&limit=500`
             if (type === "global") URI = `${url}/${table}?out=json&limit=500&eq_CLIENT_ID=${acct}`
-            request(
-                {
-                    url: URI,
-                    headers: { "authorization": auth }
-                }, (err, response, body) => {
-                    if (err) {
-                        console.log("error: ", err)
-                    }
-                    try {
-                        JSON.parse(body)
-                    } catch (e) {
-                        return relay("rest error", e)
-                    }
-                    socket.emit(RESPONSE_RESTAPI, {acct, table, body})
-                }
-            )
+
+            socket.emit(RESPONSE_RESTAPI, {acct, table, body: URI})
+
+            // request(
+            //     {
+            //         url: URI,
+            //         headers: { "authorization": auth }
+            //     }, (err, response, body) => {
+            //         if (err) {
+            //             console.log("error: ", err)
+            //         }
+            //         try {
+            //             JSON.parse(body)
+            //         } catch (e) {
+            //             return relay("rest error", e)
+            //         }
+            //         socket.emit(RESPONSE_RESTAPI, {acct, table, body})
+            //     }
+            // )
         }
         socket.on(REQUEST_LOCAL, data => sendRequest("local", data))
         socket.on(REQUEST_GLOBAL, data => sendRequest("global", data))
