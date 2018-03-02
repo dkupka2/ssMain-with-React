@@ -11,6 +11,7 @@ import {
     REQUEST_LIST,
     REQUEST_LOCAL,
     REQUEST_GLOBAL,
+    LOAD_FAILURE,
 } from '../actions/'
 // state
 const initialState = {
@@ -69,6 +70,10 @@ export const restRequest = (data) => {
     }
 }
 
+export const restResponse = (data) => {
+    return { type: data.data ? LOAD_TABLE : LOAD_FAILURE }
+}
+
 // reducer
 export const tableOptions = (state = initialState, action) => {
     switch (action.type) {
@@ -77,9 +82,11 @@ export const tableOptions = (state = initialState, action) => {
         case SELECT_TABLE: 
             return { ...state, table: action.value }
         case SUBMIT_REQUEST:
-            return { ...state, message: `requesting ${action.table} from ${action.acct}, please wait...`}
+            return { ...state, message: `requesting ${action.table} from ${action.acct}, please wait...` }
         case LOAD_TABLE:
-            return { ...state}
+            return { ...state, message: `received response from RestAPI, loading table...` }
+        case LOAD_FAILURE:
+            return { ...state, message: 'LOAD_TABLE action creator called without data, no table to load!'}
         default:
             return state
     }

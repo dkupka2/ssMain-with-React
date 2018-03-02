@@ -9,6 +9,7 @@ import {
     changeTable,
     changeType,
     restRequest,
+    restResponse
 } from '../store/reducers/tableOptions'
 // action keys
 import {
@@ -43,8 +44,7 @@ class Accts extends Component {
 
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
-            // let { acct, table, body } = data
-            console.log(data)
+            this.props.restResponse(data.data ? true : false)
         } )
     }
 
@@ -73,6 +73,7 @@ class Accts extends Component {
                     this.handleTableLoad( this.props.selectedAcct, this.props.type, this.props.table )
                 }}
                 />
+                <p>{this.props.message}</p>
             </div>
         )
     }
@@ -83,7 +84,8 @@ const mapState = state => {
         type: state.tableOptions.type,
         table: state.tableOptions.table,
         selectedAcct: state.accts.selectedAcct,
-        acctsLength: Object.keys(state.accts.accts).length
+        acctsLength: Object.keys(state.accts.accts).length,
+        message: state.tableOptions.message,
     }
 }
 
@@ -91,7 +93,8 @@ const mapDispatch = dispatch => {
     return {
         changeTable: (value) => dispatch( changeTable(value) ),
         changeType: (value) => dispatch( changeType(value) ),
-        restRequest: (data) => dispatch( restRequest(data) )
+        restRequest: (data) => dispatch( restRequest(data) ),
+        restResponse: (data) => dispatch( restResponse(data) ),
     }
 }
 
