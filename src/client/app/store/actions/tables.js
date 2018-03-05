@@ -52,12 +52,7 @@ tables.lists = {
     compound: Object.keys(tables.compound)
 }
 
-for (let key of tables.lists.global) {
-    tables.revertKeys[ tables.global[key] ] = key
-}
-
-for (let key of tables.lists.local) {
-    tables.revertKeys[ tables.local[key] ] = key
-}
+tables.lists.global.map( (key) => tables.revertKeys[ tables.global[key] ] = key )
+tables.lists.local.map( (key) => tables.revertKeys[ tables.local[key] ] = key )
 
 tables.getTables = type => tables.lists[type]

@@ -15,10 +15,8 @@ export const initialTableRender = data => {
     let tableName =  tables.revertKeys[data.table],
         tableData = filterTable( tableName, JSON.parse(data.body) )
     let getHeaders = (obj) => {
-        let final = [], headers = Object.keys(obj)
-        for ( let header of headers ) {
-            final.push({Header: header, accessor: header})
-        }
+        let final = []
+        Object.keys(obj).map( (header) => final.push({Header: header, accessor: header}) )
         return final
     }
     return {

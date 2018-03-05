@@ -17,9 +17,7 @@ const initialState = {
 // acct factory
 const initAcct = (list) => {
     let obj = {}
-    for (let table of list) {
-        obj[table] = []
-    }
+    list.map( (table) => obj[table] = [] )
     return obj
 }
 // action creators
@@ -37,7 +35,6 @@ const cacheTable = (accts, table, acct, data) => {
     return Object.assign({}, accts, newObj )
 }
 
-
 // reducer
 export const accts = (state = initialState, action) => {
     switch (action.type) {
@@ -49,7 +46,6 @@ export const accts = (state = initialState, action) => {
         case CHANGE_ACCT:
             return { ...state, selectedAcct: action.selectedAcct }
         case LOAD_TABLE:
-            // return { ...state, accts[action.acct][action.tableName][ accts[action.acct][action.tableName].length -1 ]: action.table,}
             return { ...state, accts: cacheTable(action.accts, action.tableName, action.acct, action.table) }
         default:
             return state

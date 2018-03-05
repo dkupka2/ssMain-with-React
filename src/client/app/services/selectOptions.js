@@ -22,9 +22,7 @@ export const selectOptions = (obj) => {
     let elems = []
     if (arr === undefined) return
     if (arr.length > 0 ) {
-        for (let el of arr) {
-            elems.push(<option key={el.toString()} value={el}>{el}</option>)
-        }
+        arr.map( (el) => elems.push( <option key={el.toString()} value={el}>{el}</option> ) )
         return elems
     } else return
 }
