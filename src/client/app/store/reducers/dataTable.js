@@ -11,11 +11,11 @@ const initialState = {
     columns: []
 }
 // action creators
-export const renderTable = data => {
+export const initialTableRender = data => {
     let tableName =  tables.revertKeys[data.table],
-        tableData = filterTable( tableName, JSON.parse( data.body) )
+        tableData = filterTable( tableName, JSON.parse(data.body) )
     let getHeaders = (obj) => {
-        let final = [], headers = Object.keys( obj )
+        let final = [], headers = Object.keys(obj)
         for ( let header of headers ) {
             final.push({Header: header, accessor: header})
         }
@@ -23,15 +23,17 @@ export const renderTable = data => {
     }
     return {
         type: LOAD_TABLE,
-        columns: getHeaders(tableData[0]),
-        table: tableData
+        columns: getHeaders( tableData[0] ),
+        table: tableData,
+        acct: data.acct,
+        tableName: data.tableName
     }
 }
 // reducer
 export const dataTable = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_TABLE:
-            return { ...state, tableData: action.table, columns: action.columns}
+            return { ...state, tableData: action.table, columns: action.columns }
         default:
             return state
     }

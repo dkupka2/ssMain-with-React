@@ -17,7 +17,7 @@ class Accts extends Component {
     }
 
     render() {
-        let numAccts = Object.keys(this.props.accts).length,
+        let numAccts = this.props.accts ? Object.keys(this.props.accts).length : 0,
             acctsSelector = numAccts <= 1 ? "hidden" : "accts"
         return(
             <div className={acctsSelector}>

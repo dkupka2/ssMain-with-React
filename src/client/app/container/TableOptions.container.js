@@ -17,15 +17,15 @@ import {
 } from '../store/actions/'
 
 import { tables } from '../store/actions'
-
-let getTables = type => tables.lists[type]
+let { getTables } = tables
 
 class Accts extends Component {
     constructor(props) {
         super(props)
         this.state = {
             types: ["compound","local","global"],
-            tables: getTables(this.props.type)
+            tables: getTables(this.props.type),
+            visible: false
         }
     }
 
@@ -42,6 +42,10 @@ class Accts extends Component {
         this.props.restRequest( {acct, type, table} )
     }
 
+    componentWillReceiveProps(props) {
+        this.setState({visible: props.acctsLength > 0 ? true : false})
+    }
+
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
             this.props.restResponse(data.data ? true : false)
@@ -49,9 +53,8 @@ class Accts extends Component {
     }
 
     render() {
-        let selector = this.props.acctsLength > 0 ? "tableOptions" : "hidden"
         return(
-            <div className={selector} >
+            <div className={this.state.visible ? "tableOptions" : "hidden"} >
                 <Select
                 selector="type"
                 prompt="Type of Table: "
@@ -84,8 +87,8 @@ const mapState = state => {
         type: state.tableOptions.type,
         table: state.tableOptions.table,
         selectedAcct: state.accts.selectedAcct,
-        acctsLength: Object.keys(state.accts.accts).length,
         message: state.tableOptions.message,
+        acctsLength: Object.keys( state.accts.accts ).length
     }
 }
 

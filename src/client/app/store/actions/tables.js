@@ -59,3 +59,5 @@ for (let key of tables.lists.global) {
 for (let key of tables.lists.local) {
     tables.revertKeys[ tables.local[key] ] = key
 }
+
+tables.getTables = type => tables.lists[type]
