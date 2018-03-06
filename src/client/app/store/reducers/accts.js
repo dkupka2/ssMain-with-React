@@ -32,7 +32,7 @@ const cacheTable = (accts, table, acct, data) => {
     let newObj = {}
     newObj[acct][table] = []
     newObj[acct][table].concat( [data] )
-    return Object.assign({}, accts, newObj )
+    return Object.assign( {}, accts, newObj )
 }
 
 // reducer
@@ -40,7 +40,7 @@ export const accts = (state = initialState, action) => {
     switch (action.type) {
         case ACCT_VALID:
             let accts, add = {}
-            add[action.acct] = initAcct(lists.global.concat(lists.local))
+            add[action.acct] = initAcct( lists.global.concat(lists.local) )
             accts = Object.assign({}, state.accts, add)
             return { ...state, accts: accts, selectedAcct: action.acct}
         case CHANGE_ACCT:

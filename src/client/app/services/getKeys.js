@@ -1,0 +1,1 @@
+export const getKeys = arr => arr ? Object.keys(arr) : []

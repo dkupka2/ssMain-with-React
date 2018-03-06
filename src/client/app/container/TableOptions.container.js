@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Select from '../components/Select'
 import Button from '../components/Button'
 import { socket } from '../store/socket'
-import { selectOptions } from '../services'
+import { selectOptions, getKeys } from '../services'
 // action creators
 import {
     changeTable,
@@ -30,7 +30,7 @@ class Accts extends Component {
     }
 
     handleTypeChange(e) {
-        this.setState( {tables: getTables(e.target.value) } )
+        this.setState( { tables: getTables(e.target.value) } )
         this.props.changeType(e.target.value)
     }
 
@@ -88,7 +88,7 @@ const mapState = state => {
         table: state.tableOptions.table,
         selectedAcct: state.accts.selectedAcct,
         message: state.tableOptions.message,
-        acctsLength: state.accts.accts ? Object.keys( state.accts.accts ).length : []
+        acctsLength: getKeys(state.accts.accts)
     }
 }
 

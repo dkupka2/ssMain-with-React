@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from '../components/Select'
-import { selectOptions } from '../services'
+import { selectOptions, getKeys } from '../services'
 // action creators
 import {
     changeSelect
@@ -17,7 +17,7 @@ class Accts extends Component {
     }
 
     render() {
-        let numAccts = this.props.accts ? Object.keys(this.props.accts).length : 0,
+        let numAccts = getKeys(this.props.accts).length,
             acctsSelector = numAccts <= 1 ? "hidden" : "accts"
         return(
             <div className={acctsSelector}>
