@@ -35,8 +35,8 @@ class Accts extends Component {
 
 const mapState = state => {
     return {
+        accts: state.accts.accts,
         selectValue: state.accts.selectedAcct,
-        accts: state.accts.accts
     }
 }
 

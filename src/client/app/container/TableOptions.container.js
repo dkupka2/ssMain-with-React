@@ -13,10 +13,9 @@ import {
 } from '../store/reducers/tableOptions'
 // action keys
 import {
+    tables,
     RESPONSE_RESTAPI,
-} from '../store/actions/'
-
-import { tables } from '../store/actions'
+} from '../store/actions'
 let { getTables } = tables
 
 class Accts extends Component {
@@ -86,17 +85,17 @@ const mapState = state => {
     return {
         type: state.tableOptions.type,
         table: state.tableOptions.table,
-        selectedAcct: state.accts.selectedAcct,
         message: state.tableOptions.message,
-        acctsLength: getKeys(state.accts.accts)
+        acctsLength: getKeys(state.accts.accts),
+        selectedAcct: state.accts.selectedAcct,
     }
 }
 
 const mapDispatch = dispatch => {
     return {
+        changeType:  (value) => dispatch( changeType(value) ),
         changeTable: (value) => dispatch( changeTable(value) ),
-        changeType: (value) => dispatch( changeType(value) ),
-        restRequest: (data) => dispatch( restRequest(data) ),
+        restRequest:  (data) => dispatch( restRequest(data) ),
         restResponse: (data) => dispatch( restResponse(data) ),
     }
 }

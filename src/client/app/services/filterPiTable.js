@@ -17,13 +17,13 @@ const convert = (value, type) => {
             break
         case "days of the week":
             final = []
-            if ( value.includes(1) ) final.push("sunday")
-            if ( value.includes(2) ) final.push("monday")
-            if ( value.includes(3) ) final.push("tuesday")
-            if ( value.includes(4) ) final.push("wednesday")
-            if ( value.includes(5) ) final.push("thursday")
-            if ( value.includes(6) ) final.push("friday")
-            if ( value.includes(7) ) final.push("saturday")
+            if ( value.includes(1) ) final.push("Sun")
+            if ( value.includes(2) ) final.push("Mon")
+            if ( value.includes(3) ) final.push("Tues")
+            if ( value.includes(4) ) final.push("Wed")
+            if ( value.includes(5) ) final.push("Thurs")
+            if ( value.includes(6) ) final.push("Fri")
+            if ( value.includes(7) ) final.push("Sat")
             return final.join(" ")
             break
         case "holidays":
@@ -88,7 +88,7 @@ const filterPiTable = {
         }
     },
     Autos_on_Deliver: {
-        alias: "PT_AUTOB", 
+        alias: "PT_AUTOB",
         columns: ["ORDER", "ACTIVE", "CONDITION", "CONTACT", "TASDSTATUS", "DESC"],
         getFiltered(object, type) {
             let { ORDER, DESC, CONDITION, ACTIVE } = object
@@ -107,7 +107,7 @@ const filterPiTable = {
         }
     },
     Form: {
-        alias: "OE_FORM", 
+        alias: "OE_FORM",
         columns: ["LABEL", "HIGHLIGHT", "PAGE_NUM", "L_ROW", "L_COL", "GET_FIELD", "GET_TYPE", "G_REQUIRED", "HELP_TEXT", "LIST_POP", "LIST_REQ", "FORMULA", "INIT_VAL", "PARAGRAPH", "HAS_PARA", "LIST_NAME", "LIST_FILE", "SKIP_LABEL", "SKIP_FILE", "SKIP_NAME", "SAVE_OK", "HELP_PARA", "LISTgetFiltered", "CALCULATE", "G_FILLED", "WYG_ACTION", "VALIDONLY", "URL", "G_PICTURE", "G_LENGTH"],
         getFiltered(object, type) {
             let { PAGE_NUM, L_ROW, L_COL, LABEL, HAS_PARA, PARAGRAPH, GET_FIELD, GET_TYPE, G_LENGTH, G_PICTURE, FORMULA, LIST_NAME, SKIP_NAME, SKIP_LABEL, SAVE_OK } = object
@@ -198,7 +198,7 @@ const filterPiTable = {
         }
     },
     Dispatch_Procedures: {
-      getFiltered(object)   {
+      getFiltered(object) {
             let { NAME, ACTIVE, RAWSTEPS } = object
             return {
                 NAME,
@@ -208,11 +208,11 @@ const filterPiTable = {
         }
     },
     Dispatch_Conditions: {
-        alias: "PT_CONDLIB", 
+        alias: "PT_CONDLIB",
         columns: ["NAME", "VISIBLE", "TESTFIELD", "LRFLAG", "COMPTYPE", "DATA1", "DATA2", "DATALIST", "COMPOUND", "DESCR"],
         getFiltered(object, type) {
             let { NAME, VISIBLE, TESTFIELD, COMPTYPE, COMPARISON, DATA1, DATA2, DESCR } = object
-            return type === "Conflicts" ? 
+            return type === "Conflicts" ?
             {
                 document: "dispatch conditions",
                 location: NAME,
@@ -228,7 +228,7 @@ const filterPiTable = {
         }
     },
     Batch_Conditions: {
-        alias: "PT_BATCH", 
+        alias: "PT_BATCH",
         columns: ["ORDER", "ACTIVE", "CONDITION", "CONTACT", "DESC"],
         getFiltered(object, type) {
             let { ORDER, CONDITION, ACTIVE, DESC, CONTACT } = object
@@ -240,7 +240,7 @@ const filterPiTable = {
                 active: ACTIVE ? "" : "NO"
             } : {
                 ORDER,
-                DESC, 
+                DESC,
                 ACTIVE: ACTIVE ? "" : "NO",
                 CONDITION,
                 CONTACT
@@ -248,7 +248,7 @@ const filterPiTable = {
         }
     },
     Dispatch_Contact_Locator: {
-        alias: "PT_DCL", 
+        alias: "PT_DCL",
         columns: ["ORDER", "CONDITION", "CONTACT", "SOFTSEEK", "FIELD", "DESC"],
         getFiltered(object, type) {
             let { ORDER, DESC, CONDITION, CONTACT, FIELD, SOFTSEEK } = object
@@ -269,7 +269,7 @@ const filterPiTable = {
         }
     },
     Message_View_Conditions: {
-        alias: "PT_MDTPL", 
+        alias: "PT_MDTPL",
         columns: ["ORDER", "FORMULA", "TEMPLATE", "TEMPLATE_W"],
         getFiltered(object, type) {
             let { ORDER, TEMPLATE, FORMULA } = object
@@ -288,7 +288,7 @@ const filterPiTable = {
     },
     // getFiltereded tables
     Timed_Actions: {
-        alias: "PT_TACTION", 
+        alias: "PT_TACTION",
         columns: ["ACTIVE", "CLIENT_ID", "ID_NUMBER", "DESC", "TYPE", "DATE", "TIME", "DOW", "LAST_DATE", "MSG_TYPES", "TASDSTATUS", "EXCLUDE", "INCLUDE", "DATA", "CONDITION", "NOTES"],
         getFiltered(object, type) {
             let { DESC, CONDITION, MSG_TYPES, TYPE, DATE, TIME, INCLUDE, EXCLUDE, ACTIVE, DATA, TASDSTATUS } = object
@@ -302,7 +302,7 @@ const filterPiTable = {
             } : {
                 TYPE,
                 DESC,
-                CONDITION, 
+                CONDITION,
                 MSG_TYPES: convert(MSG_TYPES, "message status"),
                 TASDSTATUS: convert(TASDSTATUS, "message status"),
                 DATE,
@@ -315,7 +315,7 @@ const filterPiTable = {
         }
     },
     Scheduled_Deliveries: {
-        alias: "PT_SCHED", 
+        alias: "PT_SCHED",
         columns: ["CLIENT_ID", "TIME", "DAYS", "CONTACT", "BATCH", "SHELL_TO", "MACHINE_ID", "ACTIVE", "EXCLUDE", "NOTES", "PRIORDAYS", "INC_DELIV", "DELIV_ONLY", "COMMANDS"],
         getFiltered(object, type) {
             let { CONTACT, DAYS, EXCLUDE, TIME, ACTIVE } = object
@@ -335,7 +335,7 @@ const filterPiTable = {
         }
     },
     Scheduled_Reminders: {
-        alias: "PTREMIND", 
+        alias: "PTREMIND",
         columns: ["ACTIVE", "CLIENT_ID", "ID_NUMBER", "DESC", "DATE", "TIME", "DOW", "LAST_DATE", "LAST_TIME", "EXCLUDE", "INCLUDE", "INSTRUCT", "OPER_ID", "CONDITION", "MSG_TYPES"],
         getFiltered(object, type) {
             let { DESC, CONDITION, ACTIVE, DOW, TIME, INCLUDE, EXCLUDE, MSG_TYPES, } = object

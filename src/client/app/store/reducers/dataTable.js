@@ -16,7 +16,7 @@ export const initialTableRender = data => {
         tableData = filterTable( tableName, JSON.parse(data.body) )
     let getHeaders = (obj) => {
         let final = []
-        Object.keys(obj).map( (header) => final.push({Header: header, accessor: header}) )
+        Object.keys(obj).map( (header) => final.push( {Header: header, accessor: header} ) )
         return final
     }
     return {

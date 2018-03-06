@@ -24,7 +24,6 @@ const defaultTable = {
     local: "Form",
     global: "Timed_Actions"
 }
-
 let typeKeys = {
     list: REQUEST_LIST,
     local: REQUEST_LOCAL,
@@ -78,7 +77,7 @@ export const restResponse = (data) => {
 export const tableOptions = (state = initialState, action) => {
     switch (action.type) {
         case SELECT_TYPE: 
-            return { ...state, type: action.value, table: defaultTable[action.value]  }
+            return { ...state, type: action.value, table: defaultTable[action.value] }
         case SELECT_TABLE: 
             return { ...state, table: action.value }
         case SUBMIT_REQUEST:
