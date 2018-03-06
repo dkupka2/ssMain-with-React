@@ -1,3 +1,9 @@
+import {
+    REQUEST_LIST,
+    REQUEST_LOCAL,
+    REQUEST_GLOBAL
+} from './socketEvents'
+
 export const tables = {
     global: {
         Timed_Actions: "PT_TACTION",
@@ -43,12 +49,22 @@ export const tables = {
             ]
         }
     },
-    revertKeys: {}
+    default: {
+        compound: "Conflicts",
+        local: "Form",
+        global: "Timed_Actions"
+    },
+    requestKeys: {
+        list: REQUEST_LIST,
+        local: REQUEST_LOCAL,
+        global: REQUEST_GLOBAL
+    },
+    revertKeys: {},
 }
 
 tables.lists = {
-    global: Object.keys(tables.global),
     local: Object.keys(tables.local),
+    global: Object.keys(tables.global),
     compound: Object.keys(tables.compound)
 }
 
@@ -56,3 +72,4 @@ tables.lists.global.map( (key) => tables.revertKeys[ tables.global[key] ] = key 
 tables.lists.local.map( (key) => tables.revertKeys[ tables.local[key] ] = key )
 
 tables.getTables = type => tables.lists[type]
+tables.revert = key => tables.revertKeys[key]

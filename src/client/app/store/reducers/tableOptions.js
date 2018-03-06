@@ -18,22 +18,11 @@ const initialState = {
     type: "compound",
     table: "Conflicts"
 }
-// maps
-const defaultTable = {
-    compound: "Conflicts",
-    local: "Form",
-    global: "Timed_Actions"
-}
-let typeKeys = {
-    list: REQUEST_LIST,
-    local: REQUEST_LOCAL,
-    global: REQUEST_GLOBAL
-}
 // services
 const callAPI = (acct, type, table) => {
     if (type !== "compound") {
         table = tables[type][table]
-        socket.emit( typeKeys[type], {acct, table} )
+        socket.emit( tables.requestKeys[type], {acct, table} )
     } else { // get tables by compound table
         for ( let type of Object.keys( tables.compound[table] ) ) {
             tables.compound[table][type].map((key) => {
@@ -55,12 +44,6 @@ export const changeTable = table => {
         value: table
     }
 }
-export const loadTable = () => {
-    return {
-        type: LOAD_TABLE,
-        value: state.table
-    }
-}
 export const restRequest = (data) => {
     let { acct, type, table } = data
     callAPI(acct, type, table)
@@ -68,16 +51,15 @@ export const restRequest = (data) => {
         acct, table, type: SUBMIT_REQUEST,
     }
 }
-
 export const restResponse = (data) => {
-    return { type: data.data ? LOAD_TABLE : LOAD_FAILURE }
+    let { acct, accts, table: tableName, body: table} = data
+    return data.table ? {type: LOAD_TABLE, data: {accts, acct, tableName, table} } : {type: LOAD_FAILURE}
 }
-
 // reducer
 export const tableOptions = (state = initialState, action) => {
     switch (action.type) {
         case SELECT_TYPE: 
-            return { ...state, type: action.value, table: defaultTable[action.value] }
+            return { ...state, type: action.value, table: tables.default[action.value] }
         case SELECT_TABLE: 
             return { ...state, table: action.value }
         case SUBMIT_REQUEST:

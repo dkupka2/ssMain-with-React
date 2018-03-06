@@ -29,7 +29,6 @@ class DataTable extends Component {
     render() {
         return (
             <div>
-                <p>length should be: {this.props.data.length} </p>
                 <ReactTable
                 data={this.props.data}
                 columns={this.props.columns}

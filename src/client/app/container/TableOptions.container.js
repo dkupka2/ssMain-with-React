@@ -47,7 +47,8 @@ class Accts extends Component {
 
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
-            this.props.restResponse(data.data ? true : false)
+            data.accts = this.props.accts
+            this.props.restResponse(data)
         } )
     }
 
@@ -86,6 +87,8 @@ const mapState = state => {
         type: state.tableOptions.type,
         table: state.tableOptions.table,
         message: state.tableOptions.message,
+        // state from accts reducer
+        accts: state.accts.accts,
         acctsLength: getKeys(state.accts.accts),
         selectedAcct: state.accts.selectedAcct,
     }

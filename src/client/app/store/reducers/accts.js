@@ -1,14 +1,14 @@
 // event keys
 import {
+    tables,
+    // redux events
     ACCT_VALID,
     CHANGE_ACCT,
     LOAD_TABLE
 } from '../actions/'
+const lists = tables.lists
 // services
 import { checkArgs } from '../../services'
-// table lists
-import { tables } from '../actions/tables'
-const lists = tables.lists
 // state
 const initialState = {
     accts: {},
@@ -28,11 +28,10 @@ export const changeSelect = (target) => {
     }
 }
 const cacheTable = (accts, table, acct, data) => {
-    if ( ! checkArgs(accts, table, acct, data) ) return
-    let newObj = {}
-    newObj[acct][table] = []
-    newObj[acct][table].concat( [data] )
-    return Object.assign( {}, accts, newObj )
+    table = tables.revert(table)
+    accts = Object.assign( {}, accts )
+    accts[acct][table].concat( [data] )
+    return accts
 }
 // reducer
 export const accts = (state = initialState, action) => {
@@ -45,7 +44,7 @@ export const accts = (state = initialState, action) => {
         case CHANGE_ACCT:
             return { ...state, selectedAcct: action.selectedAcct }
         case LOAD_TABLE:
-            return { ...state, accts: cacheTable(action.accts, action.tableName, action.acct, action.table) }
+            return { ...state, accts: cacheTable(action.data.accts, action.data.tableName, action.data.acct, action.data.table) }
         default:
             return state
     }

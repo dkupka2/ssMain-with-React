@@ -4,6 +4,7 @@ import { tables } from '../actions'
 import {
     // redux actions
     LOAD_TABLE,
+    RENDER_TABLE,
 } from '../actions/'
 // state
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
 }
 // action creators
 export const initialTableRender = data => {
-    let tableName =  tables.revertKeys[data.table],
+    let tableName =  tables.revert( [data.table] ),
         tableData = filterTable( tableName, JSON.parse(data.body) )
     let getHeaders = (obj) => {
         let final = []
@@ -20,7 +21,7 @@ export const initialTableRender = data => {
         return final
     }
     return {
-        type: LOAD_TABLE,
+        type: RENDER_TABLE,
         columns: getHeaders( tableData[0] ),
         table: tableData,
         acct: data.acct,
@@ -30,7 +31,7 @@ export const initialTableRender = data => {
 // reducer
 export const dataTable = (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_TABLE:
+        case RENDER_TABLE:
             return { ...state, tableData: action.table, columns: action.columns }
         default:
             return state
