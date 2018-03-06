@@ -58,8 +58,7 @@ export const tables = {
         list: REQUEST_LIST,
         local: REQUEST_LOCAL,
         global: REQUEST_GLOBAL
-    },
-    revertKeys: {},
+    }
 }
 
 tables.lists = {
@@ -68,8 +67,4 @@ tables.lists = {
     compound: Object.keys(tables.compound)
 }
 
-tables.lists.global.map( (key) => tables.revertKeys[ tables.global[key] ] = key )
-tables.lists.local.map( (key) => tables.revertKeys[ tables.local[key] ] = key )
-
 tables.getTables = type => tables.lists[type]
-tables.revert = key => tables.revertKeys[key]

@@ -32,6 +32,8 @@ let {
     REQUEST_VALIDATE_CLIENT,
 } = events
 
+const convert = require("./convert").convert
+
 module.exports = (io, app) => {
     // socket transactions for restapi
     io.of("/restapi").on("connection", socket => {
@@ -52,6 +54,7 @@ module.exports = (io, app) => {
         let sendRequest = (type, data) => {
             let URI,
                 { acct, table, list } = data
+            // table = convert(table)
             if (type === "list") URI = `${url}${acct}/${list}/${table}?out=json`
             if (type === "local") URI = `${url}${acct}/${table}?out=json&limit=500`
             if (type === "global") URI = `${url}/${table}?out=json&limit=500&eq_CLIENT_ID=${acct}`
@@ -66,15 +69,15 @@ module.exports = (io, app) => {
                     try {
                         JSON.parse(body)
                     } catch (e) {
+                        console.log("error from rest server: ", body)
                         return relay("rest error", e)
                     }
-                    relay(RESPONSE_RESTAPI, {acct, table, body})
+                    relay( RESPONSE_RESTAPI, { acct, body, table: convert(table) } )
                 }
             )
         }
+        socket.on(REQUEST_LIST, data => sendRequest("list", data))
         socket.on(REQUEST_LOCAL, data => sendRequest("local", data))
         socket.on(REQUEST_GLOBAL, data => sendRequest("global", data))
-        socket.on(REQUEST_LIST, data => sendRequest("list", data))
-
     })
 }

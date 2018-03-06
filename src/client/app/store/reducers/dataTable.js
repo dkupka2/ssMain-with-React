@@ -11,21 +11,17 @@ const initialState = {
     tableData: [],
     columns: []
 }
+let getHeaders = ( obj, headers = [] ) => {
+    Object.keys(obj).map( (header) => headers.push( {Header: header, accessor: header} ) )
+    return headers
+}
 // action creators
-export const initialTableRender = data => {
-    let tableName =  tables.revert( [data.table] ),
-        tableData = filterTable( tableName, JSON.parse(data.body) )
-    let getHeaders = (obj) => {
-        let final = []
-        Object.keys(obj).map( (header) => final.push( {Header: header, accessor: header} ) )
-        return final
-    }
+export const renderTable = data => {
+    let tableData = filterTable( data.table, JSON.parse(data.body) )
     return {
         type: RENDER_TABLE,
         columns: getHeaders( tableData[0] ),
         table: tableData,
-        acct: data.acct,
-        tableName: data.tableName
     }
 }
 // reducer

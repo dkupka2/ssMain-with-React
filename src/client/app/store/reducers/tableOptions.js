@@ -16,7 +16,8 @@ import {
 // state
 const initialState = {
     type: "compound",
-    table: "Conflicts"
+    table: "Conflicts",
+    which: "latest"
 }
 // services
 const callAPI = (acct, type, table) => {

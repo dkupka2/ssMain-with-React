@@ -28,7 +28,6 @@ export const changeSelect = (target) => {
     }
 }
 const cacheTable = (accts, table, acct, data) => {
-    table = tables.revert(table)
     accts = Object.assign( {}, accts )
     accts[acct][table].concat( [data] )
     return accts

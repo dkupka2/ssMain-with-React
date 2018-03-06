@@ -6,7 +6,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
 import {
-    initialTableRender,
+    renderTable,
 } from '../store/reducers/dataTable'
 
 // action keys
@@ -22,7 +22,7 @@ class DataTable extends Component {
 
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
-            this.props.initialTableRender(data)
+            this.props.renderTable(data)
         } )
     }
 
@@ -47,7 +47,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        initialTableRender: (data) => dispatch( initialTableRender(data) )
+        renderTable: (data) => dispatch( renderTable(data) )
     }
 }
 

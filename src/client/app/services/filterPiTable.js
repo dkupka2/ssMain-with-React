@@ -1,8 +1,6 @@
-const convert = (value, type) => {
-    let final
+const convert = ( value, type, final = [] ) => {
     switch (type) {
         case "message status":
-            final = []
             if ( value.includes(1) ) rstring.push("delivered")
             if ( value.includes(2) ) rstring.push("hold")
             if ( value.includes(3) ) rstring.push("un-delivered")
@@ -16,7 +14,6 @@ const convert = (value, type) => {
             return final
             break
         case "days of the week":
-            final = []
             if ( value.includes(1) ) final.push("Sun")
             if ( value.includes(2) ) final.push("Mon")
             if ( value.includes(3) ) final.push("Tues")
@@ -27,26 +24,24 @@ const convert = (value, type) => {
             return final.join(" ")
             break
         case "holidays":
-            final = []
-            if ( value.includes("H01") ) final.push("NEW_YEARS_DAY")
-            if ( value.includes("H02") ) final.push("MLK_DAY")
-            if ( value.includes("H03") ) final.push("PRESIDENTS_DAY")
-            if ( value.includes("H04") ) final.push("PATRIOTS_DAY")
-            if ( value.includes("H05") ) final.push("MEMORIAL_DAY")
-            if ( value.includes("H06") ) final.push("INDEPENDENCE_DAY")
-            if ( value.includes("H07") ) final.push("LABOR_DAY")
-            if ( value.includes("H08") ) final.push("COLUMBUS_DAY")
-            if ( value.includes("H09") ) final.push("VETERANS_DAY")
+            if ( value.includes("H01") ) final.push("NEWYEARS")
+            if ( value.includes("H02") ) final.push("MLK")
+            if ( value.includes("H03") ) final.push("PRESIDENTS")
+            if ( value.includes("H04") ) final.push("PATRIOTS")
+            if ( value.includes("H05") ) final.push("MEMORIAL")
+            if ( value.includes("H06") ) final.push("INDEPENDENCE")
+            if ( value.includes("H07") ) final.push("LABOR")
+            if ( value.includes("H08") ) final.push("COLUMBUS")
+            if ( value.includes("H09") ) final.push("VETERANS")
             if ( value.includes("H10") ) final.push("THANKSGIVING")
-            if ( value.includes("H11") ) final.push("BLACK_FRIDAY")
-            if ( value.includes("H12") ) final.push("CHRISTMAS_DAY")
-            if ( value.includes("S1") ) final.push("BOXING_DAY")
+            if ( value.includes("H11") ) final.push("BLACKFRIDAY")
+            if ( value.includes("H12") ) final.push("CHRISTMAS")
+            if ( value.includes("S1") ) final.push("BOXING")
             // if ( value.includes("S2") ) final.push("SPECIAL DAY 2")
             // if ( value.includes("S3") ) final.push("SPECIAL DAY 3")
             return final.join(" ")
         case "contacts":
             let { NUMBER, OVERDIAL, PIN, EMAIL_ADDY, SUBJECT, SM_USER } = value
-            final = []
             if (PIN && PIN !== " ") final.push(`$:{PIN}`)
             if (NUMBER && NUMBER !== " ") final.push(NUMBER)
             if (SUBJECT && SUBJECT !== " ") final.push(`$:{SUBJECT}`)
@@ -65,7 +60,7 @@ const removeROWID = (obj) => {
 }
 
 const filterPiTable = {
-    // Tables
+    // local tables
     Autos_on_Save: {
         alias: "PT_AUTOA",
         columns: ["ORDER", "ACTIVE", "CONDITION", "CONTACT", "TASDSTATUS", "DESC", "COPYTOACCT"],
@@ -286,7 +281,7 @@ const filterPiTable = {
             }
         }
     },
-    // getFiltereded tables
+    // global tables
     Timed_Actions: {
         alias: "PT_TACTION",
         columns: ["ACTIVE", "CLIENT_ID", "ID_NUMBER", "DESC", "TYPE", "DATE", "TIME", "DOW", "LAST_DATE", "MSG_TYPES", "TASDSTATUS", "EXCLUDE", "INCLUDE", "DATA", "CONDITION", "NOTES"],
