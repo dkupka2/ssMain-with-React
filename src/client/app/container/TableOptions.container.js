@@ -43,7 +43,7 @@ class Accts extends Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({visible: props.acctsLength > 0 ? true : false})
+        this.setState( {visible: props.acctsLength > 0 ? true : false} )
     }
 
     componentWillMount() {
@@ -88,7 +88,7 @@ const mapState = state => {
         table: state.tableOptions.table,
         selectedAcct: state.accts.selectedAcct,
         message: state.tableOptions.message,
-        acctsLength: Object.keys( state.accts.accts ).length
+        acctsLength: state.accts.accts ? Object.keys( state.accts.accts ).length : []
     }
 }
 
