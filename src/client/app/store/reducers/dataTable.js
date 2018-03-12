@@ -31,8 +31,9 @@ export const renderTable = data => {
 }
 export const loadCache = data => {
     let arr,
-        { acct, table, accts } = data
-    if (accts[acct][table].length > 0) {
+        { type, acct, table, accts } = data
+    console.log(data)
+    if ( type !== "compound" && accts[acct][table].length > 0) {
         data.body = getLast( accts[acct][table] )
         return renderTable(data)
     } else {

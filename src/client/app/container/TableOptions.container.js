@@ -11,9 +11,6 @@ import {
     restRequest,
     restResponse
 } from '../store/reducers/tableOptions'
-import {
-    loadCache
-} from '../store/reducers/dataTable'
 // action keys
 import {
     tables,
@@ -33,17 +30,21 @@ class Accts extends Component {
 
     handleTypeChange(e) {
         this.setState( { tables: getTables(e.target.value) } )
-        this.props.changeType(e.target.value)
+        this.props.changeType({
+            type: e.target.value,
+            table: tables.default[e.target.value],
+            accts: this.props.accts,
+            acct: this.props.selectedAcct
+        })
     }
 
     handleTableChange(e) {
-
-        this.props.loadCache({
+        this.props.changeTable({
+            type: this.props.type,
             table: e.target.value,
             accts: this.props.accts,
             acct: this.props.selectedAcct
         })
-        this.props.changeTable(e.target.value)
     }
 
     handleTableLoad( acct, type, table ) {

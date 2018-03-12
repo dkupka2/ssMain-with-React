@@ -14,6 +14,9 @@ import {
     REQUEST_GLOBAL,
     LOAD_FAILURE,
 } from '../actions/'
+import {
+    loadCache
+} from './dataTable'
 // state
 const initialState = {
     type: "compound",
@@ -34,16 +37,19 @@ const callAPI = (acct, type, table) => {
     }
 }
 // action creators
-export const changeType = type => {
+export const changeType = data => {
+    loadCache(data)
     return {
         type: SELECT_TYPE,
-        value: type
+        type: data.type,
+        table: data.table
     }
 }
-export const changeTable = table => {
+export const changeTable = data => {
+    loadCache(data)
     return {
         type: SELECT_TABLE,
-        value: table
+        value: data.table
     }
 }
 export const restRequest = (data) => {
@@ -61,7 +67,7 @@ export const restResponse = (data) => {
 export const tableOptions = (state = initialState, action) => {
     switch (action.type) {
         case SELECT_TYPE:
-            return { ...state, type: action.value, table: tables.default[action.value] }
+            return { ...state, type: action.type, table: action.table }
         case SELECT_TABLE:
             return { ...state, table: action.value }
         case SUBMIT_REQUEST:
