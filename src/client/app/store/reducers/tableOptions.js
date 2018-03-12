@@ -7,6 +7,7 @@ import {
     SELECT_TYPE,
     SELECT_TABLE,
     LOAD_TABLE,
+    TABLE_NOT_CACHED,
     // socket events
     REQUEST_LIST,
     REQUEST_LOCAL,
@@ -59,9 +60,9 @@ export const restResponse = (data) => {
 // reducer
 export const tableOptions = (state = initialState, action) => {
     switch (action.type) {
-        case SELECT_TYPE: 
+        case SELECT_TYPE:
             return { ...state, type: action.value, table: tables.default[action.value] }
-        case SELECT_TABLE: 
+        case SELECT_TABLE:
             return { ...state, table: action.value }
         case SUBMIT_REQUEST:
             return { ...state, message: `requesting ${action.table} from ${action.acct}, please wait...` }
@@ -69,6 +70,8 @@ export const tableOptions = (state = initialState, action) => {
             return { ...state, message: `received response from RestAPI, loading table...` }
         case LOAD_FAILURE:
             return { ...state, message: 'LOAD_TABLE action creator called without data, no table to load!'}
+        case TABLE_NOT_CACHED:
+            return { ...state, message: 'Please load table to view'}
         default:
             return state
     }

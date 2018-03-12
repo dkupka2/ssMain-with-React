@@ -27,8 +27,9 @@ class DataTable extends Component {
     }
 
     render() {
+        const parentClass = this.props.visible ? "dataTable" : "hidden"
         return (
-            <div>
+            <div className={parentClass}>
                 <ReactTable
                 data={this.props.data}
                 columns={this.props.columns}
@@ -42,6 +43,7 @@ const mapState = state => {
     return {
         data: state.dataTable.tableData,
         columns: state.dataTable.columns,
+        visible: state.dataTable.visible,
     }
 }
 

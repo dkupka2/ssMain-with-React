@@ -15,21 +15,22 @@ const initialState = {
     selectedAcct: ""
 }
 // acct factory
-const initAcct = (list) => {
+const initAcct = list => {
     let obj = {}
     list.map( (table) => obj[table] = [] )
     return obj
 }
 // action creators
-export const changeSelect = (target) => {
+export const changeSelect = target => {
     return {
         type: CHANGE_ACCT,
         selectedAcct: target
     }
 }
+// local services
 const cacheTable = (accts, table, acct, data) => {
     accts = Object.assign( {}, accts )
-    accts[acct][table].concat( [data] )
+    accts[acct][table] = accts[acct][table].concat( [data] )
     return accts
 }
 // reducer

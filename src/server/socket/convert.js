@@ -33,7 +33,6 @@ Object.keys(tables.local).map( (key) => tables.revertKeys[ tables.local[key] ] =
 
 tables.restKeys = Object.keys( tables.revertKeys )
 
-
 module.exports = {
     convert(key) {
         return Object.keys(tables.revertKeys).includes(key) ? tables.revertKeys[key] :

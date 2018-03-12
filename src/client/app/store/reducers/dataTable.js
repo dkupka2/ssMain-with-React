@@ -5,7 +5,12 @@ import {
     // redux actions
     LOAD_TABLE,
     RENDER_TABLE,
+    TABLE_NOT_CACHED,
 } from '../actions/'
+//services
+import {
+    getLast
+} from '../../services'
 // state
 const initialState = {
     tableData: [],
@@ -24,11 +29,25 @@ export const renderTable = data => {
         table: tableData,
     }
 }
+export const loadCache = data => {
+    let arr,
+        { acct, table, accts } = data
+    if (accts[acct][table].length > 0) {
+        data.body = getLast( accts[acct][table] )
+        return renderTable(data)
+    } else {
+        return {
+            type: TABLE_NOT_CACHED
+        }
+    }
+}
 // reducer
 export const dataTable = (state = initialState, action) => {
     switch (action.type) {
         case RENDER_TABLE:
-            return { ...state, tableData: action.table, columns: action.columns }
+            return { ...state, tableData: action.table, columns: action.columns, visible: true }
+        case TABLE_NOT_CACHED:
+            return { ...state, visible: false}
         default:
             return state
     }

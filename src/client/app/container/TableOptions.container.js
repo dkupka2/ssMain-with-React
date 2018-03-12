@@ -11,6 +11,9 @@ import {
     restRequest,
     restResponse
 } from '../store/reducers/tableOptions'
+import {
+    loadCache
+} from '../store/reducers/dataTable'
 // action keys
 import {
     tables,
@@ -34,6 +37,12 @@ class Accts extends Component {
     }
 
     handleTableChange(e) {
+
+        this.props.loadCache({
+            table: e.target.value,
+            accts: this.props.accts,
+            acct: this.props.selectedAcct
+        })
         this.props.changeTable(e.target.value)
     }
 
@@ -100,6 +109,7 @@ const mapDispatch = dispatch => {
         changeTable: (value) => dispatch( changeTable(value) ),
         restRequest:  (data) => dispatch( restRequest(data) ),
         restResponse: (data) => dispatch( restResponse(data) ),
+        loadCache: (data) => dispatch( loadCache(data) ),
     }
 }
 
