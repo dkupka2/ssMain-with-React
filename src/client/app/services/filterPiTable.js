@@ -121,7 +121,7 @@ const filterPiTable = {
                     break
                 default:
                     return {
-                        WHERE: `page:${PAGE_NUM} row:${L_ROW} column:${L_COL}`,
+                        WHERE: `P:${PAGE_NUM} R:${L_ROW} C:${L_COL}`,
                         LABEL,
                         PARAGRAPH: HAS_PARA ? PARAGRAPH : "",
                         VARIABLE: G_LENGTH == 0 ? " " : `${GET_FIELD} / ${GET_TYPE} / ${G_LENGTH}`,

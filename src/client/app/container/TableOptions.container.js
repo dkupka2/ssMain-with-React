@@ -82,9 +82,7 @@ class Accts extends Component {
                 <Button
                 selector="submit"
                 prompt="load table"
-                click={ () => { 
-                    this.handleTableLoad( this.props.selectedAcct, this.props.type, this.props.table )
-                }}
+                click={ () => { this.handleTableLoad( this.props.selectedAcct, this.props.type, this.props.table ) } }
                 />
                 <p>{this.props.message}</p>
                 <p>{this.props.type}</p>

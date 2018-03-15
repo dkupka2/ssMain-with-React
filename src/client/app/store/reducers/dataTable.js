@@ -29,9 +29,19 @@ export const renderTable = data => {
         table: tableData,
     }
 }
-export const loadCache = data => {
-    let arr,
+const loadCompoundFromCache = data => {
+    let arr = [],
         { type, acct, table, accts } = data
+    tables.compound[table].local // include all tables needed for compound table
+        .concat(tables.compound[table].global) 
+        .map( targetTable => { arr.concat( getLast( accts[acct][table] ) ) } )
+    data.body = arr
+    return renderTable(data)
+}
+
+export const loadCache = data => {
+    let { type, acct, table, accts } = data
+    if ( type !== "compound") return loadCompoundFromCache(data)
     if ( type !== "compound" && accts[acct][table].length > 0) {
         data.body = getLast( accts[acct][table] )
         return renderTable(data)
