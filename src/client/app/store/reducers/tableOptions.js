@@ -25,7 +25,7 @@ const initialState = {
 }
 // services
 const callAPI = (acct, type, table) => {
-    if (type !== "compound") {
+    if (type !== "compound" && ! tables.lists.compound.includes(table)) {
         table = tables[type][table]
         socket.emit( tables.requestKeys[type], {acct, table} )
     } else { // get tables by compound table
@@ -39,14 +39,16 @@ const callAPI = (acct, type, table) => {
 // action creators
 export const changeType = data => {
     loadCache(data)
+    console.log("type should change to: ", data.type)
     return {
         type: SELECT_TYPE,
-        type: data.type,
+        tableType: data.type,
         table: data.table
     }
 }
 export const changeTable = data => {
     loadCache(data)
+    console.log("table changing")
     return {
         type: SELECT_TABLE,
         value: data.table
@@ -65,9 +67,11 @@ export const restResponse = (data) => {
 }
 // reducer
 export const tableOptions = (state = initialState, action) => {
+    console.log(action.type)
     switch (action.type) {
         case SELECT_TYPE:
-            return { ...state, type: action.type, table: action.table }
+            console.log(`oT R: ${action.tableType} ${action.tableType}`)
+            return { ...state, type: action.tableType, table: action.table }
         case SELECT_TABLE:
             return { ...state, table: action.value }
         case SUBMIT_REQUEST:

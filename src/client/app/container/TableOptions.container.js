@@ -29,7 +29,7 @@ class Accts extends Component {
     }
 
     handleTypeChange(e) {
-        this.setState( { tables: getTables(e.target.value) } )
+        this.setState( { type: e.target.value, tables: getTables(e.target.value) } )
         this.props.changeType({
             type: e.target.value,
             table: tables.default[e.target.value],
@@ -87,6 +87,7 @@ class Accts extends Component {
                 }}
                 />
                 <p>{this.props.message}</p>
+                <p>{this.props.type}</p>
             </div>
         )
     }
@@ -106,8 +107,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        changeType:  (value) => dispatch( changeType(value) ),
-        changeTable: (value) => dispatch( changeTable(value) ),
+        changeType:  (data) => dispatch( changeType(data) ),
+        changeTable: (data) => dispatch( changeTable(data) ),
         restRequest:  (data) => dispatch( restRequest(data) ),
         restResponse: (data) => dispatch( restResponse(data) ),
         loadCache: (data) => dispatch( loadCache(data) ),
