@@ -20,6 +20,10 @@ class DataTable extends Component {
         super(props)
     }
 
+    componentWillReceiveProps() {
+        
+    }
+
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
             this.props.renderTable(data)

@@ -22,20 +22,18 @@ let getHeaders = ( obj, headers = [] ) => {
 }
 // action creators
 export const renderTable = data => {
-    // parse data if not loading from cache
-    let tableData = data.cached ? data.body : JSON.parse(data.body)
     return {
         type: RENDER_TABLE,
-        columns: getHeaders( tableData[0] ),
-        table: tableData,
+        columns: getHeaders( data.body[0] ),
+        table: data.body,
     }
 }
 const loadCompoundFromCache = data => {
     let arr = [],
         { type, acct, table, accts } = data
-    // map over relevant compound tables list
+    // map over tables list
     tables.compoundLists[table].map( targetTable => {
-        // concat filtered result of most recent cache to arr 
+        // filter and concat most recent cache
         arr.concat( filterTable(targetTable, getLast( accts[acct][targetTable] ), table) )
     })
     data.body = arr
@@ -57,7 +55,6 @@ export const loadCache = data => {
 }
 // reducer
 export const dataTable = (state = initialState, action) => {
-    console.log("reducer: ", action.type)
     let warning
     switch (action.type) {
         case RENDER_TABLE:

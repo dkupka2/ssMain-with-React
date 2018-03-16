@@ -58,6 +58,7 @@ class Accts extends Component {
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
             data.accts = this.props.accts
+            data.body = JSON.parse( data.body )
             this.props.restResponse(data)
         } )
     }

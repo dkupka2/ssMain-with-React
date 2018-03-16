@@ -31,7 +31,7 @@ const callAPI = (acct, type, table) => {
     } else { // get tables by compound table
         for ( let type of Object.keys( tables.compound[table] ) ) {
             tables.compound[table][type].map((key) => {
-                socket.emit( typeKeys[type], { acct, table: key } )
+                socket.emit( tables.requestKeys[type], { acct, table: key } )
             })
         }
     }
