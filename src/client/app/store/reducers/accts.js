@@ -44,7 +44,7 @@ export const accts = (state = initialState, action) => {
         case CHANGE_ACCT:
             return { ...state, selectedAcct: action.selectedAcct }
         case LOAD_TABLE:
-            return { ...state, accts: cacheTable(action.data.accts, action.data.tableName, action.data.acct, action.data.table) }
+            return { ...state, accts: cacheTable(action.data.accts, action.data.tableName, action.data.acct, JSON.parse(action.data.table) ) }
         default:
             return state
     }

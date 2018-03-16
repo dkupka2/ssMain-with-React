@@ -1,3 +1,4 @@
 export const getLast = arr => {
-    return arr[arr.length - 1]
+    if (typeof arr === "object" && arr.length != undefined ) return arr[arr.length - 1]
+    return []
 }

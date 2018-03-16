@@ -30,6 +30,7 @@ class DataTable extends Component {
         const parentClass = this.props.visible ? "dataTable" : "hidden"
         return (
             <div className={parentClass}>
+                <p>{parentClass}</p>
                 <ReactTable
                 data={this.props.data}
                 columns={this.props.columns}

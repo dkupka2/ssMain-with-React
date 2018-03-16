@@ -29,7 +29,7 @@ class Accts extends Component {
     }
 
     handleTypeChange(e) {
-        this.setState( { type: e.target.value, tables: getTables(e.target.value) } )
+        this.setState( { tables: getTables(e.target.value) } )
         this.props.changeType({
             type: e.target.value,
             table: tables.default[e.target.value],

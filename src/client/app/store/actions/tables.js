@@ -67,4 +67,9 @@ tables.lists = {
     compound: Object.keys(tables.compound)
 }
 
+tables.compoundLists = {}
+tables.lists.compound.map( (cList) => {
+    tables.compoundLists[cList] = tables.compound[cList].local.concat(tables.compound[cList].global)
+})
+
 tables.getTables = type => tables.lists[type]

@@ -25,7 +25,7 @@ const initialState = {
 }
 // services
 const callAPI = (acct, type, table) => {
-    if (type !== "compound" && ! tables.lists.compound.includes(table)) {
+    if (type !== "compound") {
         table = tables[type][table]
         socket.emit( tables.requestKeys[type], {acct, table} )
     } else { // get tables by compound table
@@ -38,28 +38,33 @@ const callAPI = (acct, type, table) => {
 }
 // action creators
 export const changeType = data => {
-    loadCache(data)
-    return {
-        type: SELECT_TYPE,
-        tableType: data.type,
-        table: data.table
+    return dispatch => {
+        dispatch( loadCache(data) )
+        dispatch({
+            type: SELECT_TYPE,
+            tableType: data.type,
+            table: data.table
+        })
     }
 }
 export const changeTable = data => {
-    loadCache(data)
-    return {
-        type: SELECT_TABLE,
-        value: data.table
+    return dispatch => {
+        dispatch( loadCache(data) )
+        dispatch({
+            type: SELECT_TABLE,
+            value: data.table
+        })
     }
 }
-export const restRequest = (data) => {
+export const restRequest = data => {
     let { acct, type, table } = data
     callAPI(acct, type, table)
     return {
-        acct, table, type: SUBMIT_REQUEST,
+        type: SUBMIT_REQUEST,
+        acct, table,
     }
 }
-export const restResponse = (data) => {
+export const restResponse = data => {
     let { acct, accts, table: tableName, body: table} = data
     return data.table ? {type: LOAD_TABLE, data: {accts, acct, tableName, table} } : {type: LOAD_FAILURE}
 }
