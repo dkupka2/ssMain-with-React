@@ -27,8 +27,8 @@ class AcctInput extends Component {
     }
 
     handleInputSubmit() {
-        this.props.submit(this.state.inputValue)
         this.setState( {inputValue: ""} )
+        this.props.submit(this.state.inputValue)
     }
 
     componentWillMount() {

@@ -20,10 +20,6 @@ class DataTable extends Component {
         super(props)
     }
 
-    componentWillReceiveProps() {
-        
-    }
-
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
             this.props.renderTable(data)
@@ -31,7 +27,8 @@ class DataTable extends Component {
     }
 
     render() {
-        const parentClass = this.props.visible ? "dataTable" : "hidden"
+        const parentClass = this.props.visible ?
+            "dataTable" : "hidden"
         return (
             <div className={parentClass}>
                 <p>{parentClass}</p>

@@ -1,1 +1,3 @@
-export const getKeys = arr => arr ? Object.keys(arr) : []
+export const getKeys = obj => {
+    return typeof obj === "object" ? Object.keys(obj) : []
+}

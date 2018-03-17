@@ -51,8 +51,10 @@ class Accts extends Component {
         this.props.restRequest( {acct, type, table} )
     }
 
-    componentWillReceiveProps(props) {
-        this.setState( {visible: props.acctsLength > 0 ? true : false} )
+    componentWillReceiveProps(newProps) {
+        this.setState({ 
+            visible: getKeys(newProps.accts).length > 0 ? true : false
+        })
     }
 
     componentWillMount() {
@@ -60,7 +62,7 @@ class Accts extends Component {
             data.accts = this.props.accts
             data.body = JSON.parse( data.body )
             this.props.restResponse(data)
-        } )
+        })
     }
 
     render() {
@@ -83,10 +85,14 @@ class Accts extends Component {
                 <Button
                 selector="submit"
                 prompt="load table"
-                click={ () => { this.handleTableLoad( this.props.selectedAcct, this.props.type, this.props.table ) } }
+                click={ () => { this.handleTableLoad(
+                    this.props.selectedAcct,
+                    this.props.type,
+                    this.props.table
+                    ) } }
                 />
                 <p>{this.props.message}</p>
-                <p>{this.props.type}</p>
+                <p>{this.props.acctsLength}</p>
             </div>
         )
     }
@@ -99,7 +105,6 @@ const mapState = state => {
         message: state.tableOptions.message,
         // state from accts reducer
         accts: state.accts.accts,
-        acctsLength: getKeys(state.accts.accts),
         selectedAcct: state.accts.selectedAcct,
     }
 }

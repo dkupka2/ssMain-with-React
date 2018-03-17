@@ -66,7 +66,9 @@ export const restRequest = data => {
 }
 export const restResponse = data => {
     let { acct, accts, table: tableName, body: table} = data
-    return data.table ? {type: LOAD_TABLE, data: {accts, acct, tableName, table} } : {type: LOAD_FAILURE}
+    return data.table ?
+        {type: LOAD_TABLE, data: {accts, acct, tableName, table} } :
+        {type: LOAD_FAILURE}
 }
 // reducer
 export const tableOptions = (state = initialState, action) => {
@@ -76,11 +78,14 @@ export const tableOptions = (state = initialState, action) => {
         case SELECT_TABLE:
             return { ...state, table: action.value }
         case SUBMIT_REQUEST:
-            return { ...state, message: `requesting ${action.table} from ${action.acct}, please wait...` }
+            return { ...state,
+                message: `requesting ${action.table} from ${action.acct}, please wait...` }
         case LOAD_TABLE:
-            return { ...state, message: `received response from RestAPI, loading table...` }
+            return { ...state,
+                message: `Received response from RestAPI, loading table...` }
         case LOAD_FAILURE:
-            return { ...state, message: 'LOAD_TABLE action creator called without data, no table to load!'}
+            return { ...state,
+                message: 'No table to load!'}
         case TABLE_NOT_CACHED:
             return { ...state, message: 'Please load table to view'}
         default:
