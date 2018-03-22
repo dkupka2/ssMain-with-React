@@ -4,8 +4,14 @@ import {
     // redux events
     ACCT_VALID,
     CHANGE_ACCT,
-    LOAD_TABLE
+    CACHE_TABLE
 } from '../actions/'
+import {
+    loadCache
+} from './dataTable'
+import {
+    renderFromCache
+} from './tableOptions'
 const lists = tables.lists
 // services
 import { checkArgs } from '../../services'
@@ -21,30 +27,47 @@ const initAcct = list => {
     return obj
 }
 // action creators
-export const changeSelect = target => {
+export const changeSelect = target => {``
     return {
         type: CHANGE_ACCT,
         selectedAcct: target
     }
 }
-// local services
-const cacheTable = (accts, table, acct, data) => {
+export const cacheTable = payload => {
+    let { accts, acct, table, data, from } = payload
     accts = Object.assign( {}, accts )
-    accts[acct][table] = accts[acct][table].concat( [data] )
-    return accts
+    accts[acct][table] = accts[acct][table].concat(
+        [data]
+    )
+    return { type: CACHE_TABLE, accts: accts }
+}
+export const restRes = payload => {
+    return dispatch => {
+        dispatch( cacheTable(payload) )
+        dispatch( renderFromCache( payload) )
+    }
 }
 // reducer
 export const accts = (state = initialState, action) => {
     switch (action.type) {
         case ACCT_VALID:
             let accts, add = {}
-            add[action.acct] = initAcct( lists.global.concat(lists.local) )
+            add[action.acct] = initAcct(
+                lists.global.concat(lists.local)
+            )
             accts = Object.assign( {}, state.accts, add )
-            return { ...state, accts: accts, selectedAcct: action.acct}
+            return { 
+                ...state,
+                accts: accts,
+                selectedAcct: action.acct
+            }
         case CHANGE_ACCT:
-            return { ...state, selectedAcct: action.selectedAcct }
-        case LOAD_TABLE:
-            return { ...state, accts: cacheTable(action.data.accts, action.data.tableName, action.data.acct, action.data.table) }
+            return {
+                ...state,
+                selectedAcct: action.selectedAcct
+            }
+        case CACHE_TABLE:
+            return { ...state, accts: action.accts }
         default:
             return state
     }

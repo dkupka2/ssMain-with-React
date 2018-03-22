@@ -15,8 +15,15 @@ import {
     LOAD_FAILURE,
 } from '../actions/'
 import {
-    loadCache
+    compose
+} from '../../services'
+import {
+    loadCache,
+    renderTable
 } from './dataTable'
+export const renderFromCache = data => {
+    return compose(loadCache, renderTable, data)
+}
 // state
 const initialState = {
     type: "compound",
@@ -31,7 +38,12 @@ const callAPI = (acct, type, table) => {
     } else { // get tables by compound table
         for ( let type of Object.keys( tables.compound[table] ) ) {
             tables.compound[table][type].map((key) => {
-                socket.emit( tables.requestKeys[type], { acct, table: key } )
+                socket.emit(
+                    tables.requestKeys[type], { 
+                        acct,
+                        table: key
+                    }
+                )
             })
         }
     }
@@ -39,7 +51,7 @@ const callAPI = (acct, type, table) => {
 // action creators
 export const changeType = data => {
     return dispatch => {
-        dispatch( loadCache(data) )
+        dispatch( renderFromCache(data) )
         dispatch({
             type: SELECT_TYPE,
             tableType: data.type,
@@ -49,7 +61,7 @@ export const changeType = data => {
 }
 export const changeTable = data => {
     return dispatch => {
-        dispatch( loadCache(data) )
+        dispatch( renderFromCache(data) )
         dispatch({
             type: SELECT_TABLE,
             value: data.table
@@ -65,24 +77,36 @@ export const restRequest = data => {
     }
 }
 export const restResponse = data => {
-    let { acct, accts, table: tableName, body: table} = data
-    return data.table ?
-        {type: LOAD_TABLE, data: {accts, acct, tableName, table} } :
-        {type: LOAD_FAILURE}
+    let {
+        acct,
+        accts,
+        isCompound,
+        table: tableName,
+        body: table,
+    } = data
+    return { 
+        type: LOAD_TABLE,
+        data: { accts, acct, tableName, table, isCompound }
+    }
 }
 // reducer
 export const tableOptions = (state = initialState, action) => {
-    switch (action.type) {
+    let { type, value, table, acct, tableType } = action
+    switch (type) {
         case SELECT_TYPE:
-            return { ...state, type: action.tableType, table: action.table }
+            return {  ...state, type: tableType, table: table }
         case SELECT_TABLE:
-            return { ...state, table: action.value }
+            return { ...state, table: value }
         case SUBMIT_REQUEST:
-            return { ...state,
-                message: `requesting ${action.table} from ${action.acct}, please wait...` }
+            return { 
+                ...state,
+                message: `requesting ${table} from ${acct}, please wait...`
+            }
         case LOAD_TABLE:
-            return { ...state,
-                message: `Received response from RestAPI, loading table...` }
+            return {
+                ...state,
+                message: `Received response from RestAPI, loading table...`
+            }
         case LOAD_FAILURE:
             return { ...state,
                 message: 'No table to load!'}

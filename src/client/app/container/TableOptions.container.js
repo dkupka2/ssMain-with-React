@@ -3,13 +3,17 @@ import { connect } from 'react-redux'
 import Select from '../components/Select'
 import Button from '../components/Button'
 import { socket } from '../store/socket'
-import { selectOptions, getKeys } from '../services'
+import {
+    selectOptions,
+    getKeys,
+    isTrue,
+} from '../services'
 // action creators
 import {
     changeTable,
     changeType,
     restRequest,
-    restResponse
+    restResponse,
 } from '../store/reducers/tableOptions'
 // action keys
 import {
@@ -32,18 +36,18 @@ class Accts extends Component {
         this.setState( { tables: getTables(e.target.value) } )
         this.props.changeType({
             type: e.target.value,
-            table: tables.default[e.target.value],
+            acct: this.props.selectedAcct,
             accts: this.props.accts,
-            acct: this.props.selectedAcct
+            table: tables.default[e.target.value],
         })
     }
 
     handleTableChange(e) {
         this.props.changeTable({
             type: this.props.type,
-            table: e.target.value,
+            acct: this.props.selectedAcct,
             accts: this.props.accts,
-            acct: this.props.selectedAcct
+            table: e.target.value,
         })
     }
 
@@ -53,21 +57,15 @@ class Accts extends Component {
 
     componentWillReceiveProps(newProps) {
         this.setState({ 
-            visible: getKeys(newProps.accts).length > 0 ? true : false
-        })
-    }
-
-    componentWillMount() {
-        socket.on(RESPONSE_RESTAPI, (data) => {
-            data.accts = this.props.accts
-            data.body = JSON.parse( data.body )
-            this.props.restResponse(data)
+            visible: isTrue(getKeys(newProps.accts).length > 0)
         })
     }
 
     render() {
         return(
-            <div className={this.state.visible ? "tableOptions" : "hidden"} >
+            <div className={ this.state.visible ?
+                "tableOptions" : "hidden"
+            } >
                 <Select
                 selector="type"
                 prompt="Type of Table: "

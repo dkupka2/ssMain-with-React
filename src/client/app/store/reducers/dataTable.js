@@ -17,11 +17,19 @@ const initialState = {
     columns: []
 }
 let getHeaders = ( obj, headers = [] ) => {
-    Object.keys(obj).map( (header) => headers.push( {Header: header, accessor: header} ) )
+    Object.keys(obj).map( 
+        (header) => headers.push({
+            Header: header,
+            accessor: header
+        })
+    )
     return headers
 }
 // action creators
 export const renderTable = data => {
+    if (data.body.length < 1) {
+        return {type: TABLE_NOT_CACHED}
+    }
     return {
         type: RENDER_TABLE,
         columns: getHeaders( data.body[0] ),
@@ -34,32 +42,42 @@ const loadCompoundFromCache = data => {
     // map over tables list
     tables.compoundLists[table].map( targetTable => {
         // filter and concat most recent cache
-        arr.concat( filterTable(targetTable, getLast( accts[acct][targetTable] ), table) )
+        arr.concat(
+            filterTable(
+                targetTable,
+                getLast( accts[acct][targetTable] ),
+                table
+            )
+        )
     })
     data.body = arr
-    data.cached = true
-    if (arr.length < 1) return {type: TABLE_NOT_CACHED}
-    return renderTable(data)
+    return data
 }
-
 export const loadCache = data => {
     let { type, acct, table, accts } = data
     if (type === "compound") return loadCompoundFromCache(data)
     if (accts[acct][table].length > 0) {
         data.body = getLast( accts[acct][table] )
-        data.cached = true
-        return renderTable(data)
+        data.isCached = true
     } else {
-        return {type: TABLE_NOT_CACHED}
+        data.body = []
     }
+    return data
 }
 // reducer
 export const dataTable = (state = initialState, action) => {
     let warning
     switch (action.type) {
         case RENDER_TABLE:
-            warning = action.cached ? 'table loaded from cache, load table for current account state' : ''
-            return { ...state, tableData: action.table, columns: action.columns, visible: true, message: warning }
+            warning = action.isCached ?
+                'table from cache, re-load for newest version' : ''
+            return {
+                ...state,
+                tableData: action.table,
+                columns: action.columns,
+                visible: true,
+                message: warning
+            }
         case TABLE_NOT_CACHED:
             return { ...state, visible: false}
         default:

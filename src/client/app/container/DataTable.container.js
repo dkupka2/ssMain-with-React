@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { socket } from '../store/socket'
-
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-
-import {
-    renderTable,
-} from '../store/reducers/dataTable'
-
+// library
+import { isTrue } from '../services'
+// action creators
+import { renderTable } from '../store/reducers/dataTable'
 // action keys
 import {
     LOAD_TABLE,
@@ -20,18 +18,11 @@ class DataTable extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        socket.on(RESPONSE_RESTAPI, (data) => {
-            this.props.renderTable(data)
-        } )
-    }
-
     render() {
         const parentClass = this.props.visible ?
             "dataTable" : "hidden"
         return (
             <div className={parentClass}>
-                <p>{parentClass}</p>
                 <ReactTable
                 data={this.props.data}
                 columns={this.props.columns}
