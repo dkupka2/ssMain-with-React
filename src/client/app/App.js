@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 // containers
-import AcctInput from './container/AcctInput.container'
-import Accts from './container/Accts.container'
-import TableOptions from './container/TableOptions.container'
-import DataTable from './container/DataTable.container'
+import { 
+    AcctInputContainer,
+    AcctsContainer,
+    TableOptionsContainer,
+    DataTableContainer,
+} from './containers'
 
 import './styles/App.css'
 
@@ -15,10 +17,10 @@ class App extends Component {
     render() {
         return(
             <div>
-                <AcctInput />
-                <Accts />
-                <TableOptions />
-                <DataTable />
+                <AcctInputContainer />
+                <AcctsContainer />
+                <TableOptionsContainer />
+                <DataTableContainer />
             </div>
         )
     }

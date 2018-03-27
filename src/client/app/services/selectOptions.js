@@ -1,11 +1,11 @@
 import React from 'react'
 
 export const isArrOrObj = (obj) => {
-    if (typeof obj === "object") {
+    if (typeof obj === 'object') {
         if (obj.length === undefined) {
-            return "object"
+            return 'object'
         } else {
-            return "array"
+            return 'array'
         }
     } else {
         return
@@ -14,7 +14,7 @@ export const isArrOrObj = (obj) => {
 
 export const selectOptions = (obj) => {
     let arr
-    if (isArrOrObj(obj) === "object" && Object.keys(obj).length > 0 ) {
+    if (isArrOrObj(obj) === 'object' && Object.keys(obj).length > 0 ) {
         arr = Object.keys(obj)
     } else {
         arr = obj

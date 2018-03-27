@@ -1,16 +1,17 @@
-import { filterTable } from '../../services'
+// library
+import {
+    getLast,
+    filterTable
+} from '../../services'
+// action keys
 import { tables } from '../actions'
-// event keys
+// action keys
 import {
     // redux actions
     LOAD_TABLE,
     RENDER_TABLE,
     TABLE_NOT_CACHED,
 } from '../actions/'
-//services
-import {
-    getLast
-} from '../../services'
 // state
 const initialState = {
     tableData: [],
@@ -55,7 +56,7 @@ const loadCompoundFromCache = data => {
 }
 export const loadCache = data => {
     let { type, acct, table, accts } = data
-    if (type === "compound") return loadCompoundFromCache(data)
+    if (type === 'compound') return loadCompoundFromCache(data)
     if (accts[acct][table].length > 0) {
         data.body = getLast( accts[acct][table] )
         data.isCached = true

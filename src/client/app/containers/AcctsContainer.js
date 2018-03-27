@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Select from '../components/Select'
+import { Select } from '../components'
 import { socket } from '../store/socket'
 // library
 import {
@@ -10,51 +10,50 @@ import {
 } from '../services'
 // action creators
 import {
+    // accts
     restRes,
     changeSelect,
     cacheTable,
-} from '../store/reducers/accts'
-import {
+    // dataTable
     loadCache,
     renderTable
-} from '../store/reducers/dataTable'
+} from '../store/reducers'
 // action keys
 import { RESPONSE_RESTAPI } from '../store/actions/'
 
-class Accts extends Component {
+class AcctsContainer extends Component {
     constructor(props) {
         super(props)
     }
-
-    handleSelectChange(e) {
-        this.props.changeSelect(e.target.value)
-    }
-
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
             let { acct, table } = data,
             payload = {acct, table}
             payload.data = JSON.parse(data.body)
             payload.isCompound = isTrue(
-                this.props.type === "compound"
+                this.props.type === 'compound'
             )
             payload.accts = this.props.accts
             this.props.restRes(payload)
         })
     }
 
+    handleSelectChange(e) {
+        this.props.changeSelect(e.target.value)
+    }
+
     render() {
         let numAccts = getKeys(this.props.accts).length,
-            acctsSelector = numAccts <= 1 ? "hidden" : "accts"
+            acctsSelector = numAccts <= 1 ? 'hidden' : 'accts'
         return(
-            <div className={acctsSelector} >
+            <div
+                className={acctsSelector} >
                 <Select
-                selector={acctsSelector}
-                prompt="Select an Account:"
-                value={this.props.selectValue}
-                options={ selectOptions(this.props.accts) }
-                change={ this.handleSelectChange.bind(this) }
-                />
+                    selector={acctsSelector}
+                    prompt='Select an Account:'
+                    value={this.props.selectValue}
+                    options={ selectOptions(this.props.accts) }
+                    change={ this.handleSelectChange.bind(this) } />
             </div>
         )
     }
@@ -75,4 +74,4 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default connect(mapState, mapDispatch)(Accts)
+export default connect(mapState, mapDispatch)(AcctsContainer)

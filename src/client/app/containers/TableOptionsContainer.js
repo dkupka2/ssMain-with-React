@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Select from '../components/Select'
-import Button from '../components/Button'
 import { socket } from '../store/socket'
+// library
 import {
     selectOptions,
     getKeys,
     isTrue,
 } from '../services'
+import {
+    Select,
+    Button
+} from '../components'
 // action creators
 import {
     changeTable,
     changeType,
     restRequest,
     restResponse,
-} from '../store/reducers/tableOptions'
+} from '../store/reducers'
 // action keys
 import {
     tables,
@@ -22,14 +25,19 @@ import {
 } from '../store/actions'
 let { getTables } = tables
 
-class Accts extends Component {
+class AcctsContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            types: ["compound","local","global"],
+            types: ['compound','local','global'],
             tables: getTables(this.props.type),
             visible: false
         }
+    }
+    componentWillReceiveProps(newProps) {
+        this.setState({ 
+            visible: isTrue(getKeys(newProps.accts).length > 0)
+        })
     }
 
     handleTypeChange(e) {
@@ -41,7 +49,6 @@ class Accts extends Component {
             table: tables.default[e.target.value],
         })
     }
-
     handleTableChange(e) {
         this.props.changeTable({
             type: this.props.type,
@@ -50,45 +57,38 @@ class Accts extends Component {
             table: e.target.value,
         })
     }
-
     handleTableLoad( acct, type, table ) {
         this.props.restRequest( {acct, type, table} )
     }
 
-    componentWillReceiveProps(newProps) {
-        this.setState({ 
-            visible: isTrue(getKeys(newProps.accts).length > 0)
-        })
-    }
-
     render() {
         return(
-            <div className={ this.state.visible ?
-                "tableOptions" : "hidden"
+            <div
+            className={
+                this.state.visible ? 'tableOptions' : 'hidden'
             } >
                 <Select
-                selector="type"
-                prompt="Type of Table: "
-                value={this.props.type}
-                options={ selectOptions(this.state.types) }
-                change={ this.handleTypeChange.bind(this) }
-                />
+                    selector='type'
+                    prompt='Type of Table: '
+                    value={this.props.type}
+                    options={ selectOptions(this.state.types) }
+                    change={ this.handleTypeChange.bind(this) } />
                 <Select
-                selector="table"
-                prompt="Which Table: "
-                value={this.props.table}
-                options={ selectOptions(this.state.tables) }
-                change={ this.handleTableChange.bind(this) }
-                />
+                    selector='table'
+                    prompt='Which Table: '
+                    value={this.props.table}
+                    options={ selectOptions(this.state.tables) }
+                    change={ this.handleTableChange.bind(this) } />
                 <Button
-                selector="submit"
-                prompt="load table"
-                click={ () => { this.handleTableLoad(
-                    this.props.selectedAcct,
-                    this.props.type,
-                    this.props.table
-                    ) } }
-                />
+                    selector='submit'
+                    prompt='load table'
+                    click={ () => {
+                        this.handleTableLoad(
+                            this.props.selectedAcct,
+                            this.props.type,
+                            this.props.table
+                        )
+                    }} />
                 <p>{this.props.message}</p>
                 <p>{this.props.acctsLength}</p>
             </div>
@@ -117,4 +117,4 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default connect(mapState, mapDispatch)(Accts)
+export default connect(mapState, mapDispatch)(AcctsContainer)

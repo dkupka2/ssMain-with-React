@@ -7,4 +7,6 @@ export { compose } from './compose'
 export { isTrue } from './isTrue'
 
 import filterPiTable from './filterPiTable'
-export const filterTable = (table, data, type) => data.map( row => filterPiTable[table].getFiltered(row, type) )
+export const filterTable = (table, data, type) => {
+    return data.map( row => filterPiTable[table].getFiltered(row, type) )
+}

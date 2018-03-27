@@ -1,38 +1,39 @@
 import { socket } from '../socket'
-// event keys
+// library
+import {
+    compose
+} from '../../services'
+// action creators - parallel
+import {
+    loadCache,
+    renderTable
+} from './index'
+// action keys
 import {
     tables,
-    // redux actions
+    // redux
     SUBMIT_REQUEST,
     SELECT_TYPE,
     SELECT_TABLE,
     LOAD_TABLE,
     TABLE_NOT_CACHED,
-    // socket events
+    // socket
     REQUEST_LIST,
     REQUEST_LOCAL,
     REQUEST_GLOBAL,
     LOAD_FAILURE,
 } from '../actions/'
-import {
-    compose
-} from '../../services'
-import {
-    loadCache,
-    renderTable
-} from './dataTable'
 export const renderFromCache = data => {
     return compose(loadCache, renderTable, data)
 }
 // state
 const initialState = {
-    type: "compound",
-    table: "Conflicts",
-    which: "latest"
+    type: 'compound',
+    table: 'Conflicts',
+    which: 'latest'
 }
-// services
 const callAPI = (acct, type, table) => {
-    if (type !== "compound") {
+    if (type !== 'compound') {
         table = tables[type][table]
         socket.emit( tables.requestKeys[type], {acct, table} )
     } else { // get tables by compound table
@@ -48,7 +49,7 @@ const callAPI = (acct, type, table) => {
         }
     }
 }
-// action creators
+// action creators - local
 export const changeType = data => {
     return dispatch => {
         dispatch( renderFromCache(data) )
@@ -74,19 +75,6 @@ export const restRequest = data => {
     return {
         type: SUBMIT_REQUEST,
         acct, table,
-    }
-}
-export const restResponse = data => {
-    let {
-        acct,
-        accts,
-        isCompound,
-        table: tableName,
-        body: table,
-    } = data
-    return { 
-        type: LOAD_TABLE,
-        data: { accts, acct, tableName, table, isCompound }
     }
 }
 // reducer

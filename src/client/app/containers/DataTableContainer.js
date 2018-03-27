@@ -1,32 +1,32 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { socket } from '../store/socket'
 import ReactTable from 'react-table'
+import { socket } from '../store/socket'
 import 'react-table/react-table.css'
 // library
 import { isTrue } from '../services'
 // action creators
-import { renderTable } from '../store/reducers/dataTable'
+import { renderTable } from '../store/reducers'
 // action keys
 import {
     LOAD_TABLE,
     RESPONSE_RESTAPI
 } from '../store/actions/'
 
-class DataTable extends Component {
+class DataTableContainer extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         const parentClass = this.props.visible ?
-            "dataTable" : "hidden"
+            'dataTable' : 'hidden'
         return (
-            <div className={parentClass}>
+            <div
+                className={parentClass}>
                 <ReactTable
-                data={this.props.data}
-                columns={this.props.columns}
-                />
+                    data={this.props.data}
+                    columns={this.props.columns} />
             </div>
         )
     }
@@ -46,4 +46,4 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default connect(mapState, mapDispatch)(DataTable)
+export default connect(mapState, mapDispatch)(DataTableContainer)

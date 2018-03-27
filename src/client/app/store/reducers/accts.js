@@ -1,4 +1,11 @@
-// event keys
+// library
+import { checkArgs } from '../../services'
+// action creators - parrallel
+import {
+    loadCache,
+    renderFromCache
+} from './index'
+// action keys
 import {
     tables,
     // redux events
@@ -6,19 +13,11 @@ import {
     CHANGE_ACCT,
     CACHE_TABLE
 } from '../actions/'
-import {
-    loadCache
-} from './dataTable'
-import {
-    renderFromCache
-} from './tableOptions'
 const lists = tables.lists
-// services
-import { checkArgs } from '../../services'
 // state
 const initialState = {
     accts: {},
-    selectedAcct: ""
+    selectedAcct: ''
 }
 // acct factory
 const initAcct = list => {
@@ -26,7 +25,7 @@ const initAcct = list => {
     list.map( (table) => obj[table] = [] )
     return obj
 }
-// action creators
+// action creators - local
 export const changeSelect = target => {``
     return {
         type: CHANGE_ACCT,
@@ -44,7 +43,7 @@ export const cacheTable = payload => {
 export const restRes = payload => {
     return dispatch => {
         dispatch( cacheTable(payload) )
-        dispatch( renderFromCache( payload) )
+        dispatch( renderFromCache(payload) )
     }
 }
 // reducer

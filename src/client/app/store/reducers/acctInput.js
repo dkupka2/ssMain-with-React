@@ -1,5 +1,5 @@
 import { socket } from '../socket'
-// event keys
+// action keys
 import {
     // redux actions
     SUBMIT_ACCT_INPUT,
@@ -10,7 +10,7 @@ import {
 } from '../actions/'
 // initial state
 const initialState = {
-    message: "",
+    message: '',
 }
 // action creators
 export const submitAcct = (val) => {

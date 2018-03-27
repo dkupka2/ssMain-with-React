@@ -9,5 +9,5 @@ export const validateInput = (val) => {
             // return string else return string without invalid char
             return val.slice(0, val.length-1)
         }
-    } else return ""
+    } else return ''
 }
