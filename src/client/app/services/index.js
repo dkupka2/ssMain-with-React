@@ -9,6 +9,10 @@ export { isTrue } from './isTrue'
 import { isTrue } from './isTrue'
 export const isVisible = (x, sel) => isTrue(x, sel, 'hidden')
 
+import { isArrOrObj } from './isArrOrObj'
+export const isObj = obj => isTrue(isArrOrObj(obj) === 'object')
+export const isArr = obj => isTrue(isArrOrObj(obj) === 'array')
+
 import filterPiTable from './filterPiTable'
 export const filterTable = (table, data, type) => {
     return data.map( row => filterPiTable[table].getFiltered(row, type) )
