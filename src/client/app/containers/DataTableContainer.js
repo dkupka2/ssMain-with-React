@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactTable from 'react-table'
-import { socket } from '../store/socket'
 import 'react-table/react-table.css'
+import { socket } from '../store/socket'
 // library
-import { isTrue } from '../services'
+import { isVisible } from '../services'
 // action creators
 import { renderTable } from '../store/reducers'
 // action keys
@@ -19,11 +19,11 @@ class DataTableContainer extends Component {
     }
 
     render() {
-        const parentClass = this.props.visible ?
-            'dataTable' : 'hidden'
         return (
             <div
-                className={parentClass}>
+                className={
+                    isVisible(this.props.visible, 'dataTable')
+                }>
                 <ReactTable
                     data={this.props.data}
                     columns={this.props.columns} />

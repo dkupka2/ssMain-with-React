@@ -1,1 +1,1 @@
-export const isTrue = x => x ? true : false
+export const isTrue = (x, t = true, f = false) => x ? t : f

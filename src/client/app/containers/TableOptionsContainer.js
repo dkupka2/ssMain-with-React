@@ -6,10 +6,11 @@ import {
     selectOptions,
     getKeys,
     isTrue,
+    isVisible,
 } from '../services'
 import {
     Select,
-    Button
+    Button,
 } from '../components'
 // action creators
 import {
@@ -64,9 +65,9 @@ class AcctsContainer extends Component {
     render() {
         return(
             <div
-            className={
-                this.state.visible ? 'tableOptions' : 'hidden'
-            } >
+                className={
+                    isVisible(this.state.visible, 'tableOptions')
+                } >
                 <Select
                     selector='type'
                     prompt='Type of Table: '
