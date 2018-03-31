@@ -11,7 +11,9 @@ const validateAcct = middleware.check,
     url = apis.pirest,
     user = creds.username,
     pass = creds.password,
-    auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64")
+    auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64"),
+    query ='out=json&limit=500',
+    eq = `&eq_CLIENT_ID=`
 
 const events = require("../../client/app/store/actions/socketEvents")
 let {
@@ -61,9 +63,19 @@ module.exports = (io, app) => {
         let sendRequest = (type, data) => {
             let URI,
                 { acct, table, list } = data
-            if (type === "list") URI = `${url}${acct}/${list}/${table}?out=json`
-            if (type === "local") URI = `${url}${acct}/${table}?out=json&limit=500`
-            if (type === "global") URI = `${url}/${table}?out=json&limit=500&eq_CLIENT_ID=${acct}`
+            switch(type) {
+                case 'list':
+                    URI = `${url}${acct}/${list}/${table}?${query}`
+                    break
+                case 'local':
+                    URI = `${url}${acct}/${table}?${query}`
+                    break
+                case 'global':
+                    URI = `${url}/${table}?${query}${eq}${acct}`
+                    break
+                default:
+                    console.log("error constructing request URI")
+            }
             request(
                 {
                     url: URI,
@@ -78,7 +90,11 @@ module.exports = (io, app) => {
                         console.log("error from rest server: ", body)
                         return relay("rest error", e)
                     }
-                    relay( RESPONSE_RESTAPI, { acct, body, table: gTables.convert(table) } )
+                    relay( RESPONSE_RESTAPI, { 
+                        acct,
+                        body,
+                        table: gTables.convert(table)
+                    })
                 }
             )
         }
