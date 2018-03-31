@@ -27,21 +27,31 @@ let {
     REQUEST_CONLFLICTS,
     REQUEST_VALIDATION,
     REQUEST_VALIDATE_CLIENT,
+    RELAY_TABLES
 } = events
 
-const convert = require("./convert").convert
+let gTables = {}
 
 module.exports = (io, app) => {
     // socket transactions for restapi
     io.of("/restapi").on("connection", socket => {
         console.log("connection found")
-
         let relay = (message, data) => {
             console.log("relaying: ", message)
             socket.emit(message, data)
         }
-
-        socket.on(REQUEST_VALIDATE_CLIENT, (data) => {
+        // get tables from client, add method
+        socket.on(RELAY_TABLES, tables => {
+            gTables = tables
+            tables.convert = key => {
+                return Object.keys(tables.revertKeys).includes(key) ?
+                        tables.revertKeys[key] :
+                        Object.keys(tables.global).includes(key) ?
+                            tables.global[key] :
+                            tables.local[key]
+            }
+        })
+        socket.on(REQUEST_VALIDATE_CLIENT, data => {
             relay(RESPONSE_VALIDATE_CLIENT, {
                 acct: data.acct,
                 valid: validateAcct(data.acct)
@@ -68,7 +78,7 @@ module.exports = (io, app) => {
                         console.log("error from rest server: ", body)
                         return relay("rest error", e)
                     }
-                    relay( RESPONSE_RESTAPI, { acct, body, table: convert(table) } )
+                    relay( RESPONSE_RESTAPI, { acct, body, table: gTables.convert(table) } )
                 }
             )
         }

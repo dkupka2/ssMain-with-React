@@ -51,6 +51,7 @@ const callAPI = (acct, type, table) => {
 }
 // action creators - local
 export const changeType = data => {
+    console.log("option change: ", data)
     return dispatch => {
         dispatch( renderFromCache(data) )
         dispatch({
@@ -61,6 +62,7 @@ export const changeType = data => {
     }
 }
 export const changeTable = data => {
+    console.log("option change: ", data)
     return dispatch => {
         dispatch( renderFromCache(data) )
         dispatch({

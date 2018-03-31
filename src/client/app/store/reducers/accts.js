@@ -26,7 +26,7 @@ const initAcct = list => {
     return obj
 }
 // action creators - local
-export const changeSelect = target => {``
+export const changeSelect = target => {
     return {
         type: CHANGE_ACCT,
         selectedAcct: target
@@ -34,6 +34,7 @@ export const changeSelect = target => {``
 }
 export const cacheTable = payload => {
     let { accts, acct, table, data, from } = payload
+    console.log(accts, acct, table)
     accts = Object.assign( {}, accts )
     accts[acct][table] = accts[acct][table].concat(
         [data]
@@ -41,6 +42,7 @@ export const cacheTable = payload => {
     return { type: CACHE_TABLE, accts: accts }
 }
 export const restRes = payload => {
+    console.log( "rest resp: ", payload, Object.keys(payload) )
     return dispatch => {
         dispatch( cacheTable(payload) )
         dispatch( renderFromCache(payload) )

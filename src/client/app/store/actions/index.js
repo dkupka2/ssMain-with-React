@@ -24,6 +24,7 @@ export const {
     REQUEST_GLOBAL,
     REQUEST_CONLFLICTS,
     REQUEST_VALIDATE_CLIENT,
+    RELAY_TABLES,
 } = events
 
 export { tables } from './tables'

@@ -28,13 +28,12 @@ class AcctsContainer extends Component {
     }
     componentWillMount() {
         socket.on(RESPONSE_RESTAPI, (data) => {
-            let { acct, table } = data,
-            payload = {acct, table}
-            payload.data = JSON.parse(data.body)
-            payload.isCompound = isTrue(
-                this.props.type === 'compound'
-            )
-            payload.accts = this.props.accts
+            let payload = {
+                acct: data.acct,
+                table: data.table,
+                data: JSON.parse(data.body),
+                accts: this.props.accts
+            }
             this.props.restRes(payload)
         })
     }
