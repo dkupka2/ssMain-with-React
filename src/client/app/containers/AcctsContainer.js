@@ -16,8 +16,7 @@ import {
     changeSelect,
     cacheTable,
     // dataTable
-    loadCache,
-    renderTable
+    renderTable,
 } from '../store/reducers'
 // action keys
 import { RESPONSE_RESTAPI } from '../store/actions/'
@@ -30,9 +29,10 @@ class AcctsContainer extends Component {
         socket.on(RESPONSE_RESTAPI, (data) => {
             let payload = {
                 acct: data.acct,
-                table: data.table,
+                resTable: data.table,
                 data: JSON.parse(data.body),
-                accts: this.props.accts
+                accts: this.props.accts,
+                optTable: this.props.table
             }
             this.props.restRes(payload)
         })
@@ -63,6 +63,7 @@ const mapState = state => {
         accts: state.accts.accts,
         selectValue: state.accts.selectedAcct,
         type: state.tableOptions.type,
+        table: state.tableOptions.table,
     }
 }
 

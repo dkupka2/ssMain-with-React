@@ -33,16 +33,14 @@ export const changeSelect = target => {
     }
 }
 export const cacheTable = payload => {
-    let { accts, acct, table, data, from } = payload
-    console.log(accts, acct, table)
+    let { accts, acct, resTable, data, from } = payload
     accts = Object.assign( {}, accts )
-    accts[acct][table] = accts[acct][table].concat(
+    accts[acct][resTable] = accts[acct][resTable].concat(
         [data]
     )
     return { type: CACHE_TABLE, accts: accts }
 }
 export const restRes = payload => {
-    console.log( "rest resp: ", payload, Object.keys(payload) )
     return dispatch => {
         dispatch( cacheTable(payload) )
         dispatch( renderFromCache(payload) )

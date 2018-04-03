@@ -47,7 +47,7 @@ class AcctsContainer extends Component {
             type: e.target.value,
             acct: this.props.selectedAcct,
             accts: this.props.accts,
-            table: tables.default[e.target.value],
+            optTable: tables.default[e.target.value],
         })
     }
     handleTableChange(e) {
@@ -55,11 +55,11 @@ class AcctsContainer extends Component {
             type: this.props.type,
             acct: this.props.selectedAcct,
             accts: this.props.accts,
-            table: e.target.value,
+            optTable: e.target.value,
         })
     }
-    handleTableLoad( acct, type, table ) {
-        this.props.restRequest( {acct, type, table} )
+    handleTableLoad( acct, type, optTable ) {
+        this.props.restRequest( {acct, type, optTable} )
     }
 
     render() {

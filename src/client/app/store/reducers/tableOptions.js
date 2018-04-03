@@ -51,32 +51,30 @@ const callAPI = (acct, type, table) => {
 }
 // action creators - local
 export const changeType = data => {
-    console.log("option change: ", data)
     return dispatch => {
         dispatch( renderFromCache(data) )
         dispatch({
             type: SELECT_TYPE,
             tableType: data.type,
-            table: data.table
+            table: data.optTable
         })
     }
 }
 export const changeTable = data => {
-    console.log("option change: ", data)
     return dispatch => {
         dispatch( renderFromCache(data) )
         dispatch({
             type: SELECT_TABLE,
-            value: data.table
+            value: data.optTable
         })
     }
 }
 export const restRequest = data => {
-    let { acct, type, table } = data
-    callAPI(acct, type, table)
+    let { acct, type, optTable } = data
+    callAPI(acct, type, optTable)
     return {
         type: SUBMIT_REQUEST,
-        acct, table,
+        acct, optTable,
     }
 }
 // reducer

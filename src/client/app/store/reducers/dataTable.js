@@ -4,9 +4,8 @@ import {
     filterTable
 } from '../../services'
 // action keys
-import { tables } from '../actions'
-// action keys
 import {
+    tables,
     // redux actions
     LOAD_TABLE,
     RENDER_TABLE,
@@ -28,9 +27,7 @@ let getHeaders = ( obj, headers = [] ) => {
 }
 // action creators
 export const renderTable = data => {
-    if (data.body.length < 1) {
-        return {type: TABLE_NOT_CACHED}
-    }
+    if (data.body.length < 1) return {type: TABLE_NOT_CACHED}
     return {
         type: RENDER_TABLE,
         columns: getHeaders( data.body[0] ),
@@ -39,26 +36,32 @@ export const renderTable = data => {
 }
 const loadCompoundFromCache = data => {
     let arr = [],
-        { type, acct, table, accts } = data
+        { type, acct, optTable, accts } = data
     // map over tables list
-    tables.compoundLists[table].map( targetTable => {
+    tables.compoundLists[optTable].map( targetTable => {
         // filter and concat most recent cache
-        arr.concat(
-            filterTable(
-                targetTable,
-                getLast( accts[acct][targetTable] ),
-                table
+        targetTable = tables.revertKeys[targetTable]
+        // if cache has data
+        if (accts[acct][targetTable].length > 0) {
+            arr = arr.concat(
+                filterTable(
+                    targetTable,
+                    getLast( accts[acct][targetTable] ),
+                    optTable
+                )
             )
-        )
+        }
     })
     data.body = arr
     return data
 }
 export const loadCache = data => {
-    let { type, acct, table, accts } = data
-    if (type === 'compound') return loadCompoundFromCache(data)
-    if (accts[acct][table].length > 0) {
-        data.body = getLast( accts[acct][table] )
+    let { type, acct, optTable, accts } = data
+    if ( tables.lists.compound.includes(optTable) )  {
+        return loadCompoundFromCache(data)
+    }
+    if (accts[acct][optTable].length > 0) {
+        data.body = getLast( accts[acct][optTable] )
         data.isCached = true
     } else {
         data.body = []

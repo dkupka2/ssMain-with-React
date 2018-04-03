@@ -180,13 +180,14 @@ const filterPiTable = {
                 LIST_NAME,
                 SKIP_NAME,
                 SKIP_LABEL,
-                SAVE_OK
+                SAVE_OK,
             } = object
             let PRC = `P:${PAGE_NUM} R:${L_ROW} C:${L_COL}`,
                 varStats = `${GET_FIELD} / ${GET_TYPE} / ${G_LENGTH}`
             switch (type) {
                 case 'Conflicts':
                     if (GET_FIELD && FORMULA) {
+                        console.log(PRC, GET_FIELD, FORMULA)
                         return {
                             document: 'oe form',
                             location: PRC,
@@ -196,9 +197,7 @@ const filterPiTable = {
                                 FORMULA.toString().slice(0,1) !== '~' ?
                                         '' : 'NO'}`,
                         }
-                    } else {
-                        return {}
-                    }
+                    } return
                     break
                 default:
                     return {
