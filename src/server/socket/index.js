@@ -1,23 +1,6 @@
 "use strict";
 
 const request = require("request")
-<<<<<<< HEAD
-
-const middleware = require("../middleware"),
-    validateAcct = middleware.check,
-    getBackUps = middleware.getBackUps
-
-const globals = require("../../../global"),
-    apis = globals.apis,
-    creds = globals.creds
-
-const url = apis.pirest,
-    user = creds.username,
-    pass = creds.password,
-    auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64")
-
-const { keys } = require("../../client/app/events/keys")
-=======
 const middleware = require("../middleware")
 const globals = require("../../../global")
 
@@ -50,23 +33,12 @@ let {
 } = events
 
 let gTables = {}
->>>>>>> redux
 
 module.exports = (io, app) => {
     // socket transactions for restapi
     io.of("/restapi").on("connection", socket => {
         console.log("connection found")
         let relay = (message, data) => {
-<<<<<<< HEAD
-            socket.emit(message, data)
-        }
-        let sendRequest = (type, data) => {
-            let URI,
-                { acct, table, list } = data
-            if (type === "list") URI = `${url}${acct}/${list}/${table}?out=json`
-            if (type === "local") URI = `${url}${acct}/${table}?out=json&limit=500`
-            if (type === "global") URI = `${url}/${table}?out=json&limit=500&eq_CLIENT_ID=${acct}`
-=======
             console.log("relaying: ", message)
             socket.emit(message, data)
         }
@@ -104,7 +76,6 @@ module.exports = (io, app) => {
                 default:
                     console.log("error constructing request URI")
             }
->>>>>>> redux
             request(
                 {
                     url: URI,
@@ -116,28 +87,6 @@ module.exports = (io, app) => {
                     try {
                         JSON.parse(body)
                     } catch (e) {
-<<<<<<< HEAD
-                        return relay("rest error", e)
-                    }
-                    socket.emit("restapi response", {acct, table, body})
-                }
-            )
-        }
-        socket.on(keys.req.local, data => sendRequest("local", data))
-        socket.on(keys.req.global, data => sendRequest("global", data))
-        socket.on(keys.req.list, data => sendRequest("list", data))
-        // handle validation request and respond
-        socket.on("validation request", acct => {
-            let validation = validateAcct(acct)
-            if (validation) getBackUps(acct, relay)
-            socket.emit("validation response", {
-                pass: validation,
-                acct: acct
-            })
-        })
-    })
-}
-=======
                         console.log("error from rest server: ", body)
                         return relay("rest error", e)
                     }
@@ -154,4 +103,3 @@ module.exports = (io, app) => {
         socket.on(REQUEST_GLOBAL, data => sendRequest("global", data))
     })
 }
->>>>>>> redux
