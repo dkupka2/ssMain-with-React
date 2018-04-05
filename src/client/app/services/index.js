@@ -21,9 +21,17 @@ export const isEmptyObject = obj => {
     return true
 }
 
+export const cleanArr = arr => {
+    let final = []
+    for (let el of arr) {
+        if ( el !== undefined ) final.push(el)
+    }
+    return final
+}
+
 export const filterTable = (table, data, type) => {
     return data.map( row => {
         let result = filterPiTable[table].getFiltered(row, type)
-        if ( isEmptyObject(result) ) return result
+        return result
     })
 }

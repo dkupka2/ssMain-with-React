@@ -1,10 +1,10 @@
 const convert = ( value, type, final = [] ) => {
     switch (type) {
         case 'message status':
-            if ( value.includes(1) ) rstring.push('delivered')
-            if ( value.includes(2) ) rstring.push('hold')
-            if ( value.includes(3) ) rstring.push('un-delivered')
-            if ( value.includes(4) ) rstring.push('priority')
+            if ( value.includes(1) ) final.push('delivered')
+            if ( value.includes(2) ) final.push('hold')
+            if ( value.includes(3) ) final.push('un-delivered')
+            if ( value.includes(4) ) final.push('priority')
             return final.join(' ')
             break
         case 'timed auto type':

@@ -1,4 +1,4 @@
-export const isArrOrObj = (obj) => {
+export const isArrOrObj = obj => {
     if (typeof obj === 'object') {
         if (obj.length === undefined) {
             return 'object'

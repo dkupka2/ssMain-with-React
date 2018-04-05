@@ -35,17 +35,17 @@ export const tables = {
         Conflicts: {
             local: [
                 'OE_FORM',
-            //     'PT_AUTOA',
-            //     'PT_AUTOB',
-            //     'PT_BATCH',
-            //     'PT_CONDLIB',
-            //     'PT_DCL',
-            //     'PT_MDTPL',
-            // ],
-            // global: [
-            //     'PT_TACTION',
-            //     'PT_SCHED',
-            //     'PTREMIND',
+                'PT_AUTOA',
+                'PT_AUTOB',
+                'PT_BATCH',
+                'PT_CONDLIB',
+                'PT_DCL',
+                'PT_MDTPL',
+            ],
+            global: [
+                'PT_TACTION',
+                'PT_SCHED',
+                'PTREMIND',
             ]
         }
     },

@@ -1,7 +1,8 @@
 // library
 import {
     getLast,
-    filterTable
+    filterTable,
+    cleanArr,
 } from '../../services'
 // action keys
 import {
@@ -17,8 +18,7 @@ const initialState = {
     columns: []
 }
 let getHeaders = ( obj, headers = [] ) => {
-    Object.keys(obj).map( 
-        (header) => headers.push({
+    Object.keys(obj).map( (header) => headers.push( {
             Header: header,
             accessor: header
         })
@@ -52,17 +52,20 @@ const loadCompoundFromCache = data => {
             )
         }
     })
-    data.body = arr
-    return data
+    return { body: cleanArr(arr) }
 }
 export const loadCache = data => {
+    data = Object.assign( {}, data )
     let { type, acct, optTable, accts } = data
-    if ( tables.lists.compound.includes(optTable) )  {
+    if ( tables.lists.compound.includes(optTable) ) {
         return loadCompoundFromCache(data)
     }
     if (accts[acct][optTable].length > 0) {
-        data.body = getLast( accts[acct][optTable] )
-        data.isCached = true
+            data.body = filterTable( 
+                optTable, 
+                getLast( accts[acct][optTable] )
+            )
+            data.isCached = true
     } else {
         data.body = []
     }
