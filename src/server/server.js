@@ -16,7 +16,7 @@ ssMain.ioServer(app).listen(app.get("port"), () => {
 })
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(appPath + '/src/client/views/index.html'))
+    res.redirect('/restapi')
 })
 
 app.get("/restapi", (req, res) => {

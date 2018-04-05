@@ -14,7 +14,7 @@ let lookUpFile = ( file, dir = `${globals.root}/ordentry`, type = "dir" )  => {
         return fs.statSync(path);
     }, `${dir}/${ file.toString().trim() }` )
     if ( target instanceof Error ) { 
-        console.log(`error from lookUp${target}`)
+        console.log(`error from lookUp: ${target}`)
         return false
     }
     if ( target.isFile() && type === "file" || 

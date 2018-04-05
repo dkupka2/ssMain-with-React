@@ -1,50 +1,16 @@
-  * {
-  text-align: center;
-  background-color: #f4f4f4;
-} input, select {
-  background-color: #faf6e4;
-} button, select > * {
-  background-color: #d6d6d6;
-} div.statusBanner {
-  margin-top: 10px;
-  border-radius: 25px;
-  height: 40px;
-  line-height: 40px;
-} button.statusBanner {
-  float: right;
-  margin-right: 50px;
-  margin-top: 10px;
-  line-height: 15px;
-} .statusBanner.alert {
-  background-color: red;
-} .statusBanner.warning {
-  background-color: #fff200;
-} .statusBanner.ok {
-  background-color: #709255;
-} .hidden { 
-  display: none;
-} .loadTableBtn-parentDiv {
-  margin-top: 15px;
-} table.data {
-  margin: auto;
-  width: 50%;
-} table.data > * > * > * {
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-} div.tableType-radioDiv div {
-  display: inline;
-  margin-right: 10px;
-} div.fileManagement-parentDiv {
-  background-color: #6b96b9;
-  height: 40px;
-} div.fileManagement-backup-parentDiv,
-  div.fileManagement-manage-parentDiv,
-  div.fileManagement-restore-parentDiv {
-  display: inline;
-  margin-right: 10px;
-  line-height: 40px;
-  margin-top: 20px;
-} th, td {
-  padding: 3px;
+  .hidden {
+  	display: none;
+} div.accts, div.tableOptions {
+	display: block;
+	margin-bottom: 20px;
+} .accts_div, .accts_p, .accts_select {
+	display: inline;
+} select.accts_select, div.table_div {
+	margin-left: 15px;
+} .type_div, .type_p {
+	display: inline;
+} .table_div, .table_p {
+	display: inline;
+} div.submit_div {
+	margin-top: 20px;
 }
