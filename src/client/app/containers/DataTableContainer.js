@@ -25,6 +25,7 @@ class DataTableContainer extends Component {
                     isVisible(this.props.visible, 'dataTable')
                 }>
                 <ReactTable
+                    filterable
                     data={this.props.data}
                     columns={this.props.columns} />
             </div>

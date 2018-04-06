@@ -17,10 +17,18 @@ const initialState = {
     tableData: [],
     columns: []
 }
+const filterRows = (filter, row, column) => {
+    return row._original[column].toUpperCase().includes(
+        filter.value.toUpperCase()
+    )
+}
 let getHeaders = ( obj, headers = [] ) => {
     Object.keys(obj).map( (header) => headers.push( {
             Header: header,
-            accessor: header
+            accessor: header,
+            id: header,
+            filterMethod: (filter, row) => filterRows(filter, row, header),
+            filterAll: false
         })
     )
     return headers
