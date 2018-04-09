@@ -6,36 +6,19 @@ import { socket } from '../store/socket'
 import {
     selectOptions,
     getKeys,
-    isTrue,
     isVisible
 } from '../services'
 // action creators
 import {
     // accts
-    restRes,
     changeSelect,
-    cacheTable,
     // dataTable
     renderTable,
 } from '../store/reducers'
-// action keys
-import { RESPONSE_RESTAPI } from '../store/actions/'
 
 class AcctsContainer extends Component {
     constructor(props) {
         super(props)
-    }
-    componentWillMount() {
-        socket.on(RESPONSE_RESTAPI, (data) => {
-            let payload = {
-                acct: data.acct,
-                resTable: data.table,
-                data: JSON.parse(data.body),
-                accts: this.props.accts,
-                optTable: this.props.table
-            }
-            this.props.restRes(payload)
-        })
     }
 
     handleSelectChange(e) {
@@ -46,7 +29,7 @@ class AcctsContainer extends Component {
         let numAccts = getKeys(this.props.accts).length
         return(
             <div
-                className={isVisible(numAccts > 1, 'accts')} >
+                className={ isVisible(numAccts > 1, 'accts') } >
                 <Select
                     selector='accts'
                     prompt='Select an Account:'
@@ -63,14 +46,12 @@ const mapState = state => {
         accts: state.accts.accts,
         selectValue: state.accts.selectedAcct,
         type: state.tableOptions.type,
-        table: state.tableOptions.table,
     }
 }
 
 const mapDispatch = dispatch => {
     return {
         changeSelect: (value) => { dispatch( changeSelect(value) ) },
-        restRes: (payload) => { dispatch( restRes(payload)) }
     }
 }
 

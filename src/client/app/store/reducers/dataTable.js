@@ -27,8 +27,8 @@ let getHeaders = ( obj, headers = [] ) => {
             Header: header,
             accessor: header,
             id: header,
-            filterMethod: (filter, row) => filterRows(filter, row, header),
-            filterAll: false
+            filterAll: false,
+            filterMethod: (filter, row) => filterRows(filter, row, header)
         })
     )
     return headers
@@ -51,6 +51,7 @@ const loadCompoundFromCache = data => {
         targetTable = tables.revertKeys[targetTable]
         // if cache has data
         if (accts[acct][targetTable].length > 0) {
+            // filter and aggregate data
             arr = arr.concat(
                 filterTable(
                     targetTable,

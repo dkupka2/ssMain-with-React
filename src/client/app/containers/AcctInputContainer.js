@@ -4,14 +4,12 @@ import { validateInput } from '../services/'
 import { socket } from '../store/socket'
 import { Input } from '../components'
 // action creators
-import { 
+import {
     submitAcct,
-    validateClient
 } from '../store/reducers'
 // action keys
 import {
-    SUBMIT_ACCT_INPUT,
-    RESPONSE_VALIDATE_CLIENT
+    SUBMIT_ACCT_INPUT
 } from '../store/actions/'
 
 class AcctInputContainer extends Component {
@@ -20,11 +18,6 @@ class AcctInputContainer extends Component {
         this.state = {
             inputValue: ''
         }
-    }
-    componentWillMount() {
-        socket.on(RESPONSE_VALIDATE_CLIENT, (data) => {
-            this.props.validateClient(data)
-        })
     }
 
     handleInputChange(e) {
@@ -61,7 +54,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
     return {
         submit: (value) => dispatch( submitAcct(value) ),
-        validateClient: (data) => dispatch( validateClient(data) ),
     }
 }
 

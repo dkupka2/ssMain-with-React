@@ -14,3 +14,6 @@ export {
     default as TableOptionsContainer
 } from './TableOptionsContainer'
 
+export {
+    default as SocketContainer
+} from './SocketContainer'

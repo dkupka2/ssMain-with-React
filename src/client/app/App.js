@@ -5,6 +5,7 @@ import {
     AcctsContainer,
     TableOptionsContainer,
     DataTableContainer,
+    SocketContainer,
 } from './containers'
 
 import './styles/App.css'
@@ -21,6 +22,7 @@ class App extends Component {
                 <AcctsContainer />
                 <TableOptionsContainer />
                 <DataTableContainer />
+                <SocketContainer />
             </div>
         )
     }

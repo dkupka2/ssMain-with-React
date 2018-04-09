@@ -5,6 +5,7 @@ import {
     acctInput,
     dataTable,
     tableOptions,
+    socket,
 } from './reducers'
 
 export const reducer = combineReducers({
@@ -12,4 +13,5 @@ export const reducer = combineReducers({
     acctInput,
     dataTable,
     tableOptions,
+    socket
 })

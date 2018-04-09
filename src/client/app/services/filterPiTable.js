@@ -187,7 +187,6 @@ const filterPiTable = {
             switch (type) {
                 case 'Conflicts':
                     if (GET_FIELD && FORMULA) {
-                        console.log(PRC, GET_FIELD, FORMULA)
                         return {
                             document: 'oe form',
                             location: PRC,
