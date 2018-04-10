@@ -12,6 +12,10 @@ export { isTrue } from './isTrue'
 
 export const isVisible = (x, sel) => isTrue(x, sel, 'hidden')
 
+export const blockSelector = (c1, res1, c2, res2) => {
+    return isTrue( c2, res2, isVisible(c1, res1) )
+}
+
 export const isObj = obj => isTrue(isArrOrObj(obj) === 'object')
 
 export const isArr = obj => isTrue(isArrOrObj(obj) === 'array')

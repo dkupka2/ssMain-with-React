@@ -13,4 +13,8 @@
 	display: inline;
 } div.submit_div {
 	margin-top: 20px;
+} div.fileManagement_parentDiv_closed {
+	margin-bottom: 20px;
+} div.fileManagement_parentDiv_open {
+	margin-bottom: 20px;
 }

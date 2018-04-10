@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 // containers
-import { 
+import {
     AcctInputContainer,
     AcctsContainer,
     TableOptionsContainer,
     DataTableContainer,
     SocketContainer,
+    FileManagementContainer,
 } from './containers'
 
 import './styles/App.css'
@@ -20,6 +21,7 @@ class App extends Component {
             <div>
                 <AcctInputContainer />
                 <AcctsContainer />
+                <FileManagementContainer />
                 <TableOptionsContainer />
                 <DataTableContainer />
                 <SocketContainer />

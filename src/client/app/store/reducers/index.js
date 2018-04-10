@@ -4,6 +4,7 @@ export { accts } from './accts'
 export { dataTable } from './dataTable'
 export { tableOptions } from './tableOptions'
 export { socket } from './socket'
+export { fileManagement } from './fileManagement'
 
 // action creators
 export {
@@ -26,6 +27,10 @@ export {
 export {
     validateClient,
 } from './socket'
+export {
+    openOptions,
+    closeOptions,
+} from './fileManagement'
 
 // other methods
 export {

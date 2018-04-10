@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import { socket } from '../store/socket'
 // library
 import { isVisible } from '../services'
 // action creators

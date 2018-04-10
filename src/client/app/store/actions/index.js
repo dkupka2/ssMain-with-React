@@ -10,6 +10,8 @@ export const LOAD_FAILURE = 'LOAD_FAILURE'
 export const RENDER_TABLE = 'RENDER_TABLE'
 export const TABLE_NOT_CACHED = 'TABLE_NOT_CACHED'
 export const CACHE_TABLE = 'CACHE_TABLE'
+export const OPEN_FILE_OPTIONS = 'OPEN_FILE_OPTIONS'
+export const CLOSE_FILE_OPTIONS = 'CLOSE_FILE_OPTIONS'
 
 import events from './socketEvents'
 

@@ -6,6 +6,7 @@ import {
     dataTable,
     tableOptions,
     socket,
+    fileManagement,
 } from './reducers'
 
 export const reducer = combineReducers({
@@ -13,5 +14,6 @@ export const reducer = combineReducers({
     acctInput,
     dataTable,
     tableOptions,
-    socket
+    socket,
+    fileManagement
 })

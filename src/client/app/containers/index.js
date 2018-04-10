@@ -17,3 +17,7 @@ export {
 export {
     default as SocketContainer
 } from './SocketContainer'
+
+export {
+    default as FileManagementContainer
+} from './FileManagementContainer'
