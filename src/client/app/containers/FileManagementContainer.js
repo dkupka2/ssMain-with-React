@@ -22,14 +22,13 @@ class FileManagementContainer extends Component {
     }
 
     render() {
-        // parent selector is open, closed, or hidden
+        // toggle visibility
         let parentSelector = blockSelector(
             this.props.visible,
             'fileManagement_parentDiv_closed',
             this.props.open,
             'fileManagement_parentDiv_open'
         )
-        // if element is closed, button is visible
         let openButtonSelector = isVisible(
             ! this.props.open,
             'fileManagement_openButton'

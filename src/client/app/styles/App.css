@@ -17,4 +17,8 @@
 	margin-bottom: 20px;
 } div.fileManagement_parentDiv_open {
 	margin-bottom: 20px;
+	height: 60px;
+	border: 2px solid;
+} div.fileManagement_closeButton_div {
+	float: right;
 }
