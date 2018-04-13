@@ -1,51 +1,46 @@
 const fs = require("fs")
 const _ = require("lodash")
 const glob = require('glob')
-
-const globals = require("../../../global.js").paths
-
 const promisify = require('util').promisify
 const copy = promisify(fs.copyFile)
 const readdir = promisify(fs.readdir)
 const pGlob = promisify(glob.glob)
+// drive letter from globals
+const drive = require("../../../global.js").paths.root
 
-let lookUpFile = ( file, dir = `${globals.root}/ordentry`, type = "dir" )  => {
-    let target = _.attempt( (path) => {
+let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns
+
+let lookUpFile = ( file, dir = `${drive}/ordentry`, type = "dir" )  => {
+    let logType = type === "dir" ? "directory" : "file",
+        target = _.attempt( (path) => {
         return fs.statSync(path);
     }, `${dir}/${ file.toString().trim() }` )
-    if ( target instanceof Error ) { 
-        console.log(`error from lookUp: ${target}`)
+    if ( target instanceof Error ) {
+        console.log(`error from lookUp${target}`)
         return false
     }
-    if ( target.isFile() && type === "file" || 
+    // if target matches test type
+    if ( target.isFile() && type === "file" ||
          target.isDirectory() && type === "dir" ) {
         return true
     } else {
-        console.log(`lookUp target is not a ${type === "dir" ? "directory" : "file"}`)
+        console.log(`lookUp target is not a ${logType}`)
         return false
     }
 }
 
 let timeStamp = () => {
-    let d = new Date()
-    let minutes = d.getMinutes() > 9 ? d.getMinutes() : `0${d.getMinutes()}`
-    let final =
-    `${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}_${d.getHours()}_${minutes}`
-    return final
+    let d = new Date(),
+        year = d.getFullYear(),
+        month = d.getMonth() + 1,
+        day = d.getDate(),
+        hour = d.getHours(),
+        minute = d.getMinutes()
+    if (minute < 10) minute = `0${d.getMinutes()}`
+    return `${year}_${month}_${day}_${hour}_${minute}`
 }
 
-let time
-let dir
-let acctNum
-let acct
-let gO
-let dbfiles
-let backUp
-let dest
-
-let initialize = (acctNumber, setTime, drive = "E") => {
-    let final = {}
-    time = setTime
+let init = (acctNumber, time, drive = "E") => {
     dir = `${drive}:/ORDENTRY`
     acctNum = `/${acctNumber}`
     acct = `${dir}${acctNum}`
@@ -55,7 +50,9 @@ let initialize = (acctNumber, setTime, drive = "E") => {
     dest = `${backUp}/${time}`
 }
 
-let patterns = [
+let initialize = (acct, time) => init(acct, time, drive)
+
+patterns = [
     'OE_FORM.*',
     'OE_SKIP.*',
     'OE_PKLST.*',
@@ -69,7 +66,7 @@ let patterns = [
     'CUSTOMER.*',
 ]
 
-let exists = (f) => {
+let exists = f => {
     try {
         const stats = fs.statSync(f)
         return true
@@ -78,15 +75,12 @@ let exists = (f) => {
     }
 }
 
-let checkSubDir = (which) => {
-    if (exists(which)) {
-        return true
-    } else {
-        try {
-            fs.mkdirSync(which)
-        } catch (e) {
-            return new Error `failed to create dir: ${which} ${e}`
-        }
+let checkSubDir = which => {
+    if ( exists(which) ) return true
+    try {
+        fs.mkdirSync(which)
+    } catch (e) {
+        return new Error `failed to create dir: ${which} ${e}`
     }
 }
 
@@ -95,7 +89,7 @@ async function copyGlobs(source, dest, matches) {
         try {
             await copy(`${source}/${match}`, `${dest}/${match}`)
         } catch (e) {
-            return new Error `error copying file: ${source} to ${dest} ${e}`
+            return new Error `error copying ${source} to ${dest} ${e}`
         }
     }
 }
@@ -149,13 +143,19 @@ const getBackUps = (acct, cb) => {
     Promise.resolve( initialize(acct, timeStamp() ) )
         .then( checkSubDir(dbfiles) )
         .then( checkSubDir(backUp) )
-        .then( pGlob("201*", {cwd: backUp}, (err, matches) => {
-            cb("backups response", {acct: acct, data: matches.filter( (dir) => lookUpFile(dir, backUp) )} )
-        })
-        .catch((e) => {
-            console.error(e)
-            return false
-        })
+        .then(
+            pGlob("20*", {cwd: backUp}, (err, matches) => {
+                cb("backups response", {
+                    acct: acct,
+                    data: matches.filter(
+                        (dir) => lookUpFile(dir, backUp)
+                    )
+                })
+            })
+            .catch((e) => {
+                console.error(e)
+                return false
+            })
         )
 }
 
