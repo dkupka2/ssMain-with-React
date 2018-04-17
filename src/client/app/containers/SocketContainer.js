@@ -14,9 +14,6 @@ import {
 } from '../store/actions/'
 
 class SocketContainer extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     componentWillMount() {
         socket.on(RESPONSE_VALIDATE_CLIENT, (data) => {

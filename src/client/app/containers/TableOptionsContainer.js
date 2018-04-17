@@ -27,21 +27,18 @@ import {
 let { getTables } = tables
 
 class AcctsContainer extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            types: ['compound','local','global'],
-            tables: getTables(this.props.type),
-            visible: false
-        }
+    state = {
+        types: ['compound','local','global'],
+        tables: getTables(this.props.type),
+        visible: false
     }
     componentWillReceiveProps(newProps) {
-        this.setState({ 
+        this.setState({
             visible: isTrue(getKeys(newProps.accts).length > 0)
         })
     }
 
-    handleTypeChange(e) {
+    handleTypeChange = (e) => {
         this.setState( { tables: getTables(e.target.value) } )
         this.props.changeType({
             type: e.target.value,
@@ -50,7 +47,7 @@ class AcctsContainer extends Component {
             optTable: tables.default[e.target.value],
         })
     }
-    handleTableChange(e) {
+    handleTableChange = (e) => {
         this.props.changeTable({
             type: this.props.type,
             acct: this.props.selectedAcct,
@@ -58,7 +55,7 @@ class AcctsContainer extends Component {
             optTable: e.target.value,
         })
     }
-    handleTableLoad( acct, type, optTable ) {
+    handleTableLoad = ( acct, type, optTable ) => {
         this.props.restRequest( {acct, type, optTable} )
     }
 
@@ -73,13 +70,13 @@ class AcctsContainer extends Component {
                     prompt='Type of Table: '
                     value={this.props.type}
                     options={ selectOptions(this.state.types) }
-                    change={ this.handleTypeChange.bind(this) } />
+                    change={this.handleTypeChange} />
                 <Select
                     selector='table'
                     prompt='Which Table: '
                     value={this.props.table}
                     options={ selectOptions(this.state.tables) }
-                    change={ this.handleTableChange.bind(this) } />
+                    change={this.handleTableChange} />
                 <Button
                     selector='submit'
                     prompt='load table'

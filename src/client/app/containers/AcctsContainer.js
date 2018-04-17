@@ -17,11 +17,8 @@ import {
 } from '../store/reducers'
 
 class AcctsContainer extends Component {
-    constructor(props) {
-        super(props)
-    }
 
-    handleSelectChange(e) {
+    handleSelectChange = (e) => {
         this.props.changeSelect(e.target.value)
     }
 
@@ -35,7 +32,7 @@ class AcctsContainer extends Component {
                     prompt='Select an Account:'
                     value={this.props.selectValue}
                     options={ selectOptions(this.props.accts) }
-                    change={ this.handleSelectChange.bind(this) } />
+                    change={this.handleSelectChange} />
             </div>
         )
     }

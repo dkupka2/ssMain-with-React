@@ -13,17 +13,14 @@ import {
 } from '../store/actions/'
 
 class AcctInputContainer extends Component {
-    constructor(props) {
-        super(props),
-        this.state = {
-            inputValue: ''
-        }
+    state = {
+        inputValue: ''
     }
 
-    handleInputChange(e) {
+    handleInputChange = (e) => {
         this.setState( { inputValue: validateInput(e.target.value) } )
     }
-    handleInputSubmit() {
+    handleInputSubmit = () => {
         this.setState( {inputValue: ''} )
         this.props.submit(this.state.inputValue)
     }
@@ -35,8 +32,8 @@ class AcctInputContainer extends Component {
                     prompt='Enter an Account #:'
                     selector='acctInput'
                     value={this.state.inputValue}
-                    change={ this.handleInputChange.bind(this) }
-                    submit={ this.handleInputSubmit.bind(this) } />
+                    change={ this.handleInputChange }
+                    submit={ this.handleInputSubmit } />
                 <p>
                     {this.props.message}
                 </p>

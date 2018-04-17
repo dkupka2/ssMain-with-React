@@ -17,9 +17,6 @@ import {
 } from '../store/actions/'
 
 class FileManagementContainer extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         // toggle visibility
@@ -42,11 +39,11 @@ class FileManagementContainer extends Component {
                 <Button
                 selector={openButtonSelector}
                 prompt="file options"
-                click={ this.props.openOptions.bind(this) } />
+                click={this.props.openOptions} />
                 <Button
                 selector={closeButtonSelector}
                 prompt="x"
-                click={ this.props.closeOptions.bind(this) } />
+                click={this.props.closeOptions} />
             </div>
         )
     }
