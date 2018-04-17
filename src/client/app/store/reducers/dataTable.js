@@ -18,9 +18,11 @@ const initialState = {
     columns: []
 }
 const filterRows = (filter, row, column) => {
-    return row._original[column].toUpperCase().includes(
-        filter.value.toUpperCase()
-    )
+    if (row._original[column]) {
+        return row._original[column].toUpperCase().includes(
+            filter.value.toUpperCase()
+        )
+    }
 }
 let getHeaders = ( obj, headers = [] ) => {
     Object.keys(obj).map( (header) => headers.push( {
@@ -70,8 +72,8 @@ export const loadCache = data => {
         return loadCompoundFromCache(data)
     }
     if (accts[acct][optTable].length > 0) {
-            data.body = filterTable( 
-                optTable, 
+            data.body = filterTable(
+                optTable,
                 getLast( accts[acct][optTable] )
             )
             data.isCached = true

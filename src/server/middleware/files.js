@@ -13,10 +13,10 @@ let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns
 let lookUpFile = ( file, dir = `${drive}/ordentry`, type = "dir" )  => {
     let logType = type === "dir" ? "directory" : "file",
         target = _.attempt( (path) => {
-        return fs.statSync(path);
+        return fs.statSync(path)
     }, `${dir}/${ file.toString().trim() }` )
     if ( target instanceof Error ) {
-        console.log(`error from lookUp${target}`)
+        console.log(`error from lookUp: ${target}`)
         return false
     }
     // if target matches test type
@@ -36,7 +36,7 @@ let timeStamp = () => {
         day = d.getDate(),
         hour = d.getHours(),
         minute = d.getMinutes()
-    if (minute < 10) minute = `0${d.getMinutes()}`
+    if (minute < 10) minute = `0${ d.getMinutes() }`
     return `${year}_${month}_${day}_${hour}_${minute}`
 }
 
@@ -75,12 +75,12 @@ let exists = f => {
     }
 }
 
-let checkSubDir = which => {
-    if ( exists(which) ) return true
+let checkSubDir = dir => {
+    if ( exists(dir) ) return true
     try {
-        fs.mkdirSync(which)
+        fs.mkdirSync(dir)
     } catch (e) {
-        return new Error `failed to create dir: ${which} ${e}`
+        return new Error `failed to create dir: ${dir} ${e}`
     }
 }
 
@@ -119,7 +119,7 @@ async function checkDirs(acct) {
         .then( checkSubDir(dbfiles) )
         .then( checkSubDir(backUp) )
         .then( checkSubDir(dest) )
-        .catch((e) => {
+        .catch( (e) => {
             console.error(e)
             return false
         })
@@ -128,15 +128,15 @@ async function checkDirs(acct) {
 const backupAcct = (acct) => {
     Promise.resolve( checkDirs(acct) )
         .then( backupFiles(acct, time, dest) )
-        .catch((e) => {
+        .catch( (e) => {
             console.error(e)
             return false
         })
 }
 
-const restoreOrdentry = (acct, ) => {
-    initialize(acct, timeStamp())
-    restoreFromBackup()
+const restoreOrdentry = (acct, dir ) => {
+    initialize( acct, timeStamp() )
+    restoreFromBackup(acct, dir)
 }
 
 const getBackUps = (acct, cb) => {
