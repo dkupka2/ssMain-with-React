@@ -66,29 +66,33 @@ class AcctsContainer extends Component {
                     isVisible(this.state.visible, 'tableOptions')
                 } >
                 <Select
-                    selector='type'
+                    selector='tableOptions_type'
                     prompt='Type of Table: '
                     value={this.props.type}
                     options={ selectOptions(this.state.types) }
                     change={this.handleTypeChange} />
                 <Select
-                    selector='table'
+                    selector='tableOptions_table'
                     prompt='Which Table: '
                     value={this.props.table}
                     options={ selectOptions(this.state.tables) }
                     change={this.handleTableChange} />
-                <Button
-                    selector='submit'
-                    prompt='load table'
-                    click={ () => {
-                        this.handleTableLoad(
-                            this.props.selectedAcct,
-                            this.props.type,
-                            this.props.table
-                        )
-                    }} />
-                <p>{this.props.message}</p>
-                <p>{this.props.acctsLength}</p>
+                <div
+                    className='tableOptions_messageDiv' >
+                    <Button
+                        selector='tableOptions_submit'
+                        prompt='load table'
+                        click={ () => {
+                            this.handleTableLoad(
+                                this.props.selectedAcct,
+                                this.props.type,
+                                this.props.table
+                            )
+                        }} />
+                    <p
+                        className={this.props.messageClass}>
+                        {this.props.message} </p>
+                </div>
             </div>
         )
     }
@@ -99,6 +103,7 @@ const mapState = state => {
         type: state.tableOptions.type,
         table: state.tableOptions.table,
         message: state.tableOptions.message,
+        messageClass: state.tableOptions.messageClass,
         // state from accts reducer
         accts: state.accts.accts,
         selectedAcct: state.accts.selectedAcct,
@@ -107,11 +112,11 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        changeType:  (data) => dispatch( changeType(data) ),
-        changeTable: (data) => dispatch( changeTable(data) ),
-        restRequest:  (data) => dispatch( restRequest(data) ),
-        restResponse: (data) => dispatch( restResponse(data) ),
         loadCache: (data) => dispatch( loadCache(data) ),
+        changeType: (data) => dispatch( changeType(data) ),
+        changeTable: (data) => dispatch( changeTable(data) ),
+        restRequest: (data) => dispatch( restRequest(data) ),
+        restResponse: (data) => dispatch( restResponse(data) ),
     }
 }
 

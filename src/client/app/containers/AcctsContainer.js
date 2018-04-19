@@ -48,7 +48,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        changeSelect: (value) => { dispatch( changeSelect(value) ) },
+        changeSelect: (value) => dispatch( changeSelect(value) ),
     }
 }
 

@@ -32,11 +32,10 @@ class AcctInputContainer extends Component {
                     prompt='Enter an Account #:'
                     selector='acctInput'
                     value={this.state.inputValue}
-                    change={ this.handleInputChange }
-                    submit={ this.handleInputSubmit } />
-                <p>
-                    {this.props.message}
-                </p>
+                    change={this.handleInputChange}
+                    submit={this.handleInputSubmit}
+                    message={this.props.message}
+                    messageSelector={this.props.messageClass} />
             </div>
         )
     }
@@ -44,7 +43,8 @@ class AcctInputContainer extends Component {
 
 const mapState = state => {
     return {
-        message: state.acctInput.message
+        message: state.acctInput.message,
+        messageClass: state.acctInput.messageClass
     }
 }
 

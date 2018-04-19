@@ -17,6 +17,7 @@ import {
     SELECT_TABLE,
     LOAD_TABLE,
     TABLE_NOT_CACHED,
+    RENDER_TABLE,
     // socket
     REQUEST_LIST,
     REQUEST_LOCAL,
@@ -30,7 +31,9 @@ export const renderFromCache = data => {
 const initialState = {
     type: 'compound',
     table: 'Conflicts',
-    which: 'latest'
+    which: 'latest',
+    message: '',
+    messageClass: 'hidden'
 }
 const callAPI = (acct, type, table) => {
     if (type !== 'compound') {
@@ -38,7 +41,7 @@ const callAPI = (acct, type, table) => {
         socket.emit( tables.requestKeys[type], {acct, table} )
     } else { // get tables by compound table
         for ( let type of Object.keys( tables.compound[table] ) ) {
-            tables.compound[table][type].map((key) => {
+            tables.compound[table][type].map( (key) => {
                 socket.emit(
                     tables.requestKeys[type], { 
                         acct,
@@ -88,18 +91,32 @@ export const tableOptions = (state = initialState, action) => {
         case SUBMIT_REQUEST:
             return { 
                 ...state,
-                message: `requesting ${table} from ${acct}, please wait...`
+                message: `requesting ${table} from ${acct}...`,
+                messageClass: 'tableOptions_p tableOptions_p_loading'
             }
         case LOAD_TABLE:
             return {
                 ...state,
-                message: `Received response from RestAPI, loading table...`
+                message: `Received RestAPI response, loading...`,
+                messageClass: 'tableOptions_p tableOptions_p_loading'
+            }
+        case RENDER_TABLE:
+            return {
+                ...state,
+                message: 'table loaded',
+                messageClass: 'tableOptions_p tableOptions_p_render'
             }
         case LOAD_FAILURE:
             return { ...state,
-                message: 'No table to load!'}
+                message: 'No table to load!',
+                messageClass: 'tableOptions_p tableOptions_p_fail'
+            }
         case TABLE_NOT_CACHED:
-            return { ...state, message: 'Please load table to view'}
+            return {
+                ...state,
+                message: 'Please load table to view',
+                messageClass: 'tableOptions_p tableOptions_p_fail'
+            }
         default:
             return state
     }

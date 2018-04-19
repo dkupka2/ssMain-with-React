@@ -49,7 +49,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
     return {
         validateClient: (data) => dispatch( validateClient(data) ),
-        restRes: (payload) => { dispatch( restRes(payload)) },
+        restRes: (payload) => dispatch( restRes(payload) ),
     }
 }
 

@@ -11,6 +11,7 @@ import {
 // initial state
 const initialState = {
     message: '',
+    messageClass: 'hidden'
 }
 // action creators
 export const submitAcct = (val) => {
@@ -24,11 +25,27 @@ export const submitAcct = (val) => {
 export const acctInput = (state = initialState, action) => {
     switch (action.type) {
         case SUBMIT_ACCT_INPUT:
-            return { ...state, message: `checking E:/ORDENTRY/ for Acct # ${action.value}...` }
+            return {
+                ...state,
+                message: `checking for Acct ${action.value}...`,
+                messageClass: `${
+                    [
+                        'acctInput_p',
+                        'acctInput_p_looking'
+                    ].join(' ')}`
+            }
         case ACCT_VALID:
-            return { ...state, message: `Acct # ${action.acct} found` }
+            return {
+                ...state,
+                message: `Acct ${action.acct} found`,
+                messageClass: 'acctInput_p acctInput_p_valid'
+            }
         case ACCT_INVALID:
-            return { ...state, message: `Acct # ${action.acct} not found in E:/ORDENTRY` }
+            return {
+                ...state,
+                message: `Acct ${action.acct} not found`,
+                messageClass: 'acctInput_p acctInput_p_invalid'
+            }
         default:
             return state
     }
