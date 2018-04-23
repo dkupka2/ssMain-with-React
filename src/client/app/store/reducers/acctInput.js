@@ -28,11 +28,7 @@ export const acctInput = (state = initialState, action) => {
             return {
                 ...state,
                 message: `checking for Acct ${action.value}...`,
-                messageClass: `${
-                    [
-                        'acctInput_p',
-                        'acctInput_p_looking'
-                    ].join(' ')}`
+                messageClass: 'acctInput_p acctInput_p_looking'
             }
         case ACCT_VALID:
             return {

@@ -18,7 +18,7 @@ import {
 
 class AcctsContainer extends Component {
 
-    handleSelectChange = (e) => {
+    handleSelectChange = e => {
         this.props.changeSelect(e.target.value)
     }
 

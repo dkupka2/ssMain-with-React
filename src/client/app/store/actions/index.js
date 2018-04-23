@@ -12,6 +12,8 @@ export const TABLE_NOT_CACHED = 'TABLE_NOT_CACHED'
 export const CACHE_TABLE = 'CACHE_TABLE'
 export const OPEN_FILE_OPTIONS = 'OPEN_FILE_OPTIONS'
 export const CLOSE_FILE_OPTIONS = 'CLOSE_FILE_OPTIONS'
+export const RESTORE_ACCOUNT = 'RESTORE_ACCOUNT'
+export const BACKUP_ACCOUNT = 'BACKUP_ACCOUNT'
 
 import events from './socketEvents'
 
