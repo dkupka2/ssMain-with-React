@@ -1,15 +1,16 @@
 import React from 'react'
+import { subSelector } from '../services/'
 
 const Button = props => {
-    let divSelector = props.selector === 'hidden' ?
-        'hidden' : `${props.selector}_div`
+    let { selector, click, prompt } = props
+    let getSelector = element => subSelector(selector, element)
     return (
         <div
-            className={divSelector}>
+            className={ getSelector('div') }>
             <button
-                className={`${props.selector}_button`}
-                onClick={props.click}>
-                {props.prompt}
+                className={ getSelector('button') }
+                onClick={click}>
+                {prompt}
             </button>
         </div>
     )

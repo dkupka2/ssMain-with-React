@@ -1,27 +1,39 @@
 import React from 'react'
+import { subSelector } from '../services/'
 
 const Input = props => {
+    let {
+        selector,
+        prompt,
+        value,
+        change,
+        submit,
+        messageSelector,
+        message
+    } = props
+    let getSelector = element => subSelector(selector, 'element')
     return (
         <div
-            className={`${props.selector}_div`}>
+            className={ getSelector('div') }>
             <p
-                className={`${props.selector}_p`}>
-                {props.prompt}
+                className={ getSelector('p') }>
+                {prompt}
             </p>
             <div
-                className={`${props.selector}_innerDiv`}>
+                className={ getSelector('innerDiv') }>
                 <input
-                    className={`${props.selector}_input`}
-                    type='text' value={props.value}
-                    onChange={props.change} />
+                    className={ getSelector('input') }
+                    type='text'
+                    value={value}
+                    onChange={change} />
                 <button
-                    className={`${props.selector}_button`}
-                    onClick={props.submit}>
+                    className={ getSelector('button') }
+                    onClick={submit}>
                     Submit
                 </button>
                 <p
-                    className={props.messageSelector}>
-                    {props.message}
+                    className={messageSelector}>
+                    {message}
                 </p>
             </div>
         </div>

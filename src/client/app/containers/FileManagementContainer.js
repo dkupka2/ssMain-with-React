@@ -54,7 +54,6 @@ class FileManagementContainer extends Component {
             return date
         }
         const latestBackup = () => {
-            console.log(this.props.backupOptions)
             if (this.props.backupOptions) {
                 return parseDate(
                     getLast( this.props.backupOptions.sort() )

@@ -1,18 +1,21 @@
 import React from 'react'
+import { subSelector } from '../services'
 
 const Select = props => {
+    let { selector, prompt, value, change, options } = props
+    let getSelector = element => subSelector(selector, element)
     return (
         <div
-            className={`${props.selector}_div`}>
+            className={ getSelector('div') }>
             <p
-                className={`${props.selector}_p`}>
-                {props.prompt}
+                className={ getSelector('p') }>
+                {prompt}
             </p>
             <select
-                className={`${props.selector}_select`}
-                value={props.value}
-                onChange={props.change} >
-                {props.options}
+                className={ getSelector('select') }
+                value={value}
+                onChange={change} >
+                {options}
             </select>
         </div>
     )
