@@ -1,11 +1,10 @@
-export const isObject = obj => {
+export const isObj = obj => {
     if (typeof obj === 'object') {
         if ( Array.isArray(obj) ) {
             return false
         } else {
             return true
         }
-    } else {
-        return false
     }
+    return false
 }

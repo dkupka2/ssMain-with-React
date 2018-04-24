@@ -1,10 +1,9 @@
 import React from 'react'
-
 import { isObj } from './index'
 
 export const selectOptions = (obj) => {
-    let arr
-    const elems = []
+    let arr,
+        elems = []
     if ( isObj(obj) && Object.keys(obj).length > 0 ) {
         arr = Object.keys(obj)
     } else {
@@ -15,11 +14,11 @@ export const selectOptions = (obj) => {
         arr.map( (el) => elems.push(
                 <option
                     key={ el.toString() }
-                    value={el}>
+                    value={el} >
                     {el}
                 </option>
             )
         )
         return elems
-    } else return
+    }
 }
