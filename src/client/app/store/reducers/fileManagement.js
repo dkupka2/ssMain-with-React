@@ -20,7 +20,7 @@ export const closeOptions = () => {
     return { type: CLOSE_FILE_OPTIONS }
 }
 export const backupAcct = () => {
-    return { type: BACKUP_ACCT }
+    return { type: BACKUP_ACCT, backups: ['2','3'] }
 }
 
 export const fileManagement = (state = initialState, action) => {
@@ -43,7 +43,7 @@ export const fileManagement = (state = initialState, action) => {
         case BACKUP_ACCT:
             return {
                 ...state,
-                backupOptions: ['3','4']
+                backupOptions: action.backups
             }
         default:
             return state

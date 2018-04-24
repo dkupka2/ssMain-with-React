@@ -30,6 +30,7 @@ export {
 export {
     openOptions,
     closeOptions,
+    backupAcct,
 } from './fileManagement'
 
 // other methods

@@ -78,7 +78,7 @@ class FileManagementContainer extends Component {
                     { latestBackup() }
                 </p>
                 <Button
-                    click={this.props.backUpAcct}
+                    click={this.props.backupAcct}
                     prompt='back up acct'
                     selector={backupButtonSelector} />
             </div>
