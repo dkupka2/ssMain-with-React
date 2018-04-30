@@ -61,7 +61,8 @@ const convert = ( value, type, final = [] ) => {
     }
 }
 
-const removeROWID = (obj) => {
+const removeROWID = obj => {
+    obj = Object.assign( {}, obj )
     delete obj.ROWID
     return obj
 }
