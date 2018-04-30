@@ -5,7 +5,8 @@ import {
     subSelector,
     showIfTrue,
     blockSelector,
-    getLast
+    getLast,
+    getBEM,
 } from '../services'
 // components
 import {
@@ -36,9 +37,9 @@ class FileManagementContainer extends Component {
         // toggle visibility
         let parentSelector = blockSelector(
             selector !== 'hidden',
-            'fileManagement_parentDiv fileManagement_parentDiv_closed',
+            getBEM('fileManagement', 'parentDiv', 'closed'),
             open,
-            'fileManagement_parentDiv fileManagement_parentDiv_open'
+            getBEM('fileManagement', 'parentDiv', 'open')
         )
         let openButtonSelector = showIfTrue(
             ! open,
