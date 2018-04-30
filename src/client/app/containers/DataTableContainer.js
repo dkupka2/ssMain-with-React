@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 // library
-import { isVisible } from '../services'
+import { showIfTrue } from '../services'
 // action creators
 import { renderTable } from '../store/reducers'
 // action keys
@@ -18,7 +18,7 @@ class DataTableContainer extends Component {
         return (
             <div
                 className={
-                    isVisible(this.props.visible, 'dataTable')
+                    showIfTrue(this.props.visible, 'dataTable')
                 }>
                 <ReactTable
                     filterable

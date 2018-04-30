@@ -6,7 +6,7 @@ import {
     selectOptions,
     getKeys,
     isTrue,
-    isVisible,
+    showIfTrue,
 } from '../services'
 import {
     Select,
@@ -63,7 +63,7 @@ class AcctsContainer extends Component {
         return(
             <div
                 className={
-                    isVisible(this.state.visible, 'tableOptions')
+                    showIfTrue(this.state.visible, 'tableOptions')
                 } >
                 <Select
                     selector='tableOptions_type'

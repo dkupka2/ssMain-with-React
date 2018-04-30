@@ -7,7 +7,7 @@ import {
 } from '../actions/'
 
 const initialState = {
-    visible: false,
+    selector: 'hidden',
     open: false,
     backupOptions: ['1','2'],
     backupValue: '',
@@ -28,7 +28,7 @@ export const fileManagement = (state = initialState, action) => {
         case ACCT_VALID:
             return {
                 ...state,
-                visible: true
+                selector: 'fileManagement'
             }
         case OPEN_FILE_OPTIONS:
             return {

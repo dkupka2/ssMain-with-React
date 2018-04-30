@@ -6,7 +6,7 @@ import { socket } from '../store/socket'
 import {
     selectOptions,
     getKeys,
-    isVisible
+    showIfTrue
 } from '../services'
 // action creators
 import {
@@ -26,7 +26,7 @@ class AcctsContainer extends Component {
         let numAccts = getKeys(this.props.accts).length
         return(
             <div
-                className={ isVisible(numAccts > 1, 'accts') } >
+                className={ showIfTrue(numAccts > 1, 'accts') } >
                 <Select
                     selector='accts'
                     prompt='Select an Account:'

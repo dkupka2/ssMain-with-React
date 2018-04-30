@@ -11,7 +11,7 @@ const Input = props => {
         messageSelector,
         message
     } = props
-    let getSelector = element => subSelector(selector, 'element')
+    let getSelector = element => subSelector(selector, element)
     return (
         <div
             className={ getSelector('div') }>

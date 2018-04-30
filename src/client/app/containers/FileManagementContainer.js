@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // library
 import {
-    isVisible,
+    subSelector,
+    showIfTrue,
     blockSelector,
     getLast
 } from '../services'
@@ -23,29 +24,38 @@ import {
 
 class FileManagementContainer extends Component {
     render() {
+        let {
+            selector,
+            open,
+            backupOptions,
+            openOptions,
+            closeOptions,
+            backupAcct,
+            backupValue,
+        } = this.props
         // toggle visibility
         let parentSelector = blockSelector(
-            this.props.visible,
+            selector !== 'hidden',
             'fileManagement_parentDiv fileManagement_parentDiv_closed',
-            this.props.open,
+            open,
             'fileManagement_parentDiv fileManagement_parentDiv_open'
         )
-        let openButtonSelector = isVisible(
-            ! this.props.open,
+        let openButtonSelector = showIfTrue(
+            ! open,
             'fileManagement_openButton'
         )
-        let closeButtonSelector = isVisible(
-            this.props.open,
+        let closeButtonSelector = showIfTrue(
+            open,
             'fileManagement_closeButton'
         )
 
-        let pSelector = isVisible(
-            this.props.open,
+        let pSelector = showIfTrue(
+            open,
             'fileManagement_p'
         )
 
-        let backupButtonSelector = isVisible(
-            this.props.open,
+        let backupButtonSelector = showIfTrue(
+            open,
             'fileManagement_backupButton'
         )
 
@@ -54,9 +64,9 @@ class FileManagementContainer extends Component {
             return date
         }
         const latestBackup = () => {
-            if (this.props.backupOptions) {
+            if (backupOptions) {
                 return parseDate(
-                    getLast( this.props.backupOptions.sort() )
+                    getLast( backupOptions.sort() )
                 )
             }
             return 'no backups'
@@ -65,11 +75,11 @@ class FileManagementContainer extends Component {
             <div
                 className={parentSelector} >
                 <Button
-                    click={this.props.openOptions}
+                    click={openOptions}
                     prompt='file options'
                     selector={openButtonSelector} />
                 <Button
-                    click={this.props.closeOptions}
+                    click={closeOptions}
                     prompt='x'
                     selector={closeButtonSelector} />
                 <p
@@ -77,7 +87,7 @@ class FileManagementContainer extends Component {
                     { latestBackup() }
                 </p>
                 <Button
-                    click={this.props.backupAcct}
+                    click={backupAcct}
                     prompt='back up acct'
                     selector={backupButtonSelector} />
             </div>
@@ -88,7 +98,7 @@ class FileManagementContainer extends Component {
 const mapState = state => {
     return {
         open: state.fileManagement.open,
-        visible: state.fileManagement.visible,
+        selector: state.fileManagement.selector,
         backupValue: state.fileManagement.selectedBackup,
         backupOptions: state.fileManagement.backupOptions,
     }
