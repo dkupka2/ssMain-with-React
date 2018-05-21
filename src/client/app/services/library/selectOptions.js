@@ -1,5 +1,5 @@
 import React from 'react'
-import { isObj } from './index'
+import { isObj } from './isObj'
 
 export const selectOptions = (obj) => {
     let arr,
