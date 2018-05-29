@@ -5,7 +5,7 @@ import {
     subSelector,
     showIfTrue,
     blockSelector,
-    getLast,
+    getLastArray,
     getBEM,
 } from '../services'
 // components

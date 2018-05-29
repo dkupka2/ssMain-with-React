@@ -1,6 +1,6 @@
 // library
 import {
-    getLast,
+    getLastArray,
     filterTable,
     cleanArr,
 } from '../../services'
@@ -57,7 +57,7 @@ const loadCompoundFromCache = data => {
             arr = arr.concat(
                 filterTable(
                     targetTable,
-                    getLast( accts[acct][targetTable] ),
+                    getLastArray( accts[acct][targetTable] ),
                     optTable
                 )
             )
@@ -74,7 +74,7 @@ export const loadCache = data => {
     if (accts[acct][optTable].length > 0) {
             data.body = filterTable(
                 optTable,
-                getLast( accts[acct][optTable] )
+                getLastArray( accts[acct][optTable] )
             )
             data.isCached = true
     } else {

@@ -5,7 +5,7 @@ import { socket } from '../store/socket'
 import {
     selectOptions,
     getKeys,
-    isTrue,
+    isTruthy,
     showIfTrue,
 } from '../services'
 import {
@@ -34,7 +34,7 @@ class AcctsContainer extends Component {
     }
     componentWillReceiveProps(newProps) {
         this.setState({
-            visible: isTrue(getKeys(newProps.accts).length > 0)
+            visible: isTruthy(getKeys(newProps.accts).length > 0)
         })
     }
 
