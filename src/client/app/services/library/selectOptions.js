@@ -1,7 +1,7 @@
 import React from 'react'
-import { isObj } from './isObj'
+import { isObj } from '../'
 
-export const selectOptions = (obj) => {
+export const selectOptions = obj => {
     let arr,
         elems = []
     if ( isObj(obj) && Object.keys(obj).length > 0 ) {

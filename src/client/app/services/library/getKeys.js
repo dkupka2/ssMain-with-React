@@ -1,3 +1,3 @@
-export const getKeys = obj => {
-    return typeof obj === 'object' ? Object.keys(obj) : []
-}
+import { isObj } from '../'
+
+export const getKeys = ( obj = [] ) => isObj(obj) ? Object.keys(obj) : []

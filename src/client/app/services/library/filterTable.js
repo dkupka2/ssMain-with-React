@@ -1,4 +1,4 @@
-import filterPiTable from './filterPiTable'
+import filterPiTable from '../'
 
 export const filterTable = (table, data, type) => {
     return data.map( (row) => {
