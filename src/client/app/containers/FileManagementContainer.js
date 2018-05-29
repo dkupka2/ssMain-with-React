@@ -67,7 +67,7 @@ class FileManagementContainer extends Component {
         const latestBackup = () => {
             if (backupOptions) {
                 return parseDate(
-                    getLast( backupOptions.sort() )
+                    getLastArray( backupOptions.sort() )
                 )
             }
             return 'no backups'
