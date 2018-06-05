@@ -3,5 +3,5 @@
         "transform-object-rest-spread",
         "transform-class-properties"
     ],
-    "presets": [["env", {"modules": false}]]
+    "presets": ["es2015","react",["env", {"modules": false}]]
 }

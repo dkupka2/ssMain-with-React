@@ -18,7 +18,7 @@ describe('isObj', () => {
             `${fail} false if arg is number: 1`
         )
     })
-    it('returns false is arg is an array', () => {
+    it('returns false if arg is an array', () => {
         assert.isFalse(
             isObj([]),
             `${fail} is an empty array: []`
@@ -28,7 +28,7 @@ describe('isObj', () => {
             `${fail} is an array with elements: [1,2,3]`
         )
     })
-    it('returns false is arg is any other keyed object', () => {
+    it('returns false if arg is any other keyed object', () => {
         assert.isFalse(
             isObj(new Set([1,2,3])),
             `${fail} false if arg is a set: [1,2,3]`
@@ -38,7 +38,7 @@ describe('isObj', () => {
             `${fail} false if arg is a map: ()`
         )
     })
-    it('returns false is arg == undefined', () => {
+    it('returns false if arg == undefined', () => {
         assert.isFalse(
             isObj(undefined),
             `${fail} false if arg is undefined`
