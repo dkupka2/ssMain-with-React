@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import {
     tables,
     RELAY_TABLES
-} from  './actions'
+} from  '../store/'
 
 export const socket = io.connect('http://localhost:8000/restapi')
 

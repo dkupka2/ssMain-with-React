@@ -3,15 +3,13 @@ import { connect } from 'react-redux'
 import { enforceNumericInput } from '../services/'
 import { socket } from '../store/socket'
 import { Input } from '../components'
-// action creators
 import {
+    // event keys
+    SUBMIT_ACCT_INPUT,
+    // action creators
     submitAcct,
-} from '../store/reducers'
-// action keys
-import {
-    SUBMIT_ACCT_INPUT
-} from '../store/actions/'
-
+} from '../store/'
+// reducer
 class AcctInputContainer extends Component {
     state = {
         inputValue: ''

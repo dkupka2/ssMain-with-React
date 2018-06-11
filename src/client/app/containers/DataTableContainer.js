@@ -4,22 +4,20 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 // library
 import { showIfTrue } from '../services'
-// action creators
-import { renderTable } from '../store/reducers'
-// action keys
 import {
+    // action creators
+    renderTable,
+    // event keys
     LOAD_TABLE,
     RESPONSE_RESTAPI
-} from '../store/actions/'
+} from '../store/'
 
 class DataTableContainer extends Component {
 
     render() {
         return (
             <div
-                className={
-                    showIfTrue(this.props.visible, 'dataTable')
-                }>
+                className={ showIfTrue(this.props.visible, 'dataTable') } >
                 <ReactTable
                     filterable
                     data={this.props.data}

@@ -7,19 +7,11 @@ import {
     ACCT_INVALID,
     // socket events
     REQUEST_VALIDATE_CLIENT,
-} from '../actions/'
+} from '../'
 // initial state
 const initialState = {
     message: '',
     messageClass: 'hidden'
-}
-// action creators
-export const submitAcct = (val) => {
-    socket.emit(REQUEST_VALIDATE_CLIENT, {acct: val})
-    return {
-        type: SUBMIT_ACCT_INPUT,
-        value: val
-    }
 }
 // reducer
 export const acctInput = (state = initialState, action) => {

@@ -11,76 +11,13 @@ import {
     LOAD_TABLE,
     RENDER_TABLE,
     TABLE_NOT_CACHED,
-} from '../actions/'
+    // action creators
+    renderTable
+} from '../'
 // state
 const initialState = {
     tableData: [],
     columns: []
-}
-const filterRows = (filter, row, column) => {
-    if (row._original[column]) {
-        return row._original[column].toUpperCase().includes(
-            filter.value.toUpperCase()
-        )
-    }
-}
-let getHeaders = ( obj, headers = [] ) => {
-    Object.keys(obj).map( (header) => headers.push( {
-            Header: header,
-            accessor: header,
-            id: header,
-            filterAll: false,
-            filterMethod: (filter, row) => filterRows(filter, row, header)
-        })
-    )
-    return headers
-}
-// action creators
-export const renderTable = data => {
-    if (data.body.length < 1) return {type: TABLE_NOT_CACHED}
-    return {
-        type: RENDER_TABLE,
-        columns: getHeaders( data.body[0] ),
-        table: data.body,
-    }
-}
-const loadCompoundFromCache = data => {
-    let arr = [],
-        { type, acct, optTable, accts } = data
-    // map over tables list
-    tables.compoundLists[optTable].map( targetTable => {
-        // filter and concat most recent cache
-        targetTable = tables.revertKeys[targetTable]
-        // if cache has data
-        if (accts[acct][targetTable].length > 0) {
-            // filter and aggregate data
-            arr = arr.concat(
-                filterTable(
-                    targetTable,
-                    getLastArray( accts[acct][targetTable] ),
-                    optTable
-                )
-            )
-        }
-    })
-    return { body: cleanArr(arr) }
-}
-export const loadCache = data => {
-    data = Object.assign( {}, data )
-    let { type, acct, optTable, accts } = data
-    if ( tables.lists.compound.includes(optTable) ) {
-        return loadCompoundFromCache(data)
-    }
-    if (accts[acct][optTable].length > 0) {
-            data.body = filterTable(
-                optTable,
-                getLastArray( accts[acct][optTable] )
-            )
-            data.isCached = true
-    } else {
-        data.body = []
-    }
-    return data
 }
 // reducer
 export const dataTable = (state = initialState, action) => {

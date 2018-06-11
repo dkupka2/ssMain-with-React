@@ -1,50 +1,23 @@
 // library
 import { checkArgs } from '../../services'
-// action creators - parrallel
-import {
-    loadCache,
-    renderFromCache
-} from './index'
 // action keys
 import {
     tables,
+    // action creators
+    loadCache,
+    renderFromCache,
+    // utils
+    initAcct,
     // redux events
     ACCT_VALID,
     CHANGE_ACCT,
     CACHE_TABLE
-} from '../actions/'
+} from '../'
 const lists = tables.lists
 // state
 const initialState = {
     accts: {},
     selectedAcct: ''
-}
-// acct factory
-const initAcct = list => {
-    let obj = {}
-    list.map( (table) => obj[table] = [] )
-    return obj
-}
-// action creators - local
-export const changeSelect = target => {
-    return {
-        type: CHANGE_ACCT,
-        selectedAcct: target
-    }
-}
-export const cacheTable = payload => {
-    let { accts, acct, resTable, data, from } = payload
-    accts = Object.assign( {}, accts )
-    accts[acct][resTable] = accts[acct][resTable].concat(
-        [data]
-    )
-    return { type: CACHE_TABLE, accts: accts }
-}
-export const restRes = payload => {
-    return dispatch => {
-        dispatch( cacheTable(payload) )
-        dispatch( renderFromCache(payload) )
-    }
 }
 // reducer
 export const accts = (state = initialState, action) => {
@@ -54,8 +27,8 @@ export const accts = (state = initialState, action) => {
             add[action.acct] = initAcct(
                 lists.global.concat(lists.local)
             )
-            accts = Object.assign( {}, state.accts, add )
-            return { 
+            accts = { ...state.accts, ...add }
+            return {
                 ...state,
                 accts: accts,
                 selectedAcct: action.acct

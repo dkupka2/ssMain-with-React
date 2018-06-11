@@ -7,25 +7,23 @@ import {
     getKeys,
     isTruthy,
     showIfTrue,
-} from '../services'
+} from '../services/'
 import {
     Select,
     Button,
-} from '../components'
-// action creators
+} from '../components/'
 import {
+    // action creators
     changeTable,
     changeType,
     restRequest,
     restResponse,
-} from '../store/reducers'
-// action keys
-import {
-    tables,
+    // action keys
     RESPONSE_RESTAPI,
-} from '../store/actions'
+    tables,
+} from '../store/'
 let { getTables } = tables
-
+// reducer
 class AcctsContainer extends Component {
     state = {
         types: ['compound','local','global'],

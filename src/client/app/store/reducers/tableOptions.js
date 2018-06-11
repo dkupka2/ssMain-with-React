@@ -1,32 +1,29 @@
+// socket server
 import { socket } from '../socket'
 // library
+import { compose } from '../../services'
 import {
-    compose
-} from '../../services'
-// action creators - parallel
-import {
-    loadCache,
-    renderTable
-} from './index'
-// action keys
-import {
-    tables,
-    // redux
+    // redux actions
     SUBMIT_REQUEST,
     SELECT_TYPE,
     SELECT_TABLE,
     LOAD_TABLE,
     TABLE_NOT_CACHED,
     RENDER_TABLE,
-    // socket
+    // socket events
     REQUEST_LIST,
     REQUEST_LOCAL,
     REQUEST_GLOBAL,
     LOAD_FAILURE,
-} from '../actions/'
-export const renderFromCache = data => {
-    return compose(loadCache, renderTable, data)
-}
+    // action creators
+    changeType,
+    changeTable,
+    restRequest,
+    loadCache,
+    renderTable,
+    // keys
+    tables,
+} from '../'
 // state
 const initialState = {
     type: 'compound',
@@ -34,51 +31,6 @@ const initialState = {
     which: 'latest',
     message: '',
     messageClass: 'hidden'
-}
-const callAPI = (acct, type, table) => {
-    if (type !== 'compound') {
-        table = tables[type][table]
-        socket.emit( tables.requestKeys[type], {acct, table} )
-    } else { // get tables by compound table
-        for ( let type of Object.keys( tables.compound[table] ) ) {
-            tables.compound[table][type].map( (key) => {
-                socket.emit(
-                    tables.requestKeys[type], { 
-                        acct,
-                        table: key
-                    }
-                )
-            })
-        }
-    }
-}
-// action creators - local
-export const changeType = data => {
-    return dispatch => {
-        dispatch( renderFromCache(data) )
-        dispatch({
-            type: SELECT_TYPE,
-            tableType: data.type,
-            table: data.optTable
-        })
-    }
-}
-export const changeTable = data => {
-    return dispatch => {
-        dispatch( renderFromCache(data) )
-        dispatch({
-            type: SELECT_TABLE,
-            value: data.optTable
-        })
-    }
-}
-export const restRequest = data => {
-    let { acct, type, optTable } = data
-    callAPI(acct, type, optTable)
-    return {
-        type: SUBMIT_REQUEST,
-        acct, optTable,
-    }
 }
 // reducer
 export const tableOptions = (state = initialState, action) => {
@@ -89,7 +41,7 @@ export const tableOptions = (state = initialState, action) => {
         case SELECT_TABLE:
             return { ...state, table: value }
         case SUBMIT_REQUEST:
-            return { 
+            return {
                 ...state,
                 message: `requesting ${table} from ${acct}...`,
                 messageClass: 'tableOptions_p tableOptions_p_loading'

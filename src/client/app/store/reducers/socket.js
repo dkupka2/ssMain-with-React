@@ -5,17 +5,12 @@ import {
     ACCT_INVALID,
     // socket events
     REQUEST_VALIDATE_CLIENT,
-} from '../actions/'
+    // action creators
+    validateClient,
+} from '../'
 // initial state
 const initialState = {
     message: '',
-}
-// action creators
-export const validateClient = (data) => {
-    return {
-        type: data.valid ? ACCT_VALID : ACCT_INVALID,
-        acct: data.acct
-    }
 }
 // reducer
 export const socket = (state = initialState, action) => {

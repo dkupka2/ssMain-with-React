@@ -7,14 +7,14 @@ import {
     selectOptions,
     getKeys,
     showIfTrue
-} from '../services'
+} from '../services/'
 // action creators
 import {
     // accts
     changeSelect,
     // dataTable
     renderTable,
-} from '../store/reducers'
+} from '../store/'
 
 class AcctsContainer extends Component {
 

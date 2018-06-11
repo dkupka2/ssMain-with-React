@@ -7,7 +7,7 @@ import {
     tableOptions,
     socket,
     fileManagement,
-} from './reducers'
+} from '../store'
 
 export const reducer = combineReducers({
     accts,

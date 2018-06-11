@@ -7,21 +7,18 @@ import {
     blockSelector,
     getLastArray,
     getBEM,
-} from '../services'
+} from '../services/'
 // components
 import {
     Button,
     Select
-} from '../components'
+} from '../components/'
 // action creators
 import {
     openOptions,
     closeOptions,
     backupAcct,
-} from '../store/reducers'
-// action keys
-import {
-} from '../store/actions/'
+} from '../store/'
 
 class FileManagementContainer extends Component {
     render() {

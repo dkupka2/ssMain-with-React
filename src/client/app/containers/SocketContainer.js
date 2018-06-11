@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { socket } from '../store/socket'
-// action creators
 import {
+    // action creators
     restRes,
-    validateClient
-} from '../store/reducers'
-// action keys
-import {
+    validateClient,
+    // action keys
     SUBMIT_ACCT_INPUT,
     RESPONSE_VALIDATE_CLIENT,
     RESPONSE_RESTAPI,
-} from '../store/actions/'
-
+} from '../store/'
+// reducer
 class SocketContainer extends Component {
-
     componentWillMount() {
         socket.on(RESPONSE_VALIDATE_CLIENT, (data) => {
             this.props.validateClient(data)
