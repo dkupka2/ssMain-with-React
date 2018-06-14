@@ -1,8 +1,8 @@
 import filterPiTable from '../'
 
-export const filterTable = (table, data, type) => {
+export const filterTable = (table, data, viewTable) => {
     return data.map( (row) => {
-        let result = filterPiTable[table].getFiltered(row, type)
+        let result = filterPiTable(table)(viewTable)(row)
         return result
     })
 }
