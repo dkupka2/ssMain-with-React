@@ -14,53 +14,52 @@ import { viewViewConditions } from '../'
 
 // return a function to filter each row
 export const filterPiTable = table => viewTable => {
-    // coerce viewTable to table value for single document tables
-    if (! viewTable) viewTable = table
     switch(viewTable) {
         // compound tables
         case 'Conflicts':
-        return viewConflicts(table)
+            return viewConflicts(table)
         // single tables
         case 'Form' :
-        return viewForm
-        case 'Abend' :
-        return removeROWID
-        case 'Orders' :
-        return removeROWID
-        case 'History' :
-        return removeROWID
-        case 'On_Call' :
-        return removeROWID
+            return viewForm
         case 'Contacts' :
-        return viewContacts
-        case 'Picklists' :
-        return removeROWID
-        case 'Skiplists' :
-        return removeROWID
-        case 'Help_Topics' :
-        return removeROWID
+            return viewContacts
         case 'Autos_on_Save' :
-        return viewAutoOnSave
+            return viewAutoOnSave
         case 'Timed_Actions' :
-        return viewTimedActions
+            return viewTimedActions
         case 'Autos_on_Deliver' :
-        return viewAutoOnDeliver
+            return viewAutoOnDeliver
         case 'Batch_Conditions' :
-        return viewBatchConditions
-        case 'Customer_Database' :
-        return removeROWID
+            return viewBatchConditions
         case 'Dispatch_Procedures' :
-        return viewDispatchProcedures
+            return viewDispatchProcedures
         case 'Dispatch_Conditions' :
-        return viewDispatchProcedures
+            return viewDispatchProcedures
         case 'Scheduled_Reminders' :
-        return viewScheduledReminders
+            return viewScheduledReminders
         case 'Scheduled_Deliveries' :
-        return viewScheduledDeliveries
+            return viewScheduledDeliveries
         case 'Message_View_Conditions' :
-        return viewViewConditions
+            return viewViewConditions
         case 'Dispatch_Contact_Locator' :
-        return viewDispatchContactLocator
+            return viewDispatchContactLocator
+        // case 'Abend' :
+        //     return removeROWID
+        // case 'Orders' :
+        //     return removeROWID
+        // case 'History' :
+        //     return removeROWID
+        // case 'On_Call' :
+        //     return removeROWID
+        // case 'Picklists' :
+        //     return removeROWID
+        // case 'Skiplists' :
+        //     return removeROWID
+        // case 'Help_Topics' :
+        //     return removeROWID
+        // case 'Customer_Database' :
+        //     return removeROWID
         default:
+            return removeROWID
     }
 }

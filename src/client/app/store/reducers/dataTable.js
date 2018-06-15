@@ -1,7 +1,6 @@
 // library
 import {
     getLastArray,
-    filterTable,
     cleanArr,
 } from '../../services'
 // action keys

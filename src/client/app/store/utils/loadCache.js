@@ -1,31 +1,43 @@
-import {
-    loadCompound,
-    filterTable
-} from '../'
+import { applyView } from '../'
+import { getLastArraY } from '../../services'
 
-import {
-    getLastArray
-} from '../../services'
-
-export const loadFromCache = data => (loadCompound, filterTable) => {
+export const loadFromCache = data => applyView => {
     data = { ...data }
-    let { type, acct, optTable, accts } = data
+    let { type, acct, optTable, accts } = data,
+        targetArray, body = []
     if ( tables.lists.compound.includes(optTable) ) {
-        return loadCompound(data)
-    } // if table data exists in accts.acct.*table*
-    if (accts[acct][optTable].length > 0) {
-            // filter table
-            data.body = filterTable(
-                optTable,
-                // get last instance of table data
-                getLastArray( accts[acct][optTable] )
-            )
-            data.isCached = true
+        // map over tables list
+        tables.compoundLists[optTable].map( targetTable => {
+            // filter and concat most recent cache
+            targetTable = tables.revertKeys[targetTable]
+            // cacheData from target table
+            targetArray = accts[acct][targetTable]
+            // if cache has data
+            if (targetArray.length > 0) {
+                // filter and aggregate data
+                body = [
+                    ...body,
+                    ...(applyView(targetTable)
+                        (getLastArray(targetArray))
+                        (optTable)
+                    )
+                ]
+            }
+        })
     } else {
-        data.body = []
+        // if table data exists in accts.acct[table]
+        if (accts[acct][optTable].length > 0) {
+            // coerce viewTable to table value for single document tables
+            if (! viewTable) viewTable = table
+            // filter table
+            body = body.concat(
+                applyView(optTable)(getLastArray( accts[acct][optTable]))
+            )
+        }
     }
-    return data
+    // strip out undefined / null entries
+    return { body: cleanArr(body) }
 }
 
 export const loadCache = data =>
-    loadFromCache(data)(loadCompound, filterTable)
+    loadFromCache(data)(applyView)
