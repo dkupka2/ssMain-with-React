@@ -21,10 +21,7 @@ export const loadFromCache = data => applyView => {
             // if cache has data
             if (targetArray.length > 0) {
                 // filter and aggregate data
-                body = filterRow(body)
-                    (targetTable)
-                    (targetArray)
-                    (optTable)
+                body = filterRow(body)(targetTable)(targetArray)(optTable)
             }
         })
     } else {
@@ -35,10 +32,7 @@ export const loadFromCache = data => applyView => {
             // coerce viewTable to table value for single document tables
             if (! viewTable) viewTable = table
             // filter table
-            body = filterRow(body)
-                (optTable)
-                (targetArray)
-                (optTable)
+            body = filterRow(body)(optTable)(targetArray)(optTable)
         }
     }
     // strip out undefined / null entries
