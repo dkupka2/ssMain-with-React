@@ -15,7 +15,7 @@ const validateAcct = middleware.check,
     query ='out=json&limit=500',
     eq = `&eq_CLIENT_ID=`
 
-const events = require("../../client/app/store/actions/socketEvents")
+const events = require("../../client/app/store/events/socketEvents")
 let {
     ERROR,
     RESPONSE_BACKUPS,
@@ -90,7 +90,7 @@ module.exports = (io, app) => {
                         console.log("error from rest server: ", body)
                         return relay("rest error", e)
                     }
-                    relay( RESPONSE_RESTAPI, { 
+                    relay( RESPONSE_RESTAPI, {
                         acct,
                         body,
                         table: gTables.convert(table)

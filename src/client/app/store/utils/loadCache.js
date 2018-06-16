@@ -1,12 +1,19 @@
-import { applyView } from '../'
-import { getLastArraY } from '../../services'
+import {
+  applyView,
+  tables,
+} from '../'
+
+import {
+  getLastArraY,
+  cleanArr,
+} from '../../services'
 
 const filterRow = body => target => array => table => [
     ...body,
     ...applyView(target)( getLastArray(array) )(table)
 ]
 
-export const loadFromCache = data => applyView => {
+export const loadFromCache = data => applyView => tables => {
     let targetArray,
         body = [],
         { type, acct, optTable, accts } = data
@@ -40,4 +47,4 @@ export const loadFromCache = data => applyView => {
 }
 
 export const loadCache = data =>
-    loadFromCache(data)(applyView)
+    loadFromCache(data)(applyView)(tables)

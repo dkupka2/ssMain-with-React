@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux'
 
 import {
-    accts,
     acctInput,
+    accts,
     dataTable,
-    tableOptions,
-    socket,
     fileManagement,
-} from '../store'
+    socket,
+    tableOptions,
+} from './'
 
 export const reducer = combineReducers({
-    accts,
     acctInput,
+    accts,
     dataTable,
-    tableOptions,
+    fileManagement,
     socket,
-    fileManagement
+    tableOptions,
 })

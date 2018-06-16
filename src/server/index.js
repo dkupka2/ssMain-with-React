@@ -1,4 +1,4 @@
-"use strict"; 
+"use strict";
 // create IO server instance
 let ioServer = app => {
     const server = require("http").Server(app)

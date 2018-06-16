@@ -1,4 +1,7 @@
-export const callAPI = (acct, type, table) => {
+import { socket } from '../socket'
+import { tables } from '../'
+
+export const callAPI_piRest = acct => type => table => tables => socket => {
     if (type !== 'compound') {
         table = tables[type][table]
         socket.emit( tables.requestKeys[type], {acct, table} )
@@ -15,3 +18,6 @@ export const callAPI = (acct, type, table) => {
         }
     }
 }
+
+export const callAPI = (acct, type, table) =>
+    callAPI_piRest(acct)(type)(table)(tables)(socket)
