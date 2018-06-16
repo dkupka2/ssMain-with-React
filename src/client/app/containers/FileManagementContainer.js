@@ -15,19 +15,21 @@ import {
 } from '../components/'
 // action creators
 import {
-    openOptions,
-    closeOptions,
+    toggleOptions,
     backupAcct,
 } from '../store/'
 
 class FileManagementContainer extends Component {
+    handleToggleOptions = () => {
+        this.props.toggleOptions(this.props.open)
+    }
+
     render() {
         let {
             selector,
             open,
             backupOptions,
-            openOptions,
-            closeOptions,
+            toggleOptions,
             backupAcct,
             backupValue,
         } = this.props
@@ -69,15 +71,17 @@ class FileManagementContainer extends Component {
             }
             return 'no backups'
         }
+
+
         return(
             <div
                 className={parentSelector} >
                 <Button
-                    click={openOptions}
+                    click={this.handleToggleOptions}
                     prompt='file options'
                     selector={openButtonSelector} />
                 <Button
-                    click={closeOptions}
+                    click={this.handleToggleOptions}
                     prompt='x'
                     selector={closeButtonSelector} />
                 <p
@@ -105,8 +109,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
     return {
         backupAcct: () => dispatch( backupAcct() ),
-        openOptions: () => dispatch( openOptions() ),
-        closeOptions: () => dispatch( closeOptions() ),
+        toggleOptions: (open) => dispatch( toggleOptions(open) ),
     }
 }
 
