@@ -11,7 +11,7 @@ import {
     RENDER_TABLE,
     TABLE_NOT_CACHED,
     // action creators
-    renderTable
+    checkCache_curry
 } from '../'
 // state
 const initialState = {

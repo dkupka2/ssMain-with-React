@@ -20,7 +20,7 @@ import {
     changeTable,
     restRequest,
     loadCache,
-    renderTable,
+    checkCache_curry,
     // keys
     tables,
 } from '../'

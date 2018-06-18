@@ -1,15 +1,17 @@
 import { socket } from '../socket'
 import { tables } from '../'
 
-export const callAPI_piRest = acct => type => table => tables => socket => {
+export const callAPI_piRest = acct => type => view => tables => socket => {
     if (type !== 'compound') {
-        table = tables[type][table]
-        socket.emit( tables.requestKeys[type], {acct, table} )
+        socket.emit( tables.requestKeys[type], {
+            acct,
+            table: tables[type][view]
+        })
     } else { // get tables by compound table
-        for ( let type of Object.keys( tables.compound[table] ) ) {
-            tables.compound[table][type].map( (key) => {
+        for ( let doc of Object.keys( tables.compound[view] ) ) {
+            tables.compound[view][doc].map( (key) => {
                 socket.emit(
-                    tables.requestKeys[type], {
+                    tables.requestKeys[doc], {
                         acct,
                         table: key
                     }

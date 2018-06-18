@@ -13,7 +13,7 @@ import {
     // accts
     changeSelect,
     // dataTable
-    renderTable,
+    checkCache_curry,
 } from '../store/'
 
 class AcctsContainer extends Component {

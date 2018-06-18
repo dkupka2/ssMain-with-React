@@ -1,19 +1,4 @@
-import {
-  applyView,
-  tables,
-} from '../'
-
-import {
-  getLastArraY,
-  cleanArr,
-} from '../../services'
-
-const filterRow = body => target => array => table => [
-    ...body,
-    ...applyView(target)( getLastArray(array) )(table)
-]
-
-export const loadFromCache = data => applyView => tables => {
+export const loadCache = data => applyView => tables => makeBody => clean => {
     let targetArray,
         body = [],
         { type, acct, optTable, accts } = data
@@ -28,7 +13,7 @@ export const loadFromCache = data => applyView => tables => {
             // if cache has data
             if (targetArray.length > 0) {
                 // filter and aggregate data
-                body = filterRow(body)(targetTable)(targetArray)(optTable)
+                body = makeBody(body)(targetTable)(targetArray)(optTable)
             }
         })
     } else {
@@ -39,12 +24,9 @@ export const loadFromCache = data => applyView => tables => {
             // coerce viewTable to table value for single document tables
             if (! viewTable) viewTable = table
             // filter table
-            body = filterRow(body)(optTable)(targetArray)(optTable)
+            body = makeBody(body)(optTable)(targetArray)(optTable)
         }
     }
     // strip out undefined / null entries
-    return { body: cleanArr(body) }
+    return { body: clean(body) }
 }
-
-export const loadCache = data =>
-    loadFromCache(data)(applyView)(tables)

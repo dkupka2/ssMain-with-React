@@ -2,8 +2,8 @@ import { compose } from '../../services'
 
 import {
     loadCache,
-    renderTable
+    checkCache_curry
 } from '../'
 
 export const renderFromCache = data =>
-    compose(loadCache, renderTable, data)
+    compose(loadCache, checkCache_curry, data)
