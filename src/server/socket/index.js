@@ -17,7 +17,8 @@ const validateAcct = middleware.check,
 
 const events = require("../../client/app/store/events/socketEvents")
 let {
-    ERROR,
+    PARSE_ERROR,
+    REST_ERROR,
     RESPONSE_BACKUPS,
     RESPONSE_RESTAPI,
     RESPONSE_VALIDATION,
@@ -79,16 +80,17 @@ module.exports = (io, app) => {
             request(
                 {
                     url: URI,
-                    headers: { "authorization": auth }
+                    headers: {"authorization": auth}
                 }, (err, response, body) => {
                     if (err) {
-                        console.log("error: ", err)
+                        console.log(err)
+                        return relay(REST_ERROR)
                     }
                     try {
                         JSON.parse(body)
                     } catch (e) {
-                        console.log("error from rest server: ", body)
-                        return relay("rest error", e)
+                        console.log(e)
+                        return relay(PARSE_ERROR)
                     }
                     relay( RESPONSE_RESTAPI, {
                         acct,

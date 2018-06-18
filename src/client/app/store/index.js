@@ -18,7 +18,7 @@ export const BACKUP_ACCT = 'BACKUP_ACCT'
 // events
 import events from './events/socketEvents'
 export const {
-    ERROR,
+    REST_ERROR,
     RESPONSE_BACKUP,
     RESPONSE_RESTAPI,
     RESPONSE_VALIDATE_CLIENT,
