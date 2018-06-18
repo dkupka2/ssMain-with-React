@@ -4,5 +4,9 @@ import {
     makeHeaders,
 } from '../'
 
+import {
+  isArrayWithEls,
+} from '../../services/'
+
 export const checkCache_curry = data =>
-    checkCache(data)(makeHeaders)(filterRows)
+    checkCache(data)(makeHeaders)(filterRows)(isArrayWithEls)
