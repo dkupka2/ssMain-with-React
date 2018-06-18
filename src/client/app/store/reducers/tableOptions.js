@@ -15,6 +15,7 @@ import {
     REQUEST_LOCAL,
     REQUEST_GLOBAL,
     LOAD_FAILURE,
+    REST_ERROR,
     // action creators
     changeType,
     changeTable,
@@ -59,7 +60,8 @@ export const tableOptions = (state = initialState, action) => {
                 messageClass: 'tableOptions_p tableOptions_p_render'
             }
         case LOAD_FAILURE:
-            return { ...state,
+            return {
+                ...state,
                 message: 'No table to load!',
                 messageClass: 'tableOptions_p tableOptions_p_fail'
             }
@@ -67,6 +69,12 @@ export const tableOptions = (state = initialState, action) => {
             return {
                 ...state,
                 message: 'Please load table to view',
+                messageClass: 'tableOptions_p tableOptions_p_fail'
+            }
+        case REST_ERROR:
+            return {
+                ...state,
+                message: `${value} - see console for info`,
                 messageClass: 'tableOptions_p tableOptions_p_fail'
             }
         default:
