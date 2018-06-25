@@ -21,7 +21,7 @@ class App extends Component {
             <div>
                 <AcctInputContainer />
                 <AcctsContainer />
-                <FileManagementContainer />
+                { /* <FileManagementContainer /> */ }
                 <TableOptionsContainer />
                 <DataTableContainer />
                 <SocketContainer />
