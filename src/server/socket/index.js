@@ -2,18 +2,25 @@
 
 const request = require("request")
 const middleware = require("../middleware")
-const globals = require("../../../global")
+const config = require("../../../config")
 
-const validateAcct = middleware.check,
+const option = process.argv[2] ?
+        process.argv[2] :
+        null,
+    validateAcct = middleware.check,
     getBackUps = middleware.getBackUps,
-    apis = globals.apis,
-    creds = globals.creds,
-    url = apis.pirest,
+    apis = config.apis,
+    creds = config.creds,
+    url = option === 'dev' ?
+        `${apis.rest}:${apis.devPort}${apis.request}` :
+        `${apis.rest}${apis.request}`,
     user = creds.username,
     pass = creds.password,
     auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64"),
     query ='out=json&limit=500',
     eq = `&eq_CLIENT_ID=`
+
+console.log(`url: ${url}`)
 
 const events = require("../../client/app/store/events/socketEvents")
 let {

@@ -5,7 +5,7 @@ const path = require("path"),
     app = express(),
     ssMain = require("./index.js")
 
-const appPath = require("../../global.js").paths.app
+const appPath = require("../../config.js").paths.app
 
 app.set("port", process.env.PORT || 8000)
 

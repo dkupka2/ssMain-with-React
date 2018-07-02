@@ -6,6 +6,7 @@
 
 # secure
 global.js
+config.js
 
 # misc
 tableKeyTypes.data

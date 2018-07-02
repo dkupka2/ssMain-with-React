@@ -7,6 +7,7 @@
     "test": "mocha --recursive --require babel-core/register ./tests/",
     "test-j": "mocha --recursive --require babel-core/register ./tests/ -R json-stream > report",
     "start": "node src/server/server.js",
+    "dev": "node src/server/server.js dev",
     "build": "webpack",
     "watch": "webpack --watch -d"
   },

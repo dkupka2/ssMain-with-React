@@ -5,8 +5,8 @@ const promisify = require('util').promisify
 const copy = promisify(fs.copyFile)
 const readdir = promisify(fs.readdir)
 const pGlob = promisify(glob.glob)
-// drive letter from globals
-const drive = require("../../../global.js").paths.root
+// drive letter from config
+const drive = require("../../../config.js").paths.root
 
 let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns
 
