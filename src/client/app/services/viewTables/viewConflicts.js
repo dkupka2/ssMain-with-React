@@ -16,7 +16,7 @@ export const viewConflicts = table => row => {
         TESTFIELD,
         TYPE,
     } = row
-        switch(viewTable) {
+        switch(table) {
         case 'Form' :
                 prc = `P:${PAGE_NUM} R:${L_ROW} C:${L_COL}`
             if (GET_FIELD && FORMULA) {

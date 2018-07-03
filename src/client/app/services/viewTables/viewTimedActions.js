@@ -1,3 +1,5 @@
+import { convertPiValues } from '../'
+
 export const viewTimedActions = row => {
     let {
         TYPE,
@@ -7,9 +9,10 @@ export const viewTimedActions = row => {
         TASDSTATUS,
         DATE,
         TIME,
+        INCLUDE,
         EXCLUDE,
         ACTIVE,
-        DATpIA
+        DATA
     } = row
     return {
         TYPE,

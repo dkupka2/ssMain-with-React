@@ -1,9 +1,9 @@
-import cacheTable from '../'
-import renderFromCache from '../'
+import {
+    cacheTable,
+    renderFromCache,
+} from '../'
 
-export const restResponse = payload => {
-    return dispatch => {
-        dispatch( cacheTable(payload) )
-        dispatch( renderFromCache(payload) )
-    }
+export const restResponse = payload => dispatch => {
+    dispatch( cacheTable(payload) )
+    dispatch( renderFromCache(payload) )
 }

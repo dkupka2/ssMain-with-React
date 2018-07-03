@@ -1,4 +1,6 @@
-export const viewScheduledReminder = row => {
+import { convertPiValues } from '../'
+
+export const viewScheduledReminders = row => {
     let {
         DESC,
         CONDITION,

@@ -1,3 +1,5 @@
+import { convertPiValues } from '../'
+
 export const viewContacts = row => {
     let {
         NAME,

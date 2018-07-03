@@ -30,20 +30,15 @@ class SocketContainer extends Component {
             this.props.restResponse(payload)
         })
         socket.on(PARSE_ERROR, (e) => {
-          this.props.restError('error parsing response from RestAPI server')
+            this.props.restError('error parsing response from RestAPI server')
         })
         socket.on(REST_ERROR, (e) => {
-          this.props.restError('error response from RestAPI server')
+            this.props.restError('error response from RestAPI server')
         })
 
     }
 
-    render() {
-        return(
-            <div className='hidden'>
-            </div>
-        )
-    }
+    render() { return( <div className='hidden'></div> ) }
 }
 
 const mapState = state => {
@@ -55,8 +50,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        validateClient: (data) => dispatch( validateClient(data) ),
-        restResponse: (payload) => dispatch( restResponse(payload) ),
+        validateClient: (payload) => dispatch( validateClient(payload) ),
+        restResponse: (payload) => restResponse(payload)(dispatch),
         restError: (payload) => dispatch( restError(payload) )
     }
 }

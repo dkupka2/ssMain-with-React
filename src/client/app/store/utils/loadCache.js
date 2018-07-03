@@ -21,8 +21,6 @@ export const loadCache = data => applyView => tables => makeBody => clean => {
         targetArray = accts[acct][optTable]
         // if table data exists in accts.acct[table]
         if (targetArray.length > 0) {
-            // coerce viewTable to table value for single document tables
-            if (! viewTable) viewTable = table
             // filter table
             body = makeBody(body)(optTable)(targetArray)(optTable)
         }

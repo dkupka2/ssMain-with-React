@@ -1,17 +1,19 @@
-import { viewAutoOnDeliver } from '../'
-import { viewAutoOnSave } from '../'
-import { viewBatchConditions } from '../'
-import { viewConflicts } from '../'
-import { viewContacts } from '../'
-import { viewDispatchConditions } from '../'
-import { viewDispatchContactLocator } from '../'
-import { viewDispatchProcedures } from '../'
-import { viewForm } from '../'
-import { viewScheduledDeliveries } from '../'
-import { viewScheduledReminders } from '../'
-import { viewTimedActions } from '../'
-import { viewViewConditions } from '../'
-
+import {
+    viewAutoOnDeliver,
+    viewAutoOnSave,
+    viewBatchConditions,
+    viewConflicts,
+    viewContacts,
+    viewDispatchConditions,
+    viewDispatchContactLocator,
+    viewDispatchProcedures,
+    viewForm,
+    viewScheduledDeliveries,
+    viewScheduledReminders,
+    viewTimedActions,
+    viewViewConditions,
+    removeROWID,
+} from '../'
 // return a function to filter each row
 export const filterPiTable = table => viewTable => {
     switch(viewTable) {
