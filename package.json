@@ -6,8 +6,9 @@
   "scripts": {
     "test": "mocha --recursive --require babel-core/register ./tests/",
     "test-j": "mocha --recursive --require babel-core/register ./tests/ -R json-stream > report",
-    "start": "node src/server/server.js",
-    "dev": "node src/server/server.js dev",
+    "start": "echo use npm run dev-rest to use the Rest API dev port until further notice",
+    "dev-rest": "node src/server/server.js dev-rest",
+    "dev-server": "node src/server/server.js dev",
     "build": "webpack",
     "watch": "webpack --watch -d"
   },

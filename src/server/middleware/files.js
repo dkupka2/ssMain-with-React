@@ -5,8 +5,11 @@ const promisify = require('util').promisify
 const copy = promisify(fs.copyFile)
 const readdir = promisify(fs.readdir)
 const pGlob = promisify(glob.glob)
+// config from index
+const config = require('../').config
 // drive letter from config
-const drive = require("../../../config.js").paths.root
+const drive = config('paths').root
+const option = require('../').option
 
 let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns
 
@@ -40,7 +43,7 @@ let timeStamp = () => {
     return `${year}_${month}_${day}_${hour}_${minute}`
 }
 
-let init = (acctNumber, time, drive = "E") => {
+let init = (acctNumber, time, drive = drive) => {
     dir = `${drive}:/ORDENTRY`
     acctNum = `/${acctNumber}`
     acct = `${dir}${acctNum}`

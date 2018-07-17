@@ -18,11 +18,10 @@ export const viewConflicts = table => row => {
     } = row
         switch(table) {
         case 'Form' :
-                prc = `P:${PAGE_NUM} R:${L_ROW} C:${L_COL}`
             if (GET_FIELD && FORMULA) {
                 return {
                     document: 'oe form',
-                    location: prc,
+                    location: `P:${PAGE_NUM} R:${L_ROW} C:${L_COL}`,
                     condition: `${GET_FIELD} : ${FORMULA}`,
                     active: `${
                         FORMULA &&
