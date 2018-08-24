@@ -1,46 +1,58 @@
-  .hidden {
-  	display: none;
-} div.accts,
-  div.tableOptions {
-	display: block;
-	margin-bottom: 20px;
-} .accts_div,
-  .accts_p,
-  .accts_select,
-  .tableOptions_type_div,
-  .tableOptions_type_p,
-  .tableOptions_table_p,
-  div.acctInput_innerDiv {
-	display: inline;
-} select.accts_select {
-	margin-left: 15px;
-} div.tableOptions_table_div {
-	display: block;
-	margin-left: 0px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-} div.tableOptions_submit_div,
-  div.tableOptions_messageDiv {
-	display: inline;
-} div.acctInput_div,
-  div.fileManagement_parentDiv {
-	margin-bottom: 20px;
-} div.fileManagement_parentDiv_open {
-	height: 60px;
-	border: 2px solid;
-} div.fileManagement_closeButton_div {
-	float: right;
-} p.acctInput_p,
-  p.tableOptions_p {
-	display: inherit;
-	margin-left: 15px;
-} p.acctInput_p_looking,
-  p.tableOptions_p_loading {
-	color: yellow;
-} p.acctInput_p_valid,
-  p.tableOptions_p_render {
-	color: green;
-} p.acctInput_p_invalid,
-  p.tableOptions_p_fail {
-	color: red;
+.hidden {
+  display: none;
+}
+div.accts,
+div.tableOptions {
+  display: block;
+  margin-bottom: 20px;
+}
+.accts_div,
+.accts_p,
+.accts_select,
+.tableOptions_type_div,
+.tableOptions_type_p,
+.tableOptions_table_p,
+div.acctInput_innerDiv {
+  display: inline;
+}
+select.accts_select {
+  margin-left: 15px;
+}
+div.tableOptions_table_div {
+  display: block;
+  margin-left: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+div.tableOptions_submit_div,
+div.tableOptions_messageDiv {
+  display: inline;
+}
+div.acctInput_div,
+div.fileManagement_parentDiv {
+  margin-bottom: 20px;
+}
+div.fileManagement_parentDiv_open {
+  height: 60px;
+  border: 2px solid;
+}
+div.fileManagement_closeButton_div {
+  float: right;
+}
+p.acctInput_p,
+p.tableOptions_p {
+  display: inherit;
+  margin-left: 15px;
+}
+p.acctInput_p_looking,
+p.tableOptions_p_loading {
+  color: yellow;
+}
+p.acctInput_p_valid,
+p.tableOptions_p_render {
+  color: green;
+}
+p.acctInput_p_invalid,
+p.tableOptions_p_fail {
+  color: red;
 }

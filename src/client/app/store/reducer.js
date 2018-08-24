@@ -1,19 +1,19 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from "redux";
 
 import {
-    acctInput,
-    accts,
-    dataTable,
-    fileManagement,
-    socket,
-    tableOptions,
-} from './'
+  acctInput,
+  accts,
+  dataTable,
+  fileManagement,
+  socket,
+  tableOptions
+} from "./";
 
 export const reducer = combineReducers({
-    acctInput,
-    accts,
-    dataTable,
-    fileManagement,
-    socket,
-    tableOptions,
-})
+  acctInput,
+  accts,
+  dataTable,
+  fileManagement,
+  socket,
+  tableOptions
+});

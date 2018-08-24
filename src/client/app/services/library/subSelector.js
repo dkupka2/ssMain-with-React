@@ -1,5 +1,2 @@
-export const subSelector = (selector, element) => {
-    return selector === 'hidden' ?
-        'hidden' :
-        `${selector}_${element}`
-}
+export const subSelector = (selector, element) =>
+  selector === "hidden" ? "hidden" : `${selector}_${element}`;

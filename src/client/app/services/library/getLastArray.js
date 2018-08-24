@@ -1,5 +1,4 @@
-import { isArrayWithEls } from '../'
+import { isArrayWithEls } from "../";
 
-export const getLastArray = arr => isArrayWithEls(arr) ?
-        arr[arr.length-1] :
-        []
+export const getLastArray = arr =>
+  isArrayWithEls(arr) ? arr[arr.length - 1] : [];

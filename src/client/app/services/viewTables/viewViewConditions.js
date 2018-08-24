@@ -1,8 +1,8 @@
 export const viewViewConditions = row => {
-    let { ORDER, TEMPLATE, FORMULA } = row
-    return {
-        ORDER,
-        TEMPLATE,
-        FORMULA
-    }
-}
+  let { ORDER, TEMPLATE, FORMULA } = row;
+  return {
+    ORDER,
+    TEMPLATE,
+    FORMULA
+  };
+};
