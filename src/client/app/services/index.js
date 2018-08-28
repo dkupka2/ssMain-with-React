@@ -18,6 +18,7 @@ export { removeROWID } from "./library/removeROWID";
 export { selectOptions } from "./library/selectOptions";
 export { showIfTrue } from "./library/showIfTrue";
 export { subSelector } from "./library/subSelector";
+export { getSelector } from "./library/getSelector";
 
 // viewTables
 export { viewAutoOnDeliver } from "./viewTables/viewAutoOnDeliver";
