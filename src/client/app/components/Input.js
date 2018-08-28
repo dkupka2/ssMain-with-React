@@ -13,16 +13,16 @@ const Input = props => {
   } = props;
 
   return (
-    <div className={getSelector("div")}>
-      <p className={getSelector("p")}>{prompt}</p>
-      <div className={getSelector("innerDiv")}>
+    <div className={getSelector("div")(selector)}>
+      <p className={getSelector("p")(selector)}>{prompt}</p>
+      <div className={getSelector("innerDiv")(selector)}>
         <input
-          className={getSelector("input")}
+          className={getSelector("input")(selector)}
           type="text"
           value={value}
           onChange={change}
         />
-        <button className={getSelector("button")} onClick={submit}>
+        <button className={getSelector("button")(selector)} onClick={submit}>
           Submit
         </button>
         <p className={messageSelector}>{message}</p>

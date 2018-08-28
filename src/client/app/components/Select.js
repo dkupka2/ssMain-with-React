@@ -5,9 +5,13 @@ const Select = props => {
   let { selector, prompt, value, change, options } = props;
 
   return (
-    <div className={getSelector("div")}>
-      <p className={getSelector("p")}>{prompt}</p>
-      <select className={getSelector("select")} value={value} onChange={change}>
+    <div className={getSelector("div")(selector)}>
+      <p className={getSelector("p")(selector)}>{prompt}</p>
+      <select
+        className={getSelector("select")(selector)}
+        value={value}
+        onChange={change}
+      >
         {options}
       </select>
     </div>
