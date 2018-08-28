@@ -46,7 +46,11 @@ class AcctsContainer extends Component {
     });
   };
   handleTableLoad = (acct, type, optTable) => {
-    this.props.restRequest({ acct, type, optTable });
+    this.props.restRequest(
+      this.props.selectedAcct,
+      this.props.type,
+      this.props.table
+    );
   };
 
   render() {
@@ -70,13 +74,7 @@ class AcctsContainer extends Component {
           <Button
             selector="tableOptions_submit"
             prompt="load table"
-            click={() => {
-              this.handleTableLoad(
-                this.props.selectedAcct,
-                this.props.type,
-                this.props.table
-              );
-            }}
+            click={this.handleTableLoad}
           />
           <p className={this.props.messageClass}>{this.props.message} </p>
         </div>
