@@ -45,7 +45,7 @@ class AcctsContainer extends Component {
       optTable: e.target.value
     });
   };
-  handleTableLoad = (acct, type, optTable) => {
+  handleTableLoad = () => {
     this.props.restRequest(
       this.props.selectedAcct,
       this.props.type,

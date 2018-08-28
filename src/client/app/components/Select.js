@@ -1,9 +1,9 @@
 import React from "react";
-import { subSelector } from "../services";
+import { getSelector } from "../services";
 
 const Select = props => {
   let { selector, prompt, value, change, options } = props;
-  let getSelector = element => subSelector(selector, element);
+
   return (
     <div className={getSelector("div")}>
       <p className={getSelector("p")}>{prompt}</p>
