@@ -46,11 +46,11 @@ class AcctsContainer extends Component {
     });
   };
   handleTableLoad = () => {
-    this.props.restRequest(
-      this.props.selectedAcct,
-      this.props.type,
-      this.props.table
-    );
+    this.props.restRequest({
+      acct: this.props.selectedAcct,
+      type: this.props.type,
+      view: this.props.table
+    });
   };
 
   render() {
