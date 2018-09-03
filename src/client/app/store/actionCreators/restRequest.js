@@ -6,6 +6,6 @@ export const restRequest = data => {
   return {
     type: SUBMIT_REQUEST,
     acct,
-    optTable
+    view
   };
 };

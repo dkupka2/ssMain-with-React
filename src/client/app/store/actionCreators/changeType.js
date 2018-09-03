@@ -5,6 +5,6 @@ export const changeType = data => dispatch => {
   dispatch({
     type: SELECT_TYPE,
     tableType: data.type,
-    table: data.optTable
+    table: data.view
   });
 };

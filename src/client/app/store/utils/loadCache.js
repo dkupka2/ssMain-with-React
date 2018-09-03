@@ -1,11 +1,11 @@
 export const loadCache = data => applyView => tables => makeBody => clean => {
   let targetArray,
     body = [],
-    { type, acct, optTable, accts } = data;
+    { type, acct, view, accts } = data;
   // if selected view is a compound table
-  if (tables.lists.compound.includes(optTable)) {
+  if (tables.lists.compound.includes(view)) {
     // iterate over tables list
-    tables.compoundLists[optTable].forEach(targetTable => {
+    tables.compoundLists[view].forEach(targetTable => {
       // revert each table name to human readable
       targetTable = tables.revertKeys[targetTable];
       // cacheData from each target table
@@ -13,16 +13,16 @@ export const loadCache = data => applyView => tables => makeBody => clean => {
       // if cache has data
       if (targetArray.length > 0) {
         // filter and aggregate data
-        body = makeBody(body)(targetTable)(targetArray)(optTable);
+        body = makeBody(body)(targetTable)(targetArray)(view);
       }
     });
   } else {
     // cacheData from selected table
-    targetArray = accts[acct][optTable];
+    targetArray = accts[acct][view];
     // if table data exists in accts.acct[table]
     if (targetArray.length > 0) {
       // filter table
-      body = makeBody(body)(optTable)(targetArray)(optTable);
+      body = makeBody(body)(view)(targetArray)(view);
     }
   }
   // strip out undefined / null entries

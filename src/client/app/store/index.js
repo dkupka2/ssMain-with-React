@@ -68,5 +68,3 @@ export { loadCache } from "./utils/loadCache";
 export { loadCache_curry } from "./utils/loadCache_curry";
 export { renderFromCache } from "./utils/renderFromCache";
 export { restResponse } from "./utils/restResponse";
-
-// tests

@@ -9,7 +9,7 @@ export const changeTable_dispatch = data => render => dispatch => {
   dispatch(render(data));
   dispatch({
     type: SELECT_TABLE,
-    value: data.optTable
+    value: data.view
   });
 };
 

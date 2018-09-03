@@ -25,7 +25,7 @@ class SocketContainer extends Component {
         resTable: data.table,
         data: JSON.parse(data.body),
         accts: this.props.accts,
-        optTable: this.props.table
+        view: this.props.table
       };
       this.props.restResponse(payload);
     });

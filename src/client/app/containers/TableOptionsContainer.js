@@ -34,7 +34,7 @@ class AcctsContainer extends Component {
       type: e.target.value,
       acct: this.props.selectedAcct,
       accts: this.props.accts,
-      optTable: tables.default[e.target.value]
+      view: tables.default[e.target.value]
     });
   };
   handleTableChange = e => {
@@ -42,7 +42,7 @@ class AcctsContainer extends Component {
       type: this.props.type,
       acct: this.props.selectedAcct,
       accts: this.props.accts,
-      optTable: e.target.value
+      view: e.target.value
     });
   };
   handleTableLoad = () => {
