@@ -4,8 +4,8 @@ export const loadCache = data => applyView => tables => makeBody => clean => {
     { type, acct, optTable, accts } = data;
   // if selected view is a compound table
   if (tables.lists.compound.includes(optTable)) {
-    // map over tables list
-    tables.compoundLists[optTable].map(targetTable => {
+    // iterate over tables list
+    tables.compoundLists[optTable].forEach(targetTable => {
       // revert each table name to human readable
       targetTable = tables.revertKeys[targetTable];
       // cacheData from each target table

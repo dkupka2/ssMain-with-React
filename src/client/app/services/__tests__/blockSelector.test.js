@@ -15,7 +15,7 @@ describe("blockSelector", () => {
     assert.equal(
       blockSelector(true, "string", true, ""),
       "string",
-      `${fail} (arg2) as when (arg1) & arg(3) are both true`
+      `${fail} (arg2) when (arg1) & arg(3) are both true`
     );
   });
   it("returns (arg4) if (arg3) is true and (arg1) is not true", () => {

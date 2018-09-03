@@ -8,7 +8,7 @@ export const makeHeaders = tableStructure => filterRows => {
       accessor: column,
       id: column,
       filterAll: false,
-      filterMethod: (filter, row) => filterRows(filter, row, column)
+      filterMethod: (fValue, row) => filterRows(fValue, row, column)
     })
   );
   return headers;

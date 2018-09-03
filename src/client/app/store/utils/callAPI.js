@@ -2,7 +2,7 @@ import { socket } from "../socket";
 import { tables } from "../";
 
 export const callAPI_piRest = acct => type => view => tables => socket => {
-  // view is only one document requested selected view
+  // if view is only one document: request selected view
   if (type !== "compound") {
     socket.emit(tables.requestKeys[type], {
       acct,
@@ -11,7 +11,7 @@ export const callAPI_piRest = acct => type => view => tables => socket => {
   } else {
     // else get each document for selected compound view
     for (let doc of Object.keys(tables.compound[view])) {
-      tables.compound[view][doc].map(key => {
+      tables.compound[view][doc].forEach(key => {
         socket.emit(tables.requestKeys[doc], {
           acct,
           table: key

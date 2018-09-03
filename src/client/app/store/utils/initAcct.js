@@ -1,5 +1,5 @@
 export const initAcct = list => {
   let obj = {};
-  list.map(table => (obj[table] = []));
+  list.forEach(table => (obj[table] = []));
   return obj;
 };
