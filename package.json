@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive --require babel-core/register ./tests/",
-    "test-j": "mocha --recursive --require babel-core/register ./tests/ -R json-stream > report",
+    "test": "mocha --recursive --require babel-core/register ./tests/ --exit",
+    "test-j": "mocha --recursive --require babel-core/register ./tests/ -R json-stream > report --exit",
     "start": "node src/server/server.js dev-rest",
     "dev-server": "node src/server/server.js dev",
     "build": "webpack",
