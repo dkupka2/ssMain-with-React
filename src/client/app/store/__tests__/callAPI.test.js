@@ -97,49 +97,49 @@ describe("callAPI - compound table tests", () => {
     assert.equal(
       socket.events[socket.tracking["localOne"]].data.acct,
       1,
-      `${fail} a single-table request event with expected acct value`
+      `${fail} one event of three with expected acct value - localOne`
     );
     assert.equal(
       socket.events[socket.tracking["localOne"]].data.table,
       "localOne",
-      `${fail} a single-table request event with expected table value`
+      `${fail} one event of three with expected table value - localOne`
     );
     assert.equal(
       socket.events[socket.tracking["localOne"]].event,
       "REQUEST_LOCAL",
-      `${fail} a single-table request event with expected event value`
+      `${fail} one event of three with expected event value - localOne`
     );
     // localTwo
     assert.equal(
       socket.events[socket.tracking["localTwo"]].data.acct,
       1,
-      `${fail} a single-table request event with expected acct value`
+      `${fail} one event of three with expected acct value - localTwo`
     );
     assert.equal(
       socket.events[socket.tracking["localTwo"]].data.table,
       "localTwo",
-      `${fail} a single-table request event with expected table value`
+      `${fail} one event of three with expected table value - localTwo`
     );
     assert.equal(
       socket.events[socket.tracking["localTwo"]].event,
       "REQUEST_LOCAL",
-      `${fail} a single-table request event with expected event value`
+      `${fail} one event of three with expected event value - localTwo`
     );
     // globalOne
     assert.equal(
       socket.events[socket.tracking["globalOne"]].data.acct,
       1,
-      `${fail} a single-table request event with expected acct value`
+      `${fail} one event of three with expected acct value - globalOne`
     );
     assert.equal(
       socket.events[socket.tracking["globalOne"]].data.table,
       "globalOne",
-      `${fail} a single-table request event with expected table value`
+      `${fail} one event of three with expected table value - globalOne`
     );
     assert.equal(
       socket.events[socket.tracking["globalOne"]].event,
       "REQUEST_GLOBAL",
-      `${fail} a single-table request event with expected event value`
+      `${fail} one event of three with expected event value - globalOne`
     );
   });
 });
