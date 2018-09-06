@@ -9,15 +9,15 @@ export const callAPI_piRest = acct => type => view => tables => socket => {
       table: tables[type][view]
     });
   } else {
-    // else get each document for selected compound view
-    for (let doc of Object.keys(tables.compound[view])) {
-      tables.compound[view][doc].forEach(key => {
-        socket.emit(tables.requestKeys[doc], {
+    // get each doc for each doc type in selected compound view
+    Object.keys(tables.compound[view]).forEach(docType => {
+      tables.compound[view][docType].forEach(doc => {
+        socket.emit(tables.requestKeys[docType], {
           acct,
-          table: key
+          table: doc
         });
       });
-    }
+    });
   }
 };
 
