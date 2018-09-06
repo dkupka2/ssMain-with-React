@@ -12,28 +12,27 @@ let ioServer = app => {
 };
 // check command for option
 const option = process.argv[2] ? process.argv[2] : null;
-// mock config settings & reference for new users
-const configMock = {
+// config settings, credentials should come from environmental variable
+const configs = {
   paths: {
-    root: null,
-    script: null,
+    root: process.env.SSMAIN_ROOT | "e:",
+    script: process.env.PIATA_SCRIPT | "\\scripts\\eriknowledgence",
     app: null
   },
   apis: {
-    rest: null,
-    devPort: null,
-    request: null
+    rest: process.env.RESTAPI_URL | "https://rest-api.bpeinc.com",
+    devPort: process.env.RESTAPI_PORT | "443",
+    request: process.env.RESTAPI_REQUEST | "/v1/ORDENTRY/"
   },
   creds: {
-    username: null,
-    password: null
+    username: process.env.USERNAME | null,
+    password: process.env.RESTAPI_PW | null
   }
 };
 
 const config = request => {
-  // if dev mode point to mock config settings else get settings from config.js
-  let configSource = option === "dev" ? configMock : require("../../config");
-  return configSource[request];
+  // if not dev mode get settings from configs object
+  return option === "dev" ? {} : configs[request];
 };
 
 const mockTable = table => {

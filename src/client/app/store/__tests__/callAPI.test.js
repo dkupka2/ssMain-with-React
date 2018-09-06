@@ -27,7 +27,7 @@ describe("callAPI - single table tests", () => {
         view: "view name"
       }
     };
-    callAPI_piRest(acct)(type)(view)(tables)(socket);
+    callAPI_piRest(acct)(type)(view)(tables)(socket.emit);
   });
   afterEach(() => {
     socket.events = [];
@@ -79,7 +79,7 @@ describe("callAPI - compound table tests", () => {
         }
       }
     };
-    callAPI_piRest(acct)(type)(view)(tables)(socket);
+    callAPI_piRest(acct)(type)(view)(tables)(socket.emit);
   });
   afterEach(() => {
     socket.events = [];
