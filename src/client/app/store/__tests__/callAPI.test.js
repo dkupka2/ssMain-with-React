@@ -6,10 +6,11 @@ const fail = "callAPI did not return";
 let acct, type, view;
 let tables = {};
 let socket = {
+  tracking: {},
   events: [],
   emit(event, data) {
+    socket.tracking[data.table] = socket.events.length;
     socket.events = [...socket.events, { event, data }];
-    return socket.events;
   }
 };
 
@@ -30,6 +31,7 @@ describe("callAPI - single table tests", () => {
   });
   afterEach(() => {
     socket.events = [];
+    socket.tracking = {};
   });
   it("calls emit once if type is not 'compound'", () => {
     assert.equal(
@@ -81,6 +83,7 @@ describe("callAPI - compound table tests", () => {
   });
   afterEach(() => {
     socket.events = [];
+    socket.tracking = {};
   });
   it("calls emit for each doc in the selected compound view", () => {
     assert.equal(
@@ -89,7 +92,54 @@ describe("callAPI - compound table tests", () => {
       `${fail} a compound table request with the right number of events`
     );
   });
-  // it("emits a request event for each table with expected props/vals", () => {
-
-  // })
+  it("emits a request event for each table with expected props/vals", () => {
+    // localOne
+    assert.equal(
+      socket.events[socket.tracking["localOne"]].data.acct,
+      1,
+      `${fail} a single-table request event with expected acct value`
+    );
+    assert.equal(
+      socket.events[socket.tracking["localOne"]].data.table,
+      "localOne",
+      `${fail} a single-table request event with expected table value`
+    );
+    assert.equal(
+      socket.events[socket.tracking["localOne"]].event,
+      "REQUEST_LOCAL",
+      `${fail} a single-table request event with expected event value`
+    );
+    // localTwo
+    assert.equal(
+      socket.events[socket.tracking["localTwo"]].data.acct,
+      1,
+      `${fail} a single-table request event with expected acct value`
+    );
+    assert.equal(
+      socket.events[socket.tracking["localTwo"]].data.table,
+      "localTwo",
+      `${fail} a single-table request event with expected table value`
+    );
+    assert.equal(
+      socket.events[socket.tracking["localTwo"]].event,
+      "REQUEST_LOCAL",
+      `${fail} a single-table request event with expected event value`
+    );
+    // globalOne
+    assert.equal(
+      socket.events[socket.tracking["globalOne"]].data.acct,
+      1,
+      `${fail} a single-table request event with expected acct value`
+    );
+    assert.equal(
+      socket.events[socket.tracking["globalOne"]].data.table,
+      "globalOne",
+      `${fail} a single-table request event with expected table value`
+    );
+    assert.equal(
+      socket.events[socket.tracking["globalOne"]].event,
+      "REQUEST_GLOBAL",
+      `${fail} a single-table request event with expected event value`
+    );
+  });
 });
