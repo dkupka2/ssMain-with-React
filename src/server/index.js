@@ -15,18 +15,18 @@ const option = process.argv[2] ? process.argv[2] : null;
 // config settings, credentials should come from environmental variable
 const configs = {
   paths: {
-    root: process.env.SSMAIN_ROOT | "e:",
-    script: process.env.PIATA_SCRIPT | "\\scripts\\eriknowledgence",
+    root: (process.env.SSMAIN_ROOT || "e:"),
+    script: (process.env.PIATA_SCRIPT || "\\scripts\\eriknowledgence"),
     app: null
   },
   apis: {
-    rest: process.env.RESTAPI_URL | "https://rest-api.bpeinc.com",
-    devPort: process.env.RESTAPI_PORT | "443",
-    request: process.env.RESTAPI_REQUEST | "/v1/ORDENTRY/"
+    rest: (process.env.RESTAPI_URL || "https://rest-api.bpeinc.com"),
+    devPort: (process.env.RESTAPI_PORT || "443"),
+    request: (process.env.RESTAPI_REQUEST || "/v1/ORDENTRY/"),
   },
   creds: {
-    username: process.env.USERNAME | null,
-    password: process.env.RESTAPI_PW | null
+    username: (process.env.USERNAME || null),
+    password: (process.env.RESTAPI_PW || null),
   }
 };
 
