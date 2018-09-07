@@ -21,6 +21,7 @@ const enforceNumericInput = require(`${path}${services}enforceNumericInput.test`
 const makeHeaders = require(`${path}${store}makeHeaders.test`);
 const callAPI = require(`${path}${store}callAPI.test`);
 const initAcct = require(`${path}${store}initAcct.test`);
+const filterRows = require(`${path}${store}filterRows.test`);
 
 // const filterPiTable = require(`${path}filterPiTable.test`)
 // const filterTable = require(`${path}filterTable.test`)
