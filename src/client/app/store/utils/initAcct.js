@@ -1,5 +1,5 @@
-export const initAcct = list => {
-  let obj = {};
-  list.forEach(table => (obj[table] = []));
-  return obj;
-};
+export const initAcct = list =>
+  list.reduce((a, b) => {
+    a[b] = [];
+    return a;
+  }, {});
