@@ -4,6 +4,7 @@ const glob = require("glob");
 const promisify = require("util").promisify;
 const copy = promisify(fs.copyFile);
 const readdir = promisify(fs.readdir);
+const stat = promisify(fs.stat);
 const pGlob = promisify(glob.glob);
 // config from index
 const config = require("../").config;
@@ -13,26 +14,24 @@ const option = require("../").option;
 
 let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns;
 
-let lookUpFile = (file, dir = `${drive}/ordentry`, type = "dir") => {
-  let logType = type === "dir" ? "directory" : "file",
-    target = _.attempt(path => {
-      return fs.statSync(path);
-    }, `${dir}/${file.toString().trim()}`);
-  if (target instanceof Error) {
-    console.log(`error from lookUp: ${target}`);
-    return false;
+async function lookUpFile(file, dir = `${drive}/ordentry`, type = "dir") {
+  let logType = type === "dir" ? "directory" : "file";
+  try {
+    let target = await stat(`${dir}/${file.toString().trim()}`);
+    // if target matches test type
+    if (
+      (target.isFile() && type === "file") ||
+      (target.isDirectory() && type === "dir")
+    ) {
+      return true;
+    } else {
+      console.log(`lookUp target is not a ${logType}`);
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
   }
-  // if target matches test type
-  if (
-    (target.isFile() && type === "file") ||
-    (target.isDirectory() && type === "dir")
-  ) {
-    return true;
-  } else {
-    console.log(`lookUp target is not a ${logType}`);
-    return false;
-  }
-};
+}
 
 let timeStamp = () => {
   let d = new Date(),

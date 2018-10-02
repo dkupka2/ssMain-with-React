@@ -17,11 +17,12 @@ const selectOptions = require(`${path}${services}selectOptions.test`);
 const showIfTrue = require(`${path}${services}showIfTrue.test`);
 const subSelector = require(`${path}${services}subSelector.test`);
 const enforceNumericInput = require(`${path}${services}enforceNumericInput.test`);
+// const filterPiTable = require(`${path}filterPiTable.test`)
+// const filterTable = require(`${path}filterTable.test`)
+
 // store/utils
 const makeHeaders = require(`${path}${store}makeHeaders.test`);
 const callAPI = require(`${path}${store}callAPI.test`);
 const initAcct = require(`${path}${store}initAcct.test`);
 const filterRows = require(`${path}${store}filterRows.test`);
-
-// const filterPiTable = require(`${path}filterPiTable.test`)
-// const filterTable = require(`${path}filterTable.test`)
+const loadCache = require(`${path}${store}loadCache.test`);
