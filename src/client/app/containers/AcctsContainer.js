@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Select } from "../components";
 import { socket } from "../store/socket";
 // library
-import { selectOptions, getKeys, showIfTrue } from "../services/";
+import { selectOptions, showIfTrue } from "../services/";
 // action creators
 import {
   // accts
@@ -18,7 +18,9 @@ class AcctsContainer extends Component {
   };
 
   render() {
-    let numAccts = getKeys(this.props.accts).length;
+    let numAccts = this.props.accts
+      ? Object.keys(this.props.accts).length
+      : 0
     return (
       <div className={showIfTrue(numAccts > 1, "accts")}>
         <Select

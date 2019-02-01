@@ -1,12 +1,12 @@
 import React from "react";
-import { getSelector } from "../services/";
+import { passSelector} from "../services/";
 
 const Button = props => {
   let { selector, click, prompt } = props;
 
   return (
-    <div className={getSelector("div")(selector)}>
-      <button className={getSelector("button")(selector)} onClick={click}>
+    <div className={passSelector"div")(selector)}>
+      <button className={passSelector"button")(selector)} onClick={click}>
         {prompt}
       </button>
     </div>

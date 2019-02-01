@@ -1,5 +1,5 @@
 // library
-import { getLastArray, cleanArr } from "../../services";
+import { getLastElFrom2DArray, cleanArr } from "../../services";
 // action keys
 import {
   tables,

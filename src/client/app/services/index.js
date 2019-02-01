@@ -36,13 +36,11 @@ export const convertPiValues = (value, type) => {
       if (value.includes(3)) final.push("un-delivered");
       if (value.includes(4)) final.push("priority");
       return final.join(" ");
-      break;
     case "timed auto type":
       if (value.includes(1)) final = "add message";
       if (value.includes(2)) final = "change status";
       if (value.includes(3)) final = "timed action";
       return final;
-      break;
     case "days of the week":
       if (value.includes(1)) final.push("Sun");
       if (value.includes(2)) final.push("Mon");
@@ -52,7 +50,6 @@ export const convertPiValues = (value, type) => {
       if (value.includes(6)) final.push("Fri");
       if (value.includes(7)) final.push("Sat");
       return final.join(" ");
-      break;
     case "holidays":
       if (value.includes("H01")) final.push("NEWYEARS");
       if (value.includes("H02")) final.push("MLK");
@@ -147,27 +144,21 @@ export const getBEM = (block, element, ...modifiers) => {
   return final;
 };
 
-export const getKeys = (obj = []) => (isObj(obj) ? Object.keys(obj) : []);
-
-export const getLastArray = arr =>
+export const getLastElFrom2DArray = arr =>
   isArrayWithEls(arr) ? arr[arr.length - 1] : [];
 
-export const getSelector_curry = element => selector => subSelector =>
-  subSelector(selector, element);
+export const createSelector = element => selector => hideOrGenCSSClass =>
+  hideOrGenCSSClass(selector, element);
 
-export const getSelector = element => selector =>
-  getSelector_curry(element)(selector)(subSelector);
+// partially apply createSelector to hide dependancy from JSX elements
+export const passSelector= element => selector =>
+  createSelector(element)(selector)(hideOrGenCSSClass);
 
-export const isArrayWithEls = arr => {
-  if (!Array.isArray(arr)) return false;
-  if (arr.length < 1) return false;
-  return true;
-};
+export const isArrayWithEls = arr =>
+  Array.isArray(arr) && (arr.length > 0)
 
-export const isEmptyObject = obj => {
-  if (isObj(obj) && Object.keys(obj).length === 0) return true;
-  return false;
-};
+export const isEmptyObject = obj =>
+  isObj(obj) && (Object.keys(obj).length === 0)
 
 export const isObj = obj =>
   typeof obj === "object" &&
@@ -202,7 +193,7 @@ export const selectOptions = obj => {
 
 export const showIfTrue = (x, sel) => x ? sel : "hidden";
 
-export const subSelector = (selector, element) =>
+export const hideOrGenCSSClass = (selector, element) =>
   selector === "hidden" ? "hidden" : `${selector}_${element}`;
 
 // return a function to filter each row for conflicts table

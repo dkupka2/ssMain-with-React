@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { socket } from "../store/socket";
 // library
-import { selectOptions, getKeys, isTruthy, showIfTrue } from "../services/";
+import { selectOptions, showIfTrue } from "../services/";
 import { Select, Button } from "../components/";
 import {
   // action creators
@@ -24,7 +24,9 @@ class AcctsContainer extends Component {
   };
   componentWillReceiveProps(newProps) {
     this.setState({
-      visible: isTruthy(getKeys(newProps.accts).length > 0)
+      visible: (newProps.accts && newProps.accts.length > 0)
+        ? true
+        : false
     });
   }
 

@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // library
 import {
-  subSelector,
+  hideOrGenCSSClass,
   showIfTrue,
   blockSelector,
-  getLastArray,
+  getLastElFrom2DArray,
   getBEM
 } from "../services/";
 // components
@@ -47,7 +47,7 @@ class FileManagementContainer extends Component {
     };
     const latestBackup = () => {
       if (backupOptions) {
-        return parseDate(getLastArray(backupOptions.sort()));
+        return parseDate(getLastElFrom2DArray(backupOptions.sort()));
       }
       return "no backups";
     };
