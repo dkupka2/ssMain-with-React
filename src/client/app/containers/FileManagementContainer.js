@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // library
 import {
-  hideOrGenCSSClass,
   showIfTrue,
-  blockSelector,
   getLastElFrom2DArray,
   getBEM
 } from "../services/";
 // components
-import { Button, Select } from "../components/";
+import { Button } from "../components/";
 // action creators
 import { toggleOptions, backupAcct } from "../store/";
 
@@ -23,26 +21,23 @@ class FileManagementContainer extends Component {
       selector,
       open,
       backupOptions,
-      toggleOptions,
       backupAcct,
-      backupValue
     } = this.props;
+  
     // toggle visibility
-    let parentSelector = blockSelector(
-      selector !== "hidden",
-      getBEM("fileManagement", "parentDiv", "closed"),
-      open,
-      getBEM("fileManagement", "parentDiv", "open")
-    );
+    let parentSelector = selector !== "hidden"
+      ? getBEM("fileManagement", "parentDiv", "closed")
+      : showIfTrue(
+        open,
+        getBEM("fileManagement", "parentDiv", "open")
+      )
     let openButtonSelector = showIfTrue(!open, "fileManagement_openButton");
     let closeButtonSelector = showIfTrue(open, "fileManagement_closeButton");
-
     let pSelector = showIfTrue(open, "fileManagement_p");
-
     let backupButtonSelector = showIfTrue(open, "fileManagement_backupButton");
 
     const parseDate = date => {
-      // return human readable date
+      // todo - return human readable date
       return date;
     };
     const latestBackup = () => {

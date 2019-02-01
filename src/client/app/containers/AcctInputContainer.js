@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { enforceNumericInput } from "../services/";
+import { validateAcctNumberInput } from "../services/";
 import { socket } from "../store/socket";
 import { Input } from "../components";
 import {
@@ -16,7 +16,7 @@ class AcctInputContainer extends Component {
   };
 
   handleInputChange = e => {
-    this.setState({ inputValue: enforceNumericInput(e.target.value) });
+    this.setState({ inputValue: validateAcctNumberInput(e.target.value) });
   };
   handleInputSubmit = () => {
     this.setState({ inputValue: "" });

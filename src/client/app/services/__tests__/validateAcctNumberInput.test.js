@@ -1,66 +1,66 @@
 let assert = require("chai").assert;
-import { enforceNumericInput } from "../";
+import { validateAcctNumberInput } from "..";
 
-let fail = `enforceNumericInput did not return`;
+let fail = `validateAcctNumberInput did not return`;
 
-describe("enforceNumericInput", () => {
+describe("validateAcctNumberInput", () => {
   it("returns an empty string when arg has no valid characters", () => {
     assert.equal(
-      enforceNumericInput(),
+      validateAcctNumberInput(),
       "",
       `${fail} an empty string when arg is undefined`
     );
     assert.equal(
-      enforceNumericInput("x"),
+      validateAcctNumberInput("x"),
       "",
       `${fail} an empty string when arg is invalid character`
     );
   });
   it("returns a matching string: up to four numeric characters", () => {
     assert.equal(
-      enforceNumericInput("1"),
+      validateAcctNumberInput("1"),
       "1",
       `${fail} a matching string: '1'`
     );
     assert.equal(
-      enforceNumericInput("12"),
+      validateAcctNumberInput("12"),
       "12",
       `${fail} a matching string: '12'`
     );
     assert.equal(
-      enforceNumericInput("123"),
+      validateAcctNumberInput("123"),
       "123",
       `${fail} a matching string: '123'`
     );
     assert.equal(
-      enforceNumericInput("1234"),
+      validateAcctNumberInput("1234"),
       "1234",
       `${fail} a matching string: '1234'`
     );
     assert.equal(
-      enforceNumericInput("12345"),
+      validateAcctNumberInput("12345"),
       "1234",
       `${fail} a matching substring when length is beyond limit: 12345`
     );
   });
   it("returns a valid string without the last character if invalid", () => {
     assert.equal(
-      enforceNumericInput("1x"),
+      validateAcctNumberInput("1x"),
       "1",
       `${fail} a matching string when last character is invalid: '1x'`
     );
     assert.equal(
-      enforceNumericInput("12x"),
+      validateAcctNumberInput("12x"),
       "12",
       `${fail} a matching string when last character is invalid: '1x'`
     );
     assert.equal(
-      enforceNumericInput("123x"),
+      validateAcctNumberInput("123x"),
       "123",
       `${fail} a matching string when last character is invalid: '1x'`
     );
     assert.equal(
-      enforceNumericInput("1234x"),
+      validateAcctNumberInput("1234x"),
       "1234",
       `${fail} a matching string when last character is invalid: '1x'`
     );

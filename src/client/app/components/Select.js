@@ -5,10 +5,10 @@ const Select = props => {
   let { selector, prompt, value, change, options } = props;
 
   return (
-    <div className={passSelector"div")(selector)}>
-      <p className={passSelector"p")(selector)}>{prompt}</p>
+    <div className={passSelector("div")(selector)}>
+      <p className={passSelector("p")(selector)}>{prompt}</p>
       <select
-        className={passSelector"select")(selector)}
+        className={passSelector("select")(selector)}
         value={value}
         onChange={change}
       >

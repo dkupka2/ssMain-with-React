@@ -11,11 +11,10 @@ const getLastElFrom2DArray = require(`${path}${services}getLastElFrom2DArray.tes
 const isArraywithEls = require(`${path}${services}isArrayWithEls.test`);
 const isEmptyObject = require(`${path}${services}isEmptyObject.test`);
 const isObj = require(`${path}${services}isObj.test`);
-const isTruthy = require(`${path}${services}isTruthy.test`);
 const selectOptions = require(`${path}${services}selectOptions.test`);
 const showIfTrue = require(`${path}${services}showIfTrue.test`);
 const hideOrGenCSSClass = require(`${path}${services}hideOrGenCSSClass.test`);
-const enforceNumericInput = require(`${path}${services}enforceNumericInput.test`);
+const validateAcctNumberInput = require(`${path}${services}validateAcctNumberInput.test`);
 // const filterPiTable = require(`${path}filterPiTable.test`)
 // const filterTable = require(`${path}filterTable.test`)
 

@@ -81,20 +81,20 @@ export const convertPiValues = (value, type) => {
   }
 };
 
-export const enforceNumericInput = val => {
+export const validateAcctNumberInput = value => {
   let arr;
-  if (val) {
-    arr = Array.from(val);
+  if (value) {
+    arr = Array.from(value);
     if (
       // if length is valid and last char is a number
       arr.length < 5 &&
       !isNaN(parseInt(arr[arr.length - 1], 10))
     ) {
       // return string
-      return val.slice();
+      return value.slice();
     } else {
       // else return string without invalid char
-      return val.slice(0, val.length - 1);
+      return value.slice(0, value.length - 1);
     }
   }
   return "";
@@ -151,7 +151,7 @@ export const createSelector = element => selector => hideOrGenCSSClass =>
   hideOrGenCSSClass(selector, element);
 
 // partially apply createSelector to hide dependancy from JSX elements
-export const passSelector= element => selector =>
+export const passSelector = element => selector =>
   createSelector(element)(selector)(hideOrGenCSSClass);
 
 export const isArrayWithEls = arr =>
