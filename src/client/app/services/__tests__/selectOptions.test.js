@@ -11,30 +11,29 @@ let mock = el => (
   </option>
 );
 
+let arg1 = ["one", "two", "three"];
+let arg2 = { "one": null, "two": null, "three": null }
+let result1 = selectOptions(arg1)
+let result2 = selectOptions(arg2)
+
 describe("selectOptions", () => {
-  it("returns an array if arg is array with string elements", () => {
-    assert.isArray(selectOptions(["one", "two", "three"]), `${fail} array`);
-  });
-  it("returns an array with an element for each elem in arg array", () => {
-    let arg = [1, 2, 3];
+  it("returns an array with an element for each elem in arg", () => {
     assert.equal(
-      selectOptions(arg).length,
-      arg.length,
+      result1.length,
+      arg1.length,
       `${fail} an array with same length as arg array`
     );
-  });
-  it("returns an array with a matching element", () => {
-    assert.deepEqual(
-      selectOptions(["string"])[0],
-      [mock("string")][0],
-      `${fail} array with matching element`
+    assert.equal(
+      result2.length,
+      3,
+      `${fail} an array with same length as array from arg object`
     );
   });
   it("returns a matching array when arg has multiple elements", () => {
     assert.deepEqual(
-      selectOptions(["one", "two", "three"]),
+      result1,
       [mock("one"), mock("two"), mock("three")],
-      `${fail} a matching array when arg has multiple elemments`
+      `${fail} a matching array when arg has multiple elements`
     );
   });
 });

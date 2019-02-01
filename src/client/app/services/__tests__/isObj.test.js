@@ -3,6 +3,9 @@ import { isObj } from "../";
 
 let fail = "isObj did not return";
 
+let emptyObject = {}
+
+
 describe("isObj", () => {
   it("returns false if typeof arg is not object", () => {
     assert.isFalse(isObj(" "), `${fail} false if arg is string: ' '`);
@@ -28,7 +31,7 @@ describe("isObj", () => {
     assert.isFalse(isObj(null), `${fail} false if arg is null`);
   });
   it("returns true if arg is an object literal", () => {
-    assert.isTrue(isObj({}), `${fail} true if arg is empty object`);
+    assert.isTrue(isObj(emptyObject), `${fail} true if arg is empty object`);
     assert.isTrue(
       isObj({ prop1: "val1", prop2: "val2" }),
       `${fail} true if arg is object with props`
