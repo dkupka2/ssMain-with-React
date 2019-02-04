@@ -1,14 +1,8 @@
-// library
-import { getLastElFrom2DArray, cleanArr } from "../../services";
 // action keys
 import {
-  tables,
   // redux actions
-  LOAD_TABLE,
   RENDER_TABLE,
   TABLE_NOT_CACHED,
-  // action creators
-  checkCache_curry
 } from "../";
 // state
 const initialState = {
@@ -35,5 +29,4 @@ export const dataTable = (state = initialState, action) => {
     default:
       return state;
   }
-  return state;
 };

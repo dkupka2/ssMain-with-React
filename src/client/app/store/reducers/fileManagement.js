@@ -4,10 +4,6 @@ import {
   OPEN_FILE_OPTIONS,
   CLOSE_FILE_OPTIONS,
   BACKUP_ACCT,
-  RESTORE_ACCT,
-  // action creators
-  toggleOptions,
-  backupAcct
 } from "../";
 
 const initialState = {
@@ -42,5 +38,4 @@ export const fileManagement = (state = initialState, action) => {
     default:
       return state;
   }
-  return state;
 };

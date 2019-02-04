@@ -3,10 +3,6 @@ import {
   // redux actions
   ACCT_VALID,
   ACCT_INVALID,
-  // socket events
-  REQUEST_VALIDATE_CLIENT,
-  // action creators
-  validateClient
 } from "../";
 // initial state
 const initialState = {
@@ -25,5 +21,4 @@ export const socket = (state = initialState, action) => {
     default:
       return state;
   }
-  return state;
 };

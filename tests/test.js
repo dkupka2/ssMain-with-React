@@ -3,7 +3,6 @@ let services = "services/__tests__/";
 let store = "store/__tests__/";
 // services
 const blockSelector = require(`${path}${services}blockSelector.test`);
-const checkArgs = require(`${path}${services}checkArgs.test`);
 const cleanArr = require(`${path}${services}cleanArr.test`);
 const compose = require(`${path}${services}compose.test`);
 const getBEM = require(`${path}${services}getBEM.test`);

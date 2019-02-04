@@ -1,12 +1,9 @@
-import { socket } from "../socket";
 // action keys
 import {
   // redux actions
   SUBMIT_ACCT_INPUT,
   ACCT_VALID,
   ACCT_INVALID,
-  // socket events
-  REQUEST_VALIDATE_CLIENT
 } from "../";
 // initial state
 const initialState = {
@@ -37,5 +34,4 @@ export const acctInput = (state = initialState, action) => {
     default:
       return state;
   }
-  return state;
 };

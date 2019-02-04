@@ -8,14 +8,6 @@ export const blockSelector = (c1, res1, c2, res2) => {
   return c1 ? res1 : showIfTrue(c2, res2);
 };
 
-export const checkArgs = (...args) => {
-  if (args.length < 1) return false;
-  for (let arg of args) {
-    if (arg === undefined || arg === null) return false;
-  }
-  return true;
-};
-
 export const cleanArr = (arr = []) => {
   let final = [];
   if (arr.length < 1) return arr;
@@ -166,8 +158,6 @@ export const isObj = obj =>
   ! (obj instanceof Set) &&
   ! (obj instanceof Map) && 
   (obj != undefined)
-
-export const isTruthy = (x, t = true, f = false) => (x ? t : f);
 
 export const removeROWID = obj => {
   obj = { ...obj };

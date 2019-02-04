@@ -1,7 +1,4 @@
-// socket server
-import { socket } from "../socket";
-// library
-import { compose } from "../../services";
+
 import {
   // redux actions
   SUBMIT_REQUEST,
@@ -11,19 +8,8 @@ import {
   TABLE_NOT_CACHED,
   RENDER_TABLE,
   // socket events
-  REQUEST_LIST,
-  REQUEST_LOCAL,
-  REQUEST_GLOBAL,
   LOAD_FAILURE,
   REST_ERROR,
-  // action creators
-  changeType,
-  changeTable,
-  restRequest,
-  loadCache,
-  checkCache_curry,
-  // keys
-  tables
 } from "../";
 // state
 const initialState = {
@@ -80,5 +66,4 @@ export const tableOptions = (state = initialState, action) => {
     default:
       return state;
   }
-  return state;
 };
