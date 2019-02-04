@@ -1,10 +1,6 @@
-import { compose } from "../../services";
+const R = require('ramda');
 
 import { loadCache_curry, checkCache_curry } from "../";
 
 export const renderFromCache = data =>
-  compose(
-    loadCache_curry,
-    checkCache_curry,
-    data
-  );
+  R.compose(loadCache_curry, checkCache_curry)(data);
