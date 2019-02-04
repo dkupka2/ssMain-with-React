@@ -3,8 +3,6 @@ import React from 'react';
 let assert = require('chai').assert;
 import { selectOptions } from '../';
 
-let fail = 'selectOptions did not return';
-
 let mock = el => (
   <option key={el.toString()} value={el}>
     {el}
@@ -21,19 +19,19 @@ describe('selectOptions', () => {
     assert.equal(
       result1.length,
       arg1.length,
-      `${fail} an array with same length as arg array`
+      `did not return an array with same length as arg array`
     );
     assert.equal(
       result2.length,
       3,
-      `${fail} an array with same length as array from arg object`
+      `did not return an array with same length as array from arg object`
     );
   });
   it('returns a matching array when arg has multiple elements', () => {
     assert.deepEqual(
       result1,
       [mock('one'), mock('two'), mock('three')],
-      `${fail} a matching array when arg has multiple elements`
+      `did not return a matching array when arg has multiple elements`
     );
   });
 });
