@@ -1,19 +1,19 @@
-let assert = require("chai").assert;
-import { cleanArr } from "../";
+let assert = require('chai').assert;
+import { cleanArr } from '../';
 
-let fail = "cleanArr did not return";
+let fail = 'cleanArr did not return';
 
-describe("cleanArr", () => {
-  it("returns an array when no args are passed", () => {
+describe('cleanArr', () => {
+  it('returns an array when no args are passed', () => {
     assert.isArray(cleanArr(), `${fail} an array when no args were passed`);
   });
-  it("returns an empty array when no args are passed", () => {
+  it('returns an empty array when no args are passed', () => {
     assert.isEmpty(
       cleanArr(),
       `${fail} an empty array when no args were passed`
     );
   });
-  it("returns matching array when arg only contains valid values", () => {
+  it('returns matching array when arg only contains valid values', () => {
     let arg = [1, 2, 3];
     assert.equal(
       cleanArr(arg)[0],
@@ -36,7 +36,7 @@ describe("cleanArr", () => {
       `${fail} an array with matching length`
     );
   });
-  it("returns the arg array with null values removed", () => {
+  it('returns the arg array with null values removed', () => {
     let arg = [1, null, 3, null];
     assert.notInclude(
       cleanArr(arg),
@@ -49,7 +49,7 @@ describe("cleanArr", () => {
       `${fail} array with length 2 fewer when passed array with two nulls`
     );
   });
-  it("returns the arg array with undefined values removed", () => {
+  it('returns the arg array with undefined values removed', () => {
     let undef, arg;
     arg = [1, undef, 3, undef];
     assert.notInclude(

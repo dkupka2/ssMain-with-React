@@ -7,12 +7,12 @@ import {
   ACCT_VALID,
   CHANGE_ACCT,
   CACHE_TABLE
-} from "../";
+} from '../';
 const lists = tables.lists;
 // state
 const initialState = {
   accts: {},
-  selectedAcct: ""
+  selectedAcct: ''
 };
 // reducer
 export const accts = (state = initialState, action) => {

@@ -1,5 +1,5 @@
-import { BACKUP_ACCT } from "../";
+import { BACKUP_ACCT } from '../';
 
 export const backupAcct = () => {
-  return { type: BACKUP_ACCT, backups: ["2", "3"] };
+  return { type: BACKUP_ACCT, backups: ['2', '3'] };
 };

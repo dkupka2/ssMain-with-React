@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
 import {
   acctInput,
@@ -7,7 +7,7 @@ import {
   fileManagement,
   socket,
   tableOptions
-} from "./";
+} from './';
 
 export const reducer = combineReducers({
   acctInput,

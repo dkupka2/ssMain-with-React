@@ -1,4 +1,3 @@
-
 import {
   // redux actions
   SUBMIT_REQUEST,
@@ -9,15 +8,15 @@ import {
   RENDER_TABLE,
   // socket events
   LOAD_FAILURE,
-  REST_ERROR,
-} from "../";
+  REST_ERROR
+} from '../';
 // state
 const initialState = {
-  type: "compound",
-  table: "Conflicts",
-  which: "latest",
-  message: "",
-  messageClass: "hidden"
+  type: 'compound',
+  table: 'Conflicts',
+  which: 'latest',
+  message: '',
+  messageClass: 'hidden'
 };
 // reducer
 export const tableOptions = (state = initialState, action) => {
@@ -31,37 +30,37 @@ export const tableOptions = (state = initialState, action) => {
       return {
         ...state,
         message: `requesting ${table} from ${acct}...`,
-        messageClass: "tableOptions_p tableOptions_p_loading"
+        messageClass: 'tableOptions_p tableOptions_p_loading'
       };
     case LOAD_TABLE:
       return {
         ...state,
         message: `Received RestAPI response, loading...`,
-        messageClass: "tableOptions_p tableOptions_p_loading"
+        messageClass: 'tableOptions_p tableOptions_p_loading'
       };
     case RENDER_TABLE:
       return {
         ...state,
-        message: "table loaded",
-        messageClass: "tableOptions_p tableOptions_p_render"
+        message: 'table loaded',
+        messageClass: 'tableOptions_p tableOptions_p_render'
       };
     case LOAD_FAILURE:
       return {
         ...state,
-        message: "No table to load!",
-        messageClass: "tableOptions_p tableOptions_p_fail"
+        message: 'No table to load!',
+        messageClass: 'tableOptions_p tableOptions_p_fail'
       };
     case TABLE_NOT_CACHED:
       return {
         ...state,
-        message: "Please load table to view",
-        messageClass: "tableOptions_p tableOptions_p_fail"
+        message: 'Please load table to view',
+        messageClass: 'tableOptions_p tableOptions_p_fail'
       };
     case REST_ERROR:
       return {
         ...state,
         message: `${value} - see console for info`,
-        messageClass: "tableOptions_p tableOptions_p_fail"
+        messageClass: 'tableOptions_p tableOptions_p_fail'
       };
     default:
       return state;

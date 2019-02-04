@@ -3,7 +3,7 @@ import {
   SELECT_TABLE,
   // utils
   renderFromCache
-} from "../";
+} from '../';
 
 export const changeTable_dispatch = data => render => dispatch => {
   dispatch(render(data));

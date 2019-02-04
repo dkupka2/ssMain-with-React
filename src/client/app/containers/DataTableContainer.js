@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import ReactTable from "react-table";
-import "react-table/react-table.css";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 // library
-import { showIfTrue } from "../services";
+import { showIfTrue } from '../services';
 import {
   // action creators
   checkCache_curry,
   // event keys
   LOAD_TABLE,
   RESPONSE_RESTAPI
-} from "../store/";
+} from '../store/';
 
 class DataTableContainer extends Component {
   render() {
     return (
-      <div className={showIfTrue(this.props.visible, "dataTable")}>
+      <div className={showIfTrue(this.props.visible, 'dataTable')}>
         <ReactTable
           filterable
           data={this.props.data}

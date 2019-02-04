@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // containers
 import {
   AcctInputContainer,
@@ -7,9 +7,9 @@ import {
   DataTableContainer,
   SocketContainer,
   FileManagementContainer
-} from "./containers";
+} from './containers';
 
-import "./styles/App.css";
+import './styles/App.css';
 
 class App extends Component {
   constructor(props) {

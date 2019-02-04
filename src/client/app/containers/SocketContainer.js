@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { socket } from "../store/socket";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { socket } from '../store/socket';
 import {
   // action creators
   restResponse,
@@ -12,7 +12,7 @@ import {
   RESPONSE_RESTAPI,
   PARSE_ERROR,
   REST_ERROR
-} from "../store/";
+} from '../store/';
 // reducer
 class SocketContainer extends Component {
   componentWillMount() {
@@ -30,10 +30,10 @@ class SocketContainer extends Component {
       this.props.restResponse(payload);
     });
     socket.on(PARSE_ERROR, e => {
-      this.props.restError("error parsing response from RestAPI server");
+      this.props.restError('error parsing response from RestAPI server');
     });
     socket.on(REST_ERROR, e => {
-      this.props.restError("error response from RestAPI server");
+      this.props.restError('error response from RestAPI server');
     });
   }
 

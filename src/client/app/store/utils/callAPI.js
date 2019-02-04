@@ -1,9 +1,9 @@
-import { socket } from "../socket";
-import { tables } from "../";
+import { socket } from '../socket';
+import { tables } from '../';
 
 export const callAPI_piRest = acct => type => view => tables => socket => {
   // if view is only one document: request selected view
-  if (type !== "compound") {
+  if (type !== 'compound') {
     socket.emit(tables.requestKeys[type], {
       acct,
       table: tables[type][view]

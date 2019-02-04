@@ -1,5 +1,5 @@
-import React from "react";
-import { passSelector} from "../services/";
+import React from 'react';
+import { passSelector } from '../services/';
 
 const Input = props => {
   let {
@@ -13,16 +13,16 @@ const Input = props => {
   } = props;
 
   return (
-    <div className={passSelector("div")(selector)}>
-      <p className={passSelector("p")(selector)}>{prompt}</p>
-      <div className={passSelector("innerDiv")(selector)}>
+    <div className={passSelector('div')(selector)}>
+      <p className={passSelector('p')(selector)}>{prompt}</p>
+      <div className={passSelector('innerDiv')(selector)}>
         <input
-          className={passSelector("input")(selector)}
+          className={passSelector('input')(selector)}
           type="text"
           value={value}
           onChange={change}
         />
-        <button className={passSelector("button")(selector)} onClick={submit}>
+        <button className={passSelector('button')(selector)} onClick={submit}>
           Submit
         </button>
         <p className={messageSelector}>{message}</p>

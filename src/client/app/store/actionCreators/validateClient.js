@@ -1,4 +1,4 @@
-import { ACCT_VALID, ACCT_INVALID } from "../";
+import { ACCT_VALID, ACCT_INVALID } from '../';
 
 export const validateClient = data => {
   return {

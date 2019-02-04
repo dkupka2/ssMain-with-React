@@ -2,11 +2,11 @@
 import {
   // redux actions
   ACCT_VALID,
-  ACCT_INVALID,
-} from "../";
+  ACCT_INVALID
+} from '../';
 // initial state
 const initialState = {
-  message: ""
+  message: ''
 };
 // reducer
 export const socket = (state = initialState, action) => {

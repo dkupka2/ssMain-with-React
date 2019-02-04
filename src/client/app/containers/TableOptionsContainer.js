@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { socket } from "../store/socket";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // library
-import { selectOptions, showIfTrue } from "../services/";
-import { Select, Button } from "../components/";
+import { selectOptions, showIfTrue } from '../services/';
+import { Select, Button } from '../components/';
 import {
   // action creators
   changeTable,
@@ -11,22 +10,19 @@ import {
   restRequest,
   restResponse,
   // action keys
-  RESPONSE_RESTAPI,
   tables
-} from "../store/";
+} from '../store/';
 let { getTables } = tables;
 // reducer
 class AcctsContainer extends Component {
   state = {
-    types: ["compound", "local", "global"],
+    types: ['compound', 'local', 'global'],
     tables: getTables(this.props.type),
     visible: false
   };
   componentWillReceiveProps(newProps) {
     this.setState({
-      visible: (newProps.accts && newProps.accts.length > 0)
-        ? true
-        : false
+      visible: newProps.accts && newProps.accts.length > 0 ? true : false
     });
   }
 
@@ -57,7 +53,7 @@ class AcctsContainer extends Component {
 
   render() {
     return (
-      <div className={showIfTrue(this.state.visible, "tableOptions")}>
+      <div className={showIfTrue(this.state.visible, 'tableOptions')}>
         <Select
           selector="tableOptions_type"
           prompt="Type of Table: "

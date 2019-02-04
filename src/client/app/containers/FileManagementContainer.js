@@ -1,15 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // library
-import {
-  showIfTrue,
-  getLastElFrom2DArray,
-  getBEM
-} from "../services/";
+import { showIfTrue, getLastElFrom2DArray, getBEM } from '../services/';
 // components
-import { Button } from "../components/";
+import { Button } from '../components/';
 // action creators
-import { toggleOptions, backupAcct } from "../store/";
+import { toggleOptions, backupAcct } from '../store/';
 
 class FileManagementContainer extends Component {
   handleToggleOptions = () => {
@@ -17,24 +13,17 @@ class FileManagementContainer extends Component {
   };
 
   render() {
-    let {
-      selector,
-      open,
-      backupOptions,
-      backupAcct,
-    } = this.props;
-  
+    let { selector, open, backupOptions, backupAcct } = this.props;
+
     // toggle visibility
-    let parentSelector = selector !== "hidden"
-      ? getBEM("fileManagement", "parentDiv", "closed")
-      : showIfTrue(
-        open,
-        getBEM("fileManagement", "parentDiv", "open")
-      )
-    let openButtonSelector = showIfTrue(!open, "fileManagement_openButton");
-    let closeButtonSelector = showIfTrue(open, "fileManagement_closeButton");
-    let pSelector = showIfTrue(open, "fileManagement_p");
-    let backupButtonSelector = showIfTrue(open, "fileManagement_backupButton");
+    let parentSelector =
+      selector !== 'hidden'
+        ? getBEM('fileManagement', 'parentDiv', 'closed')
+        : showIfTrue(open, getBEM('fileManagement', 'parentDiv', 'open'));
+    let openButtonSelector = showIfTrue(!open, 'fileManagement_openButton');
+    let closeButtonSelector = showIfTrue(open, 'fileManagement_closeButton');
+    let pSelector = showIfTrue(open, 'fileManagement_p');
+    let backupButtonSelector = showIfTrue(open, 'fileManagement_backupButton');
 
     const parseDate = date => {
       // todo - return human readable date
@@ -44,7 +33,7 @@ class FileManagementContainer extends Component {
       if (backupOptions) {
         return parseDate(getLastElFrom2DArray(backupOptions.sort()));
       }
-      return "no backups";
+      return 'no backups';
     };
 
     return (

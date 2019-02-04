@@ -1,4 +1,4 @@
-import { CHANGE_ACCT } from "../";
+import { CHANGE_ACCT } from '../';
 
 export const changeSelect = target => {
   return {

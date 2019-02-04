@@ -1,4 +1,4 @@
-import { getLastElFrom2DArray, applyView } from "../../services";
+import { getLastElFrom2DArray, applyView } from '../../services';
 
 export const makeBody = body => target => array => view => [
   ...body,

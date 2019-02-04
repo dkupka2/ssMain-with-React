@@ -1,4 +1,4 @@
-import { REST_ERROR } from "../";
+import { REST_ERROR } from '../';
 
 export const restError = msg => {
   return {

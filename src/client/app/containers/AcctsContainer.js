@@ -1,16 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Select } from "../components";
-import { socket } from "../store/socket";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Select } from '../components';
 // library
-import { selectOptions, showIfTrue } from "../services/";
+import { selectOptions, showIfTrue } from '../services/';
 // action creators
 import {
   // accts
   changeSelect,
   // dataTable
   checkCache_curry
-} from "../store/";
+} from '../store/';
 
 class AcctsContainer extends Component {
   handleSelectChange = e => {
@@ -18,11 +17,9 @@ class AcctsContainer extends Component {
   };
 
   render() {
-    let numAccts = this.props.accts
-      ? Object.keys(this.props.accts).length
-      : 0
+    let numAccts = this.props.accts ? Object.keys(this.props.accts).length : 0;
     return (
-      <div className={showIfTrue(numAccts > 1, "accts")}>
+      <div className={showIfTrue(numAccts > 1, 'accts')}>
         <Select
           selector="accts"
           prompt="Select an Account:"

@@ -3,14 +3,14 @@ import {
   ACCT_VALID,
   OPEN_FILE_OPTIONS,
   CLOSE_FILE_OPTIONS,
-  BACKUP_ACCT,
-} from "../";
+  BACKUP_ACCT
+} from '../';
 
 const initialState = {
-  selector: "hidden",
+  selector: 'hidden',
   open: false,
-  backupOptions: ["1", "2"],
-  backupValue: ""
+  backupOptions: ['1', '2'],
+  backupValue: ''
 };
 
 export const fileManagement = (state = initialState, action) => {
@@ -18,7 +18,7 @@ export const fileManagement = (state = initialState, action) => {
     case ACCT_VALID:
       return {
         ...state,
-        selector: "fileManagement"
+        selector: 'fileManagement'
       };
     case OPEN_FILE_OPTIONS:
       return {

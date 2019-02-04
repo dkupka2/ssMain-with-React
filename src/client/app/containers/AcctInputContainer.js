@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { validateAcctNumberInput } from "../services/";
-import { socket } from "../store/socket";
-import { Input } from "../components";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { validateAcctNumberInput } from '../services/';
+import { socket } from '../store/socket';
+import { Input } from '../components';
 import {
   // event keys
   SUBMIT_ACCT_INPUT,
   // action creators
   submitAcct
-} from "../store/";
+} from '../store/';
 // reducer
 class AcctInputContainer extends Component {
   state = {
-    inputValue: ""
+    inputValue: ''
   };
 
   handleInputChange = e => {
     this.setState({ inputValue: validateAcctNumberInput(e.target.value) });
   };
   handleInputSubmit = () => {
-    this.setState({ inputValue: "" });
+    this.setState({ inputValue: '' });
     this.props.submit(this.state.inputValue);
   };
 

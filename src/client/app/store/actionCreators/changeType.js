@@ -1,4 +1,4 @@
-import { SELECT_TYPE, renderFromCache } from "../";
+import { SELECT_TYPE, renderFromCache } from '../';
 
 export const changeType = data => dispatch => {
   dispatch(renderFromCache(data));

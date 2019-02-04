@@ -2,8 +2,8 @@
 import {
   // redux actions
   RENDER_TABLE,
-  TABLE_NOT_CACHED,
-} from "../";
+  TABLE_NOT_CACHED
+} from '../';
 // state
 const initialState = {
   tableData: [],
@@ -15,8 +15,8 @@ export const dataTable = (state = initialState, action) => {
   switch (action.type) {
     case RENDER_TABLE:
       warning = action.isCached
-        ? "table from cache, re-load for newest version"
-        : "";
+        ? 'table from cache, re-load for newest version'
+        : '';
       return {
         ...state,
         tableData: action.table,

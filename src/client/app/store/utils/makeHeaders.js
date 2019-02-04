@@ -1,5 +1,3 @@
-import filterRows from "../";
-
 export const makeHeaders = tableStructure => filterRows =>
   Object.keys(tableStructure).map(column => {
     return {
