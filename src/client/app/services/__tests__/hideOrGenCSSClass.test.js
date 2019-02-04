@@ -6,12 +6,12 @@ describe('hideOrGenCSSClass', () => {
     assert.equal(
       hideOrGenCSSClass('hidden', 'string'),
       'hidden',
-      `did not return 'hidden' when selector is 'hidden'`
+      `returns 'hidden' when selector is 'hidden'`
     );
   });
   it(`returns 'selector_element' when selector is not 'hidden'`, () => {
     hideOrGenCSSClass('string1', 'string2'),
       'string1_string2',
-      `did not return 'string1_string2' when selector is not 'hidden': 'string1'`;
+      `returns 'string1_string2' when selector is not 'hidden': 'string1'`;
   });
 });

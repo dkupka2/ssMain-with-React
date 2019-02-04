@@ -35,24 +35,24 @@ describe('callAPI - single table tests', () => {
     assert.equal(
       socket.events.length,
       1,
-      `did not return a single-table request event`
+      `returns a single-table request event`
     );
   });
   it('emits a single-table request event with expected props/vals', () => {
     assert.equal(
       socket.events[0].data.acct,
       1,
-      `did not return a single-table request event with expected acct value`
+      `returns a single-table request event with expected acct value`
     );
     assert.equal(
       socket.events[0].data.table,
       'view name',
-      `did not return a single-table request event with expected table value`
+      `returns a single-table request event with expected table value`
     );
     assert.equal(
       socket.events[0].event,
       'request key',
-      `did not return a single-table request event with expected event value`
+      `returns a single-table request event with expected event value`
     );
   });
 });
@@ -87,7 +87,7 @@ describe('callAPI - compound table tests', () => {
     assert.equal(
       socket.events.length,
       3,
-      `did not return a compound table request with the right number of events`
+      `returns a compound table request with the right number of events`
     );
   });
   it('emits a request event for each table with expected props/vals', () => {
@@ -95,49 +95,49 @@ describe('callAPI - compound table tests', () => {
     assert.equal(
       socket.events[socket.tracking['localOne']].data.acct,
       1,
-      `did not return one event of three with expected acct value - localOne`
+      `returns one event of three with expected acct value - localOne`
     );
     assert.equal(
       socket.events[socket.tracking['localOne']].data.table,
       'localOne',
-      `did not return one event of three with expected table value - localOne`
+      `returns one event of three with expected table value - localOne`
     );
     assert.equal(
       socket.events[socket.tracking['localOne']].event,
       'REQUEST_LOCAL',
-      `did not return one event of three with expected event value - localOne`
+      `returns one event of three with expected event value - localOne`
     );
     // localTwo
     assert.equal(
       socket.events[socket.tracking['localTwo']].data.acct,
       1,
-      `did not return one event of three with expected acct value - localTwo`
+      `returns one event of three with expected acct value - localTwo`
     );
     assert.equal(
       socket.events[socket.tracking['localTwo']].data.table,
       'localTwo',
-      `did not return one event of three with expected table value - localTwo`
+      `returns one event of three with expected table value - localTwo`
     );
     assert.equal(
       socket.events[socket.tracking['localTwo']].event,
       'REQUEST_LOCAL',
-      `did not return one event of three with expected event value - localTwo`
+      `returns one event of three with expected event value - localTwo`
     );
     // globalOne
     assert.equal(
       socket.events[socket.tracking['globalOne']].data.acct,
       1,
-      `did not return one event of three with expected acct value - globalOne`
+      `returns one event of three with expected acct value - globalOne`
     );
     assert.equal(
       socket.events[socket.tracking['globalOne']].data.table,
       'globalOne',
-      `did not return one event of three with expected table value - globalOne`
+      `returns one event of three with expected table value - globalOne`
     );
     assert.equal(
       socket.events[socket.tracking['globalOne']].event,
       'REQUEST_GLOBAL',
-      `did not return one event of three with expected event value - globalOne`
+      `returns one event of three with expected event value - globalOne`
     );
   });
 });

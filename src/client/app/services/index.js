@@ -25,6 +25,10 @@ export const convertPiValues = (value, type) => {
     });
   };
   switch (type) {
+    case 'timed auto type':
+      if (value.includes(1)) return 'add message';
+      if (value.includes(2)) return 'change status';
+      if (value.includes(3)) return 'timed action';
     case 'message status':
       return convert([
         [1, 'delivered'],
@@ -32,10 +36,6 @@ export const convertPiValues = (value, type) => {
         [3, 'undelivered'],
         [4, 'priority']
       ]).join(' ');
-    case 'timed auto type':
-      if (value.includes(1)) return 'add message';
-      if (value.includes(2)) return 'change status';
-      if (value.includes(3)) return 'timed action';
     case 'days of the week':
       return convert([
         [1, 'Sun'],

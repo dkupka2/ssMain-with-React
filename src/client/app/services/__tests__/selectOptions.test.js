@@ -19,19 +19,19 @@ describe('selectOptions', () => {
     assert.equal(
       result1.length,
       arg1.length,
-      `did not return an array with same length as arg array`
+      `returns an array with same length as arg array`
     );
     assert.equal(
       result2.length,
       3,
-      `did not return an array with same length as array from arg object`
+      `returns an array with same length as array from arg object`
     );
   });
   it('returns a matching array when arg has multiple elements', () => {
     assert.deepEqual(
       result1,
       [mock('one'), mock('two'), mock('three')],
-      `did not return a matching array when arg has multiple elements`
+      `returns a matching array when arg has multiple elements`
     );
   });
 });

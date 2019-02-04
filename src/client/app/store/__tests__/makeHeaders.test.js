@@ -16,90 +16,90 @@ const returnsC = (a, b, c) => c;
 
 describe('makeHeaders', () => {
   it('returns a function', () => {
-    assert.isFunction(makeHeaders(), `did not return an array`);
+    assert.isFunction(makeHeaders(), `returns an array`);
   });
   it('returns a fn that iterates over the array (arg1)', () => {
     assert.equal(
       makeHeaders(mockStructure)(mockCB).length,
       3,
-      `did not return a new array with length equal to original array`
+      `returns a new array with length equal to original array`
     );
   });
   it('returns a fn that returns an array of objects', () => {
     assert.isObject(
       makeHeaders(mockStructure)(mockCB)[0],
-      `did not return a new array of objects (el 1)`
+      `returns a new array of objects (el 1)`
     );
     assert.isObject(
       makeHeaders(mockStructure)(mockCB)[1],
-      `did not return a new array of objects (el 2)`
+      `returns a new array of objects (el 2)`
     );
     assert.isObject(
       makeHeaders(mockStructure)(mockCB)[2],
-      `did not return a new array of objects (el 3)`
+      `returns a new array of objects (el 3)`
     );
   });
   it('returns an array of objects with expected property values', () => {
     assert.equal(
       makeHeaders(mockStructure)(mockCB)[0].Header,
       a,
-      `did not return a new array objects with expected Header value`
+      `returns a new array objects with expected Header value`
     );
     assert.equal(
       makeHeaders(mockStructure)(mockCB)[0].accessor,
       a,
-      `did not return a new array objects with expected accessor value`
+      `returns a new array objects with expected accessor value`
     );
     assert.equal(
       makeHeaders(mockStructure)(mockCB)[0].id,
       a,
-      `did not return a new array objects with expected id value`
+      `returns a new array objects with expected id value`
     );
     assert.isFalse(
       makeHeaders(mockStructure)(mockCB)[0].filterAll,
       false,
-      `did not return a new array objects with expected filterAll value`
+      `returns a new array objects with expected filterAll value`
     );
   });
   it('returns a fn that returns an arr of objects with method: filterMethod', () => {
     assert.isFunction(
       makeHeaders(mockStructure)(mockCB)[0].filterMethod,
-      `did not return a nested object with exected method (el 1)`
+      `returns a nested object with exected method (el 1)`
     );
     assert.isFunction(
       makeHeaders(mockStructure)(mockCB)[1].filterMethod,
-      `did not return a nested object with exected method (el 2)`
+      `returns a nested object with exected method (el 2)`
     );
     assert.isFunction(
       makeHeaders(mockStructure)(mockCB)[2].filterMethod,
-      `did not return a nested object with exected method (el 3)`
+      `returns a nested object with exected method (el 3)`
     );
   });
   it('returns a nested method that utilizes arguments as expected', () => {
     assert.equal(
       makeHeaders(mockStructure)(returnsA)[0].filterMethod('test'),
       'test',
-      `did not return a nested method that utilizes (arg1) as expected`
+      `returns a nested method that utilizes (arg1) as expected`
     );
     assert.equal(
       makeHeaders(mockStructure)(returnsB)[0].filterMethod(null, 'test'),
       'test',
-      `did not return a nested method that utilizes (arg2) as expected`
+      `returns a nested method that utilizes (arg2) as expected`
     );
     assert.equal(
       makeHeaders(mockStructure)(returnsC)[0].filterMethod(null, null),
       a,
-      `did not return a nested method that returns the column value`
+      `returns a nested method that returns the column value`
     );
   });
   it('returns an empty array when structure argument is empty', () => {
     assert.isArray(
       makeHeaders({})(mockCB),
-      `did not return an array when passed an empty object`
+      `returns an array when passed an empty object`
     );
     assert.isEmpty(
       makeHeaders({})(mockCB),
-      `did not return an empty array when passed an empty object`
+      `returns an empty array when passed an empty object`
     );
   });
 });
