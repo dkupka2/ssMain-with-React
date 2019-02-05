@@ -4,7 +4,7 @@ let store = 'store/__tests__/';
 // services
 const blockSelector = require(`${path}${services}blockSelector.test`);
 const cleanArr = require(`${path}${services}cleanArr.test`);
-// const convertPiValues = require(`${path}${services}convertPiValues.test.js`);
+const convertPiValues = require(`${path}${services}convertPiValues.test.js`);
 const getBEM = require(`${path}${services}getBEM.test`);
 const getLastElFrom2DArray = require(`${path}${services}getLastElFrom2DArray.test`);
 const isArraywithEls = require(`${path}${services}isArrayWithEls.test`);

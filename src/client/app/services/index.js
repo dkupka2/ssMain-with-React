@@ -19,16 +19,16 @@ export const cleanArr = (arr = []) => {
 
 export const convertPiValues = (value, type) => {
   let convert = tuples => {
-    let final = [];
-    tuples.forEach(tuple => {
-      if (value.includes(tuple[0])) final.push(tuple[1]);
-    });
+    return tuples.reduce((acc, tuple) => {
+      if (value.includes(tuple[0])) acc.push(tuple[1]);
+    }, []);
   };
   switch (type) {
     case 'timed auto type':
       if (value.includes(1)) return 'add message';
       if (value.includes(2)) return 'change status';
       if (value.includes(3)) return 'timed action';
+      break;
     case 'message status':
       return convert([
         [1, 'delivered'],

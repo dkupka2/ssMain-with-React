@@ -4,7 +4,6 @@ import { cleanArr } from '../';
 describe('cleanArr', () => {
   it('returns an empty array when no args are passed', () => {
     let result = cleanArr();
-    assert.isEmpty();
     assert.isEmpty(result, `returns an empty array when no args were passed`);
   });
   it('returns matching array when arg only contains valid values', () => {
@@ -35,7 +34,7 @@ describe('cleanArr', () => {
     assert.notInclude(
       cleanArr(arg),
       null,
-      `returns arg array without null value`
+      `returns arg array without null values`
     );
     assert.equal(
       cleanArr(arg).length,
