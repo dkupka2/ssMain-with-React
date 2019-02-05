@@ -17,17 +17,19 @@ export const cleanArr = (arr = []) => {
   return final;
 };
 
-export const convertPiValues = (value, type) => {
+export const convertPiValues = type => data => {
+  if (!data.length) return '';
   let convert = tuples => {
     return tuples.reduce((acc, tuple) => {
-      if (value.includes(tuple[0])) acc.push(tuple[1]);
+      if (data.includes(tuple[0])) acc.push(tuple[1]);
+      return acc;
     }, []);
   };
   switch (type) {
     case 'timed auto type':
-      if (value.includes(1)) return 'add message';
-      if (value.includes(2)) return 'change status';
-      if (value.includes(3)) return 'timed action';
+      if (data.includes(1)) return 'add message';
+      if (data.includes(2)) return 'change status';
+      if (data.includes(3)) return 'timed action';
       break;
     case 'message status':
       return convert([
@@ -65,7 +67,7 @@ export const convertPiValues = (value, type) => {
         // ['S3', 'SPECIAL DAY 3']
       ]).join(' ');
     case 'contacts':
-      let { NUMBER, OVERDIAL, PIN, EMAIL_ADDY, SUBJECT, SM_USER } = value;
+      let { NUMBER, OVERDIAL, PIN, EMAIL_ADDY, SUBJECT, SM_USER } = data;
       if (PIN && PIN !== ' ') final.push(`$:{PIN}`);
       if (NUMBER && NUMBER !== ' ') final.push(NUMBER);
       if (SUBJECT && SUBJECT !== ' ') final.push(`$:{SUBJECT}`);
@@ -343,7 +345,7 @@ export const viewContacts = row => {
   } = row;
   return {
     NAME,
-    CONTACT: convertPiValues(row, 'contacts'),
+    CONTACT: convertPiValues('contacts')(row),
     ON_CALL,
     RECALL,
     MSG_TYPES,
@@ -426,7 +428,7 @@ export const viewScheduledDeliveries = row => {
   return {
     CONTACT,
     DAYS: convertPiValues(DAYS, 'days of the week'),
-    EXCLUDE: convertPiValues(EXCLUDE, 'holidays'),
+    EXCLUDE: convertPiValues('holidays')(EXCLUDE),
     TIME,
     ACTIVE: ACTIVE ? '' : 'NO'
   };
@@ -440,8 +442,8 @@ export const viewScheduledReminders = row => {
     ACTIVE: ACTIVE ? '' : 'NO',
     DOW: convertPiValues(DOW, 'days of the week'),
     TIME,
-    INCLUDE: convertPiValues(INCLUDE, 'holidays'),
-    EXCLUDE: convertPiValues(EXCLUDE, 'holidays'),
+    INCLUDE: convertPiValues('holidays')(INCLUDE),
+    EXCLUDE: convertPiValues('holidays')(EXCLUDE),
     MSG_TYPES
   };
 };
