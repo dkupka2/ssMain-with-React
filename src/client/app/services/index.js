@@ -18,7 +18,7 @@ export const cleanArr = (arr = []) => {
 };
 
 export const convertPiValues = type => data => {
-  if (!data.length) return '';
+  if (Array.isArray(data) && data.length < 1) return '';
   let convert = tuples => {
     return tuples.reduce((acc, tuple) => {
       if (data.includes(tuple[0])) acc.push(tuple[1]);
@@ -67,10 +67,10 @@ export const convertPiValues = type => data => {
         // ['S3', 'SPECIAL DAY 3']
       ]).join(' ');
     case 'contacts':
-      let { NUMBER, OVERDIAL, PIN, EMAIL_ADDY, SUBJECT, SM_USER } = data;
-      if (PIN && PIN !== ' ') final.push(`$:{PIN}`);
+      let final = [],
+        { NAME, NUMBER, OVERDIAL, EMAIL_ADDY, SM_USER } = data;
+      if (NAME && NAME !== ' ') final.push(NAME);
       if (NUMBER && NUMBER !== ' ') final.push(NUMBER);
-      if (SUBJECT && SUBJECT !== ' ') final.push(`$:{SUBJECT}`);
       if (SM_USER && SM_USER !== ' ') final.push(SM_USER);
       if (OVERDIAL && OVERDIAL !== ' ') final.push(OVERDIAL);
       if (EMAIL_ADDY && EMAIL_ADDY !== ' ') final.push(EMAIL_ADDY);
@@ -333,7 +333,6 @@ export const viewBatchConditions = row => {
 export const viewContacts = row => {
   let {
     NAME,
-    CONTACT,
     ON_CALL,
     RECALL,
     MSG_TYPES,
@@ -427,7 +426,7 @@ export const viewScheduledDeliveries = row => {
   let { CONTACT, DAYS, EXCLUDE, TIME, ACTIVE } = row;
   return {
     CONTACT,
-    DAYS: convertPiValues(DAYS, 'days of the week'),
+    DAYS: convertPiValues('days of the week')(DAYS),
     EXCLUDE: convertPiValues('holidays')(EXCLUDE),
     TIME,
     ACTIVE: ACTIVE ? '' : 'NO'
@@ -440,7 +439,7 @@ export const viewScheduledReminders = row => {
     DESC,
     CONDITION,
     ACTIVE: ACTIVE ? '' : 'NO',
-    DOW: convertPiValues(DOW, 'days of the week'),
+    DOW: convertPiValues('days of the week')(DOW),
     TIME,
     INCLUDE: convertPiValues('holidays')(INCLUDE),
     EXCLUDE: convertPiValues('holidays')(EXCLUDE),
