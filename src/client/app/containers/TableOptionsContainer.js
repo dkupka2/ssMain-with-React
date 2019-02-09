@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // library
-import { selectOptions, showIfTrue } from '../services/';
+import { createSelectOptions, showIfTrue } from '../services/';
 import { Select, Button } from '../components/';
 import {
   // action creators
@@ -58,14 +58,14 @@ class AcctsContainer extends Component {
           selector="tableOptions_type"
           prompt="Type of Table: "
           value={this.props.type}
-          options={selectOptions(this.state.types)}
+          options={createSelectOptions(this.state.types)}
           change={this.handleTypeChange}
         />
         <Select
           selector="tableOptions_table"
           prompt="Which Table: "
           value={this.props.table}
-          options={selectOptions(this.state.tables)}
+          options={createSelectOptions(this.state.tables)}
           change={this.handleTableChange}
         />
         <div className="tableOptions_messageDiv">

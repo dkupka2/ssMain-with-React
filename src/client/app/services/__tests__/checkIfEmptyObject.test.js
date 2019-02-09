@@ -1,19 +1,22 @@
 let assert = require('chai').assert;
-import { isEmptyObject } from '../';
+import { checkIfEmptyObject } from '../';
 
-describe('isEmptyObject', () => {
+describe('checkIfEmptyObject', () => {
   it('returns false when there is no arg', () => {
-    assert.isFalse(isEmptyObject(), `returns with no arg`);
+    assert.isFalse(checkIfEmptyObject(), `returns with no arg`);
   });
   it('returns false when the arg does not have type: object', () => {
-    assert.isFalse(isEmptyObject(' '), `returns false when arg is ' '`);
-    assert.isFalse(isEmptyObject(1), `returns false when arg is 1`);
-    assert.isFalse(isEmptyObject(true), `returns false when arg is ' '`);
+    assert.isFalse(checkIfEmptyObject(' '), `returns false when arg is ' '`);
+    assert.isFalse(checkIfEmptyObject(1), `returns false when arg is 1`);
+    assert.isFalse(checkIfEmptyObject(true), `returns false when arg is ' '`);
   });
   it('returns false when arg is non keyed object type', () => {
-    assert.isFalse(isEmptyObject([1, 2]), `returns false when arg is an array`);
     assert.isFalse(
-      isEmptyObject(new Set([1, 2, 3])),
+      checkIfEmptyObject([1, 2]),
+      `returns false when arg is an array`
+    );
+    assert.isFalse(
+      checkIfEmptyObject(new Set([1, 2, 3])),
       `returns false when arg is a set`
     );
   });
@@ -21,19 +24,19 @@ describe('isEmptyObject', () => {
     let arg = [];
     arg.prop = 'val'; // I don't know why anyone would do this...
     assert.isFalse(
-      isEmptyObject(arg),
+      checkIfEmptyObject(arg),
       `returns false when arg is a keyed array`
     );
   });
   it('returns false when arg is an object literal with props', () => {
     assert.isFalse(
-      isEmptyObject({ prop1: 'val1', prop2: 'val2' }),
+      checkIfEmptyObject({ prop1: 'val1', prop2: 'val2' }),
       `returns false when arg is an object literal with props`
     );
   });
   it('returns true when arg is an empty object literal', () => {
     assert.isTrue(
-      isEmptyObject({}),
+      checkIfEmptyObject({}),
       `returns true when arg is an empty object literal`
     );
   });

@@ -4,11 +4,11 @@ export const applyView = table => data => viewTable =>
   data.map(row => filterPiTable(table)(viewTable)(row));
 
 // if arg1 than arg2 else if arg3 than arg 4 else hidden
-export const blockSelector = (c1, res1, c2, res2) => {
+export const createBlockSelector = (c1, res1, c2, res2) => {
   return c1 ? res1 : showIfTrue(c2, res2);
 };
 
-export const cleanArr = (arr = []) => {
+export const removeNilFromArray = (arr = []) => {
   let final = [];
   if (arr.length < 1) return arr;
   for (let el of arr) {
@@ -135,7 +135,7 @@ export const filterPiTable = table => viewTable => {
   }
 };
 
-export const getBEM = (block, element, ...modifiers) => {
+export const generateBEMSelector = (block, element, ...modifiers) => {
   let final = `${block}_${element}`;
   modifiers.map(modifier => {
     final = final.concat(` ${block}_${element}_${modifier}`);
@@ -144,20 +144,22 @@ export const getBEM = (block, element, ...modifiers) => {
 };
 
 export const getLastElFrom2DArray = arr =>
-  isArrayWithEls(arr) ? arr[arr.length - 1] : [];
+  confirmIsNonEmptyArray(arr) ? arr[arr.length - 1] : [];
 
-export const createSelector = element => selector => hideOrGenCSSClass =>
-  hideOrGenCSSClass(selector, element);
+export const createSelector = element => selector => generateCSSClass =>
+  generateCSSClass(selector, element);
 
 // partially apply createSelector to hide dependancy from JSX elements
 export const passSelector = element => selector =>
-  createSelector(element)(selector)(hideOrGenCSSClass);
+  createSelector(element)(selector)(generateCSSClass);
 
-export const isArrayWithEls = arr => Array.isArray(arr) && arr.length > 0;
+export const confirmIsNonEmptyArray = arr =>
+  Array.isArray(arr) && arr.length > 0;
 
-export const isEmptyObject = obj => isObj(obj) && Object.keys(obj).length === 0;
+export const checkIfEmptyObject = obj =>
+  confirmIsObject(obj) && Object.keys(obj).length === 0;
 
-export const isObj = obj =>
+export const confirmIsObject = obj =>
   typeof obj === 'object' &&
   !Array.isArray(obj) &&
   !(obj instanceof Set) &&
@@ -170,7 +172,7 @@ export const removeROWID = obj => {
   return obj;
 };
 
-export const selectOptions = obj => {
+export const createSelectOptions = obj => {
   let elems = [];
   let arr = Array.isArray(obj) ? obj : Object.keys(obj);
   if (arr === undefined) return;
@@ -188,7 +190,7 @@ export const selectOptions = obj => {
 
 export const showIfTrue = (x, sel) => (x ? sel : 'hidden');
 
-export const hideOrGenCSSClass = (selector, element) =>
+export const generateCSSClass = (selector, element) =>
   selector === 'hidden' ? 'hidden' : `${selector}_${element}`;
 
 // return a function to filter each row for conflicts table

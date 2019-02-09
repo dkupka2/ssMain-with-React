@@ -1,7 +1,7 @@
 import React from 'react';
 
 let assert = require('chai').assert;
-import { selectOptions } from '../';
+import { createSelectOptions } from '../';
 
 let mock = el => (
   <option key={el.toString()} value={el}>
@@ -11,10 +11,10 @@ let mock = el => (
 
 let arg1 = ['one', 'two', 'three'];
 let arg2 = { one: null, two: null, three: null };
-let result1 = selectOptions(arg1);
-let result2 = selectOptions(arg2);
+let result1 = createSelectOptions(arg1);
+let result2 = createSelectOptions(arg2);
 
-describe('selectOptions', () => {
+describe('createSelectOptions', () => {
   it('returns an array with an element for each elem in arg', () => {
     assert.equal(
       result1.length,

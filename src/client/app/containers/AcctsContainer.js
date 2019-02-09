@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Select } from '../components';
 // library
-import { selectOptions, showIfTrue } from '../services/';
+import { createSelectOptions, showIfTrue } from '../services/';
 // action creators
 import {
   // accts
-  changeSelect,
-  // dataTable
-  checkCache_curry
+  changeSelect
 } from '../store/';
 
 class AcctsContainer extends Component {
@@ -24,7 +22,7 @@ class AcctsContainer extends Component {
           selector="accts"
           prompt="Select an Account:"
           value={this.props.selectValue}
-          options={selectOptions(this.props.accts)}
+          options={createSelectOptions(this.props.accts)}
           change={this.handleSelectChange}
         />
       </div>

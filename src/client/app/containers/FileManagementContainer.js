@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // library
-import { showIfTrue, getLastElFrom2DArray, getBEM } from '../services/';
+import {
+  showIfTrue,
+  getLastElFrom2DArray,
+  generateBEMSelector
+} from '../services/';
 // components
 import { Button } from '../components/';
 // action creators
@@ -18,8 +22,11 @@ class FileManagementContainer extends Component {
     // toggle visibility
     let parentSelector =
       selector !== 'hidden'
-        ? getBEM('fileManagement', 'parentDiv', 'closed')
-        : showIfTrue(open, getBEM('fileManagement', 'parentDiv', 'open'));
+        ? generateBEMSelector('fileManagement', 'parentDiv', 'closed')
+        : showIfTrue(
+            open,
+            generateBEMSelector('fileManagement', 'parentDiv', 'open')
+          );
     let openButtonSelector = showIfTrue(!open, 'fileManagement_openButton');
     let closeButtonSelector = showIfTrue(open, 'fileManagement_closeButton');
     let pSelector = showIfTrue(open, 'fileManagement_p');
