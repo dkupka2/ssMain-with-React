@@ -1,27 +1,26 @@
-const fs = require("fs");
-const _ = require("lodash");
-const glob = require("glob");
-const promisify = require("util").promisify;
+const fs = require('fs');
+const glob = require('glob');
+const promisify = require('util').promisify;
 const copy = promisify(fs.copyFile);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 const pGlob = promisify(glob.glob);
 // config from index
-const config = require("../").config;
+const config = require('../').config;
 // drive letter from config
-const drive = config("paths").root;
-const option = require("../").option;
+const drive = config('paths').root;
+const option = require('../').option;
 
 let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns;
 
-async function lookUpFile(file, dir = `${drive}/ordentry`, type = "dir") {
-  let logType = type === "dir" ? "directory" : "file";
+async function lookUpFile(file, dir = `${drive}/ordentry`, type = 'dir') {
+  let logType = type === 'dir' ? 'directory' : 'file';
   try {
     let target = await stat(`${dir}/${file.toString().trim()}`);
     // if target matches test type
     if (
-      (target.isFile() && type === "file") ||
-      (target.isDirectory() && type === "dir")
+      (target.isFile() && type === 'file') ||
+      (target.isDirectory() && type === 'dir')
     ) {
       return true;
     } else {
@@ -57,17 +56,17 @@ let init = (acctNumber, time, drive = drive) => {
 let initialize = (acct, time) => init(acct, time, drive);
 
 patterns = [
-  "OE_FORM.*",
-  "OE_SKIP.*",
-  "OE_PKLST.*",
-  "*L*.*",
-  "OE_GOTO.*",
-  "ORDERS.*",
-  "PT_AUTOA.*",
-  "PT_AUTOB.*",
-  "PT_OC*.*",
-  "PT_CONTC.*",
-  "CUSTOMER.*"
+  'OE_FORM.*',
+  'OE_SKIP.*',
+  'OE_PKLST.*',
+  '*L*.*',
+  'OE_GOTO.*',
+  'ORDERS.*',
+  'PT_AUTOA.*',
+  'PT_AUTOB.*',
+  'PT_OC*.*',
+  'PT_CONTC.*',
+  'CUSTOMER.*'
 ];
 
 let exists = f => {
@@ -146,8 +145,8 @@ const getBackUps = (acct, cb) => {
     .then(checkSubDir(dbfiles))
     .then(checkSubDir(backUp))
     .then(
-      pGlob("20*", { cwd: backUp }, (err, matches) => {
-        cb("backups response", {
+      pGlob('20*', { cwd: backUp }, (err, matches) => {
+        cb('backups response', {
           acct: acct,
           data: matches.filter(dir => lookUpFile(dir, backUp))
         });
