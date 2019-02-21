@@ -13,14 +13,13 @@ const option = require('../').option;
 
 let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns;
 
-async function lookUpFile(file, dir = `${drive}/ordentry`, type = 'dir') {
-  let logType = type === 'dir' ? 'directory' : 'file';
+async function lookUpFile(file, dir = `${drive}/ordentry`, type = 'directory') {
   try {
     let target = await stat(`${dir}/${file.toString().trim()}`);
     // if target matches test type
     if (
       (target.isFile() && type === 'file') ||
-      (target.isDirectory() && type === 'dir')
+      (target.isDirectory() && type === 'directory')
     ) {
       return true;
     } else {
@@ -103,7 +102,7 @@ async function globFiles(file, source, dest) {
       copyGlobs(source, dest, matches);
     });
   } catch (e) {
-    console.error(e);
+    return new Error();
   }
 }
 

@@ -14,7 +14,7 @@ let ioServer = app => {
 };
 // check command for option
 const option = process.argv[2] || null;
-// config settings, credentials should come from environmental variable
+// config settings, credentials should come from environmental variables
 const configs = {
   paths: {
     root: process.env.ORDENTRY_ROOT || 'e:',
@@ -31,14 +31,14 @@ const configs = {
     password: process.env.RESTAPI_PW || null
   }
 };
-
+// mocks tables in mockTables
 const mockTable = table => {
-  if (!mockTable[table]) {
+  if (!mockTables[table]) {
     let file = fs.readFileSync(`${process.cwd()}/tests/mocks/${table}.json`);
     // cache mock table as string for first request
-    mockTable[table] = JSON.stringify(JSON.parse(file));
+    mockTables[table] = JSON.stringify(JSON.parse(file));
   } // else return cached string
-  return mockTable[table];
+  return mockTables[table];
 };
 
 module.exports = {

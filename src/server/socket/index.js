@@ -30,10 +30,7 @@ let dev = option === 'dev',
   getBackUps = middleware.getBackUps,
   apis = configs.apis,
   creds = configs.creds,
-  url =
-    option === 'dev-rest'
-      ? `${apis.rest}:${apis.devPort}${apis.request}`
-      : `${apis.rest}${apis.request}`,
+  url = `${apis.rest}:${apis.devPort}${apis.request}`,
   user = creds.username,
   pass = creds.password,
   auth = 'Basic ' + new Buffer(`${user}:${pass}`).toString('base64'),
@@ -59,10 +56,11 @@ const initTables = tables => {
 
 module.exports = (io, app) => {
   if (!dev) {
+    console.log('running server in production');
     // socket transactions for restapi
     io.of('/restapi').on('connection', socket => {
       console.log('connection found');
-      // get tables from client, add method
+      // initialize tables and value conversion method
       socket.on(RELAY_TABLES, tables => initTables(tables));
       socket.on(REQUEST_VALIDATE_CLIENT, data => {
         relay(
@@ -126,6 +124,8 @@ module.exports = (io, app) => {
   } else {
     io.of('/restapi').on('connection', socket => {
       console.log(`server running in dev mode`);
+      // initialize tables and value conversion method
+      socket.on(RELAY_TABLES, tables => initTables(tables));
       socket.emit(DEV_MODE);
 
       const returnMockTable = data => {
@@ -151,8 +151,6 @@ module.exports = (io, app) => {
           socket
         );
       });
-      socket.on(RELAY_TABLES, tables => initTables(tables));
-      socket.on(REQUEST_LIST, data => returnMockTable(data));
       socket.on(REQUEST_LOCAL, data => returnMockTable(data));
       socket.on(REQUEST_GLOBAL, data => returnMockTable(data));
     });

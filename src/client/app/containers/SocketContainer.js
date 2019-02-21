@@ -7,7 +7,6 @@ import {
   restError,
   validateClient,
   // action keys
-  SUBMIT_ACCT_INPUT,
   RESPONSE_VALIDATE_CLIENT,
   RESPONSE_RESTAPI,
   PARSE_ERROR,

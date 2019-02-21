@@ -53,29 +53,29 @@ export const tables = {
   },
   revertKeys: {}
 };
-// appends lists of tables by type
+// append lists of tables by type
 tables.lists = {
   local: Object.keys(tables.local),
   global: Object.keys(tables.global),
   compound: Object.keys(tables.compound)
 };
-// builds lists of documents in each compound table
+// build lists of documents in each compound table
 tables.compoundLists = {};
 tables.lists.compound.map(cList => {
   tables.compoundLists[cList] = tables.compound[cList].local.concat(
     tables.compound[cList].global
   );
 });
-// builds lists of document names
+// build lists of document names
 Object.keys(tables.global).map(key => {
   tables.revertKeys[tables.global[key]] = key;
 });
 Object.keys(tables.local).map(key => {
   tables.revertKeys[tables.local[key]] = key;
 });
-// builds list of document names for use by Rest API
+// build list of document names for use by Rest API
 tables.restKeys = Object.keys(tables.revertKeys);
-// convenience method to convert document name to view name
+// converts document name to view name
 tables.convert = key => {
   return Object.keys(tables.revertKeys).includes(key)
     ? tables.revertKeys[key]
@@ -83,5 +83,5 @@ tables.convert = key => {
     ? tables.global[key]
     : tables.local[key];
 };
-// convenience method to pull out table lists
+// retrieves table lists
 tables.getTables = type => tables.lists[type];

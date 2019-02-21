@@ -21,8 +21,6 @@ class TableOptionsContainer extends Component {
     visible: false
   };
   componentWillReceiveProps(newProps) {
-    console.log('TAC props');
-    console.log(newProps);
     this.setState({
       visible: Object.keys(newProps.accts).length > 0 ? true : false
     });

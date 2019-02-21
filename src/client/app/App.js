@@ -5,8 +5,8 @@ import {
   AcctsContainer,
   TableOptionsContainer,
   DataTableContainer,
-  SocketContainer,
-  FileManagementContainer
+  SocketContainer
+  // FileManagementContainer
 } from './containers';
 
 import './styles/App.css';
