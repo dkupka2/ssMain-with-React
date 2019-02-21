@@ -14,15 +14,17 @@ import {
 } from '../store/';
 let { getTables } = tables;
 // reducer
-class AcctsContainer extends Component {
+class TableOptionsContainer extends Component {
   state = {
     types: ['compound', 'local', 'global'],
     tables: getTables(this.props.type),
     visible: false
   };
   componentWillReceiveProps(newProps) {
+    console.log('TAC props');
+    console.log(newProps);
     this.setState({
-      visible: newProps.accts && newProps.accts.length > 0 ? true : false
+      visible: Object.keys(newProps.accts).length > 0 ? true : false
     });
   }
 
@@ -74,7 +76,7 @@ class AcctsContainer extends Component {
             prompt="load table"
             click={this.handleTableLoad}
           />
-          <p className={this.props.messageClass}>{this.props.message} </p>
+          <p className={this.props.messageClass}>{this.props.message}</p>
         </div>
       </div>
     );
@@ -106,4 +108,4 @@ const mapDispatch = dispatch => {
 export default connect(
   mapState,
   mapDispatch
-)(AcctsContainer);
+)(TableOptionsContainer);
