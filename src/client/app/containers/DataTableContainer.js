@@ -6,7 +6,7 @@ import 'react-table/react-table.css';
 import { showIfTrue } from '../services';
 import {
   // action creators
-  checkCache_curry,
+  relayCacheCheck,
   // event keys
   LOAD_TABLE,
   RESPONSE_RESTAPI
@@ -36,7 +36,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    checkCache_curry: data => dispatch(checkCache_curry(data))
+    relayCacheCheck: data => dispatch(relayCacheCheck(data))
   };
 };
 

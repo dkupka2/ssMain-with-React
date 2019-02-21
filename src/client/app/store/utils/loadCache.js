@@ -1,7 +1,8 @@
-export const loadCache = data => applyView => tables => makeBody => clean => {
+export const loadCache = data => dependencies => {
+  const { tables, makeBody, clean } = dependencies;
   let targetArray,
     body = [],
-    { type, acct, view, accts } = data;
+    { acct, view, accts } = data;
   // if selected view is a compound table
   if (tables.lists.compound.includes(view)) {
     // iterate over tables list

@@ -1,8 +1,6 @@
 // action keys
 import {
   tables,
-  // utils
-  initAcct,
   // redux events
   ACCT_VALID,
   CHANGE_ACCT,
@@ -14,6 +12,13 @@ const initialState = {
   accts: {},
   selectedAcct: ''
 };
+//
+export const initAcct = list =>
+  list.reduce((a, b) => {
+    a[b] = [];
+    return a;
+  }, {});
+
 // reducer
 export const accts = (state = initialState, action) => {
   switch (action.type) {

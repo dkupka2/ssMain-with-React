@@ -36,11 +36,13 @@ export { tables } from './events/tables';
 
 // reducers
 export { acctInput } from './reducers/acctInput';
-export { accts } from './reducers/accts';
 export { dataTable } from './reducers/dataTable';
 export { fileManagement } from './reducers/fileManagement';
 export { socket } from './reducers/socket';
 export { tableOptions } from './reducers/tableOptions';
+
+// reducers w/ dependencies
+export { accts, initAcct } from './reducers/accts';
 
 // action creators
 export { backupAcct } from './actionCreators/backupAcct';
@@ -58,13 +60,12 @@ export { validateClient } from './actionCreators/validateClient';
 
 // utils
 export { callAPI } from './utils/callAPI';
-export { checkCache_curry } from './utils/checkCache_curry';
+export { relayCacheCheck } from './utils/relayCacheCheck';
 export { callAPI_piRest } from './utils/callAPI';
 export { filterRows } from './utils/filterRows';
 export { makeBody } from './utils/makeBody';
 export { makeHeaders } from './utils/makeHeaders';
-export { initAcct } from './utils/initAcct';
 export { loadCache } from './utils/loadCache';
-export { loadCache_curry } from './utils/loadCache_curry';
+export { relayCacheLoad } from './utils/relayCacheCheck';
 export { renderFromCache } from './utils/renderFromCache';
 export { restResponse } from './utils/restResponse';
