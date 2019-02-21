@@ -6,9 +6,9 @@ const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 const pGlob = promisify(glob.glob);
 // config from index
-const config = require('../').config;
+const configs = require('../').configs;
 // drive letter from config
-const drive = config('paths').root;
+const drive = configs.paths.root;
 const option = require('../').option;
 
 let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns;

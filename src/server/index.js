@@ -1,38 +1,35 @@
-"use strict";
-let fs = require("fs");
+'use strict';
+
+const path = require('path');
+let fs = require('fs');
 // namespace for caching mock tables
 let mockTables = {};
 // create IO server instance
 let ioServer = app => {
-  const server = require("http").Server(app);
-  const io = require("socket.io")(server);
-  require("./socket")(io, app);
-  console.log("io going live");
+  const server = require('http').Server(app);
+  const io = require('socket.io')(server);
+  require('./socket')(io, app);
+  console.log('io going live');
   return server;
 };
 // check command for option
-const option = process.argv[2] ? process.argv[2] : null;
+const option = process.argv[2] || null;
 // config settings, credentials should come from environmental variable
 const configs = {
   paths: {
-    root: process.env.ORDENTRY_ROOT || "e:",
-    script: process.env.PIATA_SCRIPT || "\\scripts\\eriknowledgence",
-    app: null
+    root: process.env.ORDENTRY_ROOT || 'e:',
+    script: process.env.PIATA_SCRIPT || '\\scripts\\eriknowledgence',
+    app: path.resolve('./')
   },
   apis: {
-    rest: process.env.RESTAPI_URL || "https://rest-api.bpeinc.com",
-    devPort: process.env.RESTAPI_PORT || "443",
-    request: process.env.RESTAPI_REQUEST || "/v1/ORDENTRY/"
+    rest: process.env.RESTAPI_URL || 'https://rest-api.bpeinc.com',
+    devPort: process.env.RESTAPI_PORT || '443',
+    request: process.env.RESTAPI_REQUEST || '/v1/ORDENTRY/'
   },
   creds: {
     username: process.env.USERNAME || null,
     password: process.env.RESTAPI_PW || null
   }
-};
-
-const config = request => {
-  // if not dev mode get settings from configs object
-  return option === "dev" ? {} : configs[request];
 };
 
 const mockTable = table => {
@@ -46,7 +43,7 @@ const mockTable = table => {
 
 module.exports = {
   ioServer,
-  config,
+  configs,
   option,
   mockTable
 };

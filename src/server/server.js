@@ -1,24 +1,24 @@
-"use strict";
+'use strict';
 
-const path = require("path"),
-  express = require("express"),
+const path = require('path'),
+  express = require('express'),
   app = express(),
-  ssMain = require("./index.js");
+  ssMain = require('./index.js');
 
-const appPath = require("../../config.js").paths.app;
+const appPath = require('./index').configs.paths.app;
 
-app.set("port", process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8000);
 
 app.use(express.static(appPath));
 
-ssMain.ioServer(app).listen(app.get("port"), () => {
-  console.log("listening to port 8k");
+ssMain.ioServer(app).listen(app.get('port'), () => {
+  console.log('listening to port 8k');
 });
 
-app.get("/", (req, res) => {
-  res.redirect("/restapi");
+app.get('/', (req, res) => {
+  res.redirect('/restapi');
 });
 
-app.get("/restapi", (req, res) => {
-  res.sendFile(path.join(appPath + "/src/client/views/restapi.html"));
+app.get('/restapi', (req, res) => {
+  res.sendFile(path.join(appPath + '/src/client/views/restapi.html'));
 });

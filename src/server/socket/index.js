@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-const request = require("request");
-const middleware = require("../middleware");
-const events = require("../../client/app/store/events/socketEvents");
-const config = require("../").config;
-const option = require("../").option;
-const mockTable = require("../").mockTable;
+const request = require('request');
+const middleware = require('../middleware');
+const events = require('../../client/app/store/events/socketEvents');
+const configs = require('../').configs;
+const option = require('../').option;
+const mockTable = require('../').mockTable;
 
 const {
   PARSE_ERROR,
@@ -25,24 +25,24 @@ const {
   DEV_MODE
 } = events;
 
-let dev = option === "dev",
+let dev = option === 'dev',
   validateAcct = middleware.check,
   getBackUps = middleware.getBackUps,
-  apis = config("apis"),
-  creds = config("creds"),
+  apis = configs.apis,
+  creds = configs.creds,
   url =
-    option === "dev-rest"
+    option === 'dev-rest'
       ? `${apis.rest}:${apis.devPort}${apis.request}`
       : `${apis.rest}${apis.request}`,
   user = creds.username,
   pass = creds.password,
-  auth = "Basic " + new Buffer(`${user}:${pass}`).toString("base64"),
-  query = "out=json&limit=500",
+  auth = 'Basic ' + new Buffer(`${user}:${pass}`).toString('base64'),
+  query = 'out=json&limit=500',
   eq = `&eq_CLIENT_ID=`,
   gTables = {};
 
 const relay = (message, data, socket) => {
-  console.log("relaying: ", message);
+  console.log('relaying: ', message);
   socket.emit(message, data);
 };
 
@@ -52,16 +52,16 @@ const initTables = tables => {
     return Object.keys(tables.revertKeys).includes(key)
       ? tables.revertKeys[key]
       : Object.keys(tables.global).includes(key)
-        ? tables.global[key]
-        : tables.local[key];
+      ? tables.global[key]
+      : tables.local[key];
   };
 };
 
 module.exports = (io, app) => {
   if (!dev) {
     // socket transactions for restapi
-    io.of("/restapi").on("connection", socket => {
-      console.log("connection found");
+    io.of('/restapi').on('connection', socket => {
+      console.log('connection found');
       // get tables from client, add method
       socket.on(RELAY_TABLES, tables => initTables(tables));
       socket.on(REQUEST_VALIDATE_CLIENT, data => {
@@ -79,17 +79,17 @@ module.exports = (io, app) => {
         let URI,
           { acct, table, list } = data;
         switch (type) {
-          case "list":
+          case 'list':
             URI = `${url}${acct}/${list}/${table}?${query}`;
             break;
-          case "local":
+          case 'local':
             URI = `${url}${acct}/${table}?${query}`;
             break;
-          case "global":
+          case 'global':
             URI = `${url}/${table}?${query}${eq}${acct}`;
             break;
           default:
-            console.log("error constructing request URI");
+            console.log('error constructing request URI');
         }
         request(
           {
@@ -119,12 +119,12 @@ module.exports = (io, app) => {
           }
         );
       };
-      socket.on(REQUEST_LIST, data => sendRequest("list", data));
-      socket.on(REQUEST_LOCAL, data => sendRequest("local", data));
-      socket.on(REQUEST_GLOBAL, data => sendRequest("global", data));
+      socket.on(REQUEST_LIST, data => sendRequest('list', data));
+      socket.on(REQUEST_LOCAL, data => sendRequest('local', data));
+      socket.on(REQUEST_GLOBAL, data => sendRequest('global', data));
     });
   } else {
-    io.of("/restapi").on("connection", socket => {
+    io.of('/restapi').on('connection', socket => {
       console.log(`server running in dev mode`);
       socket.emit(DEV_MODE);
 
