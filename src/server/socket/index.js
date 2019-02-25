@@ -56,7 +56,7 @@ const initTables = tables => {
 
 module.exports = (io, app) => {
   if (!dev) {
-    console.log('running server in production');
+    console.log('server is running normally');
     // socket transactions for restapi
     io.of('/restapi').on('connection', socket => {
       console.log('connection found');
@@ -129,7 +129,7 @@ module.exports = (io, app) => {
       socket.emit(DEV_MODE);
 
       const returnMockTable = data => {
-        let { acct, body, table } = data;
+        let { acct, table } = data;
         relay(
           RESPONSE_RESTAPI,
           {

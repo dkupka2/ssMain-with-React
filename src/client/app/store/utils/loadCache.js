@@ -9,7 +9,6 @@ export const loadCache = data => dependencies => {
     tables.compoundLists[view].forEach(targetTable => {
       // revert each table name to human readable
       targetTable = tables.revertKeys[targetTable];
-      // cacheData from each target table
       targetArray = accts[acct][targetTable];
       // if cache has data
       if (targetArray.length > 0) {
@@ -18,14 +17,18 @@ export const loadCache = data => dependencies => {
       }
     });
   } else {
-    // cacheData from selected table
-    targetArray = accts[acct][view];
     // if table data exists in accts.acct[table]
+    targetArray = accts[acct][view];
     if (targetArray.length > 0) {
       // filter table
       body = makeBody(body)(view)(targetArray)(view);
     }
   }
-  // strip out undefined / null entries
-  return { body: clean(body) };
+  // remove non-formatted data
+  delete data.data;
+  // return data without undefined / null entries
+  return {
+    ...data,
+    body: clean(body)
+  };
 };

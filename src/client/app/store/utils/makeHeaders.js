@@ -1,10 +1,10 @@
-export const makeHeaders = tableStructure => filterRows =>
-  Object.keys(tableStructure).map(column => {
+export const makeHeaders = table => filter =>
+  Object.keys(table).map(column => {
     return {
       Header: column,
       accessor: column,
       id: column,
       filterAll: false,
-      filterMethod: (fValue, row) => filterRows(fValue, row, column)
+      filterMethod: (fValue, row) => filter(fValue, row, column)
     };
   });

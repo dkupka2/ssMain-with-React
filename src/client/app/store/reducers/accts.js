@@ -12,7 +12,7 @@ const initialState = {
   accts: {},
   selectedAcct: ''
 };
-//
+// initialize tables for new account state
 export const initAcct = list =>
   list.reduce((a, b) => {
     a[b] = [];

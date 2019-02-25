@@ -8,6 +8,4 @@ const relayCacheLoadDeps = {
   makeBody
 };
 
-export const relayCacheLoad = data =>
-  // loadCache(data)(tables)(makeBody)(removeNilFromArray);
-  loadCache(data)(relayCacheLoadDeps);
+export const relayCacheLoad = data => loadCache(data)(relayCacheLoadDeps);

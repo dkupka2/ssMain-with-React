@@ -66,6 +66,6 @@ export { filterRows } from './utils/filterRows';
 export { makeBody } from './utils/makeBody';
 export { makeHeaders } from './utils/makeHeaders';
 export { loadCache } from './utils/loadCache';
-export { relayCacheLoad } from './utils/relayCacheCheck';
+export { relayCacheLoad } from './utils/relayCacheLoad';
 export { renderFromCache } from './utils/renderFromCache';
 export { restResponse } from './utils/restResponse';
