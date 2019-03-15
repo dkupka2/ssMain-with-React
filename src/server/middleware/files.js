@@ -23,7 +23,7 @@ async function lookUpFile(file, dir = `${drive}/ordentry`, type = 'directory') {
     ) {
       return true;
     } else {
-      console.log(`lookUp target is not a ${logType}`);
+      console.log(`lookUp target is not a ${type}`);
       return false;
     }
   } catch (error) {

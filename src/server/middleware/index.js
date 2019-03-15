@@ -1,7 +1,6 @@
-"use strict";
+'use strict';
 
-const fs = require("fs");
-const files = require("./files");
+const files = require('./files');
 
 const lookUpFile = files.lookUpFile;
 const getBackUps = files.getBackUps;

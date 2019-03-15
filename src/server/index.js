@@ -3,7 +3,7 @@
 const path = require('path');
 let fs = require('fs');
 // namespace for caching mock tables
-let mockTables = {};
+let fakeTables = {};
 // create IO server instance
 let ioServer = app => {
   const server = require('http').Server(app);
@@ -31,14 +31,14 @@ const configs = {
     password: process.env.RESTAPI_PW || null
   }
 };
-// mocks tables in mockTables
+// make fakes
 const mockTable = table => {
-  if (!mockTables[table]) {
+  if (!fakeTables[table]) {
     let file = fs.readFileSync(`${process.cwd()}/tests/mocks/${table}.json`);
-    // cache mock table as string for first request
-    mockTables[table] = JSON.stringify(JSON.parse(file));
+    // cache fake as string for first request
+    fakeTables[table] = JSON.stringify(JSON.parse(file));
   } // else return cached string
-  return mockTables[table];
+  return fakeTables[table];
 };
 
 module.exports = {

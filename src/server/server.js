@@ -15,9 +15,7 @@ ssMain.ioServer(app).listen(app.get('port'), () => {
   console.log('listening to port 8k');
 });
 
-app.get('/', (req, res) => {
-  res.redirect('/restapi');
-});
+app.get('/', (req, res) => res.redirect('/restapi') );
 
 app.get('/restapi', (req, res) => {
   res.sendFile(path.join(appPath + '/src/client/views/restapi.html'));

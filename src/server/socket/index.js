@@ -128,7 +128,7 @@ module.exports = (io, app) => {
       socket.on(RELAY_TABLES, tables => initTables(tables));
       socket.emit(DEV_MODE);
 
-      const returnMockTable = data => {
+      const returnFake = data => {
         let { acct, table } = data;
         relay(
           RESPONSE_RESTAPI,
@@ -151,8 +151,8 @@ module.exports = (io, app) => {
           socket
         );
       });
-      socket.on(REQUEST_LOCAL, data => returnMockTable(data));
-      socket.on(REQUEST_GLOBAL, data => returnMockTable(data));
+      socket.on(REQUEST_LOCAL, data => returnFake(data));
+      socket.on(REQUEST_GLOBAL, data => returnFake(data));
     });
   }
 };

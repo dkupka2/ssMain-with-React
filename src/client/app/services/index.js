@@ -81,16 +81,14 @@ export const convertPiValues = type => data => {
 };
 
 export const validateAcctNumberInput = value => {
-  let arr;
   if (value) {
-    arr = Array.from(value);
     if (
       // if length is valid and last char is a number
-      arr.length < 5 &&
-      !isNaN(parseInt(arr[arr.length - 1], 10))
+      value.length < 5 &&
+      !isNaN(value.charAt(value.length - 1))
     ) {
       // return string
-      return value.slice();
+      return value;
     } else {
       // else return string without invalid char
       return value.slice(0, value.length - 1);
