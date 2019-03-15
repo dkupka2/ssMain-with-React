@@ -5,7 +5,7 @@
 ## Pinnacle users:
 
 This application will not work without a Rest API server (contact Royce at ITAS)  
-You will need to create a config file (config.js) in the root directory to set variables and provide credentials (see /src/server/index for api)  
+You will need to set environmental variables to provide credentials (see /src/server/index)  
 I've disabled the file management tool until I can complete it for this version
 
 ## Everyone else:
