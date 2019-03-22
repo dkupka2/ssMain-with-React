@@ -7,8 +7,8 @@ let callPIRESTAPIDeps = {
 };
 
 export const callPIRESTAPI = data => dependencies => {
-  let { acct, type, view } = data;
-  let { tables, socket } = dependencies;
+  const { acct, type, view } = data;
+  const { tables, socket } = dependencies;
   // request document for single document view
   if (type !== 'constructed') {
     socket.emit(tables.requestKeys[type], {

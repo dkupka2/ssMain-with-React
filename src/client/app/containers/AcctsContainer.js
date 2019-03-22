@@ -12,7 +12,9 @@ class AcctsContainer extends Component {
   };
 
   render() {
-    let numAccts = this.props.accts ? Object.keys(this.props.accts).length : 0;
+    const numAccts = this.props.accts
+      ? Object.keys(this.props.accts).length
+      : 0;
     return (
       <div className={showIfTrue(numAccts > 1, 'accts')}>
         <Select

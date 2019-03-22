@@ -68,9 +68,9 @@ module.exports = (io, app) => {
         );
       });
 
-      let sendRequest = (type, data) => {
-        let URI,
-          { acct, table, list } = data;
+      const sendRequest = (type, data) => {
+        const { acct, table, list } = data;
+        let URI;
         switch (type) {
           case 'list':
             URI = `${url}${acct}/${list}/${table}?${query}`;

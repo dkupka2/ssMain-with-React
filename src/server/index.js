@@ -34,7 +34,7 @@ const configs = {
 // make fakes
 const mockTable = table => {
   if (!fakeTables[table]) {
-    let file = fs.readFileSync(`${process.cwd()}/tests/fakes/${table}.json`);
+    const file = fs.readFileSync(`${process.cwd()}/tests/fakes/${table}.json`);
     // cache fake as string for first request
     fakeTables[table] = JSON.stringify(JSON.parse(file));
   } // else return cached string

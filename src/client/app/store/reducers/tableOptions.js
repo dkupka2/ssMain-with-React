@@ -20,7 +20,7 @@ const initialState = {
 };
 // reducer
 export const tableOptions = (state = initialState, action) => {
-  let { type, value, table, acct, tableType } = action;
+  const { type, value, table, acct, tableType } = action;
   switch (type) {
     case SELECT_TYPE:
       return { ...state, type: tableType, table: table };

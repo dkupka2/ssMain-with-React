@@ -14,7 +14,7 @@ let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns;
 
 async function lookUpFile(file, dir = `${drive}/ordentry`, type = 'directory') {
   try {
-    let target = await stat(`${dir}/${file.toString().trim()}`);
+    const target = await stat(`${dir}/${file.toString().trim()}`);
     // if target matches test type
     if (
       (target.isFile() && type === 'file') ||
@@ -31,7 +31,7 @@ async function lookUpFile(file, dir = `${drive}/ordentry`, type = 'directory') {
 }
 
 let timeStamp = () => {
-  let d = new Date(),
+  const d = new Date(),
     year = d.getFullYear(),
     month = d.getMonth() + 1,
     day = d.getDate(),

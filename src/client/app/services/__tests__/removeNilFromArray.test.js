@@ -3,11 +3,11 @@ import { removeNilFromArray } from '../';
 
 describe('removeNilFromArray', () => {
   it('returns an empty array when no args are passed', () => {
-    let result = removeNilFromArray();
+    const result = removeNilFromArray();
     assert.isEmpty(result, `returns an empty array when no args were passed`);
   });
   it('returns matching array when arg only contains valid values', () => {
-    let arg = [1, 2, 3];
+    const arg = [1, 2, 3];
     assert.equal(
       removeNilFromArray(arg)[0],
       arg[0],
@@ -30,7 +30,7 @@ describe('removeNilFromArray', () => {
     );
   });
   it('returns the arg array with null values removed', () => {
-    let arg = [1, null, 3, null];
+    const arg = [1, null, 3, null];
     assert.notInclude(
       removeNilFromArray(arg),
       null,
@@ -43,8 +43,8 @@ describe('removeNilFromArray', () => {
     );
   });
   it('returns the arg array with undefined values removed', () => {
-    let undef, arg;
-    arg = [1, undef, 3, undef];
+    const arg = [1, undef, 3, undef];
+    let undef;
     assert.notInclude(
       removeNilFromArray(arg),
       undef,

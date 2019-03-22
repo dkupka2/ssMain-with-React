@@ -48,7 +48,7 @@ describe('convertPiValues', () => {
     );
   });
   it(`returns values as expected for multi-element data array case 'message status'`, () => {
-    let result = testStatus(1, 3, 4).split(' ');
+    const result = testStatus(1, 3, 4).split(' ');
     assert.include(
       result,
       'delivered',
@@ -71,7 +71,7 @@ describe('convertPiValues', () => {
     );
   });
   it(`returns values as expected for single element data array case 'days of the week'`, () => {
-    let result = testDotW(1, 7).split(' ');
+    const result = testDotW(1, 7).split(' ');
     assert.include(
       result,
       'Sun',
@@ -109,11 +109,11 @@ describe('convertPiValues', () => {
     );
   });
   it(`returns values as expected for data object case 'contacts'`, () => {
-    let dataNAME = { NAME: 'name' };
-    let dataNUMBER = { NUMBER: '2222' };
-    let dataUSER = { SM_USER: 'user' };
-    let dataEMAIL = { EMAIL_ADDY: 'address@domain.com' };
-    let dataUSERWithEMAIL = { ...dataUSER, ...dataEMAIL };
+    const dataNAME = { NAME: 'name' };
+    const dataNUMBER = { NUMBER: '2222' };
+    const dataUSER = { SM_USER: 'user' };
+    const dataEMAIL = { EMAIL_ADDY: 'address@domain.com' };
+    const dataUSERWithEMAIL = { ...dataUSER, ...dataEMAIL };
     assert.include(
       testContacts(dataNAME).split(' '),
       'name',

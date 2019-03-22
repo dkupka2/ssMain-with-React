@@ -21,7 +21,7 @@ describe('checkIfEmptyObject', () => {
     );
   });
   it('returns false when arg is a keyed array', () => {
-    let arg = [];
+    const arg = [];
     arg.prop = 'val'; // I don't know why anyone would do this...
     assert.isFalse(
       checkIfEmptyObject(arg),

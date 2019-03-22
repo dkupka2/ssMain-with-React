@@ -2,7 +2,7 @@ import React from 'react';
 import { passSelector } from '../services';
 
 const Select = props => {
-  let { selector, prompt, value, change, options } = props;
+  const { selector, prompt, value, change, options } = props;
 
   return (
     <div className={passSelector('div')(selector)}>

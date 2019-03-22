@@ -2,7 +2,7 @@ import React from 'react';
 import { passSelector } from '../services/';
 
 const Input = props => {
-  let {
+  const {
     selector,
     prompt,
     value,

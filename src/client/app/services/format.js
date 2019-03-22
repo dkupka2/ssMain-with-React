@@ -2,7 +2,7 @@ import { cpus } from 'os';
 
 // return a function to filter each row for conflicts table
 export const formatConflictsTableData = table => row => {
-  let {
+  const {
     ACTIVE,
     CONDITION,
     DATA1,
@@ -107,10 +107,10 @@ export const formatConflictsTableData = table => row => {
 
 export const formatDuplicatesCheckTableData = data => {
   // format and cache table rows
-  let formattedRows = data.reduce((acc, row) => {
+  const formattedRows = data.reduce((acc, row) => {
     const { GET_FIELD, FORMULA, PAGE_NUM, L_ROW, L_COL } = row;
     if (GET_FIELD && FORMULA) {
-      let rowObject = {
+      const rowObject = {
         location: `P:${PAGE_NUM} R:${L_ROW} C:${L_COL}`,
         field: GET_FIELD,
         formula: FORMULA
@@ -141,7 +141,7 @@ export const formatDuplicatesCheckTableData = data => {
 
 // massage data for single table views
 export const formatAutoOnDeliverTableData = row => {
-  let { ORDER, DESC, ACTIVE, CONDITION } = row;
+  const { ORDER, DESC, ACTIVE, CONDITION } = row;
   return {
     ORDER,
     DESC,
@@ -151,7 +151,7 @@ export const formatAutoOnDeliverTableData = row => {
 };
 
 export const formatAutoOnSaveTableData = row => {
-  let { ORDER, DESC, ACTIVE, CONDITION, CONTACT, COPYTOACCT } = row;
+  const { ORDER, DESC, ACTIVE, CONDITION, CONTACT, COPYTOACCT } = row;
   return {
     ORDER,
     DESC,
@@ -163,7 +163,7 @@ export const formatAutoOnSaveTableData = row => {
 };
 
 export const formatBatchConditionsTableData = row => {
-  let { ORDER, DESC, ACTIVE, CONDITION, CONTACT } = row;
+  const { ORDER, DESC, ACTIVE, CONDITION, CONTACT } = row;
   return {
     ORDER,
     DESC,
@@ -174,7 +174,7 @@ export const formatBatchConditionsTableData = row => {
 };
 
 export const formatContactsTableData = row => {
-  let {
+  const {
     NAME,
     ON_CALL,
     RECALL,
@@ -200,7 +200,7 @@ export const formatContactsTableData = row => {
 };
 
 export const formatDispatchConditionsTableData = row => {
-  let { NAME, VISIBLE, TESTFIELD, COMPTYPE, DATA1, DATA2, DESCR } = row;
+  const { NAME, VISIBLE, TESTFIELD, COMPTYPE, DATA1, DATA2, DESCR } = row;
   return {
     NAME,
     VISIBLE,
@@ -211,7 +211,7 @@ export const formatDispatchConditionsTableData = row => {
 };
 
 export const formatDCLTableData = row => {
-  let { ORDER, DESC, CONDITION, CONTACT, FIELD, SOFTSEEK } = row;
+  const { ORDER, DESC, CONDITION, CONTACT, FIELD, SOFTSEEK } = row;
   return {
     ORDER,
     DESC,
@@ -223,7 +223,7 @@ export const formatDCLTableData = row => {
 };
 
 export const formatDispatchProceduresTableData = row => {
-  let { NAME, ACTIVE, RAWSTEPS } = row;
+  const { NAME, ACTIVE, RAWSTEPS } = row;
   return {
     NAME,
     ACTIVE: ACTIVE ? 'Y' : 'N',
@@ -232,7 +232,7 @@ export const formatDispatchProceduresTableData = row => {
 };
 
 export const formatFormTableData = row => {
-  let {
+  const {
       PAGE_NUM,
       L_ROW,
       L_COL,
@@ -266,7 +266,7 @@ export const formatFormTableData = row => {
 };
 
 export const formatDeliveriesTableData = row => {
-  let { CONTACT, DAYS, EXCLUDE, TIME, ACTIVE } = row;
+  const { CONTACT, DAYS, EXCLUDE, TIME, ACTIVE } = row;
   return {
     CONTACT,
     DAYS: convertPiValues('days of the week')(DAYS),
@@ -277,7 +277,16 @@ export const formatDeliveriesTableData = row => {
 };
 
 export const formatRemindersTableData = row => {
-  let { DESC, CONDITION, ACTIVE, DOW, TIME, INCLUDE, EXCLUDE, MSG_TYPES } = row;
+  const {
+    DESC,
+    CONDITION,
+    ACTIVE,
+    DOW,
+    TIME,
+    INCLUDE,
+    EXCLUDE,
+    MSG_TYPES
+  } = row;
   return {
     DESC,
     CONDITION,
@@ -291,7 +300,7 @@ export const formatRemindersTableData = row => {
 };
 
 export const formatTimedActionsDataTable = row => {
-  let {
+  const {
     TYPE,
     DESC,
     CONDITION,
@@ -320,7 +329,7 @@ export const formatTimedActionsDataTable = row => {
 };
 
 export const formatDisplayConditionsTableData = row => {
-  let { ORDER, TEMPLATE, FORMULA } = row;
+  const { ORDER, TEMPLATE, FORMULA } = row;
   return {
     ORDER,
     TEMPLATE,

@@ -17,20 +17,23 @@ class FileManagementContainer extends Component {
   };
 
   render() {
-    let { selector, open, backupOptions, backupAcct } = this.props;
+    const { selector, open, backupOptions, backupAcct } = this.props;
 
     // toggle visibility
-    let parentSelector =
+    const parentSelector =
       selector !== 'hidden'
         ? generateBEMSelector('fileManagement', 'parentDiv', 'closed')
         : showIfTrue(
             open,
             generateBEMSelector('fileManagement', 'parentDiv', 'open')
           );
-    let openButtonSelector = showIfTrue(!open, 'fileManagement_openButton');
-    let closeButtonSelector = showIfTrue(open, 'fileManagement_closeButton');
-    let pSelector = showIfTrue(open, 'fileManagement_p');
-    let backupButtonSelector = showIfTrue(open, 'fileManagement_backupButton');
+    const openButtonSelector = showIfTrue(!open, 'fileManagement_openButton');
+    const closeButtonSelector = showIfTrue(open, 'fileManagement_closeButton');
+    const pSelector = showIfTrue(open, 'fileManagement_p');
+    const backupButtonSelector = showIfTrue(
+      open,
+      'fileManagement_backupButton'
+    );
 
     const parseDate = date => {
       // todo - return human readable date

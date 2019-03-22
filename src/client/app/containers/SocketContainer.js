@@ -19,7 +19,7 @@ class SocketContainer extends Component {
       this.props.validateClient(data);
     });
     socket.on(RESPONSE_RESTAPI, data => {
-      let payload = {
+      const payload = {
         acct: data.acct,
         resTable: data.table,
         data: JSON.parse(data.body),

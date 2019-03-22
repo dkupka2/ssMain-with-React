@@ -37,7 +37,7 @@ export const removeNilFromArray = (arr = []) => {
 
 export const convertPiValues = type => data => {
   if (Array.isArray(data) && data.length < 1) return '';
-  let convert = tuples => {
+  const convert = tuples => {
     return tuples.reduce((acc, tuple) => {
       if (data.includes(tuple[0])) acc.push(tuple[1]);
       return acc;
@@ -190,7 +190,7 @@ export const removeROWID = obj => {
 
 export const createSelectOptions = obj => {
   let elems = [];
-  let arr = Array.isArray(obj) ? obj : Object.keys(obj);
+  const arr = Array.isArray(obj) ? obj : Object.keys(obj);
   if (arr === undefined) return;
   if (arr.length > 0) {
     arr.map(el =>
