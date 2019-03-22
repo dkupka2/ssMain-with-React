@@ -6,6 +6,7 @@ const mockCB = () => null;
 const returnsA = a => a;
 const returnsB = (a, b) => b;
 const returnsC = (a, b, c) => c;
+const a = 'a';
 
 describe('makeHeaders', () => {
   it('returns a function', () => {

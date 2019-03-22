@@ -27,7 +27,7 @@ export const tables = {
     Message_View_Conditions: 'PT_MDTPL'
     // Dispatch_Delivery_Table: 'PT_PROCDET',
   },
-  compound: {
+  constructed: {
     Conflicts: {
       local: [
         'OE_FORM',
@@ -39,10 +39,13 @@ export const tables = {
         'PT_MDTPL'
       ],
       global: ['PT_TACTION', 'PT_SCHED', 'PTREMIND']
+    },
+    Duplicates: {
+      local: ['OE_FORM']
     }
   },
   default: {
-    compound: 'Conflicts',
+    constructed: 'Conflicts',
     local: 'Form',
     global: 'Timed_Actions'
   },
@@ -57,13 +60,13 @@ export const tables = {
 tables.lists = {
   local: Object.keys(tables.local),
   global: Object.keys(tables.global),
-  compound: Object.keys(tables.compound)
+  constructed: Object.keys(tables.constructed)
 };
-// build lists of documents in each compound table
-tables.compoundLists = {};
-tables.lists.compound.map(cList => {
-  tables.compoundLists[cList] = tables.compound[cList].local.concat(
-    tables.compound[cList].global
+// build lists of documents in each constructed table
+tables.constructedLists = {};
+tables.lists.constructed.map(cList => {
+  tables.constructedLists[cList] = tables.constructed[cList].local.concat(
+    tables.constructed[cList].global
   );
 });
 // build lists of document names

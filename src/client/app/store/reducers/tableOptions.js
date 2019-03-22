@@ -12,7 +12,7 @@ import {
 } from '../';
 // state
 const initialState = {
-  type: 'compound',
+  type: 'constructed',
   table: 'Conflicts',
   which: 'latest',
   message: '',

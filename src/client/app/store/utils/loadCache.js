@@ -3,10 +3,10 @@ export const loadCache = data => dependencies => {
   let targetArray,
     body = [],
     { acct, view, accts } = data;
-  // if selected view is a compound table
-  if (tables.lists.compound.includes(view)) {
+  // if selected view is a constructed table
+  if (tables.lists.constructed.includes(view)) {
     // iterate over tables list
-    tables.compoundLists[view].forEach(targetTable => {
+    tables.constructedLists[view].forEach(targetTable => {
       // revert each table name to human readable
       targetTable = tables.revertKeys[targetTable];
       targetArray = accts[acct][targetTable];
@@ -21,7 +21,7 @@ export const loadCache = data => dependencies => {
     targetArray = accts[acct][view];
     if (targetArray.length > 0) {
       // filter table
-      body = makeBody(body)(view)(targetArray)(view);
+      body = makeBody(body)(view)(targetArray)();
     }
   }
   // remove non-formatted data

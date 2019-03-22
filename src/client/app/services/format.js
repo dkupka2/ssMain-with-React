@@ -1,3 +1,5 @@
+import { cpus } from 'os';
+
 // return a function to filter each row for conflicts table
 export const formatConflictsTableData = table => row => {
   let {
@@ -100,6 +102,40 @@ export const formatConflictsTableData = table => row => {
         condition: 'n/a',
         active: 'n/a'
       };
+  }
+};
+
+export const formatDuplicatesCheckTableData = data => {
+  // format and cache table rows
+  let formattedRows = data.reduce((acc, row) => {
+    const { GET_FIELD, FORMULA, PAGE_NUM, L_ROW, L_COL } = row;
+    if (GET_FIELD && FORMULA) {
+      let rowObject = {
+        location: `P:${PAGE_NUM} R:${L_ROW} C:${L_COL}`,
+        field: GET_FIELD,
+        formula: FORMULA
+      };
+      if (!acc[GET_FIELD]) {
+        acc[GET_FIELD] = [rowObject];
+      } else {
+        acc[GET_FIELD].push(rowObject);
+      }
+      return acc;
+    }
+  }, {});
+  for (let field in formattedRows) {
+    if (
+      // if there is only one instance of a formula for each field
+      formattedRows[field].length <= 1 ||
+      // or every formula in the array matches
+      formattedRows[field].every(
+        row => row.formula === formattedRows[field].formula[0]
+      )
+    ) {
+      // remove the array
+      delete formattedRows[field];
+    }
+    return formmattedRows;
   }
 };
 

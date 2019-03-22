@@ -16,7 +16,7 @@ let { getTables } = tables;
 // reducer
 class TableOptionsContainer extends Component {
   state = {
-    types: ['compound', 'local', 'global'],
+    types: ['constructed', 'local', 'global'],
     tables: getTables(this.props.type),
     visible: false
   };

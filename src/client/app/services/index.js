@@ -2,6 +2,7 @@ import React from 'react';
 
 export {
   formatConflictsTableData,
+  formatDuplicatesCheckTableData,
   formatAutoOnDeliverTableData,
   formatAutoOnSaveTableData,
   formatBatchConditionsTableData,
@@ -16,13 +17,14 @@ export {
   formatDisplayConditionsTableData
 } from './format.js';
 
-export const applyView = table => data => viewTable =>
-  data.map(row => filterPiTable(table)(viewTable)(row));
+export const applyFormatting = table => data => viewTable =>
+  viewTable === 'Duplicates'
+    ? formatDuplicatesCheckTableData(data)
+    : data.map(row => filterPiTable(table)(viewTable)(row));
 
 // if arg1 than arg2 else if arg3 than arg 4 else hidden
-export const createBlockSelector = (c1, res1, c2, res2) => {
-  return c1 ? res1 : showIfTrue(c2, res2);
-};
+export const createBlockSelector = (c1, res1, c2, res2) =>
+  c1 ? res1 : showIfTrue(c2, res2);
 
 export const removeNilFromArray = (arr = []) => {
   let final = [];
@@ -116,7 +118,7 @@ export const validateAcctNumberInput = value => {
 // return a function to filter each row
 export const filterPiTable = table => viewTable => {
   switch (viewTable) {
-    // compound tables
+    // constructed tables
     case 'Conflicts':
       return formatConflictsTableData(table);
     // single tables

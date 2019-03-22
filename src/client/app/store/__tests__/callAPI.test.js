@@ -31,7 +31,7 @@ describe('callAPI - single table tests', () => {
     socket.events = [];
     socket.tracking = {};
   });
-  it("calls emit once if type is not 'compound'", () => {
+  it("calls emit once if type is not 'constructed'", () => {
     assert.equal(
       socket.events.length,
       1,
@@ -57,17 +57,17 @@ describe('callAPI - single table tests', () => {
   });
 });
 
-describe('callAPI - compound table tests', () => {
+describe('callAPI - constructed table tests', () => {
   beforeEach(() => {
     acct = 1;
-    type = 'compound';
+    type = 'constructed';
     view = 'test';
     tables = {
       requestKeys: {
         local: 'REQUEST_LOCAL',
         global: 'REQUEST_GLOBAL'
       },
-      compound: {
+      constructed: {
         test: {
           local: ['localOne', 'localTwo'],
           global: ['globalOne']
@@ -83,11 +83,11 @@ describe('callAPI - compound table tests', () => {
     socket.events = [];
     socket.tracking = {};
   });
-  it('calls emit for each doc in the selected compound view', () => {
+  it('calls emit for each doc in the selected constructed view', () => {
     assert.equal(
       socket.events.length,
       3,
-      `returns a compound table request with the right number of events`
+      `returns a constructed table request with the right number of events`
     );
   });
   it('emits a request event for each table with expected props/vals', () => {

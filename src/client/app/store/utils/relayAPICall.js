@@ -10,15 +10,15 @@ export const callPIRESTAPI = data => dependencies => {
   let { acct, type, view } = data;
   let { tables, socket } = dependencies;
   // request document for single document view
-  if (type !== 'compound') {
+  if (type !== 'constructed') {
     socket.emit(tables.requestKeys[type], {
       acct,
       table: tables[type][view]
     });
   } else {
-    // get all docs for each type in selected compound view
-    Object.keys(tables.compound[view]).forEach(docType => {
-      tables.compound[view][docType].forEach(doc => {
+    // get all docs for each type in selected constructed view
+    Object.keys(tables.constructed[view]).forEach(docType => {
+      tables.constructed[view][docType].forEach(doc => {
         socket.emit(tables.requestKeys[docType], {
           acct,
           table: doc
