@@ -1,7 +1,6 @@
 const assert = require('chai').assert;
 import { initAcct } from '../';
 
-const fail = 'initAcct did not return';
 const testArray = ['a', 'b', 'c'];
 let result = initAcct(testArray);
 

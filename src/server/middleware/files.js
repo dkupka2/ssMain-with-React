@@ -9,7 +9,6 @@ const pGlob = promisify(glob.glob);
 const configs = require('../').configs;
 // drive letter from config
 const drive = configs.paths.root;
-const option = require('../').option;
 
 let time, dir, acctNum, acct, gO, dbfiles, backUp, dest, patterns;
 

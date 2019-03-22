@@ -27,8 +27,8 @@ export const formatConflictsTableData = table => row => {
             FORMULA && FORMULA.toString().slice(0, 1) !== '~' ? '' : 'NO'
           }`
         };
-        // if no formula or field return null
       }
+      // if no formula or field return null
       return null;
     case 'Autos_on_Save':
       return {

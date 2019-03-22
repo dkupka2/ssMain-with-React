@@ -4,10 +4,7 @@ import { Select } from '../components';
 // library
 import { createSelectOptions, showIfTrue } from '../services/';
 // action creators
-import {
-  // accts
-  changeSelect
-} from '../store/';
+import { changeSelect } from '../store/';
 
 class AcctsContainer extends Component {
   handleSelectChange = e => {

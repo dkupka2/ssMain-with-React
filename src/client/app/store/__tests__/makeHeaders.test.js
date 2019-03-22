@@ -1,14 +1,7 @@
 const assert = require('chai').assert;
 import { makeHeaders } from '../';
 
-const fail = 'makeHeaders did not return';
-
-const a = 'a';
-const b = 'b';
-const c = 'c';
-
-const mockStructure = { a: 1, b: 2, c: 3 };
-const mockArray = [1, 2, 3];
+const objectFake = { a: 1, b: 2, c: 3 };
 const mockCB = () => null;
 const returnsA = a => a;
 const returnsB = (a, b) => b;
@@ -20,74 +13,74 @@ describe('makeHeaders', () => {
   });
   it('returns a fn that iterates over the array (arg1)', () => {
     assert.equal(
-      makeHeaders(mockStructure)(mockCB).length,
+      makeHeaders(objectFake)(mockCB).length,
       3,
       `returns a new array with length equal to original array`
     );
   });
   it('returns a fn that returns an array of objects', () => {
     assert.isObject(
-      makeHeaders(mockStructure)(mockCB)[0],
+      makeHeaders(objectFake)(mockCB)[0],
       `returns a new array of objects (el 1)`
     );
     assert.isObject(
-      makeHeaders(mockStructure)(mockCB)[1],
+      makeHeaders(objectFake)(mockCB)[1],
       `returns a new array of objects (el 2)`
     );
     assert.isObject(
-      makeHeaders(mockStructure)(mockCB)[2],
+      makeHeaders(objectFake)(mockCB)[2],
       `returns a new array of objects (el 3)`
     );
   });
   it('returns an array of objects with expected property values', () => {
     assert.equal(
-      makeHeaders(mockStructure)(mockCB)[0].Header,
+      makeHeaders(objectFake)(mockCB)[0].Header,
       a,
       `returns a new array objects with expected Header value`
     );
     assert.equal(
-      makeHeaders(mockStructure)(mockCB)[0].accessor,
+      makeHeaders(objectFake)(mockCB)[0].accessor,
       a,
       `returns a new array objects with expected accessor value`
     );
     assert.equal(
-      makeHeaders(mockStructure)(mockCB)[0].id,
+      makeHeaders(objectFake)(mockCB)[0].id,
       a,
       `returns a new array objects with expected id value`
     );
     assert.isFalse(
-      makeHeaders(mockStructure)(mockCB)[0].filterAll,
+      makeHeaders(objectFake)(mockCB)[0].filterAll,
       false,
       `returns a new array objects with expected filterAll value`
     );
   });
   it('returns a fn that returns an arr of objects with method: filterMethod', () => {
     assert.isFunction(
-      makeHeaders(mockStructure)(mockCB)[0].filterMethod,
+      makeHeaders(objectFake)(mockCB)[0].filterMethod,
       `returns a nested object with exected method (el 1)`
     );
     assert.isFunction(
-      makeHeaders(mockStructure)(mockCB)[1].filterMethod,
+      makeHeaders(objectFake)(mockCB)[1].filterMethod,
       `returns a nested object with exected method (el 2)`
     );
     assert.isFunction(
-      makeHeaders(mockStructure)(mockCB)[2].filterMethod,
+      makeHeaders(objectFake)(mockCB)[2].filterMethod,
       `returns a nested object with exected method (el 3)`
     );
   });
   it('returns a nested method that utilizes arguments as expected', () => {
     assert.equal(
-      makeHeaders(mockStructure)(returnsA)[0].filterMethod('test'),
+      makeHeaders(objectFake)(returnsA)[0].filterMethod('test'),
       'test',
       `returns a nested method that utilizes (arg1) as expected`
     );
     assert.equal(
-      makeHeaders(mockStructure)(returnsB)[0].filterMethod(null, 'test'),
+      makeHeaders(objectFake)(returnsB)[0].filterMethod(null, 'test'),
       'test',
       `returns a nested method that utilizes (arg2) as expected`
     );
     assert.equal(
-      makeHeaders(mockStructure)(returnsC)[0].filterMethod(null, null),
+      makeHeaders(objectFake)(returnsC)[0].filterMethod(null, null),
       a,
       `returns a nested method that returns the column value`
     );

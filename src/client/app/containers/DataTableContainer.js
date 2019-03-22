@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-// library
 import { showIfTrue } from '../services';
-import {
-  // action creators
-  relayCacheCheck,
-  // event keys
-  LOAD_TABLE,
-  RESPONSE_RESTAPI
-} from '../store/';
+import { relayCacheCheck } from '../store/';
 
 class DataTableContainer extends Component {
   render() {

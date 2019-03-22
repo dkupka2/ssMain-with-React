@@ -1,16 +1,10 @@
 const assert = require('chai').assert;
 import { filterRows } from '../';
 
-const fail = 'filterRows did not return';
-
 let testRow = {
   _original: {
     string: 'string'
   }
-};
-
-let filterString = {
-  value: 'string'
 };
 
 let filterTest = {

@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { validateAcctNumberInput } from '../services/';
-import { socket } from '../store/socket';
 import { Input } from '../components';
-import {
-  // event keys
-  SUBMIT_ACCT_INPUT,
-  // action creators
-  submitAcct
-} from '../store/';
+import { submitAcct } from '../store/';
 // reducer
 class AcctInputContainer extends Component {
   state = {
