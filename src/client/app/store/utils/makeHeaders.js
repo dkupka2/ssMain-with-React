@@ -1,4 +1,4 @@
-export const makeHeaders = table => filter =>
+export const structureDataTable = table => filter =>
   Object.keys(table).map(column => {
     return {
       Header: column,

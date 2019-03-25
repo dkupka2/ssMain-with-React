@@ -51,7 +51,7 @@ export { changeSelect } from './actionCreators/changeSelect';
 export { changeTable } from './actionCreators/changeTable';
 export { changeTable_dispatch } from './actionCreators/changeTable';
 export { changeType } from './actionCreators/changeType';
-export { checkCache } from './actionCreators/checkCache';
+export { formatTableFromCache } from './actionCreators/formatTableFromCache';
 export { restError } from './actionCreators/restError';
 export { restRequest } from './actionCreators/restRequest';
 export { submitAcct } from './actionCreators/submitAcct';
@@ -59,12 +59,13 @@ export { toggleOptions } from './actionCreators/toggleOptions';
 export { validateClient } from './actionCreators/validateClient';
 
 // utils
+export { filterRows } from './actionCreators/formatTableFromCache';
+export { pipeDataToFormatTable } from './actionCreators/formatTableFromCache';
+export { structureDataTable } from './actionCreators/formatTableFromCache';
+
 export { callAPI } from './utils/callAPI';
-export { relayCacheCheck } from './utils/relayCacheCheck';
 export { callAPI_piRest } from './utils/callAPI';
-export { filterRows } from './utils/filterRows';
 export { makeBody } from './utils/makeBody';
-export { makeHeaders } from './utils/makeHeaders';
 export { loadCache } from './utils/loadCache';
 export { relayCacheLoad } from './utils/relayCacheLoad';
 export { renderFromCache } from './utils/renderFromCache';

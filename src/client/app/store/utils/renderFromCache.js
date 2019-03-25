@@ -1,5 +1,5 @@
-import { relayCacheLoad, relayCacheCheck } from '../';
+import { relayCacheLoad, pipeDataToFormatTable } from '../';
 
 export const renderFromCache = data => {
-  return relayCacheCheck(relayCacheLoad(data));
+  return pipeDataToFormatTable(relayCacheLoad(data));
 };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import { showIfTrue } from '../services';
-import { relayCacheCheck } from '../store/';
+import { pipeDataToFormatTable } from '../store/';
 
 class DataTableContainer extends Component {
   render() {
@@ -29,7 +29,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    relayCacheCheck: data => dispatch(relayCacheCheck(data))
+    pipeDataToFormatTable: data => dispatch(pipeDataToFormatTable(data))
   };
 };
 

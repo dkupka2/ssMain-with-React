@@ -18,7 +18,7 @@ const validateAcctNumberInput = require(`${path}${services}validateAcctNumberInp
 // const filterTable = require(`${path}filterTable.test`)
 
 // store/utils
-const makeHeaders = require(`${path}${store}makeHeaders.test`);
+const structureDataTable = require(`${path}${store}structureDataTable.test`);
 const callAPI = require(`${path}${store}callAPI.test`);
 const initAcct = require(`${path}${store}initAcct.test`);
 const filterRows = require(`${path}${store}filterRows.test`);
