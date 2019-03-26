@@ -45,7 +45,7 @@ export const makeBody = body => target => array => (view = target) => [
   ...applyFormatting(target)(getLastElFrom2DArray(array))(view)
 ];
 
-// namespacing for pipeDataToLoadCache dependences
+// namespacing for curry dependences
 const pipeDataToLoadCacheDeps = {
   filter: removeNilFromArray,
   format: makeBody,

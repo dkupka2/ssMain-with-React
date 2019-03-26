@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { socket } from '../store/socket';
 import {
   // action creators
-  restResponse,
+  dispatchRestResponse,
   restError,
   validateClient,
   // action keys
@@ -26,7 +26,7 @@ class SocketContainer extends Component {
         accts: this.props.accts,
         view: this.props.table
       };
-      this.props.restResponse(payload);
+      this.props.dispatchRestResponse(payload);
     });
     socket.on(PARSE_ERROR, e => {
       this.props.restError('error parsing response from RestAPI server');
@@ -51,7 +51,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     validateClient: payload => dispatch(validateClient(payload)),
-    restResponse: payload => restResponse(payload)(dispatch),
+    dispatchRestResponse: payload => dispatchRestResponse(payload)(dispatch),
     restError: payload => dispatch(restError(payload))
   };
 };

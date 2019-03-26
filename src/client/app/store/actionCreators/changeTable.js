@@ -2,7 +2,7 @@ import {
   // event keys
   SELECT_TABLE,
   // utils
-  renderFromCache
+  prepDataToRender
 } from '../';
 
 export const changeTable_dispatch = data => render => dispatch => {
@@ -13,4 +13,4 @@ export const changeTable_dispatch = data => render => dispatch => {
   });
 };
 
-export const changeTable = data => changeTable_dispatch(data)(renderFromCache);
+export const changeTable = data => changeTable_dispatch(data)(prepDataToRender);

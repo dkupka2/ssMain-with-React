@@ -8,7 +8,7 @@ import {
   changeTable,
   changeType,
   restRequest,
-  restResponse,
+  dispatchRestResponse,
   // action keys
   tables
 } from '../store/';
@@ -99,7 +99,7 @@ const mapDispatch = dispatch => {
     changeType: data => dispatch(changeType(data)),
     changeTable: data => dispatch(changeTable(data)),
     restRequest: data => dispatch(restRequest(data)),
-    restResponse: data => dispatch(restResponse(data))
+    dispatchRestResponse: data => dispatch(dispatchRestResponse(data))
   };
 };
 

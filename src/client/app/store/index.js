@@ -67,8 +67,5 @@ export { callPiRest } from './actionCreators/restRequest';
 export { makeBody } from './utils/loadCache';
 export { loadCache } from './utils/loadCache';
 export { pipeDataToLoadCache } from './utils/loadCache';
-
-// utils
-
-export { renderFromCache } from './utils/renderFromCache';
-export { restResponse } from './utils/restResponse';
+export { prepDataToRender } from './utils/prepDataToRender';
+export { dispatchRestResponse } from './utils/dispatchRestResponse';

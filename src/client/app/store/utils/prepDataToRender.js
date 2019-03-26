@@ -1,5 +1,5 @@
 import { pipeDataToLoadCache, pipeDataToFormatTable } from '../';
 
-export const renderFromCache = data => {
+export const prepDataToRender = data => {
   return pipeDataToFormatTable(pipeDataToLoadCache(data));
 };
