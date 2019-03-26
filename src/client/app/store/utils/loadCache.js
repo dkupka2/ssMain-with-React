@@ -1,5 +1,12 @@
+import {
+  removeNilFromArray,
+  getLastElFrom2DArray,
+  applyFormatting
+} from '../../services/';
+import { tables } from '../';
+
 export const loadCache = data => dependencies => {
-  const { tables, makeBody, clean } = dependencies;
+  const { tables, format, filter } = dependencies;
   let targetArray,
     body = [],
     { acct, view, accts } = data;
@@ -12,16 +19,16 @@ export const loadCache = data => dependencies => {
       targetArray = accts[acct][targetTable];
       // if cache has data
       if (targetArray.length > 0) {
-        // filter and aggregate data
-        body = makeBody(body)(targetTable)(targetArray)(view);
+        // format and aggregate data
+        body = format(body)(targetTable)(targetArray)(view);
       }
     });
   } else {
     // if table data exists in accts.acct[table]
     targetArray = accts[acct][view];
     if (targetArray.length > 0) {
-      // filter table
-      body = makeBody(body)(view)(targetArray)();
+      // format table
+      body = format(body)(view)(targetArray)();
     }
   }
   // remove non-formatted data
@@ -29,6 +36,21 @@ export const loadCache = data => dependencies => {
   // return data without undefined / null entries
   return {
     ...data,
-    body: clean(body)
+    body: filter(body)
   };
 };
+
+export const makeBody = body => target => array => (view = target) => [
+  ...body,
+  ...applyFormatting(target)(getLastElFrom2DArray(array))(view)
+];
+
+// namespacing for pipeDataToLoadCache dependences
+const pipeDataToLoadCacheDeps = {
+  filter: removeNilFromArray,
+  format: makeBody,
+  tables
+};
+
+export const pipeDataToLoadCache = data =>
+  loadCache(data)(pipeDataToLoadCacheDeps);

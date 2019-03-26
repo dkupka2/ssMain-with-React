@@ -64,10 +64,11 @@ export { pipeDataToFormatTable } from './actionCreators/formatTableFromCache';
 export { structureDataTable } from './actionCreators/formatTableFromCache';
 export { callAPI } from './actionCreators/restRequest';
 export { callPiRest } from './actionCreators/restRequest';
+export { makeBody } from './utils/loadCache';
+export { loadCache } from './utils/loadCache';
+export { pipeDataToLoadCache } from './utils/loadCache';
 
 // utils
-export { makeBody } from './utils/makeBody';
-export { loadCache } from './utils/loadCache';
-export { relayCacheLoad } from './utils/relayCacheLoad';
+
 export { renderFromCache } from './utils/renderFromCache';
 export { restResponse } from './utils/restResponse';
