@@ -1,5 +1,3 @@
-import { cpus } from 'os';
-
 // return a function to filter each row for conflicts table
 export const formatConflictsTableData = table => row => {
   const {

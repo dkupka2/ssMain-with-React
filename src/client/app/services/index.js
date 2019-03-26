@@ -1,5 +1,24 @@
 import React from 'react';
 
+// import formatters here so they are accessible locally
+import {
+  formatConflictsTableData,
+  formatDuplicatesCheckTableData,
+  formatAutoOnDeliverTableData,
+  formatAutoOnSaveTableData,
+  formatBatchConditionsTableData,
+  formatContactsTableData,
+  formatDispatchConditionsTableData,
+  formatDCLTableData,
+  formatDispatchProceduresTableData,
+  formatFormTableData,
+  formatDeliveriesTableData,
+  formatRemindersTableData,
+  formatTimedActionsDataTable,
+  formatDisplayConditionsTableData
+} from './format';
+
+// export formatters so they can be tested
 export {
   formatConflictsTableData,
   formatDuplicatesCheckTableData,
@@ -15,7 +34,7 @@ export {
   formatRemindersTableData,
   formatTimedActionsDataTable,
   formatDisplayConditionsTableData
-} from './format.js';
+};
 
 export const applyFormatting = table => data => viewTable =>
   viewTable === 'Duplicates'
