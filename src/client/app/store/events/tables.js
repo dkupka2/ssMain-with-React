@@ -65,9 +65,13 @@ tables.lists = {
 // build lists of documents in each constructed table
 tables.constructedLists = {};
 tables.lists.constructed.map(cList => {
-  tables.constructedLists[cList] = tables.constructed[cList].local.concat(
-    tables.constructed[cList].global
-  );
+  let newList;
+  const targetTable = tables.constructed[cList];
+  // add documents by type if any of type are present in list
+  if (targetTable.local) newList = [...tables.constructed[cList].local];
+  if (targetTable.global)
+    newList = [...newList, ...tables.constructed[cList].global];
+  tables.constructedLists[cList] = newList;
 });
 // build lists of document names
 Object.keys(tables.global).map(key => {

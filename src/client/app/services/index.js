@@ -18,24 +18,6 @@ import {
   formatDisplayConditionsTableData
 } from './format';
 
-// export formatters so they can be tested
-export {
-  formatConflictsTableData,
-  formatDuplicatesCheckTableData,
-  formatAutoOnDeliverTableData,
-  formatAutoOnSaveTableData,
-  formatBatchConditionsTableData,
-  formatContactsTableData,
-  formatDispatchConditionsTableData,
-  formatDCLTableData,
-  formatDispatchProceduresTableData,
-  formatFormTableData,
-  formatDeliveriesTableData,
-  formatRemindersTableData,
-  formatTimedActionsDataTable,
-  formatDisplayConditionsTableData
-};
-
 export const applyFormatting = table => data => viewTable =>
   viewTable === 'Duplicates'
     ? formatDuplicatesCheckTableData(data)

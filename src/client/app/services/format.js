@@ -105,7 +105,7 @@ export const formatConflictsTableData = table => row => {
 
 export const formatDuplicatesCheckTableData = data => {
   // format and cache table rows
-  const formattedRows = data.reduce((acc, row) => {
+  let formattedRows = data.reduce((acc, row) => {
     const { GET_FIELD, FORMULA, PAGE_NUM, L_ROW, L_COL } = row;
     if (GET_FIELD && FORMULA) {
       const rowObject = {
@@ -118,23 +118,23 @@ export const formatDuplicatesCheckTableData = data => {
       } else {
         acc[GET_FIELD].push(rowObject);
       }
-      return acc;
     }
+    return acc;
   }, {});
-  for (let field in formattedRows) {
+  Object.keys(formattedRows).forEach(field => {
     if (
       // if there is only one instance of a formula for each field
       formattedRows[field].length <= 1 ||
       // or every formula in the array matches
       formattedRows[field].every(
-        row => row.formula === formattedRows[field].formula[0]
+        row => row.formula === formattedRows[field][0].formula
       )
     ) {
       // remove the array
       delete formattedRows[field];
     }
-    return formmattedRows;
-  }
+  });
+  return formattedRows;
 };
 
 // massage data for single table views
