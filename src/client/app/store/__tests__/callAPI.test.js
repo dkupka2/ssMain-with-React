@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-import { callAPI_piRest } from '../';
+import { callPiRest } from '../';
 
 let acct, type, view;
 let tables = {};
@@ -25,7 +25,7 @@ describe('callAPI - single table tests', () => {
         view: 'view name'
       }
     };
-    callAPI_piRest(acct)(type)(view)(tables)(socket);
+    callPiRest(acct)(type)(view)({ tables, socket });
   });
   afterEach(() => {
     socket.events = [];
@@ -77,7 +77,7 @@ describe('callAPI - constructed table tests', () => {
         }
       }
     };
-    callAPI_piRest(acct)(type)(view)(tables)(socket);
+    callPiRest(acct)(type)(view)({ tables, socket });
   });
   afterEach(() => {
     socket.events = [];

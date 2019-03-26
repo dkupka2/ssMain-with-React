@@ -58,13 +58,14 @@ export { submitAcct } from './actionCreators/submitAcct';
 export { toggleOptions } from './actionCreators/toggleOptions';
 export { validateClient } from './actionCreators/validateClient';
 
-// utils
+// helper functions and curries
 export { filterRows } from './actionCreators/formatTableFromCache';
 export { pipeDataToFormatTable } from './actionCreators/formatTableFromCache';
 export { structureDataTable } from './actionCreators/formatTableFromCache';
+export { callAPI } from './actionCreators/restRequest';
+export { callPiRest } from './actionCreators/restRequest';
 
-export { callAPI } from './utils/callAPI';
-export { callAPI_piRest } from './utils/callAPI';
+// utils
 export { makeBody } from './utils/makeBody';
 export { loadCache } from './utils/loadCache';
 export { relayCacheLoad } from './utils/relayCacheLoad';
