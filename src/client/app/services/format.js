@@ -104,6 +104,7 @@ export const formatConflictsTableData = table => row => {
 };
 
 export const formatDuplicatesCheckTableData = data => {
+  let final = [];
   // format and cache table rows
   let formattedRows = data.reduce((acc, row) => {
     const { GET_FIELD, FORMULA, PAGE_NUM, L_ROW, L_COL } = row;
@@ -133,8 +134,11 @@ export const formatDuplicatesCheckTableData = data => {
       // remove the array
       delete formattedRows[field];
     }
+    // re-construct final with remaining elements
+    if (formattedRows[field] && formattedRows[field].length > 0)
+      final = [...final, ...formattedRows[field]];
   });
-  return formattedRows;
+  return final;
 };
 
 // massage data for single table views
