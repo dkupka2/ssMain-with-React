@@ -40,15 +40,14 @@ export const loadCache = data => dependencies => {
   };
 };
 
-export const makeBody = body => target => array => (view = target) => [
-  ...body,
-  ...applyFormatting(target)(getLastElFrom2DArray(array))(view)
-];
+export const formatTableDataBody = body => target => array => (
+  view = target
+) => [...body, ...applyFormatting(target)(getLastElFrom2DArray(array))(view)];
 
 // namespacing for curry dependences
 const pipeDataToLoadCacheDeps = {
   filter: removeNilFromArray,
-  format: makeBody,
+  format: formatTableDataBody,
   tables
 };
 

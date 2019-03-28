@@ -25,4 +25,4 @@ const structureDataTable = require(`${storePath}structureDataTable.test`);
 const callAPI = require(`${storePath}callAPI.test`);
 const initAcct = require(`${storePath}initAcct.test`);
 const filterRows = require(`${storePath}filterRows.test`);
-const loadCache = require(`${storePath}loadCache.test`);
+// const loadCache = require(`${storePath}loadCache.test`);
