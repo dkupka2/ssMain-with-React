@@ -17,7 +17,6 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "express": "^4.16.2",
-    "glob": "^7.1.2",
     "pubsub-js": "^1.6.0",
     "ramda": "^0.26.1",
     "react": "^16.2.0",

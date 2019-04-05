@@ -6,7 +6,6 @@ import {
   TableOptionsContainer,
   DataTableContainer,
   SocketContainer
-  // FileManagementContainer
 } from './containers';
 
 import './styles/App.css';
@@ -21,7 +20,6 @@ class App extends Component {
       <div>
         <AcctInputContainer />
         <AcctsContainer />
-        {/* <FileManagementContainer /> */}
         <TableOptionsContainer />
         <DataTableContainer />
         <SocketContainer />

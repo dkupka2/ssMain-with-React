@@ -4,7 +4,6 @@ const storePath = `${path}store/__tests__/`;
 // services
 const removeNilFromArray = require(`${servicesPath}removeNilFromArray.test`);
 const convertPiValues = require(`${servicesPath}convertPiValues.test.js`);
-const generateBEMSelector = require(`${servicesPath}generateBEMSelector.test`);
 const getLastElFrom2DArray = require(`${servicesPath}getLastElFrom2DArray.test`);
 const confirmIsNonEmptyArray = require(`${servicesPath}confirmIsNonEmptyArray.test`);
 const checkIfEmptyObject = require(`${servicesPath}checkIfEmptyObject.test`);

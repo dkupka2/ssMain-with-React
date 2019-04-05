@@ -37,7 +37,6 @@ export { tables } from './events/tables';
 // reducers
 export { acctInput } from './reducers/acctInput';
 export { dataTable } from './reducers/dataTable';
-export { fileManagement } from './reducers/fileManagement';
 export { socket } from './reducers/socket';
 export { tableOptions } from './reducers/tableOptions';
 

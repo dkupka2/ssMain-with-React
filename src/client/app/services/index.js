@@ -148,14 +148,6 @@ export const filterPiTable = table => viewTable => {
   }
 };
 
-export const generateBEMSelector = (block, element, ...modifiers) => {
-  let final = `${block}_${element}`;
-  modifiers.map(modifier => {
-    final = final.concat(` ${block}_${element}_${modifier}`);
-  });
-  return final;
-};
-
 export const getLastElFrom2DArray = arr =>
   confirmIsNonEmptyArray(arr) ? arr[arr.length - 1] : [];
 
