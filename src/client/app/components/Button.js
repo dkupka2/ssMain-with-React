@@ -1,14 +1,11 @@
 import React from 'react';
-import { passSelector } from '../services/';
 
 const Button = props => {
-  const { selector, click, prompt } = props;
+  const { click, prompt } = props;
 
   return (
-    <div className={passSelector('div')(selector)}>
-      <button className={passSelector('button')(selector)} onClick={click}>
-        {prompt}
-      </button>
+    <div style={{ display: 'inline' }}>
+      <button onClick={click}>{prompt}</button>
     </div>
   );
 };

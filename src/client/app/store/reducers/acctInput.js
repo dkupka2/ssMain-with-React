@@ -8,7 +8,7 @@ import {
 // initial state
 const initialState = {
   message: '',
-  messageClass: 'hidden'
+  status: 'hidden'
 };
 // reducer
 export const acctInput = (state = initialState, action) => {
@@ -17,19 +17,19 @@ export const acctInput = (state = initialState, action) => {
       return {
         ...state,
         message: `checking for Acct ${action.value}...`,
-        messageClass: 'acctInput_p acctInput_p_looking'
+        status: 'looking'
       };
     case ACCT_VALID:
       return {
         ...state,
         message: `Acct ${action.acct} found`,
-        messageClass: 'acctInput_p acctInput_p_valid'
+        status: 'valid'
       };
     case ACCT_INVALID:
       return {
         ...state,
         message: `Acct ${action.acct} not found`,
-        messageClass: 'acctInput_p acctInput_p_invalid'
+        status: 'invalid'
       };
     default:
       return state;

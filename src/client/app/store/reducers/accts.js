@@ -23,7 +23,7 @@ export const initAcct = list =>
 export const accts = (state = initialState, action) => {
   switch (action.type) {
     case ACCT_VALID:
-      let add = {};
+      const add = {};
       add[action.acct] = initAcct(lists.global.concat(lists.local));
       const accts = { ...state.accts, ...add };
       return {

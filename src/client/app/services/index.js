@@ -23,10 +23,6 @@ export const applyFormatting = table => data => viewTable =>
     ? formatDuplicatesCheckTableData(data)
     : data.map(row => filterPiTable(table)(viewTable)(row));
 
-// if arg1 than arg2 else if arg3 than arg 4 else hidden
-export const createBlockSelector = (c1, res1, c2, res2) =>
-  c1 ? res1 : showIfTrue(c2, res2);
-
 export const removeNilFromArray = (arr = []) => {
   let final = [];
   if (arr.length < 1) return arr;

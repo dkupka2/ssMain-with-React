@@ -12,7 +12,21 @@ import {
   // action keys
   tables
 } from '../store/';
-let { getTables } = tables;
+const { getTables } = tables;
+
+const messageColor = status => {
+  switch (status) {
+    case 'loading':
+      return 'orange';
+    case 'success':
+      return 'green';
+    case 'fail':
+      return 'red';
+    default:
+      return 'black';
+  }
+};
+
 // reducer
 class TableOptionsContainer extends Component {
   state = {
@@ -53,28 +67,37 @@ class TableOptionsContainer extends Component {
 
   render() {
     return (
-      <div className={showIfTrue(this.state.visible, 'tableOptions')}>
+      <div
+        style={{
+          display: this.state.visible ? 'block' : 'none',
+          marginBottom: '20px'
+        }}>
         <Select
-          selector="tableOptions_type"
-          prompt="Type of Table: "
+          prompt='Type of Table: '
           value={this.props.type}
           options={createSelectOptions(this.state.types)}
           change={this.handleTypeChange}
         />
         <Select
-          selector="tableOptions_table"
-          prompt="Which Table: "
+          prompt='Which Table: '
           value={this.props.table}
           options={createSelectOptions(this.state.tables)}
           change={this.handleTableChange}
         />
-        <div className="tableOptions_messageDiv">
+        <div>
           <Button
-            selector="tableOptions_submit"
-            prompt="load table"
+            style={{ display: 'inline' }}
+            prompt='load table'
             click={this.handleTableLoad}
           />
-          <p className={this.props.messageClass}>{this.props.message}</p>
+          <p
+            style={{
+              display: 'inline',
+              marginLeft: '15px',
+              color: messageColor(this.props.status)
+            }}>
+            {this.props.message}
+          </p>
         </div>
       </div>
     );
@@ -85,8 +108,8 @@ const mapState = state => {
   return {
     type: state.tableOptions.type,
     table: state.tableOptions.table,
+    status: state.tableOptions.status,
     message: state.tableOptions.message,
-    messageClass: state.tableOptions.messageClass,
     // state from accts reducer
     accts: state.accts.accts,
     selectedAcct: state.accts.selectedAcct

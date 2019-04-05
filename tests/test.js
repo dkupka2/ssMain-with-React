@@ -2,7 +2,6 @@ const path = '../src/client/app/';
 const servicesPath = `${path}services/__tests__/`;
 const storePath = `${path}store/__tests__/`;
 // services
-const createBlockSelector = require(`${servicesPath}createBlockSelector.test`);
 const removeNilFromArray = require(`${servicesPath}removeNilFromArray.test`);
 const convertPiValues = require(`${servicesPath}convertPiValues.test.js`);
 const generateBEMSelector = require(`${servicesPath}generateBEMSelector.test`);

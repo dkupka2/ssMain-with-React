@@ -1,17 +1,12 @@
 import React from 'react';
-import { passSelector } from '../services';
 
 const Select = props => {
-  const { selector, prompt, value, change, options } = props;
+  const { prompt, value, change, options } = props;
 
   return (
-    <div className={passSelector('div')(selector)}>
-      <p className={passSelector('p')(selector)}>{prompt}</p>
-      <select
-        className={passSelector('select')(selector)}
-        value={value}
-        onChange={change}
-      >
+    <div style={{ marginBottom: '20px', display: 'inherit' }}>
+      <p style={{ display: 'inline' }}>{prompt}</p>
+      <select style={{ marginLeft: '15px' }} value={value} onChange={change}>
         {options}
       </select>
     </div>

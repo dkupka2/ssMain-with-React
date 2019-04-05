@@ -16,7 +16,7 @@ const initialState = {
   table: 'Conflicts',
   which: 'latest',
   message: '',
-  messageClass: 'hidden'
+  status: 'hidden'
 };
 // reducer
 export const tableOptions = (state = initialState, action) => {
@@ -30,37 +30,37 @@ export const tableOptions = (state = initialState, action) => {
       return {
         ...state,
         message: `requesting ${table} from ${acct}...`,
-        messageClass: 'tableOptions_p tableOptions_p_loading'
+        status: 'loading'
       };
     case LOAD_TABLE:
       return {
         ...state,
         message: `Received RestAPI response, loading...`,
-        messageClass: 'tableOptions_p tableOptions_p_loading'
+        status: 'loading'
       };
     case RENDER_TABLE:
       return {
         ...state,
         message: 'table loaded',
-        messageClass: 'tableOptions_p tableOptions_p_render'
+        status: 'success'
       };
     case LOAD_FAILURE:
       return {
         ...state,
         message: 'No table to load!',
-        messageClass: 'tableOptions_p tableOptions_p_fail'
+        status: 'fail'
       };
     case TABLE_NOT_CACHED:
       return {
         ...state,
         message: 'Please load table to view',
-        messageClass: 'tableOptions_p tableOptions_p_fail'
+        status: 'fail'
       };
     case REST_ERROR:
       return {
         ...state,
         message: `${value} - see console for info`,
-        messageClass: 'tableOptions_p tableOptions_p_fail'
+        status: 'fail'
       };
     default:
       return state;

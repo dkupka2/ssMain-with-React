@@ -16,10 +16,12 @@ class AcctsContainer extends Component {
       ? Object.keys(this.props.accts).length
       : 0;
     return (
-      <div className={showIfTrue(numAccts > 1, 'accts')}>
+      <div
+        style={{
+          display: numAccts > 1 ? 'block' : 'none'
+        }}>
         <Select
-          selector="accts"
-          prompt="Select an Account:"
+          prompt='Select an Account:'
           value={this.props.selectValue}
           options={createSelectOptions(this.props.accts)}
           change={this.handleSelectChange}
