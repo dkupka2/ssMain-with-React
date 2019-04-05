@@ -61,7 +61,7 @@ export const formatConflictsTableData = table => row => {
     case 'Dispatch_Conditions':
       return {
         document: 'dispatch conditions',
-        location: `${NAME} - ${DESC}`,
+        location: `${NAME} - ${DESC || 'no description on file'}`,
         condition: `${TESTFIELD}: ${DATA1} - ${DATA2}`,
         active: 'see procedures'
       };
@@ -75,7 +75,9 @@ export const formatConflictsTableData = table => row => {
     case 'Scheduled_Deliveries':
       return {
         document: 'scheduled delivery conditions',
-        location: `${ORDER} ${DESC}`,
+        location: `${ORDER || 'no order number on file'}
+          - ${DESC || 'no description on file'}
+        `,
         condition: CONDITION,
         active: ACTIVE ? '' : 'NO'
       };

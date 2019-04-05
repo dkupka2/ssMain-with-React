@@ -8,7 +8,6 @@ import {
   formatAutoOnSaveTableData,
   formatBatchConditionsTableData,
   formatContactsTableData,
-  formatDispatchConditionsTableData,
   formatDCLTableData,
   formatDispatchProceduresTableData,
   formatFormTableData,
