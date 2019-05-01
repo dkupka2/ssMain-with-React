@@ -50,4 +50,81 @@ describe('filterRows', () => {
       `returns true if data cell value includes matching string`
     );
   });
+
+  // function returns undefined if filterValue includes non-closed or malformed operator
+  it('returns undefined if filterValue includes non-closed or malformed operator', () => {
+    assert.isUndefined(
+      filterRows({value: ' [ '}, testRow, 'string'),
+      `returns undefined if filterValue includes non-closed or malformed operator`
+    );
+    assert.isUndefined(
+      filterRows({value: ' [A '}, testRow, 'string'),
+      `returns undefined if filterValue includes non-closed or malformed operator`
+    );
+    assert.isUndefined(
+      filterRows({value: ' [AN '}, testRow, 'string'),
+      `returns undefined if filterValue includes non-closed or malformed operator`
+    );
+    assert.isUndefined(
+      filterRows({value: ' [AND '}, testRow, 'string'),
+      `returns undefined if filterValue includes non-closed or malformed operator`
+    );
+        assert.isUndefined(
+      filterRows({value: ' [O '}, testRow, 'string'),
+      `returns undefined if filterValue includes non-closed or malformed operator`
+    );
+    assert.isUndefined(
+      filterRows({value: ' [OR '}, testRow, 'string'),
+      `returns undefined if filterValue includes non-closed or malformed operator`
+    );
+  });
+
+  // function returns true with union operator when input contains values on both sides
+  it('returns true with union operator when input contains values on both sides', () => {
+    assert.isTrue(
+      filterRows({value: 's [AND] t'}, testRow, 'string'),
+      `returns true with union operator when input contains values on both sides`
+    );
+  });
+  // function returns false with union operator when input contains value from one or no sides
+  it('returns false with union operator when input contains value from one or no sides', () => {
+    /* assert.isFalse(
+      filterRows({value: 's [AND]'},  testRow, 'string'),
+      `returns false with union operator when input contains value from one or no sides`
+    );
+    assert.isFalse(
+      filterRows({value: '  [AND] t'}, testRow, 'string'),
+      `returns false with union operator when input contains value from one or no sides`
+    ); */
+    assert.isFalse(
+      filterRows({value: '  [AND]  '}, testRow, 'string'),
+      `returns false with union operator when input contains value from one or no sides`
+    );
+  });
+  // function returns true with or operator when input contains value from one or more sides
+  it('returns true with or operator when input contains value from one or more sides', () => {
+    assert.isTrue(
+      filterRows({value: 's [OR]'}, testRow, 'string'),
+      `returns true with or operator when input contains value from one or more sides`
+    );
+    assert.isTrue(
+      filterRows({value: '[OR] t'}, testRow, 'string'),
+      `returns true with or operator when input contains value from one or more sides`
+    );
+    assert.isTrue(
+      filterRows({value: 's [OR] t'}, testRow, 'string'),
+      `returns true with or operator when input contains value from one or more sides`
+    );
+    assert.isTrue(
+      filterRows({value: 's [OR] b'}, testRow, 'string'),
+      `returns true with or operator when input contains value from one or more sides`
+    );
+  });
+  // function returns false with or operator when input does not contain value from either side
+  it('returns false with or operator when input does not contain value from either side', () => {
+    assert.isFalse(
+      filterRows({value: 'a [OR] b'}, testRow, 'string'),
+      `returns false with or operator when input does not contain value from either side`
+    );
+  });
 });

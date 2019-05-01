@@ -4,10 +4,27 @@ import { confirmIsNonEmptyArray } from '../../services';
 
 // filters table data in table data componen
 export const filterRows = (filter, row, column) => {
-  if (row._original[column]) {
-    return row._original[column]
+  const colValue = row._original[column]
+  if (colValue) {
+    if (filter.value.includes("[")) {
+      if (filter.value.includes("[AND]")) {
+        return filter.value.split("[AND]")[0].toUpperCase().trim() === '' || filter.value.split("[AND]")[1].toUpperCase().trim() === '' ? false :
+        colValue.toUpperCase().includes(filter.value.split("[AND]")[0].toUpperCase().trim())
+          &&   colValue.toUpperCase().includes(filter.value.split("[AND]")[1].toUpperCase().trim())
+      }  else if (filter.value.includes("[OR]")) {
+        return colValue.toUpperCase().includes(filter.value.split("[OR]")[0].toUpperCase().trim()) 
+          ||   colValue.toUpperCase().includes(filter.value.split("[OR]")[1].toUpperCase().trim()) 
+      } else {
+        return undefined
+      }
+    } else {
+      return colValue
       .toUpperCase()
       .includes(filter.value.toUpperCase());
+    }
+  } else {
+    return colValue === undefined ? undefined : false
+  
   }
 };
 
